@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 
-export default function TeamPlaceModal({ onClose }) {
+export default function TeamPlaceModal({ onClose, setAddress, setPlaceName }) {
   const [word, setWord] = useState('');
   const [resultData, setResultData] = useState([]);
 
@@ -48,6 +48,12 @@ export default function TeamPlaceModal({ onClose }) {
     // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
   };
 
+  const handlePlace = (name, address) => {
+    setAddress(name);
+    setPlaceName(address);
+    onClose();
+  };
+
   return (
     <>
       <WholeWrap>
@@ -69,8 +75,13 @@ export default function TeamPlaceModal({ onClose }) {
             <ResultSearch>
               {resultData.map((info, idx) => (
                 <>
-                  <JustWrap>
-                    <div key={idx}>{info.place_name}</div>
+                  <JustWrap
+                    key={idx}
+                    onClick={() => {
+                      handlePlace(info.place_name, info.address_name);
+                    }}
+                  >
+                    <div>{info.place_name}</div>
                     <div>{info.address_name}</div>
                   </JustWrap>
                 </>
@@ -127,4 +138,5 @@ const ResultSearch = styled.div`
 
 const JustWrap = styled.div`
   margin: 10px;
+  cursor: pointer;
 `;

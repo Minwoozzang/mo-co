@@ -13,6 +13,8 @@ export default function TeamPlace() {
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
   const [idUid, setidUid] = useState([]);
+  const [address, setAddress] = useState('주소를 등록해주세요!'); // 주소
+  const [placeName, setPlaceName] = useState('');
 
   const postDoc = doc(db, 'post', id);
 
@@ -107,7 +109,8 @@ export default function TeamPlace() {
                   setModal(!modal);
                 }}
               >
-                주소를 등록해주세요!
+                <p>{address}</p>
+                <p>{placeName}</p>
               </PlaceBtn>
               {modal == true ? (
                 <TeamPlaceModal
@@ -115,6 +118,8 @@ export default function TeamPlace() {
                   onClose={() => {
                     setModal(false);
                   }}
+                  setAddress={setAddress}
+                  setPlaceName={setPlaceName}
                 />
               ) : null}
             </ContentCard>
