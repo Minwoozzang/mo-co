@@ -12,10 +12,11 @@ import { times } from '../../data/times';
 import { opens } from '../../data/opens';
 import { db, authService } from '../../common/firebase';
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 // 이메일로 가입 시, 글 작성이 안 된다는 이슈가 있었음. 확인 요망.
 
 const MateEdit = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [postData, setPostData] = useState([]);
 
@@ -42,6 +43,16 @@ const MateEdit = () => {
   const [isDeleted, setIsDeleted] = useState(false);
   // !
   const [selectedTech, setSelectedTech] = useState([]);
+  const [changedDesc, setChangedDesc] = useState('');
+  const [writtenDesc, setWrittenDesc] = useState('');
+  console.log(
+    '🚀 ~ file: MateEdit.jsx:47 ~ MateEdit ~ writtenDesc',
+    writtenDesc,
+  );
+  console.log(
+    '🚀 ~ file: MateEdit.jsx:46 ~ MateEdit ~ changedDesc',
+    changedDesc,
+  );
 
   // 유저 닉네임 - 프로필 가져오기 함수
   const getUserInfo = () => {
@@ -61,6 +72,7 @@ const MateEdit = () => {
           console.log('Document data:', doc.data());
           setPostData(doc.data());
           setSelectedTech(doc.data().partyStack);
+          setWrittenDesc(doc.data().partyDesc);
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -99,23 +111,14 @@ const MateEdit = () => {
         partyIsOpen,
         isRemote,
         partyPostTitile,
-        partyDesc,
+        partyDesc: writtenDesc,
       });
+      navigate(`/matedetail/${id}`);
       console.log('수정 성공');
     } catch (error) {
       console.log(error);
     }
   };
-
-  const Editor = ({ value, onChange }) => {
-    const handleContentChange = (value) => {
-      onChange(value);
-    };
-  
-    return (
-      <ReactQuill value={value} onChange={handleContentChange} />
-    );
-  }
 
   useEffect(() => {
     if (!currentUser) return;
@@ -231,9 +234,11 @@ const MateEdit = () => {
             ></PostTitle>
           </PostTitleBox>
           <h3 style={{ marginBottom: 20 }}>모임 설명</h3>
+
           <ReactQuill
-            value={postData.partyDesc}
-            onChange={(value) => setPartyDesc(value)}
+            value={writtenDesc}
+            onChange={(value) => setWrittenDesc(value)}
+            on
             ref={quillRef}
             modules={{
               toolbar: [
@@ -248,13 +253,15 @@ const MateEdit = () => {
               ],
             }}
           />
-          <Editor />
+          <button onClick={() => setPartyDesc(changedDesc)}>저장</button>
         </EditorBox>
 
         <WriteButtonBox>
           <WriteButton
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setIsClicked(!isClicked);
+              handleEditPost();
             }}
             style={{
               backgroundColor: isClicked ? '#f7f7f7' : 'white',
