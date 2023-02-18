@@ -5,8 +5,6 @@ import Select from 'react-select';
 import { Checkbox } from 'antd';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { now } from '../../common/utils/date';
-import { uuidv4 } from '@firebase/util';
 import { locations } from '../../data/locations';
 import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
@@ -20,7 +18,6 @@ import { useParams } from 'react-router-dom';
 const MateEdit = () => {
   const { id } = useParams();
   const [postData, setPostData] = useState([]);
-  console.log(postData);
 
   // 파베 인증
   const currentUser = authService.currentUser;
@@ -38,12 +35,13 @@ const MateEdit = () => {
   const [partyIsOpen, setPartyIsOpen] = useState(true);
   const [partyPostTitile, setPartyPostTitle] = useState('');
   const [partyDesc, setPartyDesc] = useState('');
+  console.log('🚀 ~ file: MateEdit.jsx:38 ~ MateEdit ~ partyDesc', partyDesc);
   const [isDisabled, setIsDisabled] = useState(false);
   // 작성글 버튼 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
-
-  const [postId, setPostId] = useState('5PCFPb2hSQt9Sq8nFL5c');
+  // !
+  const [selectedTech, setSelectedTech] = useState([]);
 
   // 유저 닉네임 - 프로필 가져오기 함수
   const getUserInfo = () => {
@@ -62,6 +60,7 @@ const MateEdit = () => {
         if (doc.exists()) {
           console.log('Document data:', doc.data());
           setPostData(doc.data());
+          setSelectedTech(doc.data().partyStack);
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -74,10 +73,11 @@ const MateEdit = () => {
 
   // 기술 스택 선택 핸들러 함수
   const handlePartyStack = (stack) => {
-    if (partyStack.includes(stack)) {
-      setPartyStack(partyStack.filter((item) => item !== stack));
+    console.log(stack);
+    if (selectedTech.includes(stack)) {
+      setSelectedTech(selectedTech.filter((item) => item !== stack));
     } else {
-      setPartyStack([...partyStack, stack]);
+      setSelectedTech([...selectedTech, stack]);
     }
   };
 
@@ -87,27 +87,35 @@ const MateEdit = () => {
     setIsDisabled(!isDisabled);
   };
 
-  console.log(postData.partyName);
-
   // ! 모집글 수정 함수
-  // const handleEditPost = async () => {
-  //   try {
-  //     await updateDoc(doc(db, 'post', id), {
-  //       partyName: 'a',
-  //       partyStack: ['b', 'c', 'd'],
-  //       partyTime: 'c',
-  //       partyNum: 'd',
-  //       partyLocation: 'e',
-  //       partyIsOpen: 'f',
-  //       isRemote: 'g',
-  //       partyPostTitile: 'h',
-  //       partyDesc: 'i',
-  //     });
-  //     console.log('수정 성공');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleEditPost = async () => {
+    try {
+      await updateDoc(doc(db, 'post', id), {
+        partyName,
+        partyStack: selectedTech,
+        partyTime,
+        partyNum,
+        partyLocation,
+        partyIsOpen,
+        isRemote,
+        partyPostTitile,
+        partyDesc,
+      });
+      console.log('수정 성공');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const Editor = ({ value, onChange }) => {
+    const handleContentChange = (value) => {
+      onChange(value);
+    };
+  
+    return (
+      <ReactQuill value={value} onChange={handleContentChange} />
+    );
+  }
 
   useEffect(() => {
     if (!currentUser) return;
@@ -144,7 +152,7 @@ const MateEdit = () => {
               {stacks.map((stack, idx) => (
                 <Tech
                   style={{
-                    backgroundColor: partyStack.includes(stack)
+                    backgroundColor: selectedTech.includes(stack)
                       ? '#f7f7f7'
                       : 'white',
                   }}
@@ -224,9 +232,8 @@ const MateEdit = () => {
           </PostTitleBox>
           <h3 style={{ marginBottom: 20 }}>모임 설명</h3>
           <ReactQuill
-            defaultValue={postData.partyDesc}
-            // value={partyDesc}
-            onChange={setPartyDesc}
+            value={postData.partyDesc}
+            onChange={(value) => setPartyDesc(value)}
             ref={quillRef}
             modules={{
               toolbar: [
@@ -241,6 +248,7 @@ const MateEdit = () => {
               ],
             }}
           />
+          <Editor />
         </EditorBox>
 
         <WriteButtonBox>
