@@ -6,53 +6,28 @@ import { BsPeopleFill } from 'react-icons/bs';
 import { Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../common/firebase';
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const CardSection = ({ item, db }) => {
   const navigate = useNavigate();
-
-  const currentUser = authService.currentUser;
-  // uid
   const [uid, setUid] = useState('');
-  // bookmarks
-  const [bookmark, setBookmark] = useState();
-  const [bookmarks, setBookmarks] = useState([]);
+  const bookmark = item.bookmark;
 
-  const bookMark = item.bookmark;
-
-  // ! 북마크
+  // 북마크 핸들링 함수
   const handleBookmark = async () => {
-    if (currentUser !== null) {
-      const uid = currentUser.uid;
-      setUid(uid);
-    }
-
     // 현재 유저 문서 가져오기
-    const q = query(collection(db, 'user'), where('uid', '==', uid));
-    const querySnapshot = await getDocs(q);
-    let userDataId; // bookmark 컬렉션에 저장된 유저 문서 id
-    let userData; // 유저 문서의 데이터
-    querySnapshot.forEach((doc) => {
-      userDataId = doc.id;
-      userData = doc.data();
-    });
-    const bookmarks = userData.bookmarks;
+    const userDoc = await getDoc(doc(db, 'user', uid));
+    const userData = userDoc.data();
+    const bookmarks = await userData.bookmarks;
 
     // 현재 유저의 bookmarks에 해당 게시물이 없을 때
     if (!bookmarks.includes(item.id)) {
       try {
         // post 컬렉션의 해당 게시물의 bookmark 필드 +1
         await updateDoc(doc(db, 'post', item.id), {
-          bookmark: bookMark + 1,
+          bookmark: bookmark + 1,
         });
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 추가
         await updateDoc(doc(db, 'user', uid), {
@@ -64,11 +39,12 @@ const CardSection = ({ item, db }) => {
       }
     }
 
+    // 현재 유저의 bookmarks에 해당 게시물이 있을 때
     if (bookmarks.includes(item.id)) {
       try {
         // post 컬렉션의 해당 게시물의 bookmark 필드 -1
         await updateDoc(doc(db, 'post', item.id), {
-          bookmark: bookMark - 1,
+          bookmark: bookmark - 1,
         });
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 삭제
         await updateDoc(doc(db, 'user', uid), {
@@ -80,8 +56,16 @@ const CardSection = ({ item, db }) => {
       }
     }
   };
-
-  // 제목 클릭 시, 디테일 페이지로 이동
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setUid(uid);
+      } else {
+        return;
+      }
+    });
+  }, [uid]);
 
   return (
     <PostCard>
