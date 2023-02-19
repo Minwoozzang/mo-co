@@ -22,7 +22,7 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore';
-import { authService, db } from '../../../common/firebase';
+import { authService, db, storage } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
@@ -35,14 +35,12 @@ const AddComment = () => {
   // 유저 닉네임 - 프로필 가져오기 상태
   const [nickName, setNickName] = useState('');
   const [profileImg, setGetProfileImg] = useState('');
+  const [currentUserName, setCurrentUserName] = useState('');
+  const [currentUserUid, setCurrentUserUid] = useState('');
 
   const AddCommentTextChange = (e) => {
     setCommentText(e.target.value);
   };
-
-  const [currentUserName, setCurrentUserName] = useState('');
-  const [currentUserUid, setCurrentUserUid] = useState('');
-
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
@@ -94,6 +92,7 @@ const AddComment = () => {
       createdAt: new Date(),
       date: NewDate,
       mateDetailId: '',
+      // postId: storage.post,
     };
 
     console.log(nickName.displayName);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../../../common/firebase';
+import { db, doc } from '../../../common/firebase';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import Comment from '../comment/Comment';
 import styled from '@emotion/styled';
@@ -24,7 +24,10 @@ const CommentList = () => {
   return (
     <CommentListBody>
       {comments
-        // .filter(() => userId === param.id)
+        // .filter(
+        //   (comment) => comment.userId === comment.id,
+        //   comment => comment.postId === storage.post.id
+        // )
         .map((user) => {
           return <Comment key={user.uid} user={user} />;
         })}
