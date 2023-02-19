@@ -87,6 +87,7 @@ const MateWrite = () => {
         uid: currentUser.uid,
         isDeleted: false,
         createdAt: Date.now(),
+        bookmark: 0,
       });
       console.log('업로드 성공');
       navigate(`/mate`);
