@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { Pagination } from 'antd';
+import { Pagination, Table } from 'antd';
 import CardSection from '../../shared/CardSection';
 import FilterTech from '../../shared/FilterTech';
 import FilterLocation from '../../shared/FilterLocation';
@@ -128,7 +128,14 @@ const MateList = () => {
 
       {/* 페이지 */}
       <PaginationContainer>
-        <Pagination defaultCurrent={1} total={30} />
+        <Pagination
+          defaultCurrent={1}
+          total={30}
+          pageSize={6}
+          // showTotal={(total, range) =>
+          //   `${range[0]}-${range[16]} of ${total} items`
+          // }
+        />
       </PaginationContainer>
     </>
   );

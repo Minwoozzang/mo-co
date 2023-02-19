@@ -19,14 +19,15 @@ const CommentList = () => {
     });
     return getPost;
   }, []);
-  // console.log(comments);
+  console.log(comments);
 
   return (
     <CommentListBody>
-      {/* filter를 삽입해야 걸러서 보여줄 수 있음 */}
-      {comments.map((user) => {
-        return <Comment key={user.uid} user={user} />;
-      })}
+      {comments
+        // .filter(() => userId === param.id)
+        .map((user) => {
+          return <Comment key={user.uid} user={user} />;
+        })}
     </CommentListBody>
   );
 };
