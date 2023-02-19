@@ -23,6 +23,7 @@ const CommentList = () => {
 
   return (
     <CommentListBody>
+      {/* filter를 삽입해야 걸러서 보여줄 수 있음 */}
       {comments.map((user) => {
         return <Comment key={user.uid} user={user} />;
       })}
