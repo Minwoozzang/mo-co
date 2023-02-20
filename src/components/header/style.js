@@ -152,3 +152,27 @@ export const HeaderDropDownList = styled.li`
 
   list-style: none;
 `;
+
+export const HeaderSearchBox = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 200px;
+  height: 30px;
+`;
+
+export const HeaderSearchInput = styled.input`
+  border-radius: 10px;
+  height: 30px;
+  width: 100px;
+  border: none;
+  padding-left: 10px;
+`;
+
+export const HeaderSearchInputBtn = styled.button`
+  border-radius: 4px;
+  border: none;
+  width: 40px;
+  height: 25px;
+  background-color: white;
+`;

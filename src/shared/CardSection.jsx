@@ -9,11 +9,15 @@ import { authService } from '../common/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import default_profile from '../assets/default_profile.png';
 
 const CardSection = ({ item, db }) => {
   const navigate = useNavigate();
   const [uid, setUid] = useState('');
   const bookmark = item.bookmark;
+
+  // HTML을 plain text로 변환
+  const parsedHtml = item.partyDesc.replace(/(<([^>]+)>)/gi, '');
 
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
@@ -71,12 +75,15 @@ const CardSection = ({ item, db }) => {
     <PostCard>
       <BookmarkIconBox>
         <Location>{item.partyLocation}</Location>
-        <span>{item.bookmark}</span>
-        <BsBookmarkHeart
-          onClick={handleBookmark}
-          cursor="pointer"
-          size="20px"
-        />
+        {/* <span>{item.bookmark}</span> */}
+        <Bookmark>
+          <span>{item.bookmark}</span>
+          <BsBookmarkHeart
+            onClick={handleBookmark}
+            cursor="pointer"
+            size="20px"
+          />
+        </Bookmark>
       </BookmarkIconBox>
 
       <PostBox>
@@ -87,7 +94,7 @@ const CardSection = ({ item, db }) => {
         >
           {item.partyPostTitile}
         </PostTitle>
-        <PostDesc>{item.partyDesc}</PostDesc>
+        <PostDesc>{parsedHtml}</PostDesc>
         <TechStackIcon>
           {item.partyStack.map((item, idx) => (
             <Tag key={idx} style={{ fontSize: 12 }} color="purple">
@@ -117,7 +124,9 @@ const CardSection = ({ item, db }) => {
 
       <PostInfo>
         <ProfileBox>
-          <ProfileImage></ProfileImage>
+          <ProfileImage
+            src={!item.profileImg ? default_profile : item.profileImg}
+          ></ProfileImage>
           <NickName>{item.nickName}</NickName>
         </ProfileBox>
         <InfoBox>
@@ -158,6 +167,12 @@ const Location = styled.div`
   color: #4f4f4f;
 `;
 
+const Bookmark = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
 const PostBox = styled.div`
   margin-bottom: 22px;
   display: inline-block;
@@ -166,6 +181,10 @@ const PostBox = styled.div`
 `;
 
 const PostTitle = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
   width: 245px;
   height: 24px;
   cursor: pointer;
@@ -176,12 +195,16 @@ const PostTitle = styled.div`
 `;
 
 const PostDesc = styled.div`
-  overflow-wrap: break-word;
   display: inline-block;
   width: 240px;
+  height: 20px;
   margin-bottom: 20px;
   color: #828282;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
 `;
 
 const PartyStatusBox = styled.div`
@@ -235,7 +258,7 @@ const ProfileBox = styled.div`
   align-items: center;
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   background-color: grey;
   border-radius: 50%;
   width: 30px;
