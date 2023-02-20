@@ -30,6 +30,7 @@ import { uuidv4 } from '@firebase/util';
 
 const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');
+
   // 파베 인증
   const currentUser = authService.currentUser;
 
@@ -92,9 +93,10 @@ const AddComment = ({ id }) => {
       userId: currentUserUid,
       createdAt: new Date(),
       date: NewDate,
-      mateDetailId: '',
-      postId: id,
       commentId: uuidv4(),
+      //comment adddoc할때 mateDetailId값에 commentId 넣어주기(id는 임시값)
+      mateDetailId: id,
+      postId: id,
     };
 
     // console.log(nickName.displayName);
