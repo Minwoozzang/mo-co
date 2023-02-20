@@ -1,24 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { db } from '../../common/firebase';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import { authService, db } from '../../common/firebase';
+import {
+  doc,
+  updateDoc,
+  query,
+  collection,
+  onSnapshot,
+} from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function ContentBoard() {
-  const { id } = useParams();
-  const [boardContent, setBoardContent] = useState('');
-  const [convert, setConvert] = useState(false);
-  const postDoc = doc(db, 'post', id);
+  const [teamID, setTeamID] = useState([]);
 
-  const Data = async () => {
-    const docSnap = await getDoc(postDoc);
-    const classData = docSnap.data();
-    if (classData.contentBoard) setBoardContent(classData.contentBoard);
+  // 보드 내용
+  const [boardContent, setBoardContent] = useState('');
+
+  // 팀 아이디 받아오기
+  const [boardContentInfo, setBoardContentInfo] = useState([]);
+  const teamGetTeamID = () => {
+    const q = query(collection(db, 'teamPage'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamID(newInfo[0]?.id);
+      setBoardContentInfo(newInfo);
+    });
+    return unsubscribe;
   };
 
+  const [convert, setConvert] = useState(false);
+
   useEffect(() => {
-    Data();
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        teamGetTeamID();
+      }
+    });
   }, []);
 
   const convertChange = () => {
@@ -30,7 +50,7 @@ export default function ContentBoard() {
         contentBoard: boardContent,
       };
       try {
-        await updateDoc(postDoc, newContentField);
+        await updateDoc(doc(db, 'teamPage', teamID), newContentField);
       } catch (e) {
         console.log(e);
       } finally {
@@ -60,7 +80,15 @@ export default function ContentBoard() {
           />
         ) : (
           <ContentCard>
-            <p>{boardContent}</p>
+            <div>
+              {boardContentInfo
+                .filter(
+                  (item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d',
+                )
+                .map((item) => {
+                  return <div key={item.id}>{item.contentBoard}</div>;
+                })}
+            </div>
           </ContentCard>
         )}
       </TextAreaWrapper>

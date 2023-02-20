@@ -27,7 +27,6 @@ const Router = () => {
         <Route path="/matedetail" element={<MateDetail />} />
         <Route path="/matedetail/:id" element={<MateDetail />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
-        <Route path="/teampage" element={<TeamPage />} />
         <Route path="/teampage/:id" element={<TeamPage />} />
         <Route path="/mate" element={<MateList />} />
         <Route path="/write" element={<MateWrite />} />

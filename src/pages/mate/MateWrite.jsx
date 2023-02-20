@@ -13,7 +13,17 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import { opens } from '../../data/opens';
 import { db, authService } from '../../common/firebase';
-import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 const MateWrite = () => {
@@ -39,7 +49,26 @@ const MateWrite = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const [postId, setPostId] = useState('5PCFPb2hSQt9Sq8nFL5c');
+  const [postId, setPostId] = useState(uuidv4());
+
+  // 리더 이미지 가져오가
+  const [profileUserInfo, setProfileUserInfo] = useState([]);
+
+  const getLeaderImg = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProfileUserInfo(newInfo[0]?.profileImg);
+    });
+
+    return unsubscribe;
+  };
 
   // 유저 닉네임 - 프로필 가져오기 함수
   const getUserInfo = () => {
@@ -88,7 +117,42 @@ const MateWrite = () => {
         isDeleted: false,
         createdAt: Date.now(),
         bookmark: 0,
-      });
+      })
+        .then(() => {
+          setDoc(doc(db, 'teamPage', postId), {
+            teamID: postId,
+            teamLeader: {
+              teamID: postId,
+              uid: authService.currentUser?.uid,
+              host: 'https://littledeep.com/wp-content/uploads/2020/03/littledeep_crown_style1.png',
+              profileImg: profileUserInfo,
+              nickName,
+              isWait: false,
+              teamPosition: '리더',
+            },
+            teamMember: [],
+            teamPartyStack: {
+              partyName,
+              partyLocation,
+              partyTime,
+            },
+          })
+            .then(() => {
+              updateDoc(doc(db, 'user', authService.currentUser.uid), {
+                teamID: [
+                  {
+                    postId,
+                  },
+                ],
+              });
+            })
+            .catch(() => {
+              console.log('user 에러');
+            });
+        })
+        .catch(() => {
+          console.log('team 에러');
+        });
       console.log('업로드 성공');
       navigate(`/mate`);
     } catch (error) {
@@ -99,6 +163,7 @@ const MateWrite = () => {
   useEffect(() => {
     if (!currentUser) return;
     getUserInfo();
+    getLeaderImg();
     console.log(currentUser);
   }, [currentUser]);
 
