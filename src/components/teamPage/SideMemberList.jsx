@@ -10,13 +10,14 @@ import {
 } from './style';
 
 const SideMemberList = ({ item }) => {
+  console.log('itme', item);
   return (
     <LeaderInfoProfile>
       <LeaderBox>
         <LeaderImgBox>
           <MemberInfoProfileImg
             src={
-              item?.profileImg
+              item.profileImg
                 ? item.profileImg
                 : 'https://imhannah.me/common/img/default_profile.png'
             }
@@ -24,7 +25,7 @@ const SideMemberList = ({ item }) => {
         </LeaderImgBox>
 
         <LeaderProfileInfo>
-          <LeaderName>{item.nickname}</LeaderName>
+          <LeaderName>{item.nickName}</LeaderName>
           <LeaderPosition>{item.teamPosition}</LeaderPosition>
         </LeaderProfileInfo>
       </LeaderBox>

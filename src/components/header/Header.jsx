@@ -29,10 +29,7 @@ const Header = () => {
   const [loginToggle, setLoginToggle] = useState(true);
 
   // 헤더  토글
-  const [headerMyPage, setHeaderMyPage] = useState(false);
-
-  // 헤더 프로필 이미지
-  const [headerProfile, setHeaderProfile] = useState('');
+  const [headerMyIcon, setHeaderMyIcon] = useState(false);
 
   // 헤더 닉네임
   const [headerNickName, setHeaderNickName] = useState('');
@@ -66,13 +63,12 @@ const Header = () => {
       if (user) {
         setIsUserDropDown(true);
         setLoginToggle(false);
-        setHeaderMyPage(true);
-        setHeaderProfile(authService.currentUser.photoURL);
+        setHeaderMyIcon(true);
         setHeaderNickName(authService.currentUser.displayName);
         getUserStackInfo();
       } else if (!user) {
         setLoginToggle(true);
-        setHeaderMyPage(false);
+        setHeaderMyIcon(false);
         setIsUserDropDown(false);
       }
     });
@@ -99,11 +95,11 @@ const Header = () => {
   const [word, setWord] = useState('');
   const onChangeSearch = (e) => {
     setWord(e.target.value);
-  }
+  };
   const onSubmit = () => {
     navigate(`/search/${word}`);
   };
-  
+
   // const navigateMate = () => [navigate('/mate')];
   // 로그아웃
   const HeaderLogOut = () => {
@@ -116,7 +112,7 @@ const Header = () => {
   // 헤더 유무
   const locationNow = useLocation();
   if (locationNow.pathname === '/login' || locationNow.pathname === '/signup')
-    return null; 
+    return null;
 
   const dropDownHandler = () => {
     if (dropDownClick === false) {
@@ -134,89 +130,66 @@ const Header = () => {
           <MyCodingMate>내 코딩모임</MyCodingMate>
         </LogoAndMateBox>
         <div>
-        <input onChange={onChangeSearch}/>
-        <button 
-          type='button'
-          onClick={onSubmit}
-        >
-          검색
-        </button>
+          <input onChange={onChangeSearch} />
+          <button type="button" onClick={onSubmit}>
+            검색
+          </button>
         </div>
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
-          {/* <HeaderIcon /> */}
-          <div onClick={dropDownHandler}>
-            {dropDownClick ? (
-              <>
-                {isUserDropDown ? (
-                  <NavigateMypage>
-                    <BsPersonFill style={{ fontSize: '40px' }} />
-                  </NavigateMypage>
-                ) : (
-                  ''
-                )}
-                <HeaderDropDownListBox style={{ position: 'absolute' }}>
-                  <HeaderImageBox>
-                    <HeaderImage
-                      src={
-                        profileUserInfo[0]?.profileImg
-                          ? profileUserInfo[0].profileImg
-                          : 'https://imhannah.me/common/img/default_profile.png'
-                      }
-                      alt=""
-                    />
-                    <HeaderImageText>
-                      안녕하세요, {headerNickName}님🥰
-                    </HeaderImageText>
-                  </HeaderImageBox>
-                  <HeaderDropDownListSection>
-                    <DropDownListBody>
-                      <HeaderDropDownList>하고싶은거</HeaderDropDownList>
-                    </DropDownListBody>
+          {headerMyIcon ? (
+            <div onClick={dropDownHandler}>
+              {dropDownClick ? (
+                <>
+                  {isUserDropDown ? (
+                    <NavigateMypage>
+                      <BsPersonFill style={{ fontSize: '40px' }} />
+                    </NavigateMypage>
+                  ) : (
+                    ''
+                  )}
+                  <HeaderDropDownListBox style={{ position: 'absolute' }}>
+                    <HeaderImageBox>
+                      <HeaderImage
+                        src={
+                          profileUserInfo[0]?.profileImg
+                            ? profileUserInfo[0].profileImg
+                            : 'https://imhannah.me/common/img/default_profile.png'
+                        }
+                        alt=""
+                      />
+                      <HeaderImageText>
+                        안녕하세요, {headerNickName}님🥰
+                      </HeaderImageText>
+                    </HeaderImageBox>
+                    <HeaderDropDownListSection>
+                      <DropDownListBody>
+                        <HeaderDropDownList>나의 팀</HeaderDropDownList>
+                      </DropDownListBody>
 
-                    <DropDownListBody onClick={navigateMyPage}>
-                      <HeaderDropDownList>마이페이지</HeaderDropDownList>
-                    </DropDownListBody>
-                    <DropDownListBody onClick={HeaderLogOut}>
-                      <HeaderDropDownList>로그아웃</HeaderDropDownList>
-                    </DropDownListBody>
-                  </HeaderDropDownListSection>
-                </HeaderDropDownListBox>
-              </>
-            ) : (
-              <NavigateMypage>
-                <BsPersonFill style={{ fontSize: '40px' }} />
-              </NavigateMypage>
-            )}
-          </div>
+                      <DropDownListBody onClick={navigateMyPage}>
+                        <HeaderDropDownList>마이페이지</HeaderDropDownList>
+                      </DropDownListBody>
+                      <DropDownListBody onClick={HeaderLogOut}>
+                        <HeaderDropDownList>로그아웃</HeaderDropDownList>
+                      </DropDownListBody>
+                    </HeaderDropDownListSection>
+                  </HeaderDropDownListBox>
+                </>
+              ) : (
+                <NavigateMypage>
+                  <BsPersonFill style={{ fontSize: '40px' }} />
+                </NavigateMypage>
+              )}
+            </div>
+          ) : (
+            ''
+          )}
 
-          {/* <NavigateMypage>
-            {headerMyPage ? (
-              <HeaderImage
-                src={
-                  profileUserInfo[0]?.profileImg
-                    ? profileUserInfo[0].profileImg
-                    : 'https://imhannah.me/common/img/default_profile.png'
-                }
-                alt=""
-              />
-            ) : (
-              ''
-            )}
-          </NavigateMypage>
-          <div>
-            <ui>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-            </ui>
-          </div> */}
           <LoginRoute onClick={navigateLoginPage}>
             {loginToggle ? '로그인' : ''}
           </LoginRoute>
         </TeamAndLoginBox>
-
-        {/* <MateLoute onClick={navigateMate}>메이트 찾기</MateLoute> */}
       </HeaderInfoBody>
     </HeaderBody>
   );

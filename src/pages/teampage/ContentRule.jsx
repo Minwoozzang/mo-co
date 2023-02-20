@@ -12,6 +12,7 @@ import {
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default function ContentRule() {
+  const [content, setContent] = useState('');
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
 
@@ -34,8 +35,8 @@ export default function ContentRule() {
   };
 
   // 팀 아이디 받아오기
-  const [content, setContent] = useState([]);
   const [teamID, setTeamID] = useState([]);
+  const [contentInfo, setContentInfo] = useState([]);
   const teamGetTeamID = () => {
     const q = query(collection(db, 'teamPage'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -44,7 +45,28 @@ export default function ContentRule() {
         ...doc.data(),
       }));
       setTeamID(newInfo[0]?.id);
-      setContent(newInfo[0]?.contentRule);
+      setContentInfo(newInfo);
+
+      console.log('team', newInfo);
+    });
+    return unsubscribe;
+  };
+
+  // 유저에서 팀 id 받아오기
+  const [userTeamID, setUserTeamID] = useState([]);
+  const userGetTeamID = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUserTeamID(newInfo);
+
+      console.log('user', newInfo);
     });
     return unsubscribe;
   };
@@ -55,6 +77,7 @@ export default function ContentRule() {
         setCurrentUserId(authService.currentUser.uid);
         postGetTeamID();
         teamGetTeamID();
+        userGetTeamID();
       }
     });
   }, []);
@@ -103,7 +126,15 @@ export default function ContentRule() {
           />
         ) : (
           <ContentCard>
-            <p>{content}</p>
+            <div>
+              {contentInfo
+                .filter(
+                  (item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d',
+                )
+                .map((item) => {
+                  return <div key={item.id}>{item.contentRule}</div>;
+                })}
+            </div>
           </ContentCard>
         )}
       </TextAreaWrapper>

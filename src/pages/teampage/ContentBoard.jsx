@@ -14,9 +14,10 @@ export default function ContentBoard() {
   const [teamID, setTeamID] = useState([]);
 
   // 보드 내용
-  const [boardContent, setBoardContent] = useState([]);
+  const [boardContent, setBoardContent] = useState('');
 
   // 팀 아이디 받아오기
+  const [boardContentInfo, setBoardContentInfo] = useState([]);
   const teamGetTeamID = () => {
     const q = query(collection(db, 'teamPage'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -25,7 +26,7 @@ export default function ContentBoard() {
         ...doc.data(),
       }));
       setTeamID(newInfo[0]?.id);
-      setBoardContent(newInfo[0]?.contentBoard);
+      setBoardContentInfo(newInfo);
     });
     return unsubscribe;
   };
@@ -79,7 +80,15 @@ export default function ContentBoard() {
           />
         ) : (
           <ContentCard>
-            <p>{boardContent}</p>
+            <div>
+              {boardContentInfo
+                .filter(
+                  (item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d',
+                )
+                .map((item) => {
+                  return <div key={item.id}>{item.contentBoard}</div>;
+                })}
+            </div>
           </ContentCard>
         )}
       </TextAreaWrapper>

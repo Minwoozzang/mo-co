@@ -67,9 +67,9 @@ export default function MemberSide() {
         id: doc.id,
         ...doc.data(),
       }));
-      setTeamLeaderInfo(newInfo[0]?.teamLeader);
+      setTeamLeaderInfo(newInfo);
       setTeamMemberInfo(newInfo[0]?.teamMember);
-      setMeberNumber(newInfo[0]?.teamMember.length + 1);
+      console.log('t info', teamMemberInfo);
     });
     return unsubscribe;
   };
@@ -111,32 +111,39 @@ export default function MemberSide() {
         <MembersInfoProfileTitle>팀원 ({meberNumber})</MembersInfoProfileTitle>
 
         {/* 팅장 */}
-        <LeaderInfoProfile>
-          <HostBox>
-            <MemberInfoHost
-              src={teamLeaderInfo?.host ? teamLeaderInfo.host : ''}
-            />
-          </HostBox>
+        {teamLeaderInfo
+          .filter((item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d')
+          .map((item) => {
+            return (
+              <LeaderInfoProfile key={item.id}>
+                <HostBox>
+                  <MemberInfoHost src={item.teamLeader.host} />
+                </HostBox>
 
-          <LeaderBox>
-            <LeaderImgBox>
-              <MemberInfoProfileImg
-                src={
-                  teamLeaderInfo?.profileImg
-                    ? teamLeaderInfo.profileImg
-                    : 'https://imhannah.me/common/img/default_profile.png'
-                }
-              />
-            </LeaderImgBox>
+                <LeaderBox>
+                  <LeaderImgBox>
+                    <MemberInfoProfileImg
+                      src={
+                        item.teamLeader?.profileImg
+                          ? item.teamLeader.profileImg
+                          : 'https://imhannah.me/common/img/default_profile.png'
+                      }
+                    />
+                  </LeaderImgBox>
 
-            <LeaderProfileInfo>
-              <LeaderName>{teamLeaderInfo.nickName}</LeaderName>
-              <LeaderPosition>{teamLeaderInfo.teamPosition}</LeaderPosition>
-            </LeaderProfileInfo>
-          </LeaderBox>
-        </LeaderInfoProfile>
+                  <LeaderProfileInfo>
+                    <LeaderName>{item.teamLeader.nickName}</LeaderName>
+                    <LeaderPosition>
+                      {item.teamLeader.teamPosition}
+                    </LeaderPosition>
+                  </LeaderProfileInfo>
+                </LeaderBox>
+              </LeaderInfoProfile>
+            );
+          })}
+
         {teamMemberInfo
-          .filter((item) => item.isWait === false)
+          // .filter((item) => item.id === '90df7a26-6299-45a8-b4dc-cca494b0a8c5')
           .map((item) => {
             return <SideMemberList item={item} key={v4()} />;
           })}

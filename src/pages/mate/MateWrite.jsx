@@ -139,7 +139,11 @@ const MateWrite = () => {
           })
             .then(() => {
               updateDoc(doc(db, 'user', authService.currentUser.uid), {
-                teamID: postId,
+                teamID: [
+                  {
+                    postId,
+                  },
+                ],
               });
             })
             .catch(() => {
