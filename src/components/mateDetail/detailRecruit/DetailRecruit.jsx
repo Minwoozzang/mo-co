@@ -5,10 +5,19 @@ import { db } from './../../../common/firebase';
 import { useParams } from 'react-router-dom';
 import { Modal } from 'antd';
 
+
+/*
+1. 참여하기 신청을 눌렀을 때
+- teamPage 컬렉션에서 해당 teamID를 찾아서 문서를 가져오고 그 문서의 teamMember에 현재 로그인한 유저의 uid를 추가한다.
+- {uid : uid, message : message, isWait : true, nickName : nickName, profileImg : profileImg, teamPosition : '멤버'} 형태로 추가한다.
+*/
+
 const DetailRecruit = () => {
   const { id } = useParams();
   const [post, setpost] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // 주최자에게 전하는 말
+  const [joinMessage, setJoinMessage] = useState('');
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -69,8 +78,12 @@ const DetailRecruit = () => {
           <RecruitModalTitle>참여하시겠어요?</RecruitModalTitle>
           <RecruitModalContentBox>
             <RecruitModalContent
+              onChange={(e) => {
+                setJoinMessage(e.target.value);
+              }}
+              value={joinMessage}
               maxLength={220}
-              placeholder="간단한 소개나 참여하게 된 동기를 적어주세요"
+              placeholder="주최자에게 전하고 싶은 말을 적어주세요 ( 소개, 지원 동기 등 )"
             />
           </RecruitModalContentBox>
           <RecruitModalBtnBox>
