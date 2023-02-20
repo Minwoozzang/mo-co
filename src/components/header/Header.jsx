@@ -24,9 +24,15 @@ import {
   HeaderSearchBox,
   HeaderSearchInput,
   HeaderSearchInputBtn,
+  HeaderSearchDropDownListBox,
+  HeaderSearchDropDownListSection,
+  HeaderSearchDropDownHr,
+  HeaderSearchXbuttonBox,
+  HeaderSearchXbutton
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { ImCancelCircle } from "react-icons/im";
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -40,9 +46,11 @@ const Header = () => {
 
   // 드랍다운
   const [dropDownClick, setDropDownClick] = useState(false);
+  const [searchdropDownClick, setSearchdropDownClick] = useState(false);
 
   // 헤더 드랍다운 생성유뮤
   const [isUserDropDown, setIsUserDropDown] = useState(false);
+  const [isSearchUserDropDown, setIsSearchUserDropDown] = useState(false);
 
   // 유저 정보 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
@@ -70,10 +78,12 @@ const Header = () => {
         setHeaderMyIcon(true);
         setHeaderNickName(authService.currentUser.displayName);
         getUserStackInfo();
+        setIsSearchUserDropDown(true);
       } else if (!user) {
         setLoginToggle(true);
         setHeaderMyIcon(false);
         setIsUserDropDown(false);
+        setIsSearchUserDropDown(false);
       }
     });
   }, []);
@@ -103,6 +113,11 @@ const Header = () => {
   };
   const onSubmit = () => {
     navigate(`/search/${word}`);
+  };
+  const searchdropDownHandler = () => {
+    if (searchdropDownClick === false) {
+      setSearchdropDownClick(true);
+    } 
   };
   // const handleKeyDown = (e) => { // Enter 키 입력 함수
   //   if (e.key === 'Enter') {
@@ -139,7 +154,7 @@ const Header = () => {
           <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
           <MyCodingMate>내 코딩모임</MyCodingMate>
         </LogoAndMateBox>
-        <HeaderSearchBox>
+        {/* <HeaderSearchBox>
           <AiOutlineSearch style={{ fontSize: '30px' }} />
           <HeaderSearchInput
             onChange={onChangeSearch}
@@ -149,9 +164,50 @@ const Header = () => {
           <HeaderSearchInputBtn type="button" onClick={onSubmit}>
             검색
           </HeaderSearchInputBtn>
-        </HeaderSearchBox>
+        </HeaderSearchBox> */}
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
+          <div onClick={searchdropDownHandler}>
+          {searchdropDownClick ? (
+              <>
+                {isSearchUserDropDown ? (
+                  <NavigateMypage>
+                    <AiOutlineSearch style={{fontSize: '30px'}} />
+                  </NavigateMypage>
+                ) : (
+                  ''
+                )}
+                <HeaderSearchDropDownListBox style={{ position: 'absolute' }}>
+                  <HeaderSearchXbuttonBox>
+                    <HeaderSearchXbutton
+                      onClick={()=>setSearchdropDownClick(false)}
+                    >
+                    <ImCancelCircle style={{fontSize: '20px'}} />
+                    </HeaderSearchXbutton>
+                  </HeaderSearchXbuttonBox>
+                  <HeaderSearchDropDownListSection>
+                  <HeaderSearchBox>
+                  <AiOutlineSearch style={{ fontSize: '30px' }} />
+                  <HeaderSearchInput
+                    onChange={onChangeSearch}
+                    // type={'text'}
+                    // onKeyDown={handleKeyDown}
+                  />
+                  <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                    검색
+                  </HeaderSearchInputBtn>
+                  </HeaderSearchBox>
+                  </HeaderSearchDropDownListSection>
+                  <HeaderSearchDropDownHr />
+                </HeaderSearchDropDownListBox>
+              </>
+            ) : (
+              <NavigateMypage>
+                <AiOutlineSearch style={{fontSize: '30px'}} />
+              </NavigateMypage>
+            )}
+          </div>
+      
           {headerMyIcon ? (
             <div onClick={dropDownHandler}>
               {dropDownClick ? (
