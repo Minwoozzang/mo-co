@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../../common/firebase';
@@ -12,17 +12,42 @@ const Search = () => {
   // firestore에서 post 문서 받아오기
   useEffect(() => {
     const postCollectionRef = collection(db, 'post');
-    const q = query(postCollectionRef);
+    const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
     const getPost = onSnapshot(q, (snapshot) => {
       const newPost = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-    setSearchData(newPost.filter((item) =>
-        item.partyStack.includes(params.word) ||
+      const firstCharUpper = params.word.replace(/^[a-z]/, (char) =>
+        char.toUpperCase(),
+      );
+      console.log(newPost[6].partyStack);
+      let filterList = [];
+      newPost.map((item) => {
+        let stringStack = '';
+        if (item.partyStack.length > 0) {
+          for (let i = 0; i < item.partyStack.length; i++) {
+            stringStack += item.partyStack[i];
+          }
+        };
+        if (stringStack.includes(firstCharUpper) ||
         item.partyLocation.includes(params.word) ||
-        item.partyTime.includes(params.word)
-        ));
+        item.partyTime.includes(params.word) ||
+        item.partyName.includes(params.word)) {
+          filterList.push(item);
+        }
+      });
+      console.log(filterList);
+      setSearchData(filterList);
+      // setSearchData(
+      //   newPost.filter(
+      //     (item) =>
+      //       item.partyStack.includes(firstCharUpper) ||
+      //       item.partyLocation.includes(params.word) ||
+      //       item.partyTime.includes(params.word) ||
+      //       item.partyName.includes(params.word),
+      //   ),
+      // );
     });
     return getPost;
   }, [params.word]);
