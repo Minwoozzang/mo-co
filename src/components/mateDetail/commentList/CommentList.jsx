@@ -24,7 +24,7 @@ const CommentList = ({ id }) => {
   return (
     <>
       {comments
-        .filter((comment) => comment.userId === id)
+        .filter(() => comments.userId === id)
         .map((user) => {
           return <Comment key={user.uid} user={user} />;
         })}

@@ -10,8 +10,6 @@ import { db } from '../../common/firebase';
 import { query, onSnapshot, collection } from 'firebase/firestore';
 
 const MateList = () => {
-
-
   // 필터 옵션 상태
   const [selectedTech, setSelectedTech] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
@@ -19,6 +17,9 @@ const MateList = () => {
   const [selectedNumOfMember, setSelectedNumOfMember] = useState('');
   // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
+
+  //페이지네이션
+  // const [currentPage, setCurrentPage] = useState(2);
 
   // selectedTech를 텍스트로 담아둠
   const selectedTechText = [...selectedTech]
@@ -130,14 +131,7 @@ const MateList = () => {
 
       {/* 페이지 */}
       <PaginationContainer>
-        <Pagination
-          defaultCurrent={1}
-          total={30}
-          pageSize={6}
-          // showTotal={(total, range) =>
-          //   `${range[0]}-${range[16]} of ${total} items`
-          // }
-        />
+        <Pagination defaultCurrent={1} total={500} pageSize={5} />
       </PaginationContainer>
     </>
   );
