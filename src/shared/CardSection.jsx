@@ -166,6 +166,10 @@ const PostBox = styled.div`
 `;
 
 const PostTitle = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
   width: 245px;
   height: 24px;
   cursor: pointer;
@@ -176,12 +180,16 @@ const PostTitle = styled.div`
 `;
 
 const PostDesc = styled.div`
-  overflow-wrap: break-word;
   display: inline-block;
   width: 240px;
+  height: 20px;
   margin-bottom: 20px;
   color: #828282;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
 `;
 
 const PartyStatusBox = styled.div`
