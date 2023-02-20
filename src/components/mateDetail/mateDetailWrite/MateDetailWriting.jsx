@@ -12,11 +12,13 @@ import {
   GroupPerson,
   UserHr,
 } from './MateDetailWritingstyle';
+import parse from 'html-react-parser';
 
 // getDoc 사용 doc
 const MateDetailWriting = () => {
   const { id } = useParams();
   const [post, setpost] = useState([]);
+  const [parsedHtml, setparsedHtml] = useState('');
 
   //useEffect에선 async사용할 수 없음
   const getPost = async () => {
@@ -24,6 +26,10 @@ const MateDetailWriting = () => {
     const postData = await getDoc(q);
     //비동기
     setpost(postData.data());
+    // partyDesc -> html 파싱
+    const html = postData.data().partyDesc;
+    const parsed = parse(html);
+    setparsedHtml(parsed);
   };
 
   useEffect(() => {
@@ -40,7 +46,7 @@ const MateDetailWriting = () => {
         </GroupUserInfo>
         <UserHr />
         <GroupBox>
-          <GroupPerson>{post.partyDesc}</GroupPerson>
+          <GroupPerson>{parsedHtml}</GroupPerson>
         </GroupBox>
       </GroupWrap>
     </>
