@@ -9,6 +9,7 @@ import { authService } from '../common/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import default_profile from '../assets/default_profile.png';
 
 const CardSection = ({ item, db }) => {
   const navigate = useNavigate();
@@ -117,7 +118,9 @@ const CardSection = ({ item, db }) => {
 
       <PostInfo>
         <ProfileBox>
-          <ProfileImage></ProfileImage>
+          <ProfileImage
+            src={!item.profileImg ? default_profile : item.profileImg}
+          ></ProfileImage>
           <NickName>{item.nickName}</NickName>
         </ProfileBox>
         <InfoBox>
@@ -243,7 +246,7 @@ const ProfileBox = styled.div`
   align-items: center;
 `;
 
-const ProfileImage = styled.div`
+const ProfileImage = styled.img`
   background-color: grey;
   border-radius: 50%;
   width: 30px;
