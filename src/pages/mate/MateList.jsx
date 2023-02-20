@@ -131,7 +131,7 @@ const MateList = () => {
 
       {/* 페이지 */}
       <PaginationContainer>
-        <Pagination defaultCurrent={1} total={500} pageSize={5} />
+        <Pagination defaultCurrent={1} total={500} pageSize={16} />
       </PaginationContainer>
     </>
   );

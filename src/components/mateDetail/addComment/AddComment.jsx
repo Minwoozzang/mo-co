@@ -26,8 +26,9 @@ import { authService, db, storage } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
+import { uuidv4 } from '@firebase/util';
 
-const AddComment = () => {
+const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');
   // 파베 인증
   const currentUser = authService.currentUser;
@@ -92,6 +93,8 @@ const AddComment = () => {
       createdAt: new Date(),
       date: NewDate,
       mateDetailId: '',
+      postId: id,
+      commentId: uuidv4(),
     };
 
     // console.log(nickName.displayName);

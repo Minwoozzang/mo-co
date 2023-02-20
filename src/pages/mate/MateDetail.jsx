@@ -38,7 +38,7 @@ const MateDetail = () => {
       </MateDetailContainer>
       <CommentWrap>
         <CommentList id={id} />
-        <AddComment />
+        <AddComment id={id} />
       </CommentWrap>
       <DetailRecruit />
     </MateDetailWrap>
