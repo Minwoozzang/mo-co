@@ -109,6 +109,7 @@ const SignUp = () => {
             uid: res.user.uid,
             email: email,
             profileImg: 'https://imhannah.me/common/img/default_profile.png',
+            bookmarks: [],
           });
 
         updateProfile(authService.currentUser, {

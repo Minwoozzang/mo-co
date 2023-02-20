@@ -6,8 +6,17 @@ import FilterTech from '../../shared/FilterTech';
 import FilterLocation from '../../shared/FilterLocation';
 import FilterTime from '../../shared/FilterTime';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
-import { db } from '../../common/firebase';
-import { query, onSnapshot, collection } from 'firebase/firestore';
+import { db, authService } from '../../common/firebase';
+import {
+  query,
+  onSnapshot,
+  collection,
+  getDoc,
+  doc,
+  where,
+  getDocs,
+  limit,
+} from 'firebase/firestore';
 
 const MateList = () => {
   // 필터 옵션 상태
@@ -42,6 +51,7 @@ const MateList = () => {
   const handleSelectNumOfMember = (numOfMember) => {
     setSelectedNumOfMember(numOfMember);
   };
+
 
   // post 컬렉션에서 데이터 가져오는 함수
   const getPostData = async () => {
@@ -121,7 +131,7 @@ const MateList = () => {
       <CardListContainer>
         <CardList>
           {DATA.map((item) => (
-            <CardSection key={item.id} item={item} />
+            <CardSection key={item.id} item={item} db={db} />
           ))}
         </CardList>
       </CardListContainer>
