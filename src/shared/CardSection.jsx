@@ -72,12 +72,15 @@ const CardSection = ({ item, db }) => {
     <PostCard>
       <BookmarkIconBox>
         <Location>{item.partyLocation}</Location>
-        <span>{item.bookmark}</span>
-        <BsBookmarkHeart
-          onClick={handleBookmark}
-          cursor="pointer"
-          size="20px"
-        />
+        {/* <span>{item.bookmark}</span> */}
+        <Bookmark>
+          <span>{item.bookmark}</span>
+          <BsBookmarkHeart
+            onClick={handleBookmark}
+            cursor="pointer"
+            size="20px"
+          />
+        </Bookmark>
       </BookmarkIconBox>
 
       <PostBox>
@@ -159,6 +162,12 @@ const Location = styled.div`
   width: 62px;
   height: 16px;
   color: #4f4f4f;
+`;
+
+const Bookmark = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
 `;
 
 const PostBox = styled.div`
