@@ -7,8 +7,6 @@ import CommentList from '../../components/mateDetail/commentList/CommentList';
 import { db } from '../../common/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Modal } from 'antd';
-import { useState } from 'react';
 
 const MateDetail = () => {
   const navigate = useNavigate();
@@ -40,7 +38,7 @@ const MateDetail = () => {
         <button onClick={handleMoveToEdit}>수정</button>
       </MateDetailContainer>
       <CommentWrap>
-        <CommentList />
+        <CommentList id={id} />
         <AddComment />
       </CommentWrap>
       <DetailRecruit />

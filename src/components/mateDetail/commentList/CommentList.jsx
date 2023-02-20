@@ -4,7 +4,7 @@ import { collection, onSnapshot, query } from 'firebase/firestore';
 import Comment from '../comment/Comment';
 import styled from '@emotion/styled';
 
-const CommentList = () => {
+const CommentList = ({ id }) => {
   // 데이터 실시간 변경 확인
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -22,18 +22,13 @@ const CommentList = () => {
   console.log(comments);
 
   return (
-    <CommentListBody>
+    <>
       {comments
-        // .filter(
-        //   (comment) => comment.userId === comment.id,
-        //   comment => comment.postId === storage.post.id
-        // )
+        .filter((comment) => comment.userId === id)
         .map((user) => {
           return <Comment key={user.uid} user={user} />;
         })}
-    </CommentListBody>
+    </>
   );
 };
 export default CommentList;
-
-const CommentListBody = styled.div``;

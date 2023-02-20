@@ -71,8 +71,8 @@ const AddComment = () => {
           profileImg: doc.data().profileImg,
         });
       });
-      setNickName(user[0].nickName);
-      setGetProfileImg(user[0].profileImg);
+      setNickName(user.nickName);
+      setGetProfileImg(user.profileImg);
     });
   };
 
@@ -92,10 +92,9 @@ const AddComment = () => {
       createdAt: new Date(),
       date: NewDate,
       mateDetailId: '',
-      // postId: storage.post,
     };
 
-    console.log(nickName.displayName);
+    // console.log(nickName.displayName);
 
     if (!authService.currentUser) {
       confirmAlert({
