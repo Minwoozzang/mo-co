@@ -1,11 +1,12 @@
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { authService } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
 import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
+  const [currentUsernickname, setCurrentUsernickname] = useState('');
   const [isClickedMeeting, setIsClickedMeeting] = useState(true);
   console.log(isClickedMeeting);
   const testdata = [
@@ -102,6 +103,11 @@ const TeamList = () => {
     }
   };
   console.log(testList);
+//   useEffect(() => {
+//     const getcurrentUserName = authService.currentUser?.displayName;
+//     setCurrentUsernickname(getcurrentUserName)
+//   }, [])
+//   console.log(currentUsernickname)
 
   return (
     <TeamListContainer>

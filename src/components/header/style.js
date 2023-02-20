@@ -111,35 +111,6 @@ export const HeaderDropDownListBox = styled.div`
   }
 `;
 
-export const HeaderSearchDropDownListBox = styled.div`
-  width: 250px;
-  height: 400px;
-
-  margin-top: 10px;
-
-  border-radius: 5px;
-  background-color: white;
-  box-shadow: 2px 2px 10px 10px #0001;
-
-  z-index: 999;
-
-  ::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10%;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-bottom-color: white;
-    border-top: 0;
-    margin-left: -22px;
-    margin-top: -13px;
-
-    z-index: 5;
-  }
-`;
-
 export const HeaderImageBox = styled.div`
   width: 100%;
   height: 150px;
@@ -182,6 +153,62 @@ export const HeaderDropDownList = styled.li`
   list-style: none;
 `;
 
+export const HeaderSearchDropDownListBox = styled.div`
+  width: 250px;
+  height: 200px;
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 2px 2px 10px 10px #0001;
+  z-index: 999;
+
+  ::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: white;
+    border-top: 0;
+    margin-left: -22px;
+    margin-top: -13px;
+
+    z-index: 5;
+  }
+`;
+
+export const HeaderSearchXbuttonBox = styled.div`
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 10px 0;
+`;
+
+export const HeaderSearchXbutton = styled.div`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+`;
+
+export const HeaderSearchDropDownListSection = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 10px; */
+  /* border: 1px solid; */
+`;
+export const HeaderSearchDropDownHr = styled.div`
+  width: 90%;
+  border: 0.5px solid gray;
+  margin: 0 auto;
+`
+
 export const HeaderSearchBox = styled.div`
   display: flex;
   justify-content: space-around;
@@ -194,7 +221,7 @@ export const HeaderSearchInput = styled.input`
   border-radius: 10px;
   height: 30px;
   width: 100px;
-  border: none;
+  border: 0.1px solid gray;
   padding-left: 10px;
 `;
 
@@ -203,5 +230,5 @@ export const HeaderSearchInputBtn = styled.button`
   border: none;
   width: 40px;
   height: 25px;
-  background-color: white;
+  background-color: #D9D9D9;
 `;

@@ -24,10 +24,15 @@ import {
   HeaderSearchBox,
   HeaderSearchInput,
   HeaderSearchInputBtn,
-  HeaderSearchDropDownListBox
+  HeaderSearchDropDownListBox,
+  HeaderSearchDropDownListSection,
+  HeaderSearchDropDownHr,
+  HeaderSearchXbuttonBox,
+  HeaderSearchXbutton
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { ImCancelCircle } from "react-icons/im";
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -112,9 +117,7 @@ const Header = () => {
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
       setSearchdropDownClick(true);
-    } else {
-      setSearchdropDownClick(false);
-    }
+    } 
   };
   // const handleKeyDown = (e) => { // Enter 키 입력 함수
   //   if (e.key === 'Enter') {
@@ -151,7 +154,7 @@ const Header = () => {
           <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
           <MyCodingMate>내 코딩모임</MyCodingMate>
         </LogoAndMateBox>
-        <HeaderSearchBox>
+        {/* <HeaderSearchBox>
           <AiOutlineSearch style={{ fontSize: '30px' }} />
           <HeaderSearchInput
             onChange={onChangeSearch}
@@ -161,7 +164,7 @@ const Header = () => {
           <HeaderSearchInputBtn type="button" onClick={onSubmit}>
             검색
           </HeaderSearchInputBtn>
-        </HeaderSearchBox>
+        </HeaderSearchBox> */}
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
           <div onClick={searchdropDownHandler}>
@@ -175,36 +178,32 @@ const Header = () => {
                   ''
                 )}
                 <HeaderSearchDropDownListBox style={{ position: 'absolute' }}>
-                  {/* <HeaderImageBox>
-                    <HeaderImage
-                      src={
-                        profileUserInfo[0]?.profileImg
-                          ? profileUserInfo[0].profileImg
-                          : 'https://imhannah.me/common/img/default_profile.png'
-                      }
-                      alt=""
-                    />
-                    <HeaderImageText>
-                      안녕하세요, {headerNickName}님🥰
-                    </HeaderImageText>
-                  </HeaderImageBox> */}
-                  <HeaderDropDownListSection>
-                    <DropDownListBody>
-                      <HeaderDropDownList>하고싶은거</HeaderDropDownList>
-                    </DropDownListBody>
-
-                    <DropDownListBody onClick={navigateMyPage}>
-                      <HeaderDropDownList>마이페이지</HeaderDropDownList>
-                    </DropDownListBody>
-                    <DropDownListBody onClick={HeaderLogOut}>
-                      <HeaderDropDownList>로그아웃</HeaderDropDownList>
-                    </DropDownListBody>
-                  </HeaderDropDownListSection>
+                  <HeaderSearchXbuttonBox>
+                    <HeaderSearchXbutton
+                      onClick={()=>setSearchdropDownClick(false)}
+                    >
+                    <ImCancelCircle style={{fontSize: '20px'}} />
+                    </HeaderSearchXbutton>
+                  </HeaderSearchXbuttonBox>
+                  <HeaderSearchDropDownListSection>
+                  <HeaderSearchBox>
+                  <AiOutlineSearch style={{ fontSize: '30px' }} />
+                  <HeaderSearchInput
+                    onChange={onChangeSearch}
+                    // type={'text'}
+                    // onKeyDown={handleKeyDown}
+                  />
+                  <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                    검색
+                  </HeaderSearchInputBtn>
+                  </HeaderSearchBox>
+                  </HeaderSearchDropDownListSection>
+                  <HeaderSearchDropDownHr />
                 </HeaderSearchDropDownListBox>
               </>
             ) : (
               <NavigateMypage>
-                <BsPersonFill style={{ fontSize: '40px' }} />
+                <AiOutlineSearch style={{fontSize: '30px'}} />
               </NavigateMypage>
             )}
           </div>
