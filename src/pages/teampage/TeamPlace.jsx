@@ -1,39 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { getAuth } from 'firebase/auth';
-import { db } from '../../common/firebase';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { authService, db } from '../../common/firebase';
+import {
+  doc,
+  updateDoc,
+  getDoc,
+  query,
+  collection,
+  onSnapshot,
+  where,
+} from 'firebase/firestore';
 import styled from '@emotion/styled';
 import TeamPlaceModal from '../../components/teamPage/TeamPlaceModal';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 export default function TeamPlace() {
-  const { id } = useParams();
-  const [place, setPlace] = useState('');
+  const [place, setPlace] = useState([]);
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
-  const [idUid, setidUid] = useState([]);
   const [address, setAddress] = useState('주소를 등록해주세요!'); // 주소
   const [placeName, setPlaceName] = useState('');
   const [placeX, setPlaceX] = useState(33.450701);
   const [placeY, setPlaceY] = useState(126.570667);
 
-  const postDoc = doc(db, 'post', id);
+  // post에서 uid 받아오기
+  const [idUid, setidUid] = useState([]);
+  const postGetTeamID = () => {
+    const q = query(
+      collection(db, 'post'),
+      where('uid', '==', authService.currentUser.uid),
+    );
 
-  const Data = async () => {
-    const docSnap = await getDoc(postDoc);
-    const classData = docSnap.data();
-    setidUid(classData.uid);
-    if (classData.contentPlace) setPlace(classData.contentPlace);
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setidUid(newInfo[0]?.uid);
+    });
+    return unsubscribe;
+  };
+
+  // 팀 아이디 받아오기
+  const [teamID, setTeamID] = useState([]);
+  const teamGetTeamID = () => {
+    const q = query(collection(db, 'teamPage'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamID(newInfo[0]?.id);
+      setPlace(newInfo[0]?.contentPlace);
+    });
+    return unsubscribe;
   };
 
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser.uid;
-    setCurrentUserId(user);
-    console.log('user', user);
-    Data();
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        setCurrentUserId(authService.currentUser.uid);
+        teamGetTeamID();
+        postGetTeamID();
+      }
+    });
   }, []);
 
   const isOwner = idUid === currentUserId ? true : false;
@@ -48,7 +80,7 @@ export default function TeamPlace() {
         contentPlaceAddress: placeName,
       };
       try {
-        await updateDoc(postDoc, newContentField);
+        await updateDoc(doc(db, 'teamPage', teamID), newContentField);
       } catch (e) {
         console.log(e);
       } finally {

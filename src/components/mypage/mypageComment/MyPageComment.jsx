@@ -25,6 +25,8 @@ const MyPageComment = () => {
         ...doc.data(),
       }));
       setMyComment(newInfo);
+
+      console.log(myComment);
     });
 
     return unsubscribe;
@@ -43,7 +45,7 @@ const MyPageComment = () => {
       <MyCommetTitle>내가 쓴 댓글</MyCommetTitle>
       <MyCommentList>
         {myComment
-          .filter((myItem) => myItem.id === authService.currentUser.uid)
+          .filter((myItem) => myItem.userId === authService.currentUser.uid)
           .map((myItem) => {
             return <MyComment myItem={myItem} key={myItem.id} />;
           })}
