@@ -143,7 +143,7 @@ const Profile = () => {
       });
       setNewPhotoURL(imgUrl);
     };
-    alert('프로필 이미지 수정 완료');
+    alert(' 프로필 이미지 수정 완료 ');
   };
 
   // 맞춤 정보 수장
