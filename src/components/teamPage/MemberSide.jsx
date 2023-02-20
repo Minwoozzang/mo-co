@@ -8,7 +8,6 @@ import {
   MemberInfoProfileInfo,
   MemberInfoProfileTitle,
   MemberInfoProfileName,
-  MemberInfoProfilePosition,
   MembersInfoProfileTitle,
   LeaderInfoProfile,
   HostBox,
@@ -18,7 +17,6 @@ import {
   LeaderProfileInfo,
   LeaderName,
   LeaderPosition,
-  MemberList,
 } from './style';
 import { useEffect, useState } from 'react';
 import { authService, db } from '../../common/firebase';
@@ -68,8 +66,7 @@ export default function MemberSide() {
         ...doc.data(),
       }));
       setTeamLeaderInfo(newInfo);
-      setTeamMemberInfo(newInfo[0]?.teamMember);
-      console.log('t info', teamMemberInfo);
+      setTeamMemberInfo(newInfo);
     });
     return unsubscribe;
   };
@@ -143,7 +140,7 @@ export default function MemberSide() {
           })}
 
         {teamMemberInfo
-          // .filter((item) => item.id === '90df7a26-6299-45a8-b4dc-cca494b0a8c5')
+          .filter((item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d')
           .map((item) => {
             return <SideMemberList item={item} key={v4()} />;
           })}
