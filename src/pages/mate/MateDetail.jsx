@@ -7,8 +7,6 @@ import CommentList from '../../components/mateDetail/commentList/CommentList';
 import { db } from '../../common/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Modal } from 'antd';
-import { useState } from 'react';
 
 const MateDetail = () => {
   const navigate = useNavigate();
@@ -31,7 +29,6 @@ const MateDetail = () => {
       console.log(error);
     }
   };
-
   return (
     <MateDetailWrap>
       <MateDetailContainer>

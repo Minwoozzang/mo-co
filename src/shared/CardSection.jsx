@@ -16,6 +16,9 @@ const CardSection = ({ item, db }) => {
   const [uid, setUid] = useState('');
   const bookmark = item.bookmark;
 
+  // HTML을 plain text로 변환
+  const parsedHtml = item.partyDesc.replace(/(<([^>]+)>)/gi, '');
+
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
     // 현재 유저 문서 가져오기
@@ -91,7 +94,7 @@ const CardSection = ({ item, db }) => {
         >
           {item.partyPostTitile}
         </PostTitle>
-        <PostDesc>{item.partyDesc}</PostDesc>
+        <PostDesc>{parsedHtml}</PostDesc>
         <TechStackIcon>
           {item.partyStack.map((item, idx) => (
             <Tag key={idx} style={{ fontSize: 12 }} color="purple">
