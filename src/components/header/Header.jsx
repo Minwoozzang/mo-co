@@ -23,7 +23,8 @@ import {
   DropDownListBody,
   HeaderSearchBox,
   HeaderSearchInput,
-  HeaderSearchInputBtn
+  HeaderSearchInputBtn,
+  HeaderSearchDropDownListBox
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from "react-icons/ai";
@@ -43,9 +44,11 @@ const Header = () => {
 
   // 드랍다운
   const [dropDownClick, setDropDownClick] = useState(false);
+  const [searchdropDownClick, setSearchdropDownClick] = useState(false);
 
   // 헤더 드랍다운 생성유뮤
   const [isUserDropDown, setIsUserDropDown] = useState(false);
+  const [isSearchUserDropDown, setIsSearchUserDropDown] = useState(false);
 
   // 유저 정보 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
@@ -74,10 +77,12 @@ const Header = () => {
         setHeaderProfile(authService.currentUser.photoURL);
         setHeaderNickName(authService.currentUser.displayName);
         getUserStackInfo();
+        setIsSearchUserDropDown(true);
       } else if (!user) {
         setLoginToggle(true);
         setHeaderMyPage(false);
         setIsUserDropDown(false);
+        setIsSearchUserDropDown(false);
       }
     });
   }, []);
@@ -107,6 +112,13 @@ const Header = () => {
   };
   const onSubmit = () => {
     navigate(`/search/${word}`);
+  };
+  const searchdropDownHandler = () => {
+    if (searchdropDownClick === false) {
+      setSearchdropDownClick(true);
+    } else {
+      setSearchdropDownClick(false);
+    }
   };
   // const handleKeyDown = (e) => { // Enter 키 입력 함수
   //   if (e.key === 'Enter') {
@@ -159,6 +171,50 @@ const Header = () => {
         </HeaderSearchBox>
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
+          <div onClick={searchdropDownHandler}>
+          {searchdropDownClick ? (
+              <>
+                {isSearchUserDropDown ? (
+                  <NavigateMypage>
+                    <AiOutlineSearch style={{fontSize: '30px'}} />
+                  </NavigateMypage>
+                ) : (
+                  ''
+                )}
+                <HeaderSearchDropDownListBox style={{ position: 'absolute' }}>
+                  {/* <HeaderImageBox>
+                    <HeaderImage
+                      src={
+                        profileUserInfo[0]?.profileImg
+                          ? profileUserInfo[0].profileImg
+                          : 'https://imhannah.me/common/img/default_profile.png'
+                      }
+                      alt=""
+                    />
+                    <HeaderImageText>
+                      안녕하세요, {headerNickName}님🥰
+                    </HeaderImageText>
+                  </HeaderImageBox> */}
+                  <HeaderDropDownListSection>
+                    <DropDownListBody>
+                      <HeaderDropDownList>하고싶은거</HeaderDropDownList>
+                    </DropDownListBody>
+
+                    <DropDownListBody onClick={navigateMyPage}>
+                      <HeaderDropDownList>마이페이지</HeaderDropDownList>
+                    </DropDownListBody>
+                    <DropDownListBody onClick={HeaderLogOut}>
+                      <HeaderDropDownList>로그아웃</HeaderDropDownList>
+                    </DropDownListBody>
+                  </HeaderDropDownListSection>
+                </HeaderSearchDropDownListBox>
+              </>
+            ) : (
+              <NavigateMypage>
+                <BsPersonFill style={{ fontSize: '40px' }} />
+              </NavigateMypage>
+            )}
+          </div>
           {/* <HeaderIcon /> */}
           <div onClick={dropDownHandler}>
             {dropDownClick ? (

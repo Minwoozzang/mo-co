@@ -1,11 +1,13 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { authService } from '../../common/firebase';
+import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
 import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
-  const currentUser = authService.currentUser;
+  const [isClickedMeeting, setIsClickedMeeting] = useState(true);
+  console.log(isClickedMeeting);
   const testdata = [
     {
       name: '진행 중인 모임',
@@ -68,7 +70,9 @@ const TeamList = () => {
       isApplied: true,
     },
   ];
-  const [testList, setTestList] = useState(testdata);
+  const [testList, setTestList] = useState(
+    testdata.filter((item) => item.isApplied === false),
+  );
   const [testcategory, setTestcategory] = useState([
     {
       name: '진행 중인 모임',
@@ -85,21 +89,23 @@ const TeamList = () => {
       const clickedCategory = testcategory.map((obj) => {
         return { ...obj, isClicked: !obj.isClicked };
       });
+      setIsClickedMeeting(true);
       setTestcategory(clickedCategory);
       setTestList(testdata.filter((item) => item.isApplied === false));
     } else {
       const clickedCategory = testcategory.map((obj) => {
         return { ...obj, isClicked: !obj.isClicked };
       });
+      setIsClickedMeeting(false);
       setTestcategory(clickedCategory);
       setTestList(testdata.filter((item) => item.isApplied === true));
     }
   };
-  console.log(testdata.filter((item) => item.isApplied === false));
+  console.log(testList);
 
   return (
     <TeamListContainer>
-      <UserMeetingTitle>xxx님의 코딩모임</UserMeetingTitle>
+      <UserMeetingTitle>{authService.currentUser?.displayName}님의 코딩모임</UserMeetingTitle>
       <MeetingCategory>
         {testcategory.map((item, idx) => (
           <TeamListCategory
@@ -110,9 +116,11 @@ const TeamList = () => {
         ))}
       </MeetingCategory>
       <CardContainer>
-        {testList.map((item, idx) => (
-          <CardSection key={idx} item={item} />
-        ))}
+        {isClickedMeeting
+          ? testList.map((item, idx) => (
+              <OngoingCardSection key={idx} item={item} />
+            ))
+          : testList.map((item, idx) => <CardSection key={idx} item={item} />)}
       </CardContainer>
     </TeamListContainer>
   );
@@ -123,10 +131,10 @@ export default TeamList;
 const TeamListContainer = styled.div`
   width: 1178px;
   margin: 0 auto;
-  background-color: #d7e5f1;
+  /* background-color: #d7e5f1; */
 `;
 const UserMeetingTitle = styled.div`
-  width: 233px;
+  /* width: 233px; */
   height: 40px;
   margin-top: 90px;
   font-size: 30px;
@@ -146,5 +154,5 @@ const CardContainer = styled.div`
   display: flex;
   gap: 20px 20px;
   flex-wrap: wrap;
-  background-color: #c9dff3;
+  /* background-color: #c9dff3; */
 `;
