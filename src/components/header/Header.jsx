@@ -21,8 +21,12 @@ import {
   HeaderImageText,
   HeaderDropDownListSection,
   DropDownListBody,
+  HeaderSearchBox,
+  HeaderSearchInput,
+  HeaderSearchInputBtn
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
+import { AiOutlineSearch } from "react-icons/ai";
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -98,12 +102,18 @@ const Header = () => {
   // 검색 기능
   const [word, setWord] = useState('');
   const onChangeSearch = (e) => {
+    // if (word === '') return;
     setWord(e.target.value);
-  }
+  };
   const onSubmit = () => {
     navigate(`/search/${word}`);
   };
-  
+  // const handleKeyDown = (e) => { // Enter 키 입력 함수
+  //   if (e.key === 'Enter') {
+  //     setWord(e.target.value);
+  //     onSubmit();
+  //   }
+  // }; 
   // const navigateMate = () => [navigate('/mate')];
   // 로그아웃
   const HeaderLogOut = () => {
@@ -133,15 +143,20 @@ const Header = () => {
           <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
           <MyCodingMate>내 코딩모임</MyCodingMate>
         </LogoAndMateBox>
-        <div>
-        <input onChange={onChangeSearch}/>
-        <button 
+        <HeaderSearchBox>
+        <AiOutlineSearch style={{fontSize: '30px'}} />
+        <HeaderSearchInput 
+          onChange={onChangeSearch}
+          // type={'text'}
+          // onKeyDown={handleKeyDown}
+        />
+        <HeaderSearchInputBtn 
           type='button'
           onClick={onSubmit}
         >
           검색
-        </button>
-        </div>
+        </HeaderSearchInputBtn>
+        </HeaderSearchBox>
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
           {/* <HeaderIcon /> */}
