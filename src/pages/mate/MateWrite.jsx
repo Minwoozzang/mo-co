@@ -14,8 +14,10 @@ import { times } from '../../data/times';
 import { opens } from '../../data/opens';
 import { db, authService } from '../../common/firebase';
 import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const MateWrite = () => {
+  const navigate = useNavigate();
   // 파베 인증
   const currentUser = authService.currentUser;
   const quillRef = useRef(null);
@@ -85,8 +87,10 @@ const MateWrite = () => {
         uid: currentUser.uid,
         isDeleted: false,
         createdAt: Date.now(),
+        bookmark: 0,
       });
       console.log('업로드 성공');
+      navigate(`/mate`);
     } catch (error) {
       console.log(error);
     }

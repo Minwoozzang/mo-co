@@ -29,7 +29,6 @@ const MateDetail = () => {
       console.log(error);
     }
   };
-
   return (
     <MateDetailWrap>
       <MateDetailContainer>
