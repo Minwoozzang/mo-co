@@ -49,9 +49,9 @@ const MateWrite = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const [postId, setPostId] = useState(uuidv4());
+  const [teamID, setTeamID] = useState(uuidv4());
 
-  // 리더 이미지 가져오가
+  // 리더 이미지 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
 
   const getLeaderImg = () => {
@@ -95,9 +95,16 @@ const MateWrite = () => {
     setIsDisabled(!isDisabled);
   };
 
-  // 모집글 게시 함수
+  // 모집글 게시 함수 (동시에 팀페이지 생성)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const userDoc = await getDoc(doc(db, 'user', authService.currentUser.uid));
+    const userData = userDoc.data();
+    const _teamID = await userData.teamID;
+    console.log(
+      '🚀 ~ file: MateWrite.jsx:104 ~ handleSubmit ~ _teamID:',
+      _teamID,
+    );
     try {
       await addDoc(collection(db, 'post'), {
         partyName,
@@ -112,17 +119,17 @@ const MateWrite = () => {
         nickName,
         profileImg,
         createdDate: now(),
-        postId: uuidv4(),
+        teamID: teamID,
         uid: currentUser.uid,
         isDeleted: false,
         createdAt: Date.now(),
         bookmark: 0,
       })
         .then(() => {
-          setDoc(doc(db, 'teamPage', postId), {
-            teamID: postId,
+          setDoc(doc(db, 'teamPage', teamID), {
+            teamID: teamID, // 문제 : post의 teamID와 다름
             teamLeader: {
-              teamID: postId,
+              teamID: teamID,
               uid: authService.currentUser?.uid,
               host: 'https://littledeep.com/wp-content/uploads/2020/03/littledeep_crown_style1.png',
               profileImg: profileUserInfo,
@@ -139,11 +146,7 @@ const MateWrite = () => {
           })
             .then(() => {
               updateDoc(doc(db, 'user', authService.currentUser.uid), {
-                teamID: [
-                  {
-                    postId,
-                  },
-                ],
+                teamID: [..._teamID, teamID],
               });
             })
             .catch(() => {
