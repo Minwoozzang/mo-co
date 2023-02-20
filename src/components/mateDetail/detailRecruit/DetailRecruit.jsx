@@ -1,16 +1,9 @@
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { db } from './../../../common/firebase';
+import { db, authService } from './../../../common/firebase';
 import { useParams } from 'react-router-dom';
 import { Modal } from 'antd';
-
-
-/*
-1. 참여하기 신청을 눌렀을 때
-- teamPage 컬렉션에서 해당 teamID를 찾아서 문서를 가져오고 그 문서의 teamMember에 현재 로그인한 유저의 uid를 추가한다.
-- {uid : uid, message : message, isWait : true, nickName : nickName, profileImg : profileImg, teamPosition : '멤버'} 형태로 추가한다.
-*/
 
 const DetailRecruit = () => {
   const { id } = useParams();
@@ -19,12 +12,45 @@ const DetailRecruit = () => {
   // 주최자에게 전하는 말
   const [joinMessage, setJoinMessage] = useState('');
 
+  // ! 값이 안 들어오고 있음 ( teamPage 컬렉션에서 가져옴 )
+  const [teamMember, setTeamMember] = useState([]);
+  console.log(
+    '🚀 ~ file: DetailRecruit.jsx:16 ~ DetailRecruit ~ teamMember:',
+    teamMember,
+  );
+
   const handleModalOpen = () => {
     setIsModalOpen(true);
+    getTeamID();
   };
 
-  const handleModalOk = (e) => {
+  const getTeamID = () => {
+    getDoc(doc(db, 'teamPage', post.teamID))
+      .then((userDoc) => {
+        const teamPage = userDoc.data();
+        setTeamMember(teamPage.teamMember);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleModalOk = async (e) => {
     e.preventDefault();
+    await updateDoc(doc(db, 'teamPage', post.teamID), {
+      teamMember: [
+        ...teamMember,
+        {
+          uid: authService.currentUser.uid,
+          teamPositon: '멤버',
+          joinMessage: joinMessage,
+          isWait: true,
+          nickName: authService.currentUser.displayName,
+          profileImg: authService.currentUser.photoURL,
+        },
+      ],
+    });
+    console.log('참여 완료');
     setIsModalOpen(false);
   };
 
@@ -33,7 +59,6 @@ const DetailRecruit = () => {
     setIsModalOpen(false);
   };
 
-  //useEffect에선 async사용할 수 없음
   const getPost = async () => {
     const q = doc(db, 'post', id);
     const postData = await getDoc(q);
