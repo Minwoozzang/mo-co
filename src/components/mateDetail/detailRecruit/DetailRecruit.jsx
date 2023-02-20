@@ -3,10 +3,26 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { db } from './../../../common/firebase';
 import { useParams } from 'react-router-dom';
+import { Modal } from 'antd';
 
 const DetailRecruit = () => {
   const { id } = useParams();
   const [post, setpost] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalOk = (e) => {
+    e.preventDefault();
+    setIsModalOpen(false);
+  };
+
+  const handleModalCancel = (e) => {
+    e.preventDefault();
+    setIsModalOpen(false);
+  };
 
   //useEffect에선 async사용할 수 없음
   const getPost = async () => {
@@ -38,7 +54,40 @@ const DetailRecruit = () => {
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>{post.partyNum}</RecruitDetail>
       </RecruitCurrent>
-      <RecruitBtn>참여 신청</RecruitBtn>
+      <RecruitBtn onClick={handleModalOpen}>참여 신청</RecruitBtn>
+      <Modal
+        open={isModalOpen}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+        cancelText="취소"
+        okText="참여하기"
+        centered={true}
+        closable={false}
+        footer={false}
+      >
+        <RecruitModal>
+          <RecruitModalTitle>참여하시겠어요?</RecruitModalTitle>
+          <RecruitModalContentBox>
+            <RecruitModalContent
+              maxLength={220}
+              placeholder="간단한 소개나 참여하게 된 동기를 적어주세요"
+            />
+          </RecruitModalContentBox>
+          <RecruitModalBtnBox>
+            <RecruitModalBtnNo onClick={handleModalCancel}>
+              취소
+            </RecruitModalBtnNo>
+            <RecruitModalBtnYes onClick={handleModalOk}>
+              참여하기
+            </RecruitModalBtnYes>
+          </RecruitModalBtnBox>
+          <RecruitFooter>
+            * 신청하시면, 정보제공 및 유의사항에 동의한 것으로 간주합니다.
+          </RecruitFooter>
+          <h4 style={{ padding: 20 }}>유의사항</h4>
+          <RecruitGuide>1. 코딩금지</RecruitGuide>
+        </RecruitModal>
+      </Modal>
     </RecruitWrap>
   );
 };
@@ -79,4 +128,68 @@ const RecruitBtn = styled.button`
   height: 40px;
   border: 1px solid #b9b9b9;
   background: rgba(217, 217, 217, 0.1);
+`;
+
+const RecruitModal = styled.form`
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const RecruitModalTitle = styled.div`
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+const RecruitModalContentBox = styled.div`
+  padding: 20px;
+  flex-direction: row;
+  display: flex;
+`;
+const RecruitModalContent = styled.textarea`
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #d9d9d9;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: 100px;
+  outline: none;
+  font-size: 15px;
+`;
+
+const RecruitModalBtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+`;
+
+const RecruitModalBtnNo = styled.button`
+  width: 200px;
+  height: 45px;
+  border: 1px solid black;
+  background-color: transparent;
+`;
+
+const RecruitModalBtnYes = styled.button`
+  width: 200px;
+  height: 45px;
+  border: 1px solid black;
+  background-color: transparent;
+`;
+
+const RecruitFooter = styled.div`
+  padding: 20px;
+  color: #b9b9b9;
+`;
+
+const RecruitGuide = styled.div`
+  padding: 20px;
 `;
