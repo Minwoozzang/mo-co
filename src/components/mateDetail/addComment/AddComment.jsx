@@ -26,6 +26,7 @@ import { authService, db } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
+import { useLocation } from 'react-router';
 
 const AddComment = () => {
   const [commentText, setCommentText] = useState('');
