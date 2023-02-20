@@ -1,37 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { db } from '../../common/firebase';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
-import { getAuth } from 'firebase/auth';
+import { authService, db } from '../../common/firebase';
+import {
+  doc,
+  updateDoc,
+  query,
+  collection,
+  onSnapshot,
+  where,
+} from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function ContentRule() {
-  const { id } = useParams();
-  const [content, setContent] = useState('');
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
+
+  // post에서 uid 받아오기
   const [idUid, setidUid] = useState([]);
+  const postGetTeamID = () => {
+    const q = query(
+      collection(db, 'post'),
+      where('uid', '==', authService.currentUser.uid),
+    );
 
-  const postDoc = doc(db, 'post', id);
-
-  const Data = async () => {
-    const docSnap = await getDoc(postDoc);
-    const classData = docSnap.data();
-    setidUid(classData.uid);
-    if (classData.contentRule) setContent(classData.contentRule);
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setidUid(newInfo[0]?.uid);
+    });
+    return unsubscribe;
   };
+
+  // 팀 아이디 받아오기
+  const [content, setContent] = useState([]);
+  const [teamID, setTeamID] = useState([]);
+  const teamGetTeamID = () => {
+    const q = query(collection(db, 'teamPage'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamID(newInfo[0]?.id);
+      setContent(newInfo[0]?.contentRule);
+    });
+    return unsubscribe;
+  };
+
   useEffect(() => {
-    const auth = getAuth();
-    const user = auth.currentUser.uid;
-    setCurrentUserId(user);
-    console.log('user', user);
-    Data();
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        setCurrentUserId(authService.currentUser.uid);
+        postGetTeamID();
+        teamGetTeamID();
+      }
+    });
   }, []);
 
   const isOwner = idUid === currentUserId ? true : false;
-
-  console.log('?', idUid);
-  console.log('!', currentUserId);
 
   const convertChange = () => {
     setConvert(!convert);
@@ -42,7 +70,7 @@ export default function ContentRule() {
         contentRule: content,
       };
       try {
-        await updateDoc(postDoc, newContentField);
+        await updateDoc(doc(db, 'teamPage', teamID), newContentField);
       } catch (e) {
         console.log(e);
       } finally {

@@ -82,7 +82,7 @@ const CardSection = ({ item, db }) => {
       <PostBox>
         <PostTitle
           onClick={() => {
-            navigate(`/matedetail/${item.id}`);
+            navigate(`/matedetail/${item.id}`, { state: { item } });
           }}
         >
           {item.partyPostTitile}
