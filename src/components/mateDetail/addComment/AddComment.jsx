@@ -26,7 +26,9 @@ import { authService, db, storage } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
+
 import { uuidv4 } from '@firebase/util';
+
 
 const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');

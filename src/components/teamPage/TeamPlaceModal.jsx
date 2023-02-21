@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 
-export default function TeamPlaceModal({ setAddress, setPlaceName, onClose }) {
+export default function TeamPlaceModal({
+  setAddress,
+  setPlaceName,
+  setPlaceX,
+  setPlaceY,
+  onClose,
+}) {
   const [word, setWord] = useState('');
   const [resultData, setResultData] = useState([]);
 
@@ -48,10 +54,11 @@ export default function TeamPlaceModal({ setAddress, setPlaceName, onClose }) {
     // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
   };
 
-  const handlePlace = (name, address) => {
+  const handlePlace = (name, address, coordinateX, coordinateY) => {
     setAddress(name);
     setPlaceName(address);
-
+    setPlaceX(coordinateX);
+    setPlaceY(coordinateY);
     onClose();
   };
 
@@ -79,7 +86,13 @@ export default function TeamPlaceModal({ setAddress, setPlaceName, onClose }) {
                   <JustWrap
                     key={idx}
                     onClick={() => {
-                      handlePlace(info.place_name, info.address_name);
+                      handlePlace(
+                        info.place_name,
+                        info.address_name,
+                        info.x,
+                        info.y,
+                      );
+                      console.log('ddd', info.x);
                     }}
                   >
                     <div>{info.place_name}</div>

@@ -13,7 +13,17 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import { opens } from '../../data/opens';
 import { db, authService } from '../../common/firebase';
-import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 const MateWrite = () => {
@@ -39,7 +49,26 @@ const MateWrite = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const [postId, setPostId] = useState('5PCFPb2hSQt9Sq8nFL5c');
+  const [teamID, setTeamID] = useState(uuidv4());
+
+  // 리더 이미지 가져오기
+  const [profileUserInfo, setProfileUserInfo] = useState([]);
+
+  const getLeaderImg = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProfileUserInfo(newInfo[0]?.profileImg);
+    });
+
+    return unsubscribe;
+  };
 
   // 유저 닉네임 - 프로필 가져오기 함수
   const getUserInfo = () => {
@@ -66,9 +95,16 @@ const MateWrite = () => {
     setIsDisabled(!isDisabled);
   };
 
-  // 모집글 게시 함수
+  // 모집글 게시 함수 (동시에 팀페이지 생성)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const userDoc = await getDoc(doc(db, 'user', authService.currentUser.uid));
+    const userData = userDoc.data();
+    const _teamID = await userData.teamID;
+    console.log(
+      '🚀 ~ file: MateWrite.jsx:104 ~ handleSubmit ~ _teamID:',
+      _teamID,
+    );
     try {
       await addDoc(collection(db, 'post'), {
         partyName,
@@ -83,12 +119,43 @@ const MateWrite = () => {
         nickName,
         profileImg,
         createdDate: now(),
-        postId: uuidv4(),
+        teamID: teamID,
         uid: currentUser.uid,
         isDeleted: false,
         createdAt: Date.now(),
         bookmark: 0,
-      });
+      })
+        .then(() => {
+          setDoc(doc(db, 'teamPage', teamID), {
+            teamID: teamID, // 문제 : post의 teamID와 다름
+            teamLeader: {
+              teamID: teamID,
+              uid: authService.currentUser?.uid,
+              host: 'https://littledeep.com/wp-content/uploads/2020/03/littledeep_crown_style1.png',
+              profileImg: profileUserInfo,
+              nickName,
+              isWait: false,
+              teamPosition: '리더',
+            },
+            teamMember: [],
+            teamPartyStack: {
+              partyName,
+              partyLocation,
+              partyTime,
+            },
+          })
+            .then(() => {
+              updateDoc(doc(db, 'user', authService.currentUser.uid), {
+                teamID: [..._teamID, teamID],
+              });
+            })
+            .catch(() => {
+              console.log('user 에러');
+            });
+        })
+        .catch(() => {
+          console.log('team 에러');
+        });
       console.log('업로드 성공');
       navigate(`/mate`);
     } catch (error) {
@@ -99,6 +166,7 @@ const MateWrite = () => {
   useEffect(() => {
     if (!currentUser) return;
     getUserInfo();
+    getLeaderImg();
     console.log(currentUser);
   }, [currentUser]);
 

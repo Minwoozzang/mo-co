@@ -12,7 +12,6 @@ import {
   MyCodingMate,
   TeamAndLoginBox,
   MakeTeam,
-  HeaderIcon,
   LoginRoute,
   HeaderImage,
   HeaderDropDownListBox,
@@ -23,29 +22,34 @@ import {
   DropDownListBody,
   HeaderSearchBox,
   HeaderSearchInput,
-  HeaderSearchInputBtn
+  HeaderSearchInputBtn,
+  HeaderSearchDropDownListBox,
+  HeaderSearchDropDownListSection,
+  HeaderSearchDropDownHr,
+  HeaderSearchXbuttonBox,
+  HeaderSearchXbutton,
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch } from 'react-icons/ai';
+import { ImCancelCircle } from 'react-icons/im';
 
 const Header = () => {
   // 헤더 로그인 토글
   const [loginToggle, setLoginToggle] = useState(true);
 
   // 헤더  토글
-  const [headerMyPage, setHeaderMyPage] = useState(false);
-
-  // 헤더 프로필 이미지
-  const [headerProfile, setHeaderProfile] = useState('');
+  const [headerMyIcon, setHeaderMyIcon] = useState(false);
 
   // 헤더 닉네임
   const [headerNickName, setHeaderNickName] = useState('');
 
   // 드랍다운
   const [dropDownClick, setDropDownClick] = useState(false);
+  const [searchdropDownClick, setSearchdropDownClick] = useState(false);
 
   // 헤더 드랍다운 생성유뮤
   const [isUserDropDown, setIsUserDropDown] = useState(false);
+  const [isSearchUserDropDown, setIsSearchUserDropDown] = useState(false);
 
   // 유저 정보 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
@@ -70,14 +74,15 @@ const Header = () => {
       if (user) {
         setIsUserDropDown(true);
         setLoginToggle(false);
-        setHeaderMyPage(true);
-        setHeaderProfile(authService.currentUser.photoURL);
+        setHeaderMyIcon(true);
         setHeaderNickName(authService.currentUser.displayName);
         getUserStackInfo();
+        setIsSearchUserDropDown(true);
       } else if (!user) {
         setLoginToggle(true);
-        setHeaderMyPage(false);
+        setHeaderMyIcon(false);
         setIsUserDropDown(false);
+        setIsSearchUserDropDown(false);
       }
     });
   }, []);
@@ -108,12 +113,17 @@ const Header = () => {
   const onSubmit = () => {
     navigate(`/search/${word}`);
   };
+  const searchdropDownHandler = () => {
+    if (searchdropDownClick === false) {
+      setSearchdropDownClick(true);
+    }
+  };
   // const handleKeyDown = (e) => { // Enter 키 입력 함수
   //   if (e.key === 'Enter') {
   //     setWord(e.target.value);
   //     onSubmit();
   //   }
-  // }; 
+  // };
   // const navigateMate = () => [navigate('/mate')];
   // 로그아웃
   const HeaderLogOut = () => {
@@ -126,7 +136,7 @@ const Header = () => {
   // 헤더 유무
   const locationNow = useLocation();
   if (locationNow.pathname === '/login' || locationNow.pathname === '/signup')
-    return null; 
+    return null;
 
   const dropDownHandler = () => {
     if (dropDownClick === false) {
@@ -143,95 +153,113 @@ const Header = () => {
           <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
           <MyCodingMate>내 코딩모임</MyCodingMate>
         </LogoAndMateBox>
-        <HeaderSearchBox>
-        <AiOutlineSearch style={{fontSize: '30px'}} />
-        <HeaderSearchInput 
-          onChange={onChangeSearch}
-          // type={'text'}
-          // onKeyDown={handleKeyDown}
-        />
-        <HeaderSearchInputBtn 
-          type='button'
-          onClick={onSubmit}
-        >
-          검색
-        </HeaderSearchInputBtn>
-        </HeaderSearchBox>
+        {/* <HeaderSearchBox>
+          <AiOutlineSearch style={{ fontSize: '30px' }} />
+          <HeaderSearchInput
+            onChange={onChangeSearch}
+            // type={'text'}
+            // onKeyDown={handleKeyDown}
+          />
+          <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+            검색
+          </HeaderSearchInputBtn>
+        </HeaderSearchBox> */}
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
-          {/* <HeaderIcon /> */}
-          <div onClick={dropDownHandler}>
-            {dropDownClick ? (
+          <div onClick={searchdropDownHandler}>
+            {searchdropDownClick ? (
               <>
-                {isUserDropDown ? (
+                {isSearchUserDropDown ? (
                   <NavigateMypage>
-                    <BsPersonFill style={{ fontSize: '40px' }} />
+                    <AiOutlineSearch style={{ fontSize: '30px' }} />
                   </NavigateMypage>
                 ) : (
                   ''
                 )}
-                <HeaderDropDownListBox style={{ position: 'absolute' }}>
-                  <HeaderImageBox>
-                    <HeaderImage
-                      src={
-                        profileUserInfo[0]?.profileImg
-                          ? profileUserInfo[0].profileImg
-                          : 'https://imhannah.me/common/img/default_profile.png'
-                      }
-                      alt=""
-                    />
-                    <HeaderImageText>
-                      안녕하세요, {headerNickName}님🥰
-                    </HeaderImageText>
-                  </HeaderImageBox>
-                  <HeaderDropDownListSection>
-                    <DropDownListBody>
-                      <HeaderDropDownList>하고싶은거</HeaderDropDownList>
-                    </DropDownListBody>
-
-                    <DropDownListBody onClick={navigateMyPage}>
-                      <HeaderDropDownList>마이페이지</HeaderDropDownList>
-                    </DropDownListBody>
-                    <DropDownListBody onClick={HeaderLogOut}>
-                      <HeaderDropDownList>로그아웃</HeaderDropDownList>
-                    </DropDownListBody>
-                  </HeaderDropDownListSection>
-                </HeaderDropDownListBox>
+                <HeaderSearchDropDownListBox style={{ position: 'absolute' }}>
+                  <HeaderSearchXbuttonBox>
+                    <HeaderSearchXbutton
+                      onClick={() => setSearchdropDownClick(false)}
+                    >
+                      <ImCancelCircle style={{ fontSize: '20px' }} />
+                    </HeaderSearchXbutton>
+                  </HeaderSearchXbuttonBox>
+                  <HeaderSearchDropDownListSection>
+                    <HeaderSearchBox>
+                      <AiOutlineSearch style={{ fontSize: '30px' }} />
+                      <HeaderSearchInput
+                        onChange={onChangeSearch}
+                        // type={'text'}
+                        // onKeyDown={handleKeyDown}
+                      />
+                      <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                        검색
+                      </HeaderSearchInputBtn>
+                    </HeaderSearchBox>
+                  </HeaderSearchDropDownListSection>
+                  <HeaderSearchDropDownHr />
+                </HeaderSearchDropDownListBox>
               </>
             ) : (
               <NavigateMypage>
-                <BsPersonFill style={{ fontSize: '40px' }} />
+                <AiOutlineSearch style={{ fontSize: '30px' }} />
               </NavigateMypage>
             )}
           </div>
 
-          {/* <NavigateMypage>
-            {headerMyPage ? (
-              <HeaderImage
-                src={
-                  profileUserInfo[0]?.profileImg
-                    ? profileUserInfo[0].profileImg
-                    : 'https://imhannah.me/common/img/default_profile.png'
-                }
-                alt=""
-              />
-            ) : (
-              ''
-            )}
-          </NavigateMypage>
-          <div>
-            <ui>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-            </ui>
-          </div> */}
+          {headerMyIcon ? (
+            <div onClick={dropDownHandler}>
+              {dropDownClick ? (
+                <>
+                  {isUserDropDown ? (
+                    <NavigateMypage>
+                      <BsPersonFill style={{ fontSize: '40px' }} />
+                    </NavigateMypage>
+                  ) : (
+                    ''
+                  )}
+                  <HeaderDropDownListBox style={{ position: 'absolute' }}>
+                    <HeaderImageBox>
+                      <HeaderImage
+                        src={
+                          profileUserInfo[0]?.profileImg
+                            ? profileUserInfo[0].profileImg
+                            : 'https://imhannah.me/common/img/default_profile.png'
+                        }
+                        alt=""
+                      />
+                      <HeaderImageText>
+                        안녕하세요, {headerNickName}님🥰
+                      </HeaderImageText>
+                    </HeaderImageBox>
+                    <HeaderDropDownListSection>
+                      <DropDownListBody>
+                        <HeaderDropDownList>나의 팀</HeaderDropDownList>
+                      </DropDownListBody>
+
+                      <DropDownListBody onClick={navigateMyPage}>
+                        <HeaderDropDownList>마이페이지</HeaderDropDownList>
+                      </DropDownListBody>
+                      <DropDownListBody onClick={HeaderLogOut}>
+                        <HeaderDropDownList>로그아웃</HeaderDropDownList>
+                      </DropDownListBody>
+                    </HeaderDropDownListSection>
+                  </HeaderDropDownListBox>
+                </>
+              ) : (
+                <NavigateMypage>
+                  <BsPersonFill style={{ fontSize: '40px' }} />
+                </NavigateMypage>
+              )}
+            </div>
+          ) : (
+            ''
+          )}
+
           <LoginRoute onClick={navigateLoginPage}>
             {loginToggle ? '로그인' : ''}
           </LoginRoute>
         </TeamAndLoginBox>
-
-        {/* <MateLoute onClick={navigateMate}>메이트 찾기</MateLoute> */}
       </HeaderInfoBody>
     </HeaderBody>
   );

@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
 
-export const MyBookmarkBody = styled.div``;
+export const MyBookmarkBody = styled.div`
+  display: flex;
+`;
 export const MyBookmarkTitle = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
 `;
 export const MyBookmarkList = styled.div`
-  margin-top: 25px;
+  margin-top: 55px;
+  margin-left: 20px;
+  cursor: pointer;
 `;

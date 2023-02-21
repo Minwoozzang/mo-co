@@ -3,30 +3,39 @@ import styled from '@emotion/styled';
 import MemberSide from '../../components/teamPage/MemberSide';
 import MemberChat from '../../components/teamPage/chat/MemberChat';
 import { collection, query, onSnapshot } from 'firebase/firestore';
-import { db } from '../../common/firebase';
+import { authService, db } from '../../common/firebase';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import ContentRule from './ContentRule';
 import ContentBoard from './ContentBoard';
 import TeamManage from '../../components/teamPage/TeamManage';
 import TeamPlace from './TeamPlace';
+import { onAuthStateChanged } from '@firebase/auth';
 
 export default function TeamPage() {
-  const { id } = useParams();
-  const [postList, setPostList] = useState([]);
-
-  useEffect(() => {
-    const postCollectionRef = collection(db, 'post');
+  // 팀 정보 가져오기
+  const [teamList, setTeamList] = useState([]);
+  const getTeamInformation = () => {
+    const postCollectionRef = collection(db, 'teamPage');
     const q = query(postCollectionRef);
     const getPost = onSnapshot(q, (snapshot) => {
-      const testPost = snapshot.docs.map((doc) => ({
+      const testTeam = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setPostList(testPost);
-      console.log('test', testPost);
+      setTeamList(testTeam);
     });
+
     return getPost;
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        // getMyInformation();
+        getTeamInformation();
+      }
+    });
   }, []);
 
   return (
@@ -34,50 +43,58 @@ export default function TeamPage() {
       <JustContainer>
         <WholeContainer>
           <MemberSide />
+          {/* TODO: 추후 아이디 변경 */}
           <DashBoardContainer>
-            {postList
-              .filter((item) => item.id === id)
+            {teamList
+              .filter(
+                (item) => item.id === '7517ca89-7df6-40fc-8686-8d2790d4faf8',
+              )
               .map((item) => {
                 return (
-                  <>
-                    <DashboardHeaderWrap>
-                      <TitleManageWrap>
-                        <DashboardTitle>{item.partyName}</DashboardTitle>
-                        <JustWrap>
-                          <TeamManage />
-                        </JustWrap>
-                      </TitleManageWrap>
-                      <ProjectBasicStatus>
-                        <ProjectPlace>
-                          <ProjectPlaceTitlte>모임 장소</ProjectPlaceTitlte>
-                          <ProjectPlaceName>
-                            {item.partyLocation ? item.partyLocation : '비대면'}
-                          </ProjectPlaceName>
-                        </ProjectPlace>
-                        <ProjectPlace>
-                          <ProjectPlaceTitlte>모임 시간</ProjectPlaceTitlte>
-                          <ProjectPlaceName>
-                            {item.partyTime ? item.partyTime : '무관'}
-                          </ProjectPlaceName>
-                        </ProjectPlace>
-                      </ProjectBasicStatus>
-                    </DashboardHeaderWrap>
-                    <ContentContainerR>
-                      <ContentContainer>
-                        <ContenRuleAndPlace>
-                          <TeamPlace />
-                          <ContentRule />
-                        </ContenRuleAndPlace>
-                      </ContentContainer>
-                      <ContentChatContainer>
-                        <ContentChat>
-                          <ContentBoard />
-                        </ContentChat>
-                      </ContentChatContainer>
-                    </ContentContainerR>
-                  </>
+                  <DashboardHeaderWrap key={item.id}>
+                    <TitleManageWrap>
+                      <DashboardTitle>
+                        {item.teamPartyStack.partyName}
+                      </DashboardTitle>
+                      <JustWrap>
+                        <TeamManage />
+                      </JustWrap>
+                    </TitleManageWrap>
+                    <ProjectBasicStatus>
+                      <ProjectPlace>
+                        <ProjectPlaceTitlte>모임 장소</ProjectPlaceTitlte>
+                        <ProjectPlaceName>
+                          {item.teamPartyStack.partyLocation
+                            ? item.teamPartyStack.partyLocation
+                            : '비대면'}
+                        </ProjectPlaceName>
+                      </ProjectPlace>
+                      <ProjectPlace>
+                        <ProjectPlaceTitlte>모임 시간</ProjectPlaceTitlte>
+                        <ProjectPlaceName>
+                          {item.teamPartyStack.partyTime
+                            ? item.teamPartyStack.partyTime
+                            : '무관'}
+                        </ProjectPlaceName>
+                      </ProjectPlace>
+                    </ProjectBasicStatus>
+                  </DashboardHeaderWrap>
                 );
               })}
+
+            <ContentContainerR>
+              <ContentContainer>
+                <ContenRuleAndPlace>
+                  <TeamPlace />
+                  <ContentRule />
+                </ContenRuleAndPlace>
+              </ContentContainer>
+              <ContentChatContainer>
+                <ContentChat>
+                  <ContentBoard />
+                </ContentChat>
+              </ContentChatContainer>
+            </ContentContainerR>
           </DashBoardContainer>
           <MemberChat />
         </WholeContainer>
