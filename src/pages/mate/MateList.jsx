@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
-import { Pagination } from 'antd';
+
 import CardSection from '../../shared/CardSection';
 import FilterTech from '../../shared/FilterTech';
 import FilterLocation from '../../shared/FilterLocation';
@@ -8,6 +8,7 @@ import FilterTime from '../../shared/FilterTime';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import { db } from '../../common/firebase';
 import { query, onSnapshot, collection } from 'firebase/firestore';
+import { Pagination } from 'antd';
 
 const MateList = () => {
   // 필터 옵션 상태
@@ -17,6 +18,9 @@ const MateList = () => {
   const [selectedNumOfMember, setSelectedNumOfMember] = useState('');
   // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
+
+  //페이지네이션
+  // const [currentPage, setCurrentPage] = useState(2);
 
   // selectedTech를 텍스트로 담아둠
   const selectedTechText = [...selectedTech]
@@ -57,6 +61,18 @@ const MateList = () => {
   };
 
   let DATA = [...cardAll];
+
+  // 페이지네이션
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(16);
+
+  const handleChange = (count) => {
+    if (count <= 1) {
+      return setMinValue(0), setMaxValue(16);
+    } else {
+      return setMinValue(count.maxValue), setMaxValue(count * 16);
+    }
+  };
 
   // 기술을 여러 개 선택했을 때는 필터가 작동을 안 함
   if (selectedTech.length > 0) {
@@ -120,15 +136,22 @@ const MateList = () => {
       {/* 카드 리스트 */}
       <CardListContainer>
         <CardList>
-          {DATA.map((item) => (
-            <CardSection key={item.id} item={item} db={db} />
-          ))}
+          {DATA &&
+            DATA.length > 0 &&
+            DATA.slice(minValue, maxValue).map((item) => (
+              <CardSection key={item.id} item={item} db={db} />
+            ))}
         </CardList>
       </CardListContainer>
 
       {/* 페이지 */}
       <PaginationContainer>
-        <Pagination defaultCurrent={1} total={30} />
+        <Pagination
+          defaultCurrent={1}
+          defaultPageSize={16}
+          onChange={handleChange}
+          total={200}
+        />
       </PaginationContainer>
     </>
   );

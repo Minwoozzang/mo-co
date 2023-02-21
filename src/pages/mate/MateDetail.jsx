@@ -33,12 +33,12 @@ const MateDetail = () => {
     <MateDetailWrap>
       <MateDetailContainer>
         <MateDetailWriting />
-        <div onClick={handleDelete}>삭제</div>
-        <div onClick={handleMoveToEdit}>수정</div>
+        <button onClick={handleDelete}>삭제</button>
+        <button onClick={handleMoveToEdit}>수정</button>
       </MateDetailContainer>
       <CommentWrap>
-        <CommentList />
-        <AddComment />
+        <CommentList id={id} />
+        <AddComment id={id} />
       </CommentWrap>
       <DetailRecruit />
     </MateDetailWrap>
