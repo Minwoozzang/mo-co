@@ -86,10 +86,6 @@ const Profile = () => {
     return unsubscribe;
   };
 
-  // TODO: 스크랩 정보 가져오기
-
-  // TODO: 내가 쓴 댓글 정보 가져오기
-
   // 유저 확인
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
