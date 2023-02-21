@@ -9,6 +9,7 @@ import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import { db } from '../../common/firebase';
 import { query, onSnapshot, collection } from 'firebase/firestore';
 import { Pagination } from 'antd';
+import { emailRegex } from './../../common/utils';
 
 const MateList = () => {
   // 필터 옵션 상태
@@ -63,12 +64,14 @@ const MateList = () => {
   let DATA = [...cardAll];
 
   // 페이지네이션
-  const [minValue, setMinValue] = useState();
-  const [maxValue, setMaxValue] = useState(16);
-  const [count, setCount] = useState(1);
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(3);
 
-  const handleChange = () => {
-    return setMinValue((count - 1) * 16), setMaxValue(count * 16);
+  const handleChange = (page) => {
+    console.log(DATA);
+
+    setMinValue(page * 3 - 3);
+    setMaxValue(page * 3);
   };
 
   // 기술을 여러 개 선택했을 때는 필터가 작동을 안 함
@@ -96,7 +99,7 @@ const MateList = () => {
     DATA = DATA.sort((a, b) => b.createdAt - a.createdAt);
   }
 
-  console.log(DATA);
+  // console.log(DATA);
 
   useEffect(() => {
     getPostData();
@@ -145,10 +148,10 @@ const MateList = () => {
       <PaginationContainer>
         <Pagination
           defaultCurrent={1}
-          defaultPageSize={16}
+          defaultPageSize={3}
           onChange={handleChange}
-          //
-          total={Math.ceil(DATA / 16)}
+          //Math.ceil(DATA / 16)값으로 변경해줄 수 있다면...!
+          total={DATA.length}
         />
       </PaginationContainer>
     </>
