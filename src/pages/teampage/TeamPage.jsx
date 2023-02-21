@@ -47,7 +47,7 @@ export default function TeamPage() {
           <DashBoardContainer>
             {teamList
               .filter(
-                (item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249',
+                (item) => item.id === '7517ca89-7df6-40fc-8686-8d2790d4faf8',
               )
               .map((item) => {
                 return (
