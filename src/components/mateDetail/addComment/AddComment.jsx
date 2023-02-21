@@ -94,12 +94,12 @@ const AddComment = ({ id }) => {
       createdAt: new Date(),
       date: NewDate,
       commentId: uuidv4(),
-      //comment adddoc할때 mateDetailId값에 commentId 넣어주기(id는 임시값)
+      //comment adddoc할때 mateDetailId값에 id(userid = :id)가져오기
       mateDetailId: id,
       postId: id,
     };
 
-    // console.log(nickName.displayName);
+    // console.log(newComment);
 
     if (!authService.currentUser) {
       confirmAlert({
