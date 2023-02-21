@@ -28,16 +28,15 @@ const Home = () => {
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   //* 신규 유저 여부 상태
-  const [isNewUser, setIsNewUser] = useState(false);
-  console.log('🚀 ~ file: Home.jsx:25 ~ Home ~ isNewUser:', isNewUser);
+  const [isClosed, SetIsClosed] = useState(false);
   const [postList, setPostList] = useState([]);
   const [userList, setUserList] = useState([]);
 
   // ! 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
-    if (creationTime === lastSignInTime && currentUser) {
+    if (creationTime === lastSignInTime && currentUser && isClosed === false) {
       setIsModalOpen(true);
-      setIsNewUser(true);
+      SetIsClosed(true);
     }
   };
 

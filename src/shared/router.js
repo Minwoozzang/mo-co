@@ -13,6 +13,8 @@ import Search from '../pages/search/Search';
 import TeamPage from '../pages/teampage/TeamPage';
 import MateEdit from '../pages/mate/MateEdit';
 import TeamList from '../pages/teampage/TeamList';
+// * 테스트 페이지
+import Test from '../pages/Test';
 
 const Router = () => {
   // path 이름은 보통 소문자로 하니, 저희도 소문자로 통일하겠습니다
@@ -33,6 +35,8 @@ const Router = () => {
         <Route path="/edit/:id" element={<MateEdit />} />
         <Route path="/search/:word" element={<Search />} />
         <Route path="/teamlist" element={<TeamList />} />
+        {/* 테스트페이지 */}
+        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   );
