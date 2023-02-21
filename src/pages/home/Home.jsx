@@ -36,7 +36,7 @@ const Home = () => {
 
   // ! 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
-    if (createdAt === lastLoginAt) {
+    if (createdAt === lastLoginAt && currentUser) {
       setIsModalOpen(true);
       setIsNewUser(true);
     }
