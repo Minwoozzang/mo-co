@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, authService } from '../../../common/firebase';
-// import { uuidv4 } from '@firebase/util';
+import { Modal, Button } from 'antd';
 import CustomUi from './CustomUi';
 import { GrMoreVertical } from 'react-icons/gr';
 import {
@@ -91,7 +91,7 @@ const Comment = ({ user }) => {
           )}
           <CommentTextIcon>
             <CommentIconBody>
-              <GrMoreVertical onClick={() => ToggleDropDown(user.uid)} />
+              <GrMoreVertical onClick={() => ToggleDropDown(user.userId)} />
             </CommentIconBody>
 
             {toggleBtn ? (

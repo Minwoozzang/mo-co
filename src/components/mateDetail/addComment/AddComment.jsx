@@ -22,28 +22,29 @@ import {
   where,
   orderBy,
 } from 'firebase/firestore';
-import { authService, db } from '../../../common/firebase';
+import { authService, db, storage } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
-import { useLocation } from 'react-router';
 
-const AddComment = () => {
+import { uuidv4 } from '@firebase/util';
+
+
+const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');
+
   // 파베 인증
   const currentUser = authService.currentUser;
 
   // 유저 닉네임 - 프로필 가져오기 상태
   const [nickName, setNickName] = useState('');
   const [profileImg, setGetProfileImg] = useState('');
+  const [currentUserName, setCurrentUserName] = useState('');
+  const [currentUserUid, setCurrentUserUid] = useState('');
 
   const AddCommentTextChange = (e) => {
     setCommentText(e.target.value);
   };
-
-  const [currentUserName, setCurrentUserName] = useState('');
-  const [currentUserUid, setCurrentUserUid] = useState('');
-
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
@@ -74,8 +75,8 @@ const AddComment = () => {
           profileImg: doc.data().profileImg,
         });
       });
-      setNickName(user[0].nickName);
-      setGetProfileImg(user[0].profileImg);
+      setNickName(user.nickName);
+      setGetProfileImg(user.profileImg);
     });
   };
 
@@ -94,10 +95,13 @@ const AddComment = () => {
       userId: currentUserUid,
       createdAt: new Date(),
       date: NewDate,
-      mateDetailId: '',
+      commentId: uuidv4(),
+      //comment adddoc할때 mateDetailId값에 id(userid = :id)가져오기
+      mateDetailId: id,
+      postId: id,
     };
 
-    console.log(nickName.displayName);
+    // console.log(newComment);
 
     if (!authService.currentUser) {
       confirmAlert({
