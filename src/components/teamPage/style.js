@@ -115,3 +115,4 @@ export const LeaderName = styled.div`
   font-size: 20px;
 `;
 export const LeaderPosition = styled.div``;
+export const MemberList = styled.div``;
