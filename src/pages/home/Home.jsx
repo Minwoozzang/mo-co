@@ -14,8 +14,12 @@ import {
   where,
 } from 'firebase/firestore';
 import MocoChat from '../../components/mocoChat/MocoChatIcon';
+import { Modal } from 'antd';
+import AddInfoModal from '../../components/home/AddInfoModal';
 
 const Home = () => {
+  // 모달 오픈 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
   // user정보와 post정보 비교하여 추천(맞춤형) 리스트 구현
   // const result = useQueries([
   //   {
@@ -108,6 +112,9 @@ const Home = () => {
       />
       <HomeNewMeetingList postList={postList} />
       <HomeAllBtn />
+      <Modal open={true} centered={true} closable={true} footer={false}>
+        <AddInfoModal />
+      </Modal>
     </>
   );
 };
