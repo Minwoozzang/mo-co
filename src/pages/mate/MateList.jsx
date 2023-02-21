@@ -63,15 +63,12 @@ const MateList = () => {
   let DATA = [...cardAll];
 
   // 페이지네이션
-  const [minValue, setMinValue] = useState(0);
+  const [minValue, setMinValue] = useState();
   const [maxValue, setMaxValue] = useState(16);
+  const [count, setCount] = useState(1);
 
-  const handleChange = (count) => {
-    if (count <= 1) {
-      return setMinValue(0), setMaxValue(16);
-    } else {
-      return setMinValue(count.maxValue), setMaxValue(count * 16);
-    }
+  const handleChange = () => {
+    return setMinValue((count - 1) * 16), setMaxValue(count * 16);
   };
 
   // 기술을 여러 개 선택했을 때는 필터가 작동을 안 함
@@ -150,7 +147,8 @@ const MateList = () => {
           defaultCurrent={1}
           defaultPageSize={16}
           onChange={handleChange}
-          total={200}
+          //
+          total={Math.ceil(DATA / 16)}
         />
       </PaginationContainer>
     </>
