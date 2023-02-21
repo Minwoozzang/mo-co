@@ -38,7 +38,6 @@ import { authService, db } from '../../common/firebase';
 import { doc, setDoc } from '@firebase/firestore';
 
 const Login = () => {
-  // 이메일
   const emailRef = useRef(null);
   const [email, setEmail] = useState('');
 

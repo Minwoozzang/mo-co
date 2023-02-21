@@ -12,7 +12,6 @@ import {
   MyCodingMate,
   TeamAndLoginBox,
   MakeTeam,
-  HeaderIcon,
   LoginRoute,
   HeaderImage,
   HeaderDropDownListBox,
@@ -28,11 +27,11 @@ import {
   HeaderSearchDropDownListSection,
   HeaderSearchDropDownHr,
   HeaderSearchXbuttonBox,
-  HeaderSearchXbutton
+  HeaderSearchXbutton,
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { ImCancelCircle } from "react-icons/im";
+import { ImCancelCircle } from 'react-icons/im';
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -127,7 +126,7 @@ const Header = () => {
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
       setSearchdropDownClick(true);
-    } 
+    }
   };
   // const navigateMate = () => [navigate('/mate')];
   // 로그아웃
@@ -174,11 +173,11 @@ const Header = () => {
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
           <div onClick={searchdropDownHandler}>
-          {searchdropDownClick ? (
+            {searchdropDownClick ? (
               <>
                 {isSearchUserDropDown ? (
                   <NavigateMypage>
-                    <AiOutlineSearch style={{fontSize: '30px'}} />
+                    <AiOutlineSearch style={{ fontSize: '30px' }} />
                   </NavigateMypage>
                 ) : (
                   ''
@@ -186,9 +185,9 @@ const Header = () => {
                 <HeaderSearchDropDownListBox style={{ position: 'absolute' }}>
                   <HeaderSearchXbuttonBox>
                     <HeaderSearchXbutton
-                      onClick={()=>setSearchdropDownClick(false)}
+                      onClick={() => setSearchdropDownClick(false)}
                     >
-                    <ImCancelCircle style={{fontSize: '20px'}} />
+                      <ImCancelCircle style={{ fontSize: '20px' }} />
                     </HeaderSearchXbutton>
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
@@ -208,11 +207,11 @@ const Header = () => {
               </>
             ) : (
               <NavigateMypage>
-                <AiOutlineSearch style={{fontSize: '30px'}} />
+                <AiOutlineSearch style={{ fontSize: '30px' }} />
               </NavigateMypage>
             )}
           </div>
-      
+
           {headerMyIcon ? (
             <div onClick={dropDownHandler}>
               {dropDownClick ? (
