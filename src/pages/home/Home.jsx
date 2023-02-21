@@ -21,11 +21,10 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
-  console.log('🚀 ~ file: Home.jsx:22 ~ Home ~ currentUser:', currentUser);
-  const createdAt = currentUser?.metadata.createdAt;
-  console.log('🚀 ~ file: Home.jsx:23 ~ Home ~ createdAt:', createdAt);
-  const lastLoginAt = currentUser?.metadata.lastLoginAt;
-  console.log('🚀 ~ file: Home.jsx:25 ~ Home ~ lastLoginAt:', lastLoginAt);
+  console.log('🚀 ~ file: Home.jsx:24 ~ Home ~ currentUser:', currentUser);
+  const creationTime = currentUser?.metadata.creationTime;
+  const lastSignInTime = currentUser?.metadata.lastSignInTime;
+
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   //* 신규 유저 여부 상태
@@ -36,7 +35,7 @@ const Home = () => {
 
   // ! 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
-    if (createdAt === lastLoginAt && currentUser) {
+    if (creationTime === lastSignInTime && currentUser) {
       setIsModalOpen(true);
       setIsNewUser(true);
     }
