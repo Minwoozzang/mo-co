@@ -1,5 +1,5 @@
 import { uuidv4 } from '@firebase/util';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiChevronRight } from 'react-icons/hi';
 import {
   LeaderInfoProfile,
@@ -13,6 +13,8 @@ import {
 } from './style';
 import { confirmAlert } from 'react-confirm-alert';
 import CustomConfirmUI from './CustomConfirmUI';
+import { authService } from '../../common/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const WaitMemberList = ({ item }) => {
   const memberList = item.teamMember;
@@ -20,10 +22,38 @@ const WaitMemberList = ({ item }) => {
   const isWaitChange = (data) => {
     confirmAlert({
       customUI: ({ onClose }) => {
-        return <CustomConfirmUI onClose={onClose} data={data} id={item.id} />;
+        return (
+          <CustomConfirmUI
+            onClose={onClose}
+            data={data}
+            id={item.id}
+            item={item.teamMember}
+          />
+        );
       },
     });
   };
+
+  // 리더에게만 아이콘 보이게 하기
+  const [onlyLeaderLook, setOnlyLeaderLook] = useState(false);
+
+  const onlyLeader = () => {
+    const myUid = authService.currentUser.uid;
+
+    if (item.teamLeader.uid === myUid) {
+      setOnlyLeaderLook(true);
+    } else {
+      setOnlyLeaderLook(false);
+    }
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        onlyLeader();
+      }
+    });
+  }, []);
 
   // 멤버 리스트
   return (
@@ -48,9 +78,13 @@ const WaitMemberList = ({ item }) => {
                   <LeaderName>{data.nickName}</LeaderName>
                   <LeaderPosition>{data.teamPositon}</LeaderPosition>
                 </div>
-                <WaitChangeIcon onClick={() => isWaitChange(data)}>
-                  <HiChevronRight />
-                </WaitChangeIcon>
+                {onlyLeaderLook ? (
+                  <WaitChangeIcon onClick={() => isWaitChange(data)}>
+                    <HiChevronRight />
+                  </WaitChangeIcon>
+                ) : (
+                  ''
+                )}
               </WaitProfileInfo>
             </LeaderBox>
           );
