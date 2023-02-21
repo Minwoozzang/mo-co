@@ -1,10 +1,16 @@
 import styled from '@emotion/styled';
+import { IoCloseOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
-const AddInfoModal = () => {
+const AddInfoModal = ({ handleModalClose }) => {
   const navigate = useNavigate();
   return (
     <InfoModal>
+      <IoCloseOutline
+        cursor={'pointer'}
+        onClick={handleModalClose}
+        style={{ position: 'absolute', top: 20, right: 20, fontSize: 20 }}
+      />
       <HelloImoji>🎉</HelloImoji>
       <InfoModalTitle>모코에 오신 것을 환영합니다!</InfoModalTitle>
       <InfoModalNudge>

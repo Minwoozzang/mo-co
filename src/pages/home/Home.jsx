@@ -16,36 +16,37 @@ import {
 import MocoChat from '../../components/mocoChat/MocoChatIcon';
 import { Modal } from 'antd';
 import AddInfoModal from '../../components/home/AddInfoModal';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  // 모달 오픈 상태
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  // user정보와 post정보 비교하여 추천(맞춤형) 리스트 구현
-  // const result = useQueries([
-  //   {
-  //     queryKey: ['user'],
-  //     queryFn: getUser
-  //   },
-  //   {
-  //     queryKey: ['post'],
-  //     queryFn: getPost
-  //   }
-  // ]);
-  // useEffect(() => {
-  //   console.log(result); // [{rune 정보, data: [], isSucces: true ...}, {spell 정보, data: [], isSucces: true ...}]
-  // const loadingFinishAll = result.some(result => result.isLoading);
-  // console.log(loadingFinishAll); // loadingFinishAll이 false이면 최종 완료
-  // }, [result])
-
-  // useEffect(() => {
-  //   console.log(result[0].data[0].moreInfo.u_location)
-  //   console.log(result[1].data)
-  // }, [])
+  const navigate = useNavigate();
   const currentUser = authService.currentUser;
+  console.log('🚀 ~ file: Home.jsx:22 ~ Home ~ currentUser:', currentUser);
+  const createdAt = currentUser?.metadata.createdAt;
+  console.log('🚀 ~ file: Home.jsx:23 ~ Home ~ createdAt:', createdAt);
+  const lastLoginAt = currentUser?.metadata.lastLoginAt;
+  console.log('🚀 ~ file: Home.jsx:25 ~ Home ~ lastLoginAt:', lastLoginAt);
+  //* 모달 오픈 여부 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  //* 신규 유저 여부 상태
+  const [isNewUser, setIsNewUser] = useState(false);
+  console.log('🚀 ~ file: Home.jsx:25 ~ Home ~ isNewUser:', isNewUser);
   const [postList, setPostList] = useState([]);
   const [userList, setUserList] = useState([]);
-  // const [recommendList, setRecommendList] = useState([]);
-  // const [currentUserData, setCurrentUserData] = useState([]);
+
+  // ! 추가 정보 등록 모달 핸들러
+  const handleModalOpen = () => {
+    if (createdAt === lastLoginAt) {
+      setIsModalOpen(true);
+      setIsNewUser(true);
+    }
+  };
+
+  // ! 모달 닫기 핸들러
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
   const currentUserData = userList.filter(
     (item) => item.uid === currentUser?.uid,
   );
@@ -66,10 +67,6 @@ const Home = () => {
       !item.isDeleted &&
       item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
   );
-
-  console.log(recommendTechList);
-  console.log(recommendTimeList);
-  console.log(recommendLocationList);
 
   useEffect(() => {
     const postCollectionRef = collection(db, 'post');
@@ -95,10 +92,9 @@ const Home = () => {
       }));
       setUserList(userData);
     });
+    handleModalOpen();
     return getUser;
   }, []);
-  console.log(postList);
-  console.log(userList);
 
   return (
     <>
@@ -112,8 +108,9 @@ const Home = () => {
       />
       <HomeNewMeetingList postList={postList} />
       <HomeAllBtn />
-      <Modal open={true} centered={true} closable={true} footer={false}>
-        <AddInfoModal />
+      {/* 신규 유저면 모달 오픈 */}
+      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
+        <AddInfoModal handleModalClose={handleModalClose} />
       </Modal>
     </>
   );
