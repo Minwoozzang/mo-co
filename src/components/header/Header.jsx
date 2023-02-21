@@ -105,6 +105,11 @@ const Header = () => {
     }
   };
 
+  // 내 코딩모임 페이지로 이동
+  const navigateMyCodingMate = () => {
+    navigate('/teamlist');
+  };
+
   // 검색 기능
   const [word, setWord] = useState('');
   const onChangeSearch = (e) => {
@@ -151,7 +156,9 @@ const Header = () => {
       <HeaderInfoBody>
         <LogoAndMateBox>
           <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
-          <MyCodingMate>내 코딩모임</MyCodingMate>
+          <MyCodingMate onClick={navigateMyCodingMate}>
+            내 코딩모임
+          </MyCodingMate>
         </LogoAndMateBox>
         {/* <HeaderSearchBox>
           <AiOutlineSearch style={{ fontSize: '30px' }} />
