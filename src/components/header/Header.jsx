@@ -114,17 +114,16 @@ const Header = () => {
   const onSubmit = () => {
     navigate(`/search/${word}`);
   };
+  const handleonKeyPress = (e) => { // Enter 키 입력 함수
+    if (e.key === 'Enter') {
+      onSubmit();
+    }
+  };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
       setSearchdropDownClick(true);
     } 
   };
-  // const handleKeyDown = (e) => { // Enter 키 입력 함수
-  //   if (e.key === 'Enter') {
-  //     setWord(e.target.value);
-  //     onSubmit();
-  //   }
-  // };
   // const navigateMate = () => [navigate('/mate')];
   // 로그아웃
   const HeaderLogOut = () => {
@@ -190,8 +189,7 @@ const Header = () => {
                   <AiOutlineSearch style={{ fontSize: '30px' }} />
                   <HeaderSearchInput
                     onChange={onChangeSearch}
-                    // type={'text'}
-                    // onKeyDown={handleKeyDown}
+                    onKeyPress={handleonKeyPress}
                   />
                   <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                     검색
