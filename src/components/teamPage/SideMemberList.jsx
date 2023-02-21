@@ -1,3 +1,4 @@
+import { uuidv4 } from '@firebase/util';
 import React from 'react';
 import {
   LeaderInfoProfile,
@@ -10,25 +11,32 @@ import {
 } from './style';
 
 const SideMemberList = ({ item }) => {
-  console.log('itme', item);
+  // 멤버 리스트
+  const memberList = item.teamMember;
   return (
     <LeaderInfoProfile>
-      <LeaderBox>
-        <LeaderImgBox>
-          <MemberInfoProfileImg
-            src={
-              item.profileImg
-                ? item.profileImg
-                : 'https://imhannah.me/common/img/default_profile.png'
-            }
-          />
-        </LeaderImgBox>
+      {memberList
+        .filter((data) => data.isWait === false)
+        .map((data) => {
+          return (
+            <LeaderBox key={uuidv4()}>
+              <LeaderImgBox>
+                <MemberInfoProfileImg
+                  src={
+                    data.profileImg
+                      ? data.profileImg
+                      : 'https://imhannah.me/common/img/default_profile.png'
+                  }
+                />
+              </LeaderImgBox>
 
-        <LeaderProfileInfo>
-          <LeaderName>{item.nickName}</LeaderName>
-          <LeaderPosition>{item.teamPosition}</LeaderPosition>
-        </LeaderProfileInfo>
-      </LeaderBox>
+              <LeaderProfileInfo>
+                <LeaderName>{data.nickName}</LeaderName>
+                <LeaderPosition>{data.teamPosition}</LeaderPosition>
+              </LeaderProfileInfo>
+            </LeaderBox>
+          );
+        })}
     </LeaderInfoProfile>
   );
 };
