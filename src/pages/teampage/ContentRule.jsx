@@ -44,10 +44,8 @@ export default function ContentRule() {
         id: doc.id,
         ...doc.data(),
       }));
-      setTeamID(newInfo[0]?.id);
+      setTeamID('24ddd57a-c511-4732-be77-dfa5651b2249');
       setContentInfo(newInfo);
-
-      console.log('team', newInfo);
     });
     return unsubscribe;
   };
@@ -65,8 +63,6 @@ export default function ContentRule() {
         ...doc.data(),
       }));
       setUserTeamID(newInfo);
-
-      console.log('user', newInfo);
     });
     return unsubscribe;
   };
@@ -129,7 +125,7 @@ export default function ContentRule() {
             <div>
               {contentInfo
                 .filter(
-                  (item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d',
+                  (item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249',
                 )
                 .map((item) => {
                   return <div key={item.id}>{item.contentRule}</div>;

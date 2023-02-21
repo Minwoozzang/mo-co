@@ -79,8 +79,9 @@ export const MemberInfoProfileInfo = styled.div`
   color: #fff;
 `;
 
-export const MemberInfoProfileName = styled.p`
-  font-size: 20px;
+export const MemberInfoProfileName = styled.div`
+  font-size: 18px;
+  font-weight: 550;
 `;
 
 export const MemberInfoProfilePosition = styled.p`
@@ -104,6 +105,7 @@ export const MemberInfoHost = styled.img`
 export const LeaderBox = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 5px;
 `;
 export const LeaderImgBox = styled.div``;
 export const LeaderProfileInfo = styled.div`
@@ -116,3 +118,32 @@ export const LeaderName = styled.div`
 `;
 export const LeaderPosition = styled.div``;
 export const MemberList = styled.div``;
+
+// 대기멤버
+export const WaitMember = styled.div`
+  margin-top: 250px;
+`;
+export const WaitMemberTitle = styled.div`
+  color: white;
+`;
+export const WaitMemberListBox = styled.div`
+  margin-top: 20px;
+`;
+
+export const WaitProfileInfo = styled.div`
+  width: 110px;
+  height: 45px;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-left: 15px;
+`;
+
+export const WaitChangeIcon = styled.div`
+  font-size: 30px;
+  cursor: pointer;
+`;

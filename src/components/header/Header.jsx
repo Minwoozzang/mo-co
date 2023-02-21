@@ -12,7 +12,6 @@ import {
   MyCodingMate,
   TeamAndLoginBox,
   MakeTeam,
-  HeaderIcon,
   LoginRoute,
   HeaderImage,
   HeaderDropDownListBox,

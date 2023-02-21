@@ -1,4 +1,12 @@
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { db, authService } from './../../../common/firebase';
@@ -6,6 +14,23 @@ import { useParams } from 'react-router-dom';
 import { Modal } from 'antd';
 
 const DetailRecruit = () => {
+  // 프로필 이미지 받아오기
+  const [myProfileImg, setMyProfileImg] = useState([]);
+  const GetMyProfileImg = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMyProfileImg(newInfo[0]?.profileImg);
+    });
+    return unsubscribe;
+  };
+
   const { id } = useParams();
   const [post, setpost] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,7 +71,7 @@ const DetailRecruit = () => {
           joinMessage: joinMessage,
           isWait: true,
           nickName: authService.currentUser.displayName,
-          profileImg: authService.currentUser.photoURL,
+          profileImg: myProfileImg,
         },
       ],
     });
@@ -68,6 +93,7 @@ const DetailRecruit = () => {
 
   useEffect(() => {
     getPost();
+    GetMyProfileImg();
   }, []);
 
   return (

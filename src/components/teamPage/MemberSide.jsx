@@ -17,6 +17,9 @@ import {
   LeaderProfileInfo,
   LeaderName,
   LeaderPosition,
+  WaitMember,
+  WaitMemberTitle,
+  WaitMemberListBox,
 } from './style';
 import { useEffect, useState } from 'react';
 import { authService, db } from '../../common/firebase';
@@ -24,6 +27,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { v4 } from 'uuid';
 import SideMemberList from './SideMemberList';
+import WaitMemberList from './WaitMemberList';
 
 export default function MemberSide() {
   const [nickName, setNickName] = useState('');
@@ -109,7 +113,7 @@ export default function MemberSide() {
 
         {/* 팅장 */}
         {teamLeaderInfo
-          .filter((item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d')
+          .filter((item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249')
           .map((item) => {
             return (
               <LeaderInfoProfile key={item.id}>
@@ -140,10 +144,23 @@ export default function MemberSide() {
           })}
 
         {teamMemberInfo
-          .filter((item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d')
+          .filter((item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249')
           .map((item) => {
             return <SideMemberList item={item} key={v4()} />;
           })}
+
+        <WaitMember>
+          <WaitMemberTitle>참여 신청</WaitMemberTitle>
+          <WaitMemberListBox>
+            {teamMemberInfo
+              .filter(
+                (item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249',
+              )
+              .map((item) => {
+                return <WaitMemberList item={item} key={v4()} />;
+              })}
+          </WaitMemberListBox>
+        </WaitMember>
       </MemberSidebar>
     </>
   );

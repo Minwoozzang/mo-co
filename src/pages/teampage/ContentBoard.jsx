@@ -83,7 +83,7 @@ export default function ContentBoard() {
             <div>
               {boardContentInfo
                 .filter(
-                  (item) => item.id === '8ba44f94-b64f-44a9-bfb6-821e2effa58d',
+                  (item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249',
                 )
                 .map((item) => {
                   return <div key={item.id}>{item.contentBoard}</div>;
