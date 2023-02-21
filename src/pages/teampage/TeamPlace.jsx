@@ -25,7 +25,8 @@ export default function TeamPlace() {
   const [placeX, setPlaceX] = useState(33.450701);
   const [placeY, setPlaceY] = useState(126.570667);
 
-  // post에서 uid 받아오기
+  console.log('ddd', placeX);
+
   const [idUid, setidUid] = useState([]);
   const postGetTeamID = () => {
     const q = query(
@@ -144,8 +145,8 @@ export default function TeamPlace() {
                 <Map // 지도를 표시할 Container
                   center={{
                     // 지도의 중심좌표
-                    lat: placeX,
-                    lng: placeY,
+                    lat: placeY,
+                    lng: placeX,
                   }}
                   style={{
                     // 지도의 크기
@@ -157,8 +158,8 @@ export default function TeamPlace() {
                   <MapMarker // 마커를 생성합니다
                     position={{
                       // 마커가 표시될 위치입니다
-                      lat: placeX,
-                      lng: placeY,
+                      lat: placeY,
+                      lng: placeX,
                     }}
                   />
                 </Map>
@@ -181,6 +182,8 @@ export default function TeamPlace() {
                   }}
                   setAddress={setAddress}
                   setPlaceName={setPlaceName}
+                  setPlaceX={setPlaceX}
+                  setPlaceY={setPlaceY}
                 />
               ) : null}
             </ContentCard>
@@ -191,8 +194,8 @@ export default function TeamPlace() {
               <Map // 지도를 표시할 Container
                 center={{
                   // 지도의 중심좌표
-                  lat: placeX,
-                  lng: placeY,
+                  lat: placeY,
+                  lng: placeX,
                 }}
                 style={{
                   // 지도의 크기
@@ -204,8 +207,8 @@ export default function TeamPlace() {
                 <MapMarker // 마커를 생성합니다
                   position={{
                     // 마커가 표시될 위치입니다
-                    lat: placeX,
-                    lng: placeY,
+                    lat: placeY,
+                    lng: placeX,
                   }}
                 />
               </Map>
