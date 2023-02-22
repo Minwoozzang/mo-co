@@ -81,7 +81,7 @@ export default function ContentBoard({ teamLocationID }) {
               {boardContentInfo
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
-                  return <div key={item.id}>{item.contentBoard}</div>;
+                  return <p key={item.id}>{item.contentBoard}</p>;
                 })}
             </div>
           </ContentCard>

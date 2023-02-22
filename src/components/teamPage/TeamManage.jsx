@@ -15,6 +15,7 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { async } from '@firebase/util';
 
 export default function TeamManage({ teamLocationID, item }) {
   const [showOptions, setShowOptions] = useState(false);
@@ -31,7 +32,7 @@ export default function TeamManage({ teamLocationID, item }) {
     const mymyUid = currentUser.uid;
     setMyUid(mymyUid);
 
-    if (item.teamLeader.uid === myUid) {
+    if (item.teamLeader.uid === currentUser.uid) {
       setOnlyLeaderLook(true);
     } else {
       setOnlyLeaderLook(false);
@@ -146,6 +147,15 @@ export default function TeamManage({ teamLocationID, item }) {
     });
   };
 
+  const deactivateRoom = async () => {
+    try {
+      await deleteDoc(doc(db, 'teamPage', teamLocationID));
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Social
@@ -160,7 +170,7 @@ export default function TeamManage({ teamLocationID, item }) {
           <>
             <DropdownOption>
               <SharePh onClick={navigateWrite}>모임 수정하기</SharePh>
-              <SharePh>모임 삭제하기</SharePh>
+              <SharePh onClick={deactivateRoom}>모임 삭제하기</SharePh>
             </DropdownOption>
           </>
         ) : (

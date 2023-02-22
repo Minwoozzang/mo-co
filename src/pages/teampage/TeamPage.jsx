@@ -76,7 +76,10 @@ export default function TeamPage() {
                         {item.teamPartyStack.partyName}
                       </DashboardTitle>
                       <JustWrap>
-                        <TeamManage teamLocationID={teamLocationID} />
+                        <TeamManage
+                          teamLocationID={teamLocationID}
+                          item={item}
+                        />
                       </JustWrap>
                     </TitleManageWrap>
                     <ProjectBasicStatus>
