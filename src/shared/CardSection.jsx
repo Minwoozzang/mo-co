@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import default_profile from '../assets/default_profile.png';
 
-const CardSection = ({ item, db, goToTeamPage }) => {
+const CardSection = ({ item, db }) => {
   const navigate = useNavigate();
   const [uid, setUid] = useState('');
   const bookmark = item.bookmark;
@@ -105,7 +105,6 @@ const CardSection = ({ item, db, goToTeamPage }) => {
       </PostBox>
 
       <PartyStatusBox>
-        <button onClick={()=>goToTeamPage(item.teamID)}>팀 페이지로</button>
         <RecruitingBox>
           <Recruiting>
             {item.partyIsOpen === true ? (
