@@ -60,7 +60,7 @@ const Search = () => {
 
   return (
     <SearchResultContainer>
-      <SearchTitle>{params.word.toLowerCase()}</SearchTitle>
+      <SearchTitle>검색어 : {params.word.toLowerCase()}</SearchTitle>
       <CardWrapper>
         {searchData.map((searchdata) => (
           <SearchResultCard key={searchdata.id} {...searchdata} />
@@ -75,7 +75,7 @@ export default Search;
 const SearchResultContainer = styled.div`
   width: 1180px;
   margin: 0 auto;
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
 `;
 const SearchTitle = styled.div`
   height: 50px;
@@ -86,6 +86,6 @@ const SearchTitle = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  background-color: #c8f1e8;
+  /* background-color: #c8f1e8; */
   gap: 20px 20px;
 `;
