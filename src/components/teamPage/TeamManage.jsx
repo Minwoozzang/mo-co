@@ -9,21 +9,79 @@ import {
   collection,
   doc,
   getDoc,
+  updateDoc,
+  arrayRemove,
   where,
+  deleteDoc,
 } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 
-export default function TeamManage({ teamLocationID }) {
+export default function TeamManage({ teamLocationID, item }) {
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const currentUser = authService.currentUser;
   const [postIdInfo, setPostIdInfo] = useState([]);
+  const [teamPost, setTeamPost] = useState([]);
+  const [myUid, setMyUid] = useState('');
+  // 리더에게만 아이콘 보이게 하기
+  const [onlyLeaderLook, setOnlyLeaderLook] = useState(false);
+
+  const onlyLeader = () => {
+    const mymyUid = currentUser.uid;
+    setMyUid(mymyUid);
+
+    if (item.teamLeader.uid === myUid) {
+      setOnlyLeaderLook(true);
+    } else {
+      setOnlyLeaderLook(false);
+    }
+  };
 
   useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        onlyLeader();
+      }
+    });
     if (!currentUser) return;
     getPostData();
     teamGetTeamID();
+    getFindTeamID();
+    getFindTeamPostInfo();
   }, []);
+
+  const [teamPage, setTeamPage] = useState([]);
+
+  // teamPage 데이터 불러오기
+  useEffect(() => {
+    const teamPageCollectionRef = collection(db, 'teamPage');
+    const q = query(teamPageCollectionRef);
+    const getTeamPage = onSnapshot(q, (snapshot) => {
+      const teamPageData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamPage(teamPageData);
+    });
+    return getTeamPage;
+  }, []);
+
+  const getFindTeamID = () => {
+    const q = query(collection(db, 'post'), where('teamID', '==', id));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newTeam = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamPost(newTeam[0].id);
+    });
+    return unsubscribe;
+  };
+
+  const navigateWrite = () => {
+    navigate(`/edit/${teamPost}`);
+  };
 
   const getPostData = async () => {
     const postRef = await doc(db, 'post', id);
@@ -57,8 +115,35 @@ export default function TeamManage({ teamLocationID }) {
     return unsubscribe;
   };
 
-  const navigateWrite = () => {
-    navigate('/');
+  const [teamPostInfo, setTeamPostInfo] = useState([]);
+  const getFindTeamPostInfo = () => {
+    const q = query(collection(db, 'teamPage'), where('teamID', '==', id));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newTeam = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamPostInfo(newTeam[0]);
+    });
+    return unsubscribe;
+  };
+
+  const deactivateAccount = async (uid) => {
+    const otherMember = teamPostInfo.teamMember?.filter(
+      (item) => item.uid !== myUid,
+    );
+    try {
+      await updateDoc(doc(db, 'teamPage', id), {
+        teamMember: otherMember,
+      });
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
+    console.log('탈퇴', uid);
+    updateDoc(doc(db, 'user', uid), {
+      teamID: deleteDoc(),
+    });
   };
 
   return (
@@ -71,12 +156,22 @@ export default function TeamManage({ teamLocationID }) {
         <DropdownOptions />
       </Social>
       {showOptions === true ? (
-        <>
-          <DropdownOption>
-            <SharePh>모임 수정하기</SharePh>
-            <SharePh>모임 삭제하기</SharePh>
-          </DropdownOption>
-        </>
+        onlyLeaderLook === true ? (
+          <>
+            <DropdownOption>
+              <SharePh onClick={navigateWrite}>모임 수정하기</SharePh>
+              <SharePh>모임 삭제하기</SharePh>
+            </DropdownOption>
+          </>
+        ) : (
+          <>
+            <DropdownOption>
+              <SharePh onClick={() => deactivateAccount(myUid)}>
+                모임 탈퇴하기
+              </SharePh>
+            </DropdownOption>
+          </>
+        )
       ) : null}
     </>
   );
@@ -105,6 +200,7 @@ const DropdownOption = styled.div`
 `;
 
 const SharePh = styled.div`
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 `;

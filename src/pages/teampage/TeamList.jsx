@@ -87,7 +87,7 @@ const TeamList = () => {
   // teamPage/teamID 로 이동
   const navigate = useNavigate();
   const goToTeamPage = (id) => {
-    navigate(`/teamPage/${id}`);
+    navigate(`/teamPage/${id}`, { state: id });
   };
 
   //post 데이터 불러오기

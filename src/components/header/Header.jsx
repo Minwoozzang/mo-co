@@ -118,7 +118,8 @@ const Header = () => {
   const onSubmit = () => {
     navigate(`/search/${word}`);
   };
-  const handleonKeyPress = (e) => { // Enter 키 입력 함수
+  const handleonKeyPress = (e) => {
+    // Enter 키 입력 함수
     if (e.key === 'Enter') {
       onSubmit();
     }
@@ -191,16 +192,16 @@ const Header = () => {
                     </HeaderSearchXbutton>
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
-                  <HeaderSearchBox>
-                  <AiOutlineSearch style={{ fontSize: '30px' }} />
-                  <HeaderSearchInput
-                    onChange={onChangeSearch}
-                    onKeyPress={handleonKeyPress}
-                  />
-                  <HeaderSearchInputBtn type="button" onClick={onSubmit}>
-                    검색
-                  </HeaderSearchInputBtn>
-                  </HeaderSearchBox>
+                    <HeaderSearchBox>
+                      <AiOutlineSearch style={{ fontSize: '30px' }} />
+                      <HeaderSearchInput
+                        onChange={onChangeSearch}
+                        onKeyPress={handleonKeyPress}
+                      />
+                      <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                        검색
+                      </HeaderSearchInputBtn>
+                    </HeaderSearchBox>
                   </HeaderSearchDropDownListSection>
                   {/* <HeaderSearchDropDownHr /> */}
                 </HeaderSearchDropDownListBox>
@@ -238,10 +239,6 @@ const Header = () => {
                       </HeaderImageText>
                     </HeaderImageBox>
                     <HeaderDropDownListSection>
-                      <DropDownListBody>
-                        <HeaderDropDownList>나의 팀</HeaderDropDownList>
-                      </DropDownListBody>
-
                       <DropDownListBody onClick={navigateMyPage}>
                         <HeaderDropDownList>마이페이지</HeaderDropDownList>
                       </DropDownListBody>
