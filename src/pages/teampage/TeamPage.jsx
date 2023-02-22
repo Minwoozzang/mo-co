@@ -1,7 +1,6 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import MemberSide from '../../components/teamPage/MemberSide';
-import MemberChat from '../../components/teamPage/chat/MemberChat';
 import { collection, query, onSnapshot, where } from 'firebase/firestore';
 import { authService, db } from '../../common/firebase';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -11,6 +10,7 @@ import ContentBoard from './ContentBoard';
 import TeamManage from '../../components/teamPage/TeamManage';
 import TeamPlace from './TeamPlace';
 import { onAuthStateChanged } from '@firebase/auth';
+import MemberChatingRoom from '../../components/teamPage/chat/MemberChatingRoom';
 
 export default function TeamPage() {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ export default function TeamPage() {
   // 경로 id 받아오기
   const location = useLocation();
   const teamLocationID = location.state;
-
   // 팀 정보 가져오기
   const [teamList, setTeamList] = useState([]);
   const getTeamInformation = () => {
@@ -35,42 +34,27 @@ export default function TeamPage() {
     return getPost;
   };
 
-  // 유저에서 팀 ID 받아오가
-  const [myUserTeamID, setMyUserTeamID] = useState([]);
-  const getMyUserTeamID = () => {
-    const q = query(
-      collection(db, 'user'),
-      where('uid', '==', authService.currentUser.uid),
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setMyUserTeamID(newInfo[0].teamID);
-    });
-    return unsubscribe;
-  };
-
-  // 페이지 접속 함수
-  const possibleEnterTeampage = () => {
-    console.log('경로', teamLocationID);
-
-    console.log('유저', myUserTeamID);
-
-    if (teamLocationID !== myUserTeamID) {
-      // navigate('/');
-
-      console.log('같지않음');
-    }
-  };
+  // 유저에서 팀 ID 랑 팀페이지 침 ID가 다를 경우 navigate
 
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         getTeamInformation();
-        getMyUserTeamID();
-        possibleEnterTeampage();
+
+        const q = query(
+          collection(db, 'user'),
+          where('uid', '==', authService.currentUser.uid),
+        );
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          const newInfo = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          if (teamLocationID !== newInfo[0]?.teamID[0]) {
+            navigate('/');
+          }
+        });
+        return unsubscribe;
       }
     });
   }, []);
@@ -131,7 +115,7 @@ export default function TeamPage() {
               </ContentChatContainer>
             </ContentContainerR>
           </DashBoardContainer>
-          <MemberChat teamLocationID={teamLocationID} />
+          <MemberChatingRoom teamLocationID={teamLocationID} />
         </WholeContainer>
       </JustContainer>
     </>

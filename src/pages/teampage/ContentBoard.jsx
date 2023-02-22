@@ -11,8 +11,6 @@ import {
 import { onAuthStateChanged } from 'firebase/auth';
 
 export default function ContentBoard({ teamLocationID }) {
-  const [teamID, setTeamID] = useState([]);
-
   // 보드 내용
   const [boardContent, setBoardContent] = useState('');
 
@@ -25,7 +23,6 @@ export default function ContentBoard({ teamLocationID }) {
         id: doc.id,
         ...doc.data(),
       }));
-      setTeamID(newInfo[0]?.id);
       setBoardContentInfo(newInfo);
     });
     return unsubscribe;
@@ -50,7 +47,7 @@ export default function ContentBoard({ teamLocationID }) {
         contentBoard: boardContent,
       };
       try {
-        await updateDoc(doc(db, 'teamPage', teamID), newContentField);
+        await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
       } catch (e) {
         console.log(e);
       } finally {
