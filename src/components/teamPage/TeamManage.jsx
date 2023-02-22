@@ -3,7 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
 import styled from '@emotion/styled';
 import { db, authService } from '../../common/firebase';
-import { query, onSnapshot, collection, doc, getDoc } from 'firebase/firestore';
+import {
+  query,
+  onSnapshot,
+  collection,
+  doc,
+  getDoc,
+  where,
+} from 'firebase/firestore';
 
 export default function TeamManage() {
   const [showOptions, setShowOptions] = useState(false);
@@ -36,7 +43,6 @@ export default function TeamManage() {
         console.log('Error getting document:', error);
       });
   };
-  console.log('d오오오ㅗ오오오', postIdInfo);
 
   // 팀 아이디 받아오기
   const [teamID, setTeamID] = useState([]);
@@ -47,7 +53,9 @@ export default function TeamManage() {
         ids: doc.id,
         ...doc.data(),
       }));
-      setTeamID(postIdInfo);
+      setTeamID(newInfo);
+
+      console.log('뉴인포', newInfo);
     });
     return unsubscribe;
   };
