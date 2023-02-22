@@ -25,7 +25,8 @@ const TeamList = () => {
 
   // teamPage teamMember 데이터
   const myTeamMember = myAppliedMeeting.map(item => item.teamMember)
-  console.log('나의 팀 멤버', myTeamMember);
+  // const myTeamMemberNickName = myTeamMember.map(item => item.nickName)
+  console.log('나의 팀 멤버', myTeamMember, myTeamMember.flat());
   
   
   // 참여 신청 수락 후 데이터(진행 중 모임)
