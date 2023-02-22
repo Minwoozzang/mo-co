@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
-export default function ContentRule() {
+export default function ContentRule({ teamLocationID }) {
   const [content, setContent] = useState('');
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
@@ -44,7 +44,7 @@ export default function ContentRule() {
         id: doc.id,
         ...doc.data(),
       }));
-      setTeamID('24ddd57a-c511-4732-be77-dfa5651b2249');
+      setTeamID(teamLocationID);
       setContentInfo(newInfo);
     });
     return unsubscribe;
@@ -124,9 +124,7 @@ export default function ContentRule() {
           <ContentCard>
             <div>
               {contentInfo
-                .filter(
-                  (item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249',
-                )
+                .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return <div key={item.id}>{item.contentRule}</div>;
                 })}

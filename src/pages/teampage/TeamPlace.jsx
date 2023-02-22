@@ -25,8 +25,6 @@ export default function TeamPlace() {
   const [placeX, setPlaceX] = useState(33.450701);
   const [placeY, setPlaceY] = useState(126.570667);
 
-  console.log('ddd', placeX);
-
   const [idUid, setidUid] = useState([]);
   const postGetTeamID = () => {
     const q = query(

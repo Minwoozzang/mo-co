@@ -149,6 +149,22 @@ const MateWrite = () => {
                 teamID: [..._teamID, teamID],
               });
             })
+            .then(() => {
+              setDoc(doc(db, 'teamChat', teamID), {
+                teamID,
+                // message: [
+                //   {
+                //     comment: '',
+                //     uid: authService.currentUser.uid,
+                //     profileImg: profileUserInfo,
+                //     nickName:''
+                //   },
+                // ],
+              });
+            })
+            .catch(() => {
+              console.log('채팅 에러');
+            })
             .catch(() => {
               console.log('user 에러');
             });
