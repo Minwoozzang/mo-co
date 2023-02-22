@@ -1,14 +1,42 @@
 import styled from '@emotion/styled';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, deleteField, doc, updateDoc } from 'firebase/firestore';
 import { IoMdClose } from 'react-icons/io';
 import { db } from '../../common/firebase';
 
 const CustomConfirmUI = (props) => {
-  console.log(props.data.uid);
-  const updateIsWait = (uid) => {
-    console.log('uid', uid);
-    updateDoc(doc(db, 'teamPage', props.id), {});
+  // 본인 아이디
+  const myId = props.data.nickName;
+  const myInfo = props.data;
+  //  팀 멤버
+  const member = props.item;
+  const otherMember = member.filter((d) => d.nickName !== myId);
 
+  // 수락할 경우
+  const updateIsWait = (uid) => {
+    console.log('수락', uid);
+    updateDoc(doc(db, 'teamPage', props.id), {
+      teamMember: [
+        ...otherMember,
+        {
+          isWait: false,
+          joinMessage: myInfo.joinMessage,
+          nickName: myInfo.nickName,
+          profileImg: myInfo.profileImg,
+          teamPositon: myInfo.teamPositon,
+          uid: myInfo.uid,
+        },
+      ],
+    });
+
+    props.onClose();
+  };
+
+  // 거절할 경우
+  const rejectSuggestion = (uid) => {
+    console.log('거절', uid);
+    updateDoc(doc(db, 'user', uid), {
+      teamID: deleteField(),
+    });
     props.onClose();
   };
 
@@ -29,7 +57,9 @@ const CustomConfirmUI = (props) => {
           </ConfirmText>
         </TextBox>
         <BtnBox>
-          <ConfirmCancelBtn onClick={props.onClose}>거절</ConfirmCancelBtn>
+          <ConfirmCancelBtn onClick={() => rejectSuggestion(props.data.uid)}>
+            거절
+          </ConfirmCancelBtn>
           <ConfirmDeleteBtn onClick={() => updateIsWait(props.data.uid)}>
             수락
           </ConfirmDeleteBtn>

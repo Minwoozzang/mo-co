@@ -74,7 +74,15 @@ const DetailRecruit = () => {
           profileImg: myProfileImg,
         },
       ],
-    });
+    })
+      .then(() => {
+        updateDoc(doc(db, 'user', authService.currentUser.uid), {
+          teamID: post.teamID,
+        });
+      })
+      .catch(() => {
+        console.log('참여 신청 에러');
+      });
     console.log('참여 완료');
     setIsModalOpen(false);
   };

@@ -98,7 +98,7 @@ const Home = () => {
     <>
       <MocoChat />
       <HomeBanner />
-      <HomeGuideText />
+      <HomeGuideText currentUser={currentUser} />
       <HomeMeetingList
         recommendTechList={recommendTechList}
         recommendTimeList={recommendTimeList}

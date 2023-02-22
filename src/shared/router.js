@@ -34,7 +34,7 @@ const Router = () => {
         <Route path="/write" element={<MateWrite />} />
         <Route path="/edit/:id" element={<MateEdit />} />
         <Route path="/search/:word" element={<Search />} />
-        <Route path="/teamlist" element={<TeamList />} />
+        <Route path="/teamlist/:nickname" element={<TeamList />} />
         {/* 테스트페이지 */}
         <Route path="/test" element={<Test />} />
       </Routes>
