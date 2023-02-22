@@ -12,6 +12,9 @@ const TeamList = () => {
   
   const [postList, setPostList] = useState([]);
   const [teamPage, setTeamPage] = useState([]);
+
+  // teamPage로 가는 버튼 팀리스트에서만 보이게하기
+  const [show, setShow] = useState(true);
   
   // teamPage teamMember에서 내 닉네임이 포함된 teamPage 데이터
   let myAppliedMeeting = [];
@@ -37,6 +40,8 @@ const TeamList = () => {
 
   // 진행 중 모임
   const onGoingMeeting = approvedMeeting?.concat(myOnGoingMeeting); //리더 표시해주기
+  console.log('리더표시할 데이터', myOnGoingMeeting )
+  console.log('리더 표시X', approvedMeeting)
 
   // 참여 신청 데이터 -> postList에서 불러와야 됨
   // 내 닉네임이 포함된 데이터에서 teamID만 추출
@@ -84,9 +89,6 @@ const TeamList = () => {
   const goToTeamPage = (id) => {
     navigate(`/teamPage/${id}`, { state: id });
   };
-
-  // teamPage로 가는 버튼 팀리스트에서만 보이게하기
-  const [show, setShow] = useState(true); 
 
   //post 데이터 불러오기
   useEffect(() => {
