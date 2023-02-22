@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import MessageHeader from './MessageHeader';
 import MessageForm from './MessageForm';
-import { getDatabase, onValue, ref } from '@firebase/database';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from '../../../common/firebase';
 import MessageBox from './MessageBox';
 import { v4 } from 'uuid';
 
-export default function MemberChat() {
+export default function MemberChat({ teamLocationID }) {
   // 스크롤
   const scrollRef = useRef(null);
 
@@ -17,17 +18,24 @@ export default function MemberChat() {
   // 메시지 정보 가져오기
   const [AddMessage, setAddtMessage] = useState([]);
 
-  const getMessageData = () => {
-    const db = getDatabase();
-    const starCountRef = ref(db, 'messages');
-    onValue(starCountRef, (snapshot) => {
-      AddMessage.push(snapshot.val());
-      setAddtMessage([...AddMessage]);
+  const getChatMessage = () => {
+    const q = query(
+      collection(db, 'teamChat'),
+      where('teamID', '==', teamLocationID),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setAddtMessage(newInfo[0]?.message);
     });
+
+    return unsubscribe;
   };
 
   useEffect(() => {
-    getMessageData();
+    getChatMessage();
     scrollEvent();
   }, []);
 
@@ -38,12 +46,12 @@ export default function MemberChat() {
       </ContentTitle>
       <SideWrapper>
         <ContentChatArea ref={scrollRef}>
-          {AddMessage.map((team) => {
-            return <MessageBox key={v4()} team={team} />;
+          {AddMessage.map((t) => {
+            return <MessageBox key={v4()} t={t} />;
           })}
         </ContentChatArea>
         <hr />
-        <MessageForm />
+        <MessageForm teamLocationID={teamLocationID} />
       </SideWrapper>
     </ContentChatContainer>
   );
