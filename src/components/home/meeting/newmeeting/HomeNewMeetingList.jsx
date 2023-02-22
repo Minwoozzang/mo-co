@@ -8,12 +8,12 @@ import {
   NewMeetingTitle,
   NewMeetingTitleBox,
 } from '../../../homestyle/homenewmeeting';
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { useQueries } from 'react-query';
 import { getPost, getUser } from '../../../../common/utils/getApi';
 import { useEffect } from 'react';
 
-const HomeNewMeetingList = ({ postList }) => {
+const HomeNewMeetingList = ({ data }) => {
   // const result = useQueries([
   //   {
   //     queryKey: ['user'],
@@ -40,17 +40,16 @@ const HomeNewMeetingList = ({ postList }) => {
           <NewMeetingArrow>
             <AiOutlineArrowLeft size="36" />
           </NewMeetingArrow>
-        <NewMeetingCardBox>
-          {postList.slice(0,4).map((item) => (
-            <CardSection 
-              key={item.id} 
-              item={item}
-              />
-          ))}
-        </NewMeetingCardBox>
-        <NewMeetingArrow>
-        <AiOutlineArrowRight size="36" />
-        </NewMeetingArrow>
+          <NewMeetingCardBox>
+            {data
+              ? data
+                  .slice(0, 4)
+                  .map((item) => <CardSection key={item.id} item={item} />)
+              : []}
+          </NewMeetingCardBox>
+          <NewMeetingArrow>
+            <AiOutlineArrowRight size="36" />
+          </NewMeetingArrow>
         </NewMeetingCardWrap>
       </NewMeetingListBox>
     </NewMeetingArea>

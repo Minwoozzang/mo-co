@@ -10,9 +10,12 @@ import { db } from '../../common/firebase';
 import { query, onSnapshot, collection } from 'firebase/firestore';
 import { Pagination } from 'antd';
 import { emailRegex } from './../../common/utils';
+import usePosts from '../../hooks/usePost';
 
 const MateList = () => {
-  // 필터 옵션 상태
+  const { data, isLoading, isError, error } = usePosts();
+  console.log('🚀 ~ file: MateList.jsx:17 ~ MateList ~ data:', data);
+
   const [selectedTech, setSelectedTech] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
@@ -49,19 +52,19 @@ const MateList = () => {
   };
 
   // post 컬렉션에서 데이터 가져오는 함수
-  const getPostData = async () => {
-    const postCollectionRef = collection(db, 'post');
-    const q = query(postCollectionRef);
-    const getPost = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setCardAll(data.filter((item) => item.isDeleted === false));
-    });
-  };
+  // const getPostData = async () => {
+  //   const postCollectionRef = collection(db, 'post');
+  //   const q = query(postCollectionRef);
+  //   const getPost = onSnapshot(q, (snapshot) => {
+  //     const data = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setCardAll(data.filter((item) => item.isDeleted === false));
+  //   });
+  // };
 
-  let DATA = [...cardAll];
+  let DATA = data;
 
   // 페이지네이션
   // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
@@ -100,9 +103,9 @@ const MateList = () => {
 
   // console.log(DATA);
 
-  useEffect(() => {
-    getPostData();
-  }, []);
+  // useEffect(() => {
+  //   getPostData();
+  // }, []);
 
   return (
     <>
@@ -149,7 +152,7 @@ const MateList = () => {
           defaultCurrent={1}
           defaultPageSize={3}
           onChange={handleChange}
-          total={DATA.length}
+          total={DATA ? DATA.length : 0}
         />
       </PaginationContainer>
     </>
