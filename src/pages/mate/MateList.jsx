@@ -64,12 +64,11 @@ const MateList = () => {
   let DATA = [...cardAll];
 
   // 페이지네이션
+  // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(3);
 
   const handleChange = (page) => {
-    console.log(DATA);
-
     setMinValue(page * 3 - 3);
     setMaxValue(page * 3);
   };
@@ -150,7 +149,6 @@ const MateList = () => {
           defaultCurrent={1}
           defaultPageSize={3}
           onChange={handleChange}
-          //Math.ceil(DATA / 16)값으로 변경해줄 수 있다면...!
           total={DATA.length}
         />
       </PaginationContainer>
