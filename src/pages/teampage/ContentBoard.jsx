@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
-export default function ContentBoard() {
+export default function ContentBoard({ teamLocationID }) {
   const [teamID, setTeamID] = useState([]);
 
   // 보드 내용
@@ -82,9 +82,7 @@ export default function ContentBoard() {
           <ContentCard>
             <div>
               {boardContentInfo
-                .filter(
-                  (item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249',
-                )
+                .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return <div key={item.id}>{item.contentBoard}</div>;
                 })}
