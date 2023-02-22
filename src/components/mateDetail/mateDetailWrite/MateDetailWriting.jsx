@@ -13,6 +13,7 @@ import {
   UserHr,
 } from './MateDetailWritingstyle';
 import parse from 'html-react-parser';
+// import default_profile from '../../../assets/default_profile.png';
 
 // getDoc 사용 doc
 const MateDetailWriting = () => {
@@ -41,7 +42,9 @@ const MateDetailWriting = () => {
       <GroupWrap>
         <GroupHeader>{post.partyPostTitile}</GroupHeader>
         <GroupUserInfo>
-          <GroupImg>
+          <GroupImg
+          // src={!item.profileImg ? default_profile : item.profileImg}
+          >
             {/* 파이어베이스 post에 정보값이 없음 */}
             {/* {post.profileImg} */}
           </GroupImg>
