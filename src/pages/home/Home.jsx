@@ -4,15 +4,8 @@ import HomeGuideText from '../../components/home/HomeGuideText';
 import HomeBanner from '../../components/home/HomeBanner';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
-import { useQueries } from 'react-query';
 import { authService, db } from '../../common/firebase';
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 import MocoChat from '../../components/mocoChat/MocoChatIcon';
 import { Modal } from 'antd';
 import AddInfoModal from '../../components/home/AddInfoModal';
@@ -22,7 +15,6 @@ import usePosts from '../../hooks/usePost';
 const Home = () => {
   const { data, isLoading, isError, error } = usePosts();
   console.log('🚀 ~ file: Home.jsx:24 ~ Home ~ data:', data);
-
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
   console.log('🚀 ~ file: Home.jsx:24 ~ Home ~ currentUser:', currentUser);
@@ -33,10 +25,10 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   //* 신규 유저 여부 상태
   const [isClosed, SetIsClosed] = useState(false);
-  // const [postList, setPostList] = useState([]);
+  //* 유저 콜렉션 데이터
   const [userList, setUserList] = useState([]);
 
-  // ! 추가 정보 등록 모달 핸들러
+  // 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
     if (creationTime === lastSignInTime && currentUser && isClosed === false) {
       setIsModalOpen(true);
@@ -44,14 +36,16 @@ const Home = () => {
     }
   };
 
-  // ! 모달 닫기 핸들러
+  // 모달 닫기 핸들러
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
 
+  // 사용자 맞춤 리스트
   const currentUserData = userList.filter(
     (item) => item.uid === currentUser?.uid,
   );
+
   const recommendTechList = data
     ? data.filter(
         (item) =>
@@ -61,13 +55,7 @@ const Home = () => {
           ),
       )
     : [];
-  // const recommendTechList = data.filter(
-  //   (item) =>
-  //     !item.isDeleted &&
-  //     item.partyStack.includes(
-  //       currentUserData[0]?.moreInfo?.u_stack.toString(),
-  //     ),
-  // );
+
   const recommendTimeList = data
     ? data.filter(
         (item) =>
@@ -75,6 +63,7 @@ const Home = () => {
           item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
       )
     : [];
+
   const recommendLocationList = data
     ? data.filter(
         (item) =>
@@ -82,19 +71,6 @@ const Home = () => {
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
-
-  // useEffect(() => {
-  //   const postCollectionRef = collection(db, 'post');
-  //   const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
-  //   const getPost = onSnapshot(q, (snapshot) => {
-  //     const postData = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setPostList(postData);
-  //   });
-  //   return getPost;
-  // }, []);
 
   //postList -> 로그인 안 됐을 시 안보이게
   useEffect(() => {
