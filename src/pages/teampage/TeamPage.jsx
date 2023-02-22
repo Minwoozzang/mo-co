@@ -50,7 +50,7 @@ export default function TeamPage() {
             id: doc.id,
             ...doc.data(),
           }));
-          if (teamLocationID !== newInfo[0]?.teamID[0]) {
+          if (teamLocationID !== newInfo[0]?.teamID) {
             navigate('/');
           }
         });

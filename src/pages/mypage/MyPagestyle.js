@@ -9,7 +9,7 @@ export const MyPageBody = styled.div`
 `;
 
 export const MySection = styled.div`
-  width: 1200px;
+  width: 1300px;
 
   margin-top: 80px;
 
@@ -21,7 +21,7 @@ export const MyProfilSection = styled.div`
 `;
 
 export const MyInfoSection = styled.div`
-  width: 1000px;
+  width: 1300px;
 
   margin-left: 100px;
 `;
