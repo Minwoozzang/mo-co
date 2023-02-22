@@ -29,7 +29,7 @@ import { v4 } from 'uuid';
 import SideMemberList from './SideMemberList';
 import WaitMemberList from './WaitMemberList';
 
-export default function MemberSide() {
+export default function MemberSide({ teamLocationID }) {
   const [nickName, setNickName] = useState('');
   const [profileImg, setProfileImg] = useState('');
 
@@ -113,7 +113,7 @@ export default function MemberSide() {
 
         {/* 팅장 */}
         {teamLeaderInfo
-          .filter((item) => item.id === '7517ca89-7df6-40fc-8686-8d2790d4faf8')
+          .filter((item) => item.id === teamLocationID)
           .map((item) => {
             return (
               <LeaderInfoProfile key={item.id}>
@@ -144,7 +144,7 @@ export default function MemberSide() {
           })}
 
         {teamMemberInfo
-          .filter((item) => item.id === '7517ca89-7df6-40fc-8686-8d2790d4faf8')
+          .filter((item) => item.id === teamLocationID)
           .map((item) => {
             return <SideMemberList item={item} key={v4()} />;
           })}
@@ -153,9 +153,7 @@ export default function MemberSide() {
           <WaitMemberTitle>참여 신청</WaitMemberTitle>
           <WaitMemberListBox>
             {teamMemberInfo
-              .filter(
-                (item) => item.id === '7517ca89-7df6-40fc-8686-8d2790d4faf8',
-              )
+              .filter((item) => item.id === teamLocationID)
               .map((item) => {
                 return <WaitMemberList item={item} key={v4()} />;
               })}

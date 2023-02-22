@@ -143,19 +143,23 @@ const MateWrite = () => {
               partyLocation,
               partyTime,
             },
-          })
-            .then(() => {
-              updateDoc(doc(db, 'user', authService.currentUser.uid), {
-                teamID: [..._teamID, teamID],
-              });
-            })
-            .catch(() => {
-              console.log('user 에러');
-            });
+          });
+        })
+        .then(() => {
+          updateDoc(doc(db, 'user', authService.currentUser.uid), {
+            teamID: [teamID],
+          });
+        })
+        .then(() => {
+          setDoc(doc(db, 'teamChat', teamID), {
+            teamID,
+            message: [],
+          });
         })
         .catch(() => {
-          console.log('team 에러');
+          console.log('팀페이지 에러');
         });
+
       console.log('업로드 성공');
       navigate(`/mate`);
     } catch (error) {
@@ -167,7 +171,6 @@ const MateWrite = () => {
     if (!currentUser) return;
     getUserInfo();
     getLeaderImg();
-    console.log(currentUser);
   }, [currentUser]);
 
   return (

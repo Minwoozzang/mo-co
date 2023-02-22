@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import MemberSide from '../../components/teamPage/MemberSide';
-import MemberChat from '../../components/teamPage/chat/MemberChat';
-import { collection, query, onSnapshot } from 'firebase/firestore';
+import { collection, query, onSnapshot, where } from 'firebase/firestore';
 import { authService, db } from '../../common/firebase';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import ContentRule from './ContentRule';
 import ContentBoard from './ContentBoard';
 import TeamManage from '../../components/teamPage/TeamManage';
 import TeamPlace from './TeamPlace';
 import { onAuthStateChanged } from '@firebase/auth';
+import MemberChatingRoom from '../../components/teamPage/chat/MemberChatingRoom';
 
 export default function TeamPage() {
+  const navigate = useNavigate();
+
+  // 경로 id 받아오기
+  const location = useLocation();
+  const teamLocationID = location.state;
   // 팀 정보 가져오기
   const [teamList, setTeamList] = useState([]);
   const getTeamInformation = () => {
@@ -29,11 +34,27 @@ export default function TeamPage() {
     return getPost;
   };
 
+  // 유저에서 팀 ID 랑 팀페이지 침 ID가 다를 경우 navigate
+
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
-        // getMyInformation();
         getTeamInformation();
+
+        const q = query(
+          collection(db, 'user'),
+          where('uid', '==', authService.currentUser.uid),
+        );
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          const newInfo = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          if (teamLocationID !== newInfo[0]?.teamID[0]) {
+            navigate('/');
+          }
+        });
+        return unsubscribe;
       }
     });
   }, []);
@@ -42,13 +63,11 @@ export default function TeamPage() {
     <>
       <JustContainer>
         <WholeContainer>
-          <MemberSide />
+          <MemberSide teamLocationID={teamLocationID} />
           {/* TODO: 추후 아이디 변경 */}
           <DashBoardContainer>
             {teamList
-              .filter(
-                (item) => item.id === '7517ca89-7df6-40fc-8686-8d2790d4faf8',
-              )
+              .filter((item) => item.id === teamLocationID)
               .map((item) => {
                 return (
                   <DashboardHeaderWrap key={item.id}>
@@ -57,7 +76,7 @@ export default function TeamPage() {
                         {item.teamPartyStack.partyName}
                       </DashboardTitle>
                       <JustWrap>
-                        <TeamManage />
+                        <TeamManage teamLocationID={teamLocationID} />
                       </JustWrap>
                     </TitleManageWrap>
                     <ProjectBasicStatus>
@@ -85,18 +104,18 @@ export default function TeamPage() {
             <ContentContainerR>
               <ContentContainer>
                 <ContenRuleAndPlace>
-                  <TeamPlace />
-                  <ContentRule />
+                  <TeamPlace teamLocationID={teamLocationID} />
+                  <ContentRule teamLocationID={teamLocationID} />
                 </ContenRuleAndPlace>
               </ContentContainer>
               <ContentChatContainer>
                 <ContentChat>
-                  <ContentBoard />
+                  <ContentBoard teamLocationID={teamLocationID} />
                 </ContentChat>
               </ContentChatContainer>
             </ContentContainerR>
           </DashBoardContainer>
-          <MemberChat />
+          <MemberChatingRoom teamLocationID={teamLocationID} />
         </WholeContainer>
       </JustContainer>
     </>

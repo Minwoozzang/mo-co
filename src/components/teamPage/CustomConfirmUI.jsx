@@ -12,8 +12,7 @@ const CustomConfirmUI = (props) => {
   const otherMember = member.filter((d) => d.nickName !== myId);
 
   // 수락할 경우
-  const updateIsWait = (uid) => {
-    console.log('수락', uid);
+  const updateIsWait = () => {
     updateDoc(doc(db, 'teamPage', props.id), {
       teamMember: [
         ...otherMember,
@@ -34,9 +33,9 @@ const CustomConfirmUI = (props) => {
   // 거절할 경우
   const rejectSuggestion = (uid) => {
     console.log('거절', uid);
-    updateDoc(doc(db, 'user', uid), {
-      teamID: deleteField(),
-    });
+    // updateDoc(doc(db, 'user', uid), {
+    //   teamID: deleteField(),
+    // });
     props.onClose();
   };
 
@@ -57,10 +56,8 @@ const CustomConfirmUI = (props) => {
           </ConfirmText>
         </TextBox>
         <BtnBox>
-          <ConfirmCancelBtn onClick={() => rejectSuggestion(props.data.uid)}>
-            거절
-          </ConfirmCancelBtn>
-          <ConfirmDeleteBtn onClick={() => updateIsWait(props.data.uid)}>
+          <ConfirmCancelBtn onClick={rejectSuggestion}>거절</ConfirmCancelBtn>
+          <ConfirmDeleteBtn onClick={() => updateIsWait(props.data)}>
             수락
           </ConfirmDeleteBtn>
         </BtnBox>

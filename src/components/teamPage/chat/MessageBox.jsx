@@ -8,15 +8,15 @@ import {
   MessageContent,
 } from './messageBoxStyle';
 
-const MessageBox = ({ team }) => {
+const MessageBox = ({ t }) => {
   return (
     <MessageSection>
       <MessageImageBox>
-        <MessageImage src={team.user.image} alt="" />
+        <MessageImage src={t?.profileImg} alt="" />
       </MessageImageBox>
       <MessageTextBox>
-        <MessageNickName>{team.user.name}</MessageNickName>
-        <MessageContent>{team.content}</MessageContent>
+        <MessageNickName>{t?.nickName}</MessageNickName>
+        <MessageContent>{t?.comment}</MessageContent>
       </MessageTextBox>
     </MessageSection>
   );

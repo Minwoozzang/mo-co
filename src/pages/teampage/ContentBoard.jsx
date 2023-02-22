@@ -10,9 +10,7 @@ import {
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 
-export default function ContentBoard() {
-  const [teamID, setTeamID] = useState([]);
-
+export default function ContentBoard({ teamLocationID }) {
   // 보드 내용
   const [boardContent, setBoardContent] = useState('');
 
@@ -25,7 +23,6 @@ export default function ContentBoard() {
         id: doc.id,
         ...doc.data(),
       }));
-      setTeamID(newInfo[0]?.id);
       setBoardContentInfo(newInfo);
     });
     return unsubscribe;
@@ -50,7 +47,7 @@ export default function ContentBoard() {
         contentBoard: boardContent,
       };
       try {
-        await updateDoc(doc(db, 'teamPage', teamID), newContentField);
+        await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
       } catch (e) {
         console.log(e);
       } finally {
@@ -82,9 +79,7 @@ export default function ContentBoard() {
           <ContentCard>
             <div>
               {boardContentInfo
-                .filter(
-                  (item) => item.id === '24ddd57a-c511-4732-be77-dfa5651b2249',
-                )
+                .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return <div key={item.id}>{item.contentBoard}</div>;
                 })}

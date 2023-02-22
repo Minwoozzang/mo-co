@@ -84,7 +84,7 @@ export const HeaderImage = styled.img`
 
 export const HeaderDropDownListBox = styled.div`
   width: 250px;
-  height: 400px;
+  height: 350px;
 
   margin-top: 10px;
 
@@ -155,7 +155,7 @@ export const HeaderDropDownList = styled.li`
 
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;
-  height: 200px;
+  height: 100px; //200px
   margin-top: 10px;
   border-radius: 5px;
   background-color: white;
@@ -207,7 +207,7 @@ export const HeaderSearchDropDownHr = styled.div`
   width: 90%;
   border: 0.5px solid gray;
   margin: 0 auto;
-`
+`;
 
 export const HeaderSearchBox = styled.div`
   display: flex;
@@ -230,5 +230,5 @@ export const HeaderSearchInputBtn = styled.button`
   border: none;
   width: 40px;
   height: 25px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 `;

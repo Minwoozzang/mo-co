@@ -16,7 +16,7 @@ import styled from '@emotion/styled';
 import TeamPlaceModal from '../../components/teamPage/TeamPlaceModal';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
-export default function TeamPlace() {
+export default function TeamPlace({ teamLocationID }) {
   const [place, setPlace] = useState([]);
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
@@ -24,8 +24,6 @@ export default function TeamPlace() {
   const [placeName, setPlaceName] = useState('');
   const [placeX, setPlaceX] = useState(33.450701);
   const [placeY, setPlaceY] = useState(126.570667);
-
-  console.log('ddd', placeX);
 
   const [idUid, setidUid] = useState([]);
   const postGetTeamID = () => {
@@ -81,7 +79,7 @@ export default function TeamPlace() {
         contentPlaceAddress: placeName,
       };
       try {
-        await updateDoc(doc(db, 'teamPage', teamID), newContentField);
+        await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
       } catch (e) {
         console.log(e);
       } finally {
@@ -174,7 +172,7 @@ export default function TeamPlace() {
                   <div>{placeName}</div>
                 </PlaceTextWrap>
               </PlaceWrap>
-              {modal == true ? (
+              {modal === true ? (
                 <TeamPlaceModal
                   modal={modal}
                   onClose={() => {
