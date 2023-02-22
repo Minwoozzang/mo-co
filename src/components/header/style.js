@@ -155,7 +155,7 @@ export const HeaderDropDownList = styled.li`
 
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;
-  height: 200px;
+  height: 100px; //200px
   margin-top: 10px;
   border-radius: 5px;
   background-color: white;

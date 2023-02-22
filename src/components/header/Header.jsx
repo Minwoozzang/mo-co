@@ -202,7 +202,7 @@ const Header = () => {
                   </HeaderSearchInputBtn>
                   </HeaderSearchBox>
                   </HeaderSearchDropDownListSection>
-                  <HeaderSearchDropDownHr />
+                  {/* <HeaderSearchDropDownHr /> */}
                 </HeaderSearchDropDownListBox>
               </>
             ) : (
