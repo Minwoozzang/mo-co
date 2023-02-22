@@ -11,7 +11,14 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import { opens } from '../../data/opens';
 import { db, authService } from '../../common/firebase';
-import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  query,
+  onSnapshot,
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
 // 이메일로 가입 시, 글 작성이 안 된다는 이슈가 있었음. 확인 요망.
 
@@ -45,6 +52,7 @@ const MateEdit = () => {
   const [selectedTech, setSelectedTech] = useState([]);
   const [changedDesc, setChangedDesc] = useState('');
   const [writtenDesc, setWrittenDesc] = useState('');
+  const [postIdInfo, setPostIdInfo] = useState([]);
   console.log(
     '🚀 ~ file: MateEdit.jsx:47 ~ MateEdit ~ writtenDesc',
     writtenDesc,
@@ -73,6 +81,7 @@ const MateEdit = () => {
           setPostData(doc.data());
           setSelectedTech(doc.data().partyStack);
           setWrittenDesc(doc.data().partyDesc);
+          setPostIdInfo(doc.data().teamID);
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -82,6 +91,7 @@ const MateEdit = () => {
         console.log('Error getting document:', error);
       });
   };
+  console.log('d오오오ㅗ오오오', postIdInfo);
 
   // 기술 스택 선택 핸들러 함수
   const handlePartyStack = (stack) => {
@@ -99,6 +109,20 @@ const MateEdit = () => {
     setIsDisabled(!isDisabled);
   };
 
+  // 팀 아이디 받아오기
+  const [teamID, setTeamID] = useState([]);
+  const teamGetTeamID = () => {
+    const q = query(collection(db, 'teamPage'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        ids: doc.id,
+        ...doc.data(),
+      }));
+      setTeamID(postIdInfo);
+    });
+    return unsubscribe;
+  };
+
   // ! 모집글 수정 함수
   const handleEditPost = async () => {
     try {
@@ -112,7 +136,19 @@ const MateEdit = () => {
         isRemote,
         partyPostTitile,
         partyDesc: writtenDesc,
-      });
+      })
+        .then(() => {
+          updateDoc(doc(db, 'teamPage', teamID), {
+            teamPartyStack: {
+              partyName,
+              partyTime,
+              partyLocation,
+            },
+          });
+        })
+        .catch(() => {
+          console.log('에러남');
+        });
       navigate(`/matedetail/${id}`);
       console.log('수정 성공');
     } catch (error) {
@@ -124,6 +160,7 @@ const MateEdit = () => {
     if (!currentUser) return;
     getUserInfo();
     getPostData();
+    teamGetTeamID();
     console.log(currentUser);
   }, []);
 

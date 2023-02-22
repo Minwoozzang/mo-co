@@ -1,9 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
 import styled from '@emotion/styled';
+import { db, authService } from '../../common/firebase';
+import { query, onSnapshot, collection, doc, getDoc } from 'firebase/firestore';
 
 export default function TeamManage() {
   const [showOptions, setShowOptions] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const currentUser = authService.currentUser;
+  const [postIdInfo, setPostIdInfo] = useState([]);
+
+  useEffect(() => {
+    if (!currentUser) return;
+    getPostData();
+    teamGetTeamID();
+    console.log(currentUser);
+  }, []);
+
+  const getPostData = async () => {
+    const postRef = await doc(db, 'post', id);
+    getDoc(postRef)
+      .then((doc) => {
+        if (doc.exists()) {
+          console.log('Document data:', doc.data());
+
+          setPostIdInfo(doc.data().teamID);
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+        }
+      })
+      .catch((error) => {
+        console.log('Error getting document:', error);
+      });
+  };
+  console.log('d오오오ㅗ오오오', postIdInfo);
+
+  // 팀 아이디 받아오기
+  const [teamID, setTeamID] = useState([]);
+  const teamGetTeamID = () => {
+    const q = query(collection(db, 'teamPage'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        ids: doc.id,
+        ...doc.data(),
+      }));
+      setTeamID(postIdInfo);
+    });
+    return unsubscribe;
+  };
+
+  const navigateWrite = () => {
+    navigate('/');
+  };
 
   return (
     <>
