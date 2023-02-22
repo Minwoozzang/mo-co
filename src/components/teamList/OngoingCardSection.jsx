@@ -16,7 +16,7 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
         </OngoingMeetingTagBox>
         <OngoingMeetingPartyName>
           {/* IOS/안드로이드 앱개발자들의 모각코 */}
-          {item?.teamID}
+          {item?.teamPartyStack?.partyName}
         </OngoingMeetingPartyName>
         <OngoingMeetingStackWrapper>
           <StackBox>

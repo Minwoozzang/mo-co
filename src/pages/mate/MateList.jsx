@@ -7,29 +7,36 @@ import FilterLocation from '../../shared/FilterLocation';
 import FilterTime from '../../shared/FilterTime';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import { db } from '../../common/firebase';
-import { query, onSnapshot, collection } from 'firebase/firestore';
 import { Pagination } from 'antd';
-import { emailRegex } from './../../common/utils';
+import usePosts from '../../hooks/usePost';
 
 const MateList = () => {
-  // 필터 옵션 상태
+  const { data, isLoading, isError, error } = usePosts();
+  console.log('🚀 ~ file: MateList.jsx:17 ~ MateList ~ data:', data);
+
   const [selectedTech, setSelectedTech] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedNumOfMember, setSelectedNumOfMember] = useState('');
   // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
-
   //페이지네이션
   // const [currentPage, setCurrentPage] = useState(2);
+  // 페이지네이션
+  // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(3);
 
-  // selectedTech를 텍스트로 담아둠
+  // selectedTech 배열을 텍스트로 변환
   const selectedTechText = [...selectedTech]
     .map((item) => item.value)
     .join(',');
 
-  // post 컬렉션 데이터 상태
-  const [cardAll, setCardAll] = useState([]);
+  // 페이지네이션 핸들러
+  const handleChange = (page) => {
+    setMinValue(page * 3 - 3);
+    setMaxValue(page * 3);
+  };
 
   // 필터 옵션 선택 핸들러
   const handleSelectTech = (tech) => {
@@ -48,30 +55,7 @@ const MateList = () => {
     setSelectedNumOfMember(numOfMember);
   };
 
-  // post 컬렉션에서 데이터 가져오는 함수
-  const getPostData = async () => {
-    const postCollectionRef = collection(db, 'post');
-    const q = query(postCollectionRef);
-    const getPost = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setCardAll(data.filter((item) => item.isDeleted === false));
-    });
-  };
-
-  let DATA = [...cardAll];
-
-  // 페이지네이션
-  // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(3);
-
-  const handleChange = (page) => {
-    setMinValue(page * 3 - 3);
-    setMaxValue(page * 3);
-  };
+  let DATA = data;
 
   // 기술을 여러 개 선택했을 때는 필터가 작동을 안 함
   if (selectedTech.length > 0) {
@@ -97,12 +81,6 @@ const MateList = () => {
   if (selectedSort === 'byNewest') {
     DATA = DATA.sort((a, b) => b.createdAt - a.createdAt);
   }
-
-  // console.log(DATA);
-
-  useEffect(() => {
-    getPostData();
-  }, []);
 
   return (
     <>
@@ -149,7 +127,7 @@ const MateList = () => {
           defaultCurrent={1}
           defaultPageSize={3}
           onChange={handleChange}
-          total={DATA.length}
+          total={DATA ? DATA.length : 0}
         />
       </PaginationContainer>
     </>
