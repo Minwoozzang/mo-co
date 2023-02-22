@@ -1,132 +1,142 @@
 import styled from '@emotion/styled';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { authService } from '../../common/firebase';
+import { useNavigate, useParams } from 'react-router-dom';
+import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
 import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
-  const [currentUsernickname, setCurrentUsernickname] = useState('');
-  const [isClickedMeeting, setIsClickedMeeting] = useState(true);
-  console.log(isClickedMeeting);
-  const testdata = [
-    {
-      name: '진행 중인 모임',
-      partyLocation: '마포구',
-      bookmark: 1,
-      partyPostTitile: '제목1',
-      partyDesc: '설명1',
-      partyStack: ['React', 'Python'],
-      partyIsOpen: true,
-      partyNum: '3명',
-      nickName: '닉네임1',
-      isApplied: true,
-    },
-    {
-      name: '참여 신청 모임',
-      partyLocation: '용산구',
-      bookmark: 2,
-      partyPostTitile: '제목2',
-      partyDesc: '설명2',
-      partyStack: ['js', 'node'],
-      partyIsOpen: true,
-      partyNum: '2명',
-      nickName: '닉네임2',
-      isApplied: false,
-    },
-    {
-      name: '진행 중인 모임',
-      partyLocation: '종로구',
-      bookmark: 3,
-      partyPostTitile: '제목3',
-      partyDesc: '설명3',
-      partyStack: ['Spring', 'Java'],
-      partyIsOpen: false,
-      partyNum: '4명',
-      nickName: '닉네임3',
-      isApplied: false,
-    },
-    {
-      name: '참여 신청 모임',
-      partyLocation: '용산구',
-      bookmark: 4,
-      partyPostTitile: '제목4',
-      partyDesc: '설명4',
-      partyStack: ['React', 'Next.js'],
-      partyIsOpen: true,
-      partyNum: '3명',
-      nickName: '닉네임4',
-      isApplied: true,
-    },
-    {
-      name: '진행 중인 모임',
-      partyLocation: '노원구',
-      bookmark: 5,
-      partyPostTitile: '제목5',
-      partyDesc: '설명5',
-      partyStack: ['React', 'Next.js'],
-      partyIsOpen: true,
-      partyNum: '2명',
-      nickName: '닉네임5',
-      isApplied: true,
-    },
-  ];
-  const [testList, setTestList] = useState(
-    testdata.filter((item) => item.isApplied === false),
-  );
-  const [testcategory, setTestcategory] = useState([
-    {
-      name: '진행 중인 모임',
-      isClicked: true,
-    },
-    {
-      name: '참여 신청 모임',
-      isClicked: false,
-    },
-  ]);
+  const params = useParams();
+  console.log(params.nickname);
 
-  const onClickedMeeting = (name) => {
-    if (name === '진행 중인 모임') {
-      const clickedCategory = testcategory.map((obj) => {
+  const [postList, setPostList] = useState([]);
+  const [teamPage, setTeamPage] = useState([]);
+
+  // teamPage에서 내 닉네임이 포함된 teamPage 데이터
+  const myAppliedMeeting = teamPage.filter((item) =>
+    item.teamMember[0]?.nickName?.includes(
+      authService?.currentUser?.displayName
+    )
+  );
+  console.log('내 닉네임이 포함된 데이터', myAppliedMeeting);
+  console.log('isWait', myAppliedMeeting[0]?.teamMember[0]?.isWait)
+  const onGoingMeeting = myAppliedMeeting.filter((item) =>
+      item.teamMember[0]?.isWait === false
+  )
+  console.log('진행 중 모임', onGoingMeeting)
+  // 참여 신청 데이터 -> postList에서 불러와야 됨
+  // 내 닉네임이 포함된 데이터에서 teamID만 추출
+  const myAppliedteamID = myAppliedMeeting.map(item => item.teamID)
+  console.log('myAppliedteamID', myAppliedteamID.toString())
+  console.log(myAppliedteamID[0])
+  // console.log(postList[1].uid)
+  // myAppliedteamID가 각각 들어있는 postList 추출
+  const appliedMeeting = postList.filter(item =>
+    // item.teamID in myAppliedteamID
+    myAppliedteamID.includes(item.teamID)
+  )
+  console.log('참여 신청 모임', appliedMeeting)
+
+  // teamPage teamMember isWait : true
+  console.log(
+    '모임 신청 결과, true: 참여 신청, false: 진행 중',
+    myAppliedMeeting[0]?.teamMember[0]?.isWait,
+  );
+  const meetingIsWait = myAppliedMeeting[0]?.teamMember[0]?.isWait;
+  console.log(meetingIsWait);
+  const [myTeamIsWait, setMyTeamIsWait] = useState(false);
+  console.log(myTeamIsWait);
+
+  const [category, setCategory] = useState([
+    {
+      isClicked: true,
+      name: '진행 중 모임',
+    },
+    { isClicked: false, name: '참여 신청 모임' },
+  ]);
+  const isClickedMeeting = () => {
+    if (myTeamIsWait === true) {
+      const clickedCategory = category.map((obj) => {
         return { ...obj, isClicked: !obj.isClicked };
       });
-      setIsClickedMeeting(true);
-      setTestcategory(clickedCategory);
-      setTestList(testdata.filter((item) => item.isApplied === false));
-    } else {
-      const clickedCategory = testcategory.map((obj) => {
+      setMyTeamIsWait(false);
+      setCategory(clickedCategory);
+    }
+    if (myTeamIsWait === false) {
+      const clickedCategory = category.map((obj) => {
         return { ...obj, isClicked: !obj.isClicked };
       });
-      setIsClickedMeeting(false);
-      setTestcategory(clickedCategory);
-      setTestList(testdata.filter((item) => item.isApplied === true));
+      setMyTeamIsWait(true);
+      setCategory(clickedCategory);
     }
   };
-  console.log(testList);
-//   useEffect(() => {
-//     const getcurrentUserName = authService.currentUser?.displayName;
-//     setCurrentUsernickname(getcurrentUserName)
-//   }, [])
-//   console.log(currentUsernickname)
+
+  console.log('postList', postList);
+  console.log('teamPage', teamPage);
+  console.log(teamPage[0]?.teamLeader?.isWait);
+  console.log(teamPage[0]?.teamID);
+
+  // teamPage/teamID 로 이동
+  const navigate = useNavigate();
+  const goToTeamPage = (id) => {
+    navigate(`/teamPage/${id}`)
+  }
+
+  //post 데이터 불러오기
+  useEffect(() => {
+    const postCollectionRef = collection(db, 'post');
+    const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
+    const getPost = onSnapshot(q, (snapshot) => {
+      const postData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPostList(postData);
+    });
+    return getPost;
+  }, []);
+
+  // teamPage 데이터 불러오기
+  useEffect(() => {
+    const teamPageCollectionRef = collection(db, 'teamPage');
+    const q = query(teamPageCollectionRef);
+    const getTeamPage = onSnapshot(q, (snapshot) => {
+      const teamPageData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamPage(teamPageData);
+    });
+    return getTeamPage;
+  }, []);
 
   return (
     <TeamListContainer>
-      <UserMeetingTitle>{authService.currentUser?.displayName}님의 코딩모임</UserMeetingTitle>
+      <UserMeetingTitle>
+        {params.nickname}님의 코딩모임
+      </UserMeetingTitle>
       <MeetingCategory>
-        {testcategory.map((item, idx) => (
+        {category.map((item, idx) => (
           <TeamListCategory
             key={idx}
             item={item}
-            onClickedMeeting={onClickedMeeting}
+            isClickedMeeting={isClickedMeeting}
           />
         ))}
       </MeetingCategory>
       <CardContainer>
-        {isClickedMeeting
-          ? testList.map((item, idx) => (
-              <OngoingCardSection key={idx} item={item} />
+        {myTeamIsWait
+          ? appliedMeeting.map((item, idx) => (
+              <CardSection 
+                key={idx} item={item} 
+                goToTeamPage={goToTeamPage}
+              />
             ))
-          : testList.map((item, idx) => <CardSection key={idx} item={item} />)}
+          : onGoingMeeting.map((item, idx) => (
+              <OngoingCardSection key={idx} item={item} />
+            ))}
       </CardContainer>
     </TeamListContainer>
   );

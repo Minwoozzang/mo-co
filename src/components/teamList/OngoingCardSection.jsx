@@ -1,23 +1,24 @@
 import styled from "@emotion/styled";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
-const OngoingCardSection = () => {
+const OngoingCardSection = ({ item }) => {
     return (
         <OngoingMeetingContainer>
             <OngoingMeetingBox>
                 <OngoingMeetingTagBox>
                     <OngoingMeetingTagItem>
-                        서울시 마포구
+                        서울시 {item?.teamPartyStack?.partyLocation}
                     </OngoingMeetingTagItem>
                     <OngoingMeetingTagItem>
-                        평일 오후
+                    {item?.teamPartyStack?.partyTime}
                     </OngoingMeetingTagItem>
                     <OngoingMeetingTagItem>
                         팀원
                     </OngoingMeetingTagItem>
                 </OngoingMeetingTagBox>
                 <OngoingMeetingPartyName>
-                    IOS/안드로이드 앱개발자들의 모각코
+                    {/* IOS/안드로이드 앱개발자들의 모각코 */}
+                    {item?.teamID}
                 </OngoingMeetingPartyName>
                 <OngoingMeetingStackWrapper>
                     <StackBox>

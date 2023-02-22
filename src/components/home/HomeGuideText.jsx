@@ -1,10 +1,11 @@
 import { GuideContainer, GuideText } from "../homestyle/homebanner";
 
-const HomeGuideText = () => {
+const HomeGuideText = ({ currentUser }) => {
+    console.log(currentUser?.displayName)
     return (
         <GuideContainer>
             <GuideText>
-                XXX님과 딱 맞는 모각코 모임을 알려드릴게요
+                {currentUser?.displayName}님과 딱 맞는 모각코 모임을 알려드릴게요
             </GuideText>
         </GuideContainer>
     );
