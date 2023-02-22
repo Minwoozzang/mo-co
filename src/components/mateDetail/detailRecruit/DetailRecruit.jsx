@@ -23,8 +23,14 @@ const DetailRecruit = () => {
   // 참여신청 버튼 비활성화 여부
   let isBtnDisabled = false;
 
-  // 내가 만든 모임일 때는 참여신청 버튼 비활성화
+  /*
+  참여 신청 버튼 비활성화 조건
+  1. 내가 주최자일 경우
+  2. 모집이 완료된 경우
+  */
   if (post.uid === authService.currentUser.uid) {
+    isBtnDisabled = true;
+  } else if (post.partyIsOpen === false) {
     isBtnDisabled = true;
   }
 
