@@ -14,6 +14,20 @@ import { useParams } from 'react-router-dom';
 import { Modal } from 'antd';
 
 const DetailRecruit = () => {
+  const { id } = useParams();
+  const [post, setpost] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // 주최자에게 전하는 말
+  const [joinMessage, setJoinMessage] = useState('');
+  const [teamMember, setTeamMember] = useState([]);
+  // 참여신청 버튼 비활성화 여부
+  let isBtnDisabled = false;
+
+  // 내가 만든 모임일 때는 참여신청 버튼 비활성화
+  if (post.uid === authService.currentUser.uid) {
+    isBtnDisabled = true;
+  }
+
   // 프로필 이미지 받아오기
   const [myProfileImg, setMyProfileImg] = useState([]);
   const GetMyProfileImg = () => {
@@ -30,19 +44,6 @@ const DetailRecruit = () => {
     });
     return unsubscribe;
   };
-
-  const { id } = useParams();
-  const [post, setpost] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  // 주최자에게 전하는 말
-  const [joinMessage, setJoinMessage] = useState('');
-
-  // ! 값이 안 들어오고 있음 ( teamPage 컬렉션에서 가져옴 )
-  const [teamMember, setTeamMember] = useState([]);
-  console.log(
-    '🚀 ~ file: DetailRecruit.jsx:16 ~ DetailRecruit ~ teamMember:',
-    teamMember,
-  );
 
   const handleModalOpen = () => {
     setIsModalOpen(true);
@@ -95,7 +96,6 @@ const DetailRecruit = () => {
   const getPost = async () => {
     const q = doc(db, 'post', id);
     const postData = await getDoc(q);
-    //비동기
     setpost(postData.data());
   };
 
@@ -122,7 +122,9 @@ const DetailRecruit = () => {
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>{post.partyNum}</RecruitDetail>
       </RecruitCurrent>
-      <RecruitBtn onClick={handleModalOpen}>참여 신청</RecruitBtn>
+      <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
+        참여 신청
+      </RecruitBtn>
       <Modal
         open={isModalOpen}
         onOk={handleModalOk}
