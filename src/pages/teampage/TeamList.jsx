@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
@@ -10,28 +10,46 @@ import CardSection from '../../shared/CardSection';
 const TeamList = () => {
   const params = useParams();
   console.log(params.nickname);
+  console.log(authService?.currentUser?.displayName);
 
   const [postList, setPostList] = useState([]);
   const [teamPage, setTeamPage] = useState([]);
 
-  // teamPage에서 내 닉네임이 포함된 teamPage 데이터
+  // teamPage teamMember에서 내 닉네임이 포함된 teamPage 데이터
   const myAppliedMeeting = teamPage.filter((item) =>
     item.teamMember[0]?.nickName?.includes(
       authService?.currentUser?.displayName
     )
   );
-  console.log('내 닉네임이 포함된 데이터', myAppliedMeeting);
-  console.log('isWait', myAppliedMeeting[0]?.teamMember[0]?.isWait)
-  const onGoingMeeting = myAppliedMeeting.filter((item) =>
+  console.log('팀멤버에서 내 닉네임이 포함된 데이터', myAppliedMeeting);
+
+  // teamPage teamMember 데이터
+  const myTeamMember = myAppliedMeeting.map(item => item.teamMember)
+  console.log('나의 팀 멤버', myTeamMember);
+  
+  
+  // 참여 신청 수락 후 데이터(진행 중 모임)
+  const approvedMeeting = myAppliedMeeting.filter((item) =>
       item.teamMember[0]?.isWait === false
-  )
-  console.log('진행 중 모임', onGoingMeeting)
+  );
+
+  // 자신이 개설한 팀 데이터(리더)
+  const myOnGoingMeeting = teamPage.filter((item) =>
+      item.teamLeader?.nickName?.includes(authService?.currentUser?.displayName)
+  );
+
+  // 진행 중 모임
+  const onGoingMeeting = approvedMeeting.concat(myOnGoingMeeting);//리더 표시해주기
+  console.log('내가 개설한 모임(진행 중 모임)', myOnGoingMeeting);
+  console.log('진행 중 모임(참여신청수락됨)', approvedMeeting);
+  console.log('진행 중 모임(리더포함)', onGoingMeeting);
+
   // 참여 신청 데이터 -> postList에서 불러와야 됨
   // 내 닉네임이 포함된 데이터에서 teamID만 추출
   const myAppliedteamID = myAppliedMeeting.map(item => item.teamID)
   console.log('myAppliedteamID', myAppliedteamID.toString())
   console.log(myAppliedteamID[0])
-  // console.log(postList[1].uid)
+  
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList.filter(item =>
     // item.teamID in myAppliedteamID
@@ -44,17 +62,14 @@ const TeamList = () => {
     '모임 신청 결과, true: 참여 신청, false: 진행 중',
     myAppliedMeeting[0]?.teamMember[0]?.isWait,
   );
-  const meetingIsWait = myAppliedMeeting[0]?.teamMember[0]?.isWait;
-  console.log(meetingIsWait);
+  
+  // 카테고리 클릭 시
   const [myTeamIsWait, setMyTeamIsWait] = useState(false);
   console.log(myTeamIsWait);
 
   const [category, setCategory] = useState([
-    {
-      isClicked: true,
-      name: '진행 중 모임',
-    },
-    { isClicked: false, name: '참여 신청 모임' },
+    { isClicked: true, name: '진행 중 모임' },
+    { isClicked: false, name: '참여 신청 모임' }
   ]);
   const isClickedMeeting = () => {
     if (myTeamIsWait === true) {
@@ -83,6 +98,7 @@ const TeamList = () => {
   const goToTeamPage = (id) => {
     navigate(`/teamPage/${id}`)
   }
+  const [show, setShow] = useState(true) // teamPage로 가는 버튼 팀리스트에서만 보이게하기
 
   //post 데이터 불러오기
   useEffect(() => {
@@ -131,11 +147,14 @@ const TeamList = () => {
           ? appliedMeeting.map((item, idx) => (
               <CardSection 
                 key={idx} item={item} 
-                goToTeamPage={goToTeamPage}
               />
             ))
           : onGoingMeeting.map((item, idx) => (
-              <OngoingCardSection key={idx} item={item} />
+              <OngoingCardSection 
+                key={idx} item={item} 
+                goToTeamPage={goToTeamPage}
+                showTeamPageBtn={show}
+              />
             ))}
       </CardContainer>
     </TeamListContainer>
