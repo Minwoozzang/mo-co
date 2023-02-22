@@ -17,27 +17,27 @@ const TeamList = () => {
   // teamPage에서 내 닉네임이 포함된 teamPage 데이터
   const myAppliedMeeting = teamPage.filter((item) =>
     item.teamMember[0]?.nickName?.includes(
-      authService?.currentUser?.displayName
-    )
+      authService?.currentUser?.displayName,
+    ),
   );
   console.log('내 닉네임이 포함된 데이터', myAppliedMeeting);
-  console.log('isWait', myAppliedMeeting[0]?.teamMember[0]?.isWait)
-  const onGoingMeeting = myAppliedMeeting.filter((item) =>
-      item.teamMember[0]?.isWait === false
-  )
-  console.log('진행 중 모임', onGoingMeeting)
+  console.log('isWait', myAppliedMeeting[0]?.teamMember[0]?.isWait);
+  const onGoingMeeting = myAppliedMeeting.filter(
+    (item) => item.teamMember[0]?.isWait === false,
+  );
+  console.log('진행 중 모임', onGoingMeeting);
   // 참여 신청 데이터 -> postList에서 불러와야 됨
   // 내 닉네임이 포함된 데이터에서 teamID만 추출
-  const myAppliedteamID = myAppliedMeeting.map(item => item.teamID)
-  console.log('myAppliedteamID', myAppliedteamID.toString())
-  console.log(myAppliedteamID[0])
+  const myAppliedteamID = myAppliedMeeting.map((item) => item.teamID);
+  console.log('myAppliedteamID', myAppliedteamID.toString());
+  console.log(myAppliedteamID[0]);
   // console.log(postList[1].uid)
   // myAppliedteamID가 각각 들어있는 postList 추출
-  const appliedMeeting = postList.filter(item =>
+  const appliedMeeting = postList.filter((item) =>
     // item.teamID in myAppliedteamID
-    myAppliedteamID.includes(item.teamID)
-  )
-  console.log('참여 신청 모임', appliedMeeting)
+    myAppliedteamID.includes(item.teamID),
+  );
+  console.log('참여 신청 모임', appliedMeeting);
 
   // teamPage teamMember isWait : true
   console.log(
@@ -81,8 +81,8 @@ const TeamList = () => {
   // teamPage/teamID 로 이동
   const navigate = useNavigate();
   const goToTeamPage = (id) => {
-    navigate(`/teamPage/${id}`)
-  }
+    navigate(`/teamPage/${id}`, { state: id });
+  };
 
   //post 데이터 불러오기
   useEffect(() => {
@@ -114,9 +114,7 @@ const TeamList = () => {
 
   return (
     <TeamListContainer>
-      <UserMeetingTitle>
-        {params.nickname}님의 코딩모임
-      </UserMeetingTitle>
+      <UserMeetingTitle>{params.nickname}님의 코딩모임</UserMeetingTitle>
       <MeetingCategory>
         {category.map((item, idx) => (
           <TeamListCategory
@@ -129,10 +127,7 @@ const TeamList = () => {
       <CardContainer>
         {myTeamIsWait
           ? appliedMeeting.map((item, idx) => (
-              <CardSection 
-                key={idx} item={item} 
-                goToTeamPage={goToTeamPage}
-              />
+              <CardSection key={idx} item={item} goToTeamPage={goToTeamPage} />
             ))
           : onGoingMeeting.map((item, idx) => (
               <OngoingCardSection key={idx} item={item} />

@@ -12,7 +12,7 @@ import {
   where,
 } from 'firebase/firestore';
 
-export default function TeamManage() {
+export default function TeamManage({ teamLocationID }) {
   const [showOptions, setShowOptions] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,7 +23,6 @@ export default function TeamManage() {
     if (!currentUser) return;
     getPostData();
     teamGetTeamID();
-    console.log(currentUser);
   }, []);
 
   const getPostData = async () => {
@@ -54,8 +53,6 @@ export default function TeamManage() {
         ...doc.data(),
       }));
       setTeamID(newInfo);
-
-      console.log('뉴인포', newInfo);
     });
     return unsubscribe;
   };

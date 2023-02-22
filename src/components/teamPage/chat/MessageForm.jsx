@@ -16,8 +16,9 @@ import {
   where,
 } from '@firebase/firestore';
 import { onAuthStateChanged } from '@firebase/auth';
+import { message } from 'antd';
 
-const MessageForm = () => {
+const MessageForm = ({ teamLocationID }) => {
   // 유저 정보 가져오기
   const [chatUserImage, setChatUserImage] = useState('');
 
@@ -37,8 +38,7 @@ const MessageForm = () => {
     return unsubscribe;
   };
 
-  // TODO: 팀 id 가져오기
-  const [chatID, setChatID] = useState([]);
+  // 기존 채팅 내용
   const [chatInfo, setChatInfo] = useState([]);
 
   const getChatID = () => {
@@ -48,8 +48,7 @@ const MessageForm = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setChatID(newInfo[0]?.id);
-      setChatInfo(newInfo[0]?.message);
+      setChatInfo(newInfo);
     });
 
     return unsubscribe;
@@ -78,12 +77,13 @@ const MessageForm = () => {
     }
   };
 
+  // 메세지 데이터 올리기
   const handleSubmit = async () => {
-    // TODO: 추후에 Room ID로 변경
-
-    await updateDoc(doc(db, 'teamChat', chatID), {
+    const beforeChat = chatInfo.filter((t) => t.id === teamLocationID);
+    const beforeChatMessage = beforeChat[0].message;
+    await updateDoc(doc(db, 'teamChat', teamLocationID), {
       message: [
-        ...chatInfo,
+        ...beforeChatMessage,
         {
           comment: content,
           uid: authService.currentUser.uid,

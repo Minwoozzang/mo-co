@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import MessageHeader from './MessageHeader';
 import MessageForm from './MessageForm';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { db } from '../../../common/firebase';
 import MessageBox from './MessageBox';
 import { v4 } from 'uuid';
-import { collection, onSnapshot, query } from 'firebase/firestore';
-import { db } from '../../../common/firebase';
 
-export default function MemberChat() {
+export default function MemberChat({ teamLocationID }) {
   // 스크롤
   const scrollRef = useRef(null);
 
@@ -19,14 +19,16 @@ export default function MemberChat() {
   const [AddMessage, setAddtMessage] = useState([]);
 
   const getChatMessage = () => {
-    const q = query(collection(db, 'teamChat'));
+    const q = query(
+      collection(db, 'teamChat'),
+      where('teamID', '==', teamLocationID),
+    );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newInfo = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setAddtMessage(newInfo);
-      console.log(AddMessage);
+      setAddtMessage(newInfo[0]?.message);
     });
 
     return unsubscribe;
@@ -44,12 +46,12 @@ export default function MemberChat() {
       </ContentTitle>
       <SideWrapper>
         <ContentChatArea ref={scrollRef}>
-          {/* {AddMessage.map((team) => {
-            return <MessageBox key={v4()} team={team} />;
-          })} */}
+          {AddMessage.map((t) => {
+            return <MessageBox key={v4()} t={t} />;
+          })}
         </ContentChatArea>
         <hr />
-        <MessageForm />
+        <MessageForm teamLocationID={teamLocationID} />
       </SideWrapper>
     </ContentChatContainer>
   );
