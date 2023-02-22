@@ -6,14 +6,13 @@ import 'firebase/database';
 
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCzN2tCMYsWXAox6D_olgaMVQM_DD5X0Tc',
-  authDomain: 'moco-project-defe9.firebaseapp.com',
-  databaseURL:
-    'https://moco-project-defe9-default-rtdb.asia-southeast1.firebasedatabase.app',
-  projectId: 'moco-project-defe9',
-  storageBucket: 'moco-project-defe9.appspot.com',
-  messagingSenderId: '854864723646',
-  appId: '1:854864723646:web:c0f50ad676b017739ea8ef',
+  apiKey: "AIzaSyBo23LJ8u_muKicP8zK7jYxZ0t35iA5pDo",
+  authDomain: "mo-co-92f26.firebaseapp.com",
+  databaseURL: "https://mo-co-92f26-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mo-co-92f26",
+  storageBucket: "mo-co-92f26.appspot.com",
+  messagingSenderId: "839524563156",
+  appId: "1:839524563156:web:e4e5be6d6302cc699ba341"
 };
 
 export const app = initializeApp(firebaseConfig);

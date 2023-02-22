@@ -106,7 +106,7 @@ const Header = () => {
 
   // 내 코딩모임 페이지로 이동
   const navigateMyCodingMate = () => {
-    navigate('/teamlist');
+    navigate(`/teamlist/${authService.currentUser.displayName}`);
   };
 
   // 검색 기능
