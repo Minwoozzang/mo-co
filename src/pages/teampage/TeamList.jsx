@@ -95,7 +95,7 @@ const TeamList = () => {
   // teamPage/teamID 로 이동
   const navigate = useNavigate();
   const goToTeamPage = (id) => {
-    navigate(`/teamPage/${id}`);
+    navigate(`/teamPage/${id}`, { state: id });
   };
   const [show, setShow] = useState(true); // teamPage로 가는 버튼 팀리스트에서만 보이게하기
 

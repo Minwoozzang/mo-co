@@ -58,7 +58,7 @@ export default function TeamManage({ teamLocationID }) {
   };
 
   const navigateWrite = () => {
-    navigate('/');
+    navigate(`/edit/${teamLocationID}`);
   };
 
   return (
@@ -73,7 +73,7 @@ export default function TeamManage({ teamLocationID }) {
       {showOptions === true ? (
         <>
           <DropdownOption>
-            <SharePh>모임 수정하기</SharePh>
+            <SharePh onClick={navigateWrite}>모임 수정하기</SharePh>
             <SharePh>모임 삭제하기</SharePh>
           </DropdownOption>
         </>
@@ -105,6 +105,7 @@ const DropdownOption = styled.div`
 `;
 
 const SharePh = styled.div`
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
+  cursor: pointer;
 `;
