@@ -29,7 +29,6 @@ import AlertUI from './AlertUi';
 
 import { uuidv4 } from '@firebase/util';
 
-
 const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');
 
@@ -128,11 +127,11 @@ const AddComment = ({ id }) => {
         <AddCommentListWrap>
           <AddCommentListTwo>
             <AddCommentText>
-              <AddCommentDiv>댓글</AddCommentDiv>
               <AddInputDiv>
                 <AddInputContent
                   onChange={AddCommentTextChange}
                   value={commentText}
+                  placeholder="댓글을 남겨보세요"
                 />
               </AddInputDiv>
             </AddCommentText>

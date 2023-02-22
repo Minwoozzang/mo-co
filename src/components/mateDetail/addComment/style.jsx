@@ -60,11 +60,11 @@ export const AddCommentBtn = styled.button`
   width: 80px;
   height: 30px;
   cursor: pointer;
-  background-color: #fff;
-  color: #9e08d4;
+  background-color: #d9d9d9 20%;
+  color: #000;
   border: 2px solid #fff;
   border-radius: 5px;
-  font-size: 0.9rem;
+  font-size: 16px;
   font-weight: 600;
   :hover {
     background-color: #fff;

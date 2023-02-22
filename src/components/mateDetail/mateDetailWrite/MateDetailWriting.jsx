@@ -41,7 +41,10 @@ const MateDetailWriting = () => {
       <GroupWrap>
         <GroupHeader>{post.partyPostTitile}</GroupHeader>
         <GroupUserInfo>
-          <GroupImg />
+          <GroupImg>
+            {/* 파이어베이스 post에 정보값이 없음 */}
+            {/* {post.profileImg} */}
+          </GroupImg>
           <GroupUserId>{post.nickName}</GroupUserId>
         </GroupUserInfo>
         <UserHr />
