@@ -104,6 +104,11 @@ const Header = () => {
     }
   };
 
+  // 내 코딩모임 페이지로 이동
+  const navigateMyCodingMate = () => {
+    navigate(`/teamlist/${authService.currentUser.displayName}`);
+  };
+
   // 검색 기능
   const [word, setWord] = useState('');
   const onChangeSearch = (e) => {
@@ -113,17 +118,16 @@ const Header = () => {
   const onSubmit = () => {
     navigate(`/search/${word}`);
   };
+  const handleonKeyPress = (e) => { // Enter 키 입력 함수
+    if (e.key === 'Enter') {
+      onSubmit();
+    }
+  };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
       setSearchdropDownClick(true);
     }
   };
-  // const handleKeyDown = (e) => { // Enter 키 입력 함수
-  //   if (e.key === 'Enter') {
-  //     setWord(e.target.value);
-  //     onSubmit();
-  //   }
-  // };
   // const navigateMate = () => [navigate('/mate')];
   // 로그아웃
   const HeaderLogOut = () => {
@@ -151,7 +155,9 @@ const Header = () => {
       <HeaderInfoBody>
         <LogoAndMateBox>
           <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
-          <MyCodingMate>내 코딩모임</MyCodingMate>
+          <MyCodingMate onClick={navigateMyCodingMate}>
+            내 코딩모임
+          </MyCodingMate>
         </LogoAndMateBox>
         {/* <HeaderSearchBox>
           <AiOutlineSearch style={{ fontSize: '30px' }} />
@@ -185,17 +191,16 @@ const Header = () => {
                     </HeaderSearchXbutton>
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
-                    <HeaderSearchBox>
-                      <AiOutlineSearch style={{ fontSize: '30px' }} />
-                      <HeaderSearchInput
-                        onChange={onChangeSearch}
-                        // type={'text'}
-                        // onKeyDown={handleKeyDown}
-                      />
-                      <HeaderSearchInputBtn type="button" onClick={onSubmit}>
-                        검색
-                      </HeaderSearchInputBtn>
-                    </HeaderSearchBox>
+                  <HeaderSearchBox>
+                  <AiOutlineSearch style={{ fontSize: '30px' }} />
+                  <HeaderSearchInput
+                    onChange={onChangeSearch}
+                    onKeyPress={handleonKeyPress}
+                  />
+                  <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                    검색
+                  </HeaderSearchInputBtn>
+                  </HeaderSearchBox>
                   </HeaderSearchDropDownListSection>
                   <HeaderSearchDropDownHr />
                 </HeaderSearchDropDownListBox>
