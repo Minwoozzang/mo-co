@@ -36,12 +36,13 @@ const MateDetailWriting = () => {
     getPost();
   }, []);
 
+  console.log(post.profileImg);
   return (
     <>
       <GroupWrap>
         <GroupHeader>{post.partyPostTitile}</GroupHeader>
         <GroupUserInfo>
-          <GroupImg />
+          <GroupImg src={post.profileImg} alt={post.profileImg}></GroupImg>
           <GroupUserId>{post.nickName}</GroupUserId>
         </GroupUserInfo>
         <UserHr />

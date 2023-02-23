@@ -93,6 +93,7 @@ const AddComment = ({ id }) => {
       //comment adddoc할때 mateDetailId값에 id(userid = :id)가져오기
       mateDetailId: id,
       postId: id,
+      userImg: currentUser.photoURL,
     };
 
     // console.log(newComment);
