@@ -37,3 +37,9 @@ export const UserHr = styled.hr`
   height: 0;
   border-top: 1px solid #8c8c8c;
 `;
+
+export const Bookmark = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
