@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { HiChevronRight } from 'react-icons/hi';
 import {
   LeaderInfoProfile,
-  LeaderBox,
-  LeaderImgBox,
-  MemberInfoProfileImg,
+  MemberInfoProfileImgTwo,
   WaitProfileInfo,
   LeaderName,
-  LeaderPosition,
   WaitChangeIcon,
+  YellowBox,
+  MemberInfoProfile,
+  MemberInfoProfileName,
+  MemberInfoProfileNameTwo,
 } from './style';
 import { confirmAlert } from 'react-confirm-alert';
 import CustomConfirmUI from './CustomConfirmUI';
@@ -62,31 +63,27 @@ const WaitMemberList = ({ item }) => {
         .filter((data) => data.isWait === true)
         .map((data) => {
           return (
-            <LeaderBox key={uuidv4()}>
-              <LeaderImgBox>
-                <MemberInfoProfileImg
+            <YellowBox>
+              <MemberInfoProfile key={uuidv4()}>
+                <MemberInfoProfileImgTwo
                   src={
                     data.profileImg
                       ? data.profileImg
                       : 'https://imhannah.me/common/img/default_profile.png'
                   }
                 />
-              </LeaderImgBox>
-
-              <WaitProfileInfo>
-                <div>
-                  <LeaderName>{data.nickName}</LeaderName>
-                  <LeaderPosition>{data.teamPositon}</LeaderPosition>
-                </div>
-                {onlyLeaderLook ? (
-                  <WaitChangeIcon onClick={() => isWaitChange(data)}>
-                    <HiChevronRight />
-                  </WaitChangeIcon>
-                ) : (
-                  ''
-                )}
-              </WaitProfileInfo>
-            </LeaderBox>
+                <WaitProfileInfo>
+                  <MemberInfoProfileNameTwo>
+                    {data.nickName ?? '익명'}
+                  </MemberInfoProfileNameTwo>
+                  {onlyLeaderLook ? (
+                    <WaitChangeIcon onClick={() => isWaitChange(data)} />
+                  ) : (
+                    ''
+                  )}
+                </WaitProfileInfo>
+              </MemberInfoProfile>
+            </YellowBox>
           );
         })}
     </LeaderInfoProfile>
