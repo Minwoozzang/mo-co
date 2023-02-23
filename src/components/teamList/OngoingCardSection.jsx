@@ -35,15 +35,15 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
             <StackIcon />
           </StackBox>
           {showTeamPageBtn ? (
-            <button onClick={() => goToTeamPage(item.teamID)}>
-              팀 페이지로
-            </button>
+            <NavigateArrow>
+            <NavigateBtn onClick={()=>goToTeamPage(item.teamID)}>
+            <AiOutlineArrowRight style={{ fontSize: '36px' }} />
+            </NavigateBtn>
+          </NavigateArrow>
           ) : (
             ''
           )}
-          <NavigateArrow>
-            <AiOutlineArrowRight style={{ fontSize: '36px' }} />
-          </NavigateArrow>
+          
         </OngoingMeetingStackWrapper>
       </OngoingMeetingBox>
     </OngoingMeetingContainer>
@@ -120,3 +120,10 @@ const NavigateArrow = styled.div`
   align-items: center;
   /* background-color: #D9D9D9; */
 `;
+const NavigateBtn = styled.div`
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: #D9D9D9;
+  }
+`
