@@ -77,7 +77,7 @@ const MateDetail = () => {
 };
 export default MateDetail;
 
-const MateDetailWrap = styled.section`
+const MateDetailWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,6 +85,7 @@ const MateDetailWrap = styled.section`
   margin: 0px 400px 230px 150px;
   // min-height: 100vh;
   height: 100%;
+  background-color: #111;
 `;
 const MateDetailContainer = styled.div`
   width: 100%;
@@ -101,6 +102,7 @@ const CommentContainHeader = styled.p`
   font-weight: 500;
   line-height: 29px;
   margin: 30px 0 30px 0;
+  color: #fff;
 `;
 const UserHr = styled.hr`
   border: 0;

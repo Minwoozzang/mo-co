@@ -6,14 +6,15 @@ export const CommentContainer = styled.div`
 
 export const ListContainer = styled.div``;
 
-export const CommentNickname = styled.div`
+export const CommentNickname = styled.p`
+  color: #fff;
   font-weight: 600;
 `;
 
-export const CommentUserName = styled.div`
+export const CommentUserName = styled.p`
   font-size: 16px;
   font-weight: 500;
-  color: #555;
+  color: #fff;
   margin-right: 1.5%;
   margin-left: 1.5%;
   margin-bottom: 0.5%;
@@ -38,10 +39,11 @@ export const ListTextSection = styled.div`
   }
 `;
 
-export const CommentText = styled.div`
+export const CommentText = styled.p`
   font-size: 1rem;
   font-weight: 400;
   margin-left: 1%;
+  color: #fff;
 `;
 
 export const CommentUserInput = styled.input`
@@ -113,4 +115,6 @@ export const CommentProfileImage = styled.img`
   border-radius: 20px;
   background-color: #d9d9d9;
 `;
-export const CommentDate = styled.p``;
+export const CommentDate = styled.p`
+  color: #fff;
+`;

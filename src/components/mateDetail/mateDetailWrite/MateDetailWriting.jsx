@@ -45,7 +45,7 @@ const MateDetailWriting = () => {
           <GroupImg src={post.profileImg} alt={post.profileImg}></GroupImg>
           <GroupUserId>{post.nickName}</GroupUserId>
         </GroupUserInfo>
-        <UserHr />
+        {/* <UserHr /> */}
         <GroupBox>
           <GroupPerson>{parsedHtml}</GroupPerson>
         </GroupBox>

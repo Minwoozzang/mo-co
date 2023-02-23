@@ -7,6 +7,7 @@ export const GroupHeader = styled.h4`
   margin-top: 90px;
   font-size: 24px;
   font-weight: 500;
+  color: #fff;
 `;
 export const GroupUserInfo = styled.div`
   display: flex;
@@ -21,10 +22,13 @@ export const GroupImg = styled.img`
 export const GroupUserId = styled.p`
   margin: 43px 8px 8px;
   text-align: center;
+  color: #fff;
 `;
 
 export const GroupBox = styled.div`
   width: 100%;
+  height: 100%;
+  background-color: #f1f1f1;
 `;
 export const GroupPerson = styled.div`
   width: 100%;

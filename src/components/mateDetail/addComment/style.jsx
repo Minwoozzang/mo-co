@@ -53,21 +53,20 @@ export const AddInputDiv = styled.div`
 export const AddCommentBtnDiv = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 2%;
 `;
 
 export const AddCommentBtn = styled.button`
-  width: 80px;
-  height: 30px;
+  width: 120px;
+  height: 35px;
   cursor: pointer;
-  background-color: #d9d9d9 20%;
-  color: #000;
-  border: 2px solid #fff;
+  background-color: #545454;
+  color: #fff;
+  border: 1px solid #545454;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   :hover {
-    background-color: #fff;
+    background-color: #3b3b3b;
     color: #fff;
     border-radius: 5px;
     border: none;
