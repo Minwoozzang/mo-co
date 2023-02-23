@@ -58,11 +58,10 @@ const MateDetail = () => {
     }
   };
 
-  console.log(profileImg);
   return (
     <MateDetailWrap>
       <MateDetailContainer>
-        <MateDetailWriting img={profileImg} />
+        <MateDetailWriting />
         <button onClick={handleDelete}>삭제</button>
         <button onClick={handleMoveToEdit}>수정</button>
       </MateDetailContainer>
