@@ -57,19 +57,23 @@ const Banner = styled.div`
 `
 /* HomeGuideText */
 const GuideContainer = styled.div`
-    height: 144px;
+    height: 44px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 65px;
-    background-color: aliceblue;
+    /* margin-bottom: 50px; */
+    /* background-color: #111111; */
 `
 const GuideText = styled.div`
     width: 314px;
     height: 44px;
     font-size: 21px;
     font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
     text-align: center;
 `
 
