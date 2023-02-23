@@ -20,12 +20,13 @@ import {
   PasswordText,
   WarnigTextBody,
   WarnigText,
+  ToggleSocialBox,
   ToggleEmailBtn,
   ToggleEmailBack,
+  LogoIcon,
+  LogoIconTitle,
 } from './Loginstyle';
-import { CiFaceSmile } from 'react-icons/ci';
-import { FcGoogle } from 'react-icons/fc';
-import { FaGithub } from 'react-icons/fa';
+
 import { useNavigate } from 'react-router';
 import { emailRegex, pwRegex } from '../../common/utils';
 import {
@@ -36,6 +37,13 @@ import {
 } from '@firebase/auth';
 import { authService, db } from '../../common/firebase';
 import { doc, setDoc } from '@firebase/firestore';
+import Vector from '../../../src/assets/login/Vector.png';
+import Vector1 from '../../../src/assets/login/Vector-1.png';
+import Vector2 from '../../../src/assets/login/Vector-2.png';
+import Vector3 from '../../../src/assets/login/Vector-3.png';
+import Vector4 from '../../../src/assets/login/Vector-4.png';
+import Github from '../../../src/assets/login/GITHUB-LOGO.png';
+import Google from '../../../src/assets/login/GOOGLE-LOGO.png';
 
 const Login = () => {
   const emailRef = useRef(null);
@@ -118,6 +126,12 @@ const Login = () => {
       });
   };
 
+  const EnterKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      LogginBtnHandle();
+    }
+  };
+
   // 구글 로그인
   const gooleLogin = () => {
     const provider = new GoogleAuthProvider();
@@ -164,21 +178,27 @@ const Login = () => {
     <LoginBody>
       <LoginForm>
         <LoginTitleLogo>
-          <>
-            <CiFaceSmile style={{ width: 70, height: 70 }} />
-          </>
+          <img src={Vector} alt="" />
+          <img src={Vector1} alt="" />
+          <img src={Vector2} alt="" />
+          <img src={Vector3} alt="" />
+          <img src={Vector4} alt="" />
         </LoginTitleLogo>
-        <LoginTitle>MoCo에 오신 것을 환영합니다. !!</LoginTitle>
 
         {emailLogin ? (
-          <LoginLogo>
-            <GoogleLogo onClick={gooleLogin}>
-              <FcGoogle style={{ width: 110, height: 110 }} />
-            </GoogleLogo>
-            <GithubLogo onClick={githubLogin}>
-              <FaGithub style={{ width: 110, height: 110 }} />
-            </GithubLogo>
-          </LoginLogo>
+          <>
+            <LoginTitle>SNS로 간편하게 로그인하세요 🙌</LoginTitle>
+            <LoginLogo>
+              <GithubLogo onClick={githubLogin}>
+                <LogoIcon src={Github} alt="" />
+                <LogoIconTitle>GitHub</LogoIconTitle>
+              </GithubLogo>
+              <GoogleLogo onClick={gooleLogin}>
+                <LogoIcon src={Google} alt="" />
+                <LogoIconTitle>Google</LogoIconTitle>
+              </GoogleLogo>
+            </LoginLogo>
+          </>
         ) : (
           <>
             <LoginInputBody>
@@ -189,6 +209,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     ref={emailRef}
+                    onKeyPress={EnterKeyPress}
                   />
                 </EmailBody>
                 <PasswordBody>
@@ -198,6 +219,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     ref={pwRef}
+                    onKeyPress={EnterKeyPress}
                   />
                 </PasswordBody>
               </LoginInputSection>
@@ -207,8 +229,8 @@ const Login = () => {
               <WarnigText>{warningText}</WarnigText>
             </WarnigTextBody>
 
+            <LoginBtn onClick={LogginBtnHandle}>로그인</LoginBtn>
             <LoginLouteBody>
-              <LoginBtn onClick={LogginBtnHandle}>로그인</LoginBtn>
               <LouteSignUpPageBtn onClick={navigateSignUpPage}>
                 회원가입
               </LouteSignUpPageBtn>
@@ -216,13 +238,13 @@ const Login = () => {
           </>
         )}
 
-        <div onClick={ToggleSocial}>
+        <ToggleSocialBox onClick={ToggleSocial}>
           {toggleText ? (
-            <ToggleEmailBtn>이메일로 로그인</ToggleEmailBtn>
+            <ToggleEmailBtn>E-mail로 로그인하기</ToggleEmailBtn>
           ) : (
-            <ToggleEmailBack>뒤로가기</ToggleEmailBack>
+            <ToggleEmailBack>SNS 계정으로 로그인하기</ToggleEmailBack>
           )}
-        </div>
+        </ToggleSocialBox>
       </LoginForm>
     </LoginBody>
   );

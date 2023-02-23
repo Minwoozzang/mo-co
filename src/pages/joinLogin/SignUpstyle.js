@@ -11,20 +11,19 @@ export const SignUpBody = styled.div`
 
 export const SignUpForm = styled.div`
   width: 500px;
-  height: 600px;
+  height: 555px;
 
-  background-color: #0000;
-  box-shadow: 2px 2px 10px 10px #0004;
-  border-radius: 30px;
+  border-radius: 20px;
+
+  background-color: #111111;
 `;
 
 export const SignUpTitleLogo = styled.div`
-  width: 100%;
-  height: 100px;
+  height: 33px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+
+  margin-top: 80px;
 `;
 
 export const SignUpTitle = styled.div`
@@ -42,137 +41,172 @@ export const SignUpTitle = styled.div`
 `;
 
 export const SignUpInputBody = styled.div`
-  width: 100%;
-  height: 250px;
+  width: 500px;
+  height: 225px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 55px;
 `;
 
 export const SignUpInputSection = styled.div`
-  margin-top: 40px;
+  margin-left: 100px;
 `;
 
 export const EmailBody = styled.div`
   width: 380px;
   height: 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const EmailText = styled.div`
-  font-weight: 600;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 17px;
 
-  margin-left: 13px;
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 `;
 
 export const SignUpEmailInput = styled.input`
   width: 300px;
-  height: 35px;
+  height: 25px;
 
-  font-size: 20px;
+  font-size: 1.2rem;
 
-  border: 1px solid rgb(150, 150, 150);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+
+  border-bottom-color: #545454;
+  color: #ffffff;
+
+  background: none;
 
   :focus-visible {
     outline: none;
   }
-  border-radius: 15px;
-  padding-left: 8px;
+
+  padding-left: 1px;
 `;
 
 export const PasswordText = styled.div`
-  font-weight: 600;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 17px;
+
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 `;
 
 export const PasswordBody = styled.div`
   width: 380px;
   height: 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   margin-top: 20px;
 `;
 
 export const SignUpPasswordInput = styled.input`
   width: 300px;
-  height: 35px;
+  height: 25px;
 
-  font-size: 20px;
+  font-size: 1.2rem;
 
-  border: 1px solid rgb(150, 150, 150);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+
+  border-bottom-color: #545454;
+  color: #ffffff;
+
+  background: none;
 
   :focus-visible {
     outline: none;
   }
-  border-radius: 15px;
-  padding-left: 8px;
+
+  padding-left: 1px;
 `;
 
 export const CheckPasswordBody = styled.div`
   width: 380px;
   height: 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   margin-top: 20px;
 `;
 
 export const CheckPasswordText = styled.div`
-  font-weight: 600;
-  margin-left: 13px;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 17px;
+
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 `;
 
 export const CheckSignUpPasswordInput = styled.input`
   width: 300px;
-  height: 35px;
+  height: 25px;
 
-  font-size: 20px;
+  font-size: 1.2rem;
 
-  border: 1px solid rgb(150, 150, 150);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+
+  border-bottom-color: #545454;
+  color: #ffffff;
+
+  background: none;
 
   :focus-visible {
     outline: none;
   }
-  border-radius: 15px;
-  padding-left: 8px;
+
+  padding-left: 1px;
 `;
 
 export const NickNameBody = styled.div`
   width: 380px;
   height: 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   margin-top: 20px;
 `;
+
 export const NickNameText = styled.div`
-  margin-left: 13px;
-  font-weight: 600;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 17px;
+
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 `;
 export const SignUpNickNameInput = styled.input`
   width: 300px;
-  height: 35px;
+  height: 25px;
 
-  font-size: 20px;
+  font-size: 1.2rem;
 
-  border: 1px solid rgb(150, 150, 150);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+
+  border-bottom-color: #545454;
+  color: #ffffff;
+
+  background: none;
 
   :focus-visible {
     outline: none;
   }
-  border-radius: 15px;
 
-  padding-left: 8px;
+  padding-left: 1px;
 `;
 
 export const WarnigTextBody = styled.div`
@@ -181,7 +215,7 @@ export const WarnigTextBody = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 25px;
+  margin-top: 10px;
 `;
 
 export const WarnigText = styled.div`
@@ -203,7 +237,7 @@ export const SignUpLogo = styled.div`
 export const SignUpLouteBody = styled.div`
   width: 100%;
 
-  margin-top: 50px;
+  margin-top: 30px;
 
   display: flex;
   justify-content: center;
@@ -213,27 +247,39 @@ export const SignUpLouteBody = styled.div`
 `;
 
 export const SignUpBtn = styled.div`
-  width: 120px;
-  height: 40px;
+  width: 300px;
+  height: 44px;
 
-  background-color: #567189;
-  color: white;
-  border-radius: 15px;
+  background-color: #feff80;
+  border-radius: 5px;
 
   font-weight: 600;
+
+  margin-left: 100px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   cursor: pointer;
+
+  margin-top: 10px;
 `;
 
 export const LouteSignUpPageBtn = styled.div`
-  color: #567189;
+  width: 100px;
 
-  font-size: 17px;
-  font-weight: 700;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 14px;
+
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+
+  color: #9d9d9d;
 
   cursor: pointer;
 `;

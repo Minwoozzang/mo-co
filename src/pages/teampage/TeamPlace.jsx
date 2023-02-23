@@ -15,6 +15,7 @@ import {
 import styled from '@emotion/styled';
 import TeamPlaceModal from '../../components/teamPage/TeamPlaceModal';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { v4 } from 'uuid';
 
 export default function TeamPlace({ teamLocationID }) {
   const [place, setPlace] = useState([]);
@@ -176,7 +177,7 @@ export default function TeamPlace({ teamLocationID }) {
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
-                    <>
+                    <div key={v4()}>
                       <Map // 지도를 표시할 Container
                         center={{
                           // 지도의 중심좌표
@@ -202,7 +203,7 @@ export default function TeamPlace({ teamLocationID }) {
                         <PlaceBtn>{item.contentPlaceName}</PlaceBtn>
                         <div>{item.contentPlaceAddress}</div>
                       </PlaceTextWrap>
-                    </>
+                    </div>
                   );
                 })}
             </PlaceWrap>
