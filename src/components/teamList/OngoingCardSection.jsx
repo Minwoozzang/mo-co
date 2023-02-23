@@ -1,19 +1,29 @@
 import styled from '@emotion/styled';
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import { authService } from '../../common/firebase';
+import { BiCrown } from 'react-icons/bi';
 
 const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
   return (
     <OngoingMeetingContainer>
       <OngoingMeetingBox>
-        <OngoingMeetingTagBox>
-          <OngoingMeetingTagItem>
-            서울시 {item?.teamPartyStack?.partyLocation}
-          </OngoingMeetingTagItem>
-          <OngoingMeetingTagItem>
-            {item?.teamPartyStack?.partyTime}
-          </OngoingMeetingTagItem>
-          <OngoingMeetingTagItem>팀원</OngoingMeetingTagItem>
-        </OngoingMeetingTagBox>
+        <OngoingMeetingTagWrapper>
+          <OngoingMeetingTagBox>
+            <OngoingMeetingTagItem>
+              서울시 {item?.teamPartyStack?.partyLocation}
+            </OngoingMeetingTagItem>
+            <OngoingMeetingTagItem>
+              {item?.teamPartyStack?.partyTime}
+            </OngoingMeetingTagItem>
+            <OngoingMeetingTagItem>팀원</OngoingMeetingTagItem>
+          </OngoingMeetingTagBox>
+          {item?.teamLeader?.nickName ===
+          authService?.currentUser?.displayName ? (
+            <BiCrown style={{ fontSize: '26px' }} />
+          ) : (
+            ''
+          )}
+        </OngoingMeetingTagWrapper>
         <OngoingMeetingPartyName>
           {/* IOS/안드로이드 앱개발자들의 모각코 */}
           {item?.teamPartyStack?.partyName}
@@ -58,7 +68,13 @@ const OngoingMeetingBox = styled.div`
   margin: 20px 24px 24px;
   background-color: white;
 `;
+const OngoingMeetingTagWrapper = styled.div`
+  height: 26px;
+  display: flex;
+  justify-content: space-between;
+`;
 const OngoingMeetingTagBox = styled.div`
+  width: 250px;
   height: 26px;
   display: flex;
   gap: 0 6px;

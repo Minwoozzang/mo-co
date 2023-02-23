@@ -92,7 +92,6 @@ export default function TeamPlaceModal({
                         info.x,
                         info.y,
                       );
-                      console.log('ddd', info.x);
                     }}
                   >
                     <div>{info.place_name}</div>

@@ -58,6 +58,15 @@ export default function TeamPlace({ teamLocationID }) {
   };
 
   useEffect(() => {
+    const teamPageCollectionRef = collection(db, 'teamPage');
+    const q = query(teamPageCollectionRef);
+    const getTeamPage = onSnapshot(q, (snapshot) => {
+      const teamPageData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTeamPage(teamPageData);
+    });
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setCurrentUserId(authService.currentUser.uid);
@@ -65,6 +74,7 @@ export default function TeamPlace({ teamLocationID }) {
         postGetTeamID();
       }
     });
+    return getTeamPage;
   }, []);
 
   const isOwner = idUid === currentUserId ? true : false;
@@ -77,6 +87,8 @@ export default function TeamPlace({ teamLocationID }) {
       const newContentField = {
         contentPlaceName: address,
         contentPlaceAddress: placeName,
+        contentLat: placeY,
+        contentLng: placeX,
       };
       try {
         await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
@@ -92,41 +104,12 @@ export default function TeamPlace({ teamLocationID }) {
 
   const [modal, setModal] = useState(false);
 
-  // const [address, setAddress] = useState(''); // 주소
-  const [addressDetail, setAddressDetail] = useState(''); // 상세주소
-
-  // const currentUrl = window.location.href;
-
-  // const open = useDaumPostcodePopup(currentUrl);
-
-  // const handleComplete = (data) => {
-  //   let fullAddress = data.address;
-  //   let extraAddress = '';
-
-  //   if (data.addressType === 'R') {
-  //     if (data.bname !== '') {
-  //       extraAddress += data.bname;
-  //     }
-  //     if (data.buildingName !== '') {
-  //       extraAddress +=
-  //         extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-  //     }
-  //     fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-  //   }
-
-  //   setAddressDetail(fullAddress);
-
-  //   // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-  // };
-
-  // const handleClick = () => {
-  //   open({ onComplete: handleComplete });
-  // };
+  const [teamPage, setTeamPage] = useState([]);
 
   return (
     <>
       <ButtonPlaceTitleWrap>
-        <ContentTitle>📌 모임 공지</ContentTitle>
+        <ContentTitle>📌 모임 장소</ContentTitle>
         {isOwner && (
           <>
             <SubmitBtn onClick={updateContentPlace} type="submit">
@@ -189,31 +172,39 @@ export default function TeamPlace({ teamLocationID }) {
         ) : (
           <ContentCard>
             <PlaceWrap>
-              <Map // 지도를 표시할 Container
-                center={{
-                  // 지도의 중심좌표
-                  lat: placeY,
-                  lng: placeX,
-                }}
-                style={{
-                  // 지도의 크기
-                  width: '50%',
-                  height: '15vh',
-                }}
-                level={4} // 지도의 확대 레벨
-              >
-                <MapMarker // 마커를 생성합니다
-                  position={{
-                    // 마커가 표시될 위치입니다
-                    lat: placeY,
-                    lng: placeX,
-                  }}
-                />
-              </Map>
-              <PlaceTextWrap>
-                <PlaceBtn>{address}</PlaceBtn>
-                <div>{placeName}</div>
-              </PlaceTextWrap>
+              {teamPage
+                .filter((item) => item.id === teamLocationID)
+                .map((item) => {
+                  return (
+                    <>
+                      <Map // 지도를 표시할 Container
+                        center={{
+                          // 지도의 중심좌표
+                          lat: item.contentLat,
+                          lng: item.contentLng,
+                        }}
+                        style={{
+                          // 지도의 크기
+                          width: '50%',
+                          height: '15vh',
+                        }}
+                        level={4} // 지도의 확대 레벨
+                      >
+                        <MapMarker // 마커를 생성합니다
+                          position={{
+                            // 마커가 표시될 위치입니다
+                            lat: item.contentLat,
+                            lng: item.contentLng,
+                          }}
+                        />
+                      </Map>
+                      <PlaceTextWrap>
+                        <PlaceBtn>{item.contentPlaceName}</PlaceBtn>
+                        <div>{item.contentPlaceAddress}</div>
+                      </PlaceTextWrap>
+                    </>
+                  );
+                })}
             </PlaceWrap>
           </ContentCard>
         )}
