@@ -50,7 +50,7 @@ export default function TeamPage() {
             id: doc.id,
             ...doc.data(),
           }));
-          if (teamLocationID !== newInfo[0]?.teamID[0]) {
+          if (teamLocationID !== newInfo[0]?.teamID) {
             navigate('/');
           }
         });
@@ -76,7 +76,10 @@ export default function TeamPage() {
                         {item.teamPartyStack.partyName}
                       </DashboardTitle>
                       <JustWrap>
-                        <TeamManage teamLocationID={teamLocationID} />
+                        <TeamManage
+                          teamLocationID={teamLocationID}
+                          item={item}
+                        />
                       </JustWrap>
                     </TitleManageWrap>
                     <ProjectBasicStatus>
