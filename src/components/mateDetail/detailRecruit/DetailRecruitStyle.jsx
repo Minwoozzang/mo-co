@@ -11,8 +11,8 @@ export const RecruitWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  top: 150px;
-  right: 50px;
+  top: 200px;
+  right: 400px;
   border-radius: 20px;
 `;
 export const RecruitFont = styled.p`
