@@ -21,6 +21,13 @@ export const AddInputDiv = styled.div`
   margin-left: 1%;
 `;
 
+export const AddInputContent = styled.input`
+  width: 100%;
+  height: 100%;
+  background-color: #111;
+  border: none;
+`;
+
 export const AddCommentBtnDiv = styled.div``;
 
 export const AddCommentBtn = styled.button`
@@ -40,5 +47,3 @@ export const AddCommentBtn = styled.button`
     border: none;
   }
 `;
-
-export const AddInputContent = styled.input``;

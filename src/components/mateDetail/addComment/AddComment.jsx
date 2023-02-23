@@ -125,7 +125,7 @@ const AddComment = ({ id }) => {
             <AddInputContent
               onChange={AddCommentTextChange}
               value={commentText}
-              placeholder="댓글을 남겨보세요"
+              placeholder="댓글을 남겨주세요."
             />
           </AddInputDiv>
         </AddCommentListWrap>
