@@ -32,7 +32,7 @@ const SideMemberList = ({ item }) => {
 
               <LeaderProfileInfo>
                 <LeaderName>{data.nickName}</LeaderName>
-                <LeaderPosition>{data.teamPosition}</LeaderPosition>
+                <LeaderPosition>{data.teamPositon}</LeaderPosition>
               </LeaderProfileInfo>
             </LeaderBox>
           );
