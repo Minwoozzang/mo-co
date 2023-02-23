@@ -159,25 +159,10 @@ const DetailRecruit = () => {
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>{post.partyNum}</RecruitDetail>
       </RecruitCurrent>
-
-      <RecruitBtn
-        title="dfdfd"
-        disabled={isBtnDisabled}
-        onClick={handleModalOpen}
-      >
+      <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
         신청하기
       </RecruitBtn>
-
-      <Modal
-        open={isModalOpen}
-        onOk={handleModalOk}
-        onCancel={handleModalCancel}
-        cancelText="취소"
-        okText="참여하기"
-        centered={true}
-        closable={false}
-        footer={false}
-      >
+      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
         <RecruitModal>
           <RecruitModalTitle>참여하시겠어요?</RecruitModalTitle>
           <RecruitModalContentBox>
