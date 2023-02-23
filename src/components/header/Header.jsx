@@ -28,6 +28,7 @@ import {
   HeaderSearchDropDownHr,
   HeaderSearchXbuttonBox,
   HeaderSearchXbutton,
+  SearchBox,
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -155,7 +156,7 @@ const Header = () => {
     <HeaderBody>
       <HeaderInfoBody>
         <LogoAndMateBox>
-          <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
+          <HeaderLogo onClick={navigateHome}></HeaderLogo>
           <MyCodingMate onClick={navigateMyCodingMate}>
             내 코딩모임
           </MyCodingMate>
@@ -178,7 +179,10 @@ const Header = () => {
               <>
                 {isSearchUserDropDown ? (
                   <NavigateMypage>
-                    <AiOutlineSearch style={{ fontSize: '30px' }} />
+                    <AiOutlineSearch
+                      color="white"
+                      style={{ fontSize: '30px' }}
+                    />
                   </NavigateMypage>
                 ) : (
                   ''
@@ -193,7 +197,10 @@ const Header = () => {
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
                     <HeaderSearchBox>
-                      <AiOutlineSearch style={{ fontSize: '30px' }} />
+                      <AiOutlineSearch
+                        color="black"
+                        style={{ fontSize: '30px' }}
+                      />
                       <HeaderSearchInput
                         onChange={onChangeSearch}
                         onKeyPress={handleonKeyPress}
@@ -208,7 +215,7 @@ const Header = () => {
               </>
             ) : (
               <NavigateMypage>
-                <AiOutlineSearch style={{ fontSize: '30px' }} />
+                <AiOutlineSearch color="white" style={{ fontSize: '30px' }} />
               </NavigateMypage>
             )}
           </div>
@@ -219,7 +226,10 @@ const Header = () => {
                 <>
                   {isUserDropDown ? (
                     <NavigateMypage>
-                      <BsPersonFill style={{ fontSize: '40px' }} />
+                      <BsPersonFill
+                        color="white"
+                        style={{ fontSize: '40px' }}
+                      />
                     </NavigateMypage>
                   ) : (
                     ''
@@ -250,7 +260,7 @@ const Header = () => {
                 </>
               ) : (
                 <NavigateMypage>
-                  <BsPersonFill style={{ fontSize: '40px' }} />
+                  <BsPersonFill color="white" style={{ fontSize: '40px' }} />
                 </NavigateMypage>
               )}
             </div>
