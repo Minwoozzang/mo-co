@@ -151,7 +151,7 @@ const DetailRecruit = () => {
       </RecruitDate>
       <RecruitStack>
         <RecruitFont>기술스택</RecruitFont>
-        <StackDetail>{post.Stack}</StackDetail>
+        <StackDetail>{post.partyStack}</StackDetail>
       </RecruitStack>
       <RecruitCurrent>
         <RecruitFont>모집현황</RecruitFont>
@@ -229,17 +229,29 @@ const RecruitFont = styled.p`
   font-size: 12px;
   font-weight: 400;
 `;
-const RecruitArea = styled.div``;
+const RecruitArea = styled.div`
+  width: 100%;
+`;
 const AreaDetail = styled.p`
   font-size: 16px;
   font-weight: 500;
 `;
-const RecruitDate = styled.div``;
-const DateDetail = styled.p``;
-const RecruitStack = styled.div``;
+const RecruitDate = styled.div`
+  width: 100%;
+`;
+const DateDetail = styled.p`
+  font-size: 16px;
+`;
+const RecruitStack = styled.div`
+  width: 100%;
+`;
 const StackDetail = styled.p``;
-const RecruitCurrent = styled.div``;
-const RecruitDetail = styled.div``;
+const RecruitCurrent = styled.div`
+  width: 100%;
+`;
+const RecruitDetail = styled.div`
+  font-size: 16px;
+`;
 const RecruitBtn = styled.button`
   width: 152px;
   height: 40px;

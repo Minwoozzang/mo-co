@@ -4,15 +4,6 @@ export const CommentContainer = styled.div`
   margin-top: 80px;
 `;
 
-export const CommentContainHeader = styled.p`
-  width: 97px;
-  height: 29px;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 29px;
-  margin-bottom: 30px;
-`;
-
 export const ListContainer = styled.div``;
 
 export const CommentNickname = styled.div`

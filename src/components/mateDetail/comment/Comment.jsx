@@ -74,12 +74,10 @@ const Comment = ({ user }) => {
 
   return (
     <CommentContainer>
-      <CommentContainHeader>댓글</CommentContainHeader>
       {/* 댓글 내용 */}
       <ListContainer>
         <ListTextSection>
           <CommentUserName>{user.nickname}</CommentUserName>
-
           {!editBox ? (
             <CommentText>{user.comment}</CommentText>
           ) : (
