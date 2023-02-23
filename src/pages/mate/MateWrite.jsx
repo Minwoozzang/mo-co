@@ -147,7 +147,7 @@ const MateWrite = () => {
         })
         .then(() => {
           updateDoc(doc(db, 'user', authService.currentUser.uid), {
-            teamID: [teamID],
+            teamID: teamID,
           });
         })
         .then(() => {
