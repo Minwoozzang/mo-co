@@ -112,7 +112,7 @@ const CommentContainHeader = styled.p`
   line-height: 29px;
   margin: 30px 0 30px 0;
   color: #fff;
-  margin: 0 250px 0 250px;
+  margin: 0 250px 0 420px;
 `;
 const UserHr = styled.hr`
   border: 0;

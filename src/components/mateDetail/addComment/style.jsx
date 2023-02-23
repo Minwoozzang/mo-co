@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const AddCommentListAll = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -9,13 +10,15 @@ export const AddCommentListAll = styled.div`
 
 export const AddCommentListWrap = styled.div`
   display: flex;
+
   flex-direction: row;
   border: 2px solid #525252;
   width: 100%;
   height: 130px;
   padding: 20px 25px 25px 40px;
-  margin-top: 50px;
+  margin: 50px 750px 0 400px;
   box-sizing: border-box;
+  border-radius: 10px;
 `;
 
 export const AddInputDiv = styled.div`
@@ -28,6 +31,7 @@ export const AddInputContent = styled.input`
   width: 100%;
   height: 100%;
   background-color: #111;
+
   border: none;
   :focus {
     color: #858585;
@@ -39,7 +43,6 @@ export const AddCommentBtnDiv = styled.div``;
 export const AddCommentBtn = styled.button`
   width: 120px;
   height: 35px;
-  margin-top: 200px;
   cursor: pointer;
   background-color: #545454;
   color: #fff;
@@ -47,6 +50,7 @@ export const AddCommentBtn = styled.button`
   border-radius: 5px;
   font-size: 14px;
   font-weight: 600;
+  margin: 30px 0 0 680px;
   :hover {
     background-color: #3b3b3b;
     color: #fff;

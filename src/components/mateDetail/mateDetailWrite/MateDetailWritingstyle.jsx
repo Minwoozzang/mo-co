@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 
-export const GroupWrap = styled.div``;
+export const GroupWrap = styled.div`
+  margin: 0 750px 0 0;
+  height: 100%;
+`;
 export const GroupHeader = styled.h4`
   width: 100%;
   height: 20px;
@@ -8,6 +11,7 @@ export const GroupHeader = styled.h4`
   font-size: 24px;
   font-weight: 500;
   color: #fff;
+  padding-left: 420px;
 `;
 export const GroupUserInfo = styled.div`
   display: flex;
@@ -18,6 +22,7 @@ export const GroupImg = styled.img`
   border-radius: 20px;
   background-color: #d9d9d9;
   margin-top: auto;
+  margin-left: 420px;
 `;
 export const GroupUserId = styled.p`
   margin: 43px 8px 8px;
@@ -28,10 +33,12 @@ export const GroupUserId = styled.p`
 export const GroupBox = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 1100px;
   background-color: #f1f1f1;
 `;
 export const GroupPerson = styled.div`
   width: 100%;
+  padding: 90px 0 0 420px;
   margin: 30px 0 30px 0;
 `;
 
