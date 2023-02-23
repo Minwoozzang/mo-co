@@ -109,20 +109,20 @@ export default function TeamPlace({ teamLocationID }) {
 
   return (
     <>
-      <ButtonPlaceTitleWrap>
-        <ContentTitle>📌 모임 장소</ContentTitle>
-        {isOwner && (
-          <>
-            <SubmitBtn onClick={updateContentPlace} type="submit">
-              작성
-            </SubmitBtn>
-          </>
-        )}
-      </ButtonPlaceTitleWrap>
       <TextAreaWrapper>
         {convert ? (
           <>
             <ContentCard>
+              <ButtonPlaceTitleWrap>
+                <ContentTitle>모임 장소</ContentTitle>
+                {isOwner && (
+                  <>
+                    <SubmitBtn onClick={updateContentPlace} type="submit">
+                      작성
+                    </SubmitBtn>
+                  </>
+                )}
+              </ButtonPlaceTitleWrap>
               <PlaceWrap>
                 <Map // 지도를 표시할 Container
                   center={{
@@ -133,7 +133,7 @@ export default function TeamPlace({ teamLocationID }) {
                   style={{
                     // 지도의 크기
                     width: '50%',
-                    height: '15vh',
+                    height: '21vh',
                   }}
                   level={4} // 지도의 확대 레벨
                 >
@@ -172,13 +172,24 @@ export default function TeamPlace({ teamLocationID }) {
           </>
         ) : (
           <ContentCard>
+            <ButtonPlaceTitleWrap>
+              <ContentTitle>모임 장소</ContentTitle>
+              {isOwner && (
+                <>
+                  <SubmitBtn onClick={updateContentPlace} type="submit">
+                    작성
+                  </SubmitBtn>
+                </>
+              )}
+            </ButtonPlaceTitleWrap>
             <PlaceWrap>
               {teamPage
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
-                    <div key={v4()}>
-                      <Map // 지도를 표시할 Container
+                    <>
+                      <Map
+                        key={v4()} // 지도를 표시할 Container
                         center={{
                           // 지도의 중심좌표
                           lat: item.contentLat,
@@ -187,7 +198,7 @@ export default function TeamPlace({ teamLocationID }) {
                         style={{
                           // 지도의 크기
                           width: '50%',
-                          height: '15vh',
+                          height: '21vh',
                         }}
                         level={4} // 지도의 확대 레벨
                       >
@@ -203,7 +214,7 @@ export default function TeamPlace({ teamLocationID }) {
                         <PlaceBtn>{item.contentPlaceName}</PlaceBtn>
                         <div>{item.contentPlaceAddress}</div>
                       </PlaceTextWrap>
-                    </div>
+                    </>
                   );
                 })}
             </PlaceWrap>
@@ -217,14 +228,16 @@ export default function TeamPlace({ teamLocationID }) {
 const ButtonPlaceTitleWrap = styled.div`
   display: flex;
   align-items: center;
+  padding: 10px 20px;
+  background-color: #232323;
 `;
 
 const ContentTitle = styled.a`
   display: flex;
-  font-size: 18px;
-  font-weight: 700;
-  padding-bottom: 20px;
-  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  align-items: center;
+  color: white;
 `;
 
 const SubmitBtn = styled.button`
@@ -257,9 +270,9 @@ const ContentCard = styled.div`
   border-radius: 20px;
   overflow: hidden;
   transition: 0.4s;
-  height: 20vh;
-  background-color: whitesmoke;
-  padding: 20px;
+  height: 25vh;
+  background-color: white;
+  margin-top: 25px;
 `;
 
 const PlaceBtn = styled.div`
@@ -267,6 +280,7 @@ const PlaceBtn = styled.div`
   height: 10px;
   align-items: center;
   font-size: 15px;
+  margin-top: 10px;
   border: none;
   background-color: transparent;
   color: grey;
@@ -277,11 +291,10 @@ const PlaceWrap = styled.div`
 `;
 
 const PlaceTextWrap = styled.div`
-  width: 150px;
   margin-left: auto;
   display: flex;
   flex-direction: column;
   div {
-    padding: 20px 10px;
+    padding: 20px;
   }
 `;

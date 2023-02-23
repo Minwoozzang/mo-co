@@ -128,7 +128,7 @@ const ContentCard = styled.div`
   width: 100%;
   position: relative;
   border-radius: 20px;
-  overflow: hidden;
+  overflow-y: auto;
   transition: 0.4s;
   height: 58vh;
   background-color: whitesmoke;
