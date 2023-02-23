@@ -21,7 +21,7 @@ const Search = () => {
       const firstCharUpper = params.word.replace(/^[a-z]/, (char) =>
         char.toUpperCase(),
       );
-      console.log(newPost[6].partyStack);
+      
       let filterList = [];
       newPost.map((item) => {
         let stringStack = '';
@@ -39,24 +39,10 @@ const Search = () => {
       });
       console.log(filterList);
       setSearchData(filterList);
-      // setSearchData(
-      //   newPost.filter(
-      //     (item) =>
-      //       item.partyStack.includes(firstCharUpper) ||
-      //       item.partyLocation.includes(params.word) ||
-      //       item.partyTime.includes(params.word) ||
-      //       item.partyName.includes(params.word),
-      //   ),
-      // );
     });
     return getPost;
   }, [params.word]);
   console.log(searchData);
-
-    //   const searched = searchData.filter((item) => 
-    //     item.name.toLowerCase().includes(params.word)
-    //     )
-    // result = result.filter((item) =>item.FCLTY_NM.includes(search) ||  item.FCLTY_ROAD_NM_ADDR.includes(search)
 
   return (
     <SearchResultContainer>

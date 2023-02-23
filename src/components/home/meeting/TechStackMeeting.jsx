@@ -12,7 +12,7 @@ import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 import { db } from '../../../common/firebase';
 
-const TechStackMeeting = ({ recommendTechList }) => {
+const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
   // const [recommendTechList, setRecommendTechList] = useState([]);
   // const result = useQueries([
   //   {
@@ -50,9 +50,6 @@ const TechStackMeeting = ({ recommendTechList }) => {
     <TechStackMeetingArea>
       <MeetingTitleBox>
         <TechStackMeetingTitle>기술 스택에 맞는 모임</TechStackMeetingTitle>
-        {/* <MeetingMoreBox>
-                    더보기 <MdExpandMore size="16" />
-                </MeetingMoreBox> */}
       </MeetingTitleBox>
       <MeetingCardBox>
         {recommendTechList?.length > 0 &&

@@ -61,8 +61,6 @@ const TimeMeeting = ({ recommendTimeList }) => {
 
   return (
     <TimeMeetingArea>
-      {/* {result[0].isLoading && 'Loading...'}
-        {result[0].isError && 'error'} */}
       <MeetingTitleBox>
         <TimeMeetingTitle>시간대가 맞는 모임</TimeMeetingTitle>
         {/* <MeetingMoreBox>
