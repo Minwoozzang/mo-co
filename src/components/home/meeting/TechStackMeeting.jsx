@@ -11,7 +11,7 @@ import { useQueries } from 'react-query';
 import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 
-const TechStackMeeting = ({ recommendTechList }) => {
+const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
   // const [recommendTechList, setRecommendTechList] = useState([]);
   // const result = useQueries([
   //   {
@@ -54,10 +54,14 @@ const TechStackMeeting = ({ recommendTechList }) => {
                 </MeetingMoreBox> */}
       </MeetingTitleBox>
       <MeetingCardBox>
-        {recommendTechList?.length > 0 &&
+        {isLoggedIn ? (
+          recommendTechList?.length > 0 &&
           recommendTechList
             .slice(0, 4)
-            .map((item, idx) => <CardSection key={idx} item={item} />)}
+            .map((item, idx) => <CardSection key={idx} item={item} />)
+        ) : (
+         '로그인 안됨'
+        )}
       </MeetingCardBox>
     </TechStackMeetingArea>
   );

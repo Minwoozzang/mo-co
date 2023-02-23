@@ -3,83 +3,15 @@ import { BsBookmarkHeart } from 'react-icons/bs';
 import { GrFormView } from 'react-icons/gr';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
-import { Tag } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { authService } from '../common/firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import default_profile from '../assets/default_profile.png';
 
-const CardSection = ({ item, db }) => {
-  const navigate = useNavigate();
-  const [uid, setUid] = useState('');
-  const bookmark = item.bookmark;
-
-  // HTML을 plain text로 변환
-  const parsedHtml = item.partyDesc?.replace(/(<([^>]+)>)/gi, '');
-
-  // 북마크 핸들링 함수
-  const handleBookmark = async () => {
-    // 현재 유저 문서 가져오기
-    const userDoc = await getDoc(doc(db, 'user', uid));
-    const userData = userDoc.data();
-    const bookmarks = await userData.bookmarks;
-
-    // 현재 유저의 bookmarks에 해당 게시물이 없을 때
-    if (!bookmarks.includes(item.id)) {
-      try {
-        // post 컬렉션의 해당 게시물의 bookmark 필드 +1
-        await updateDoc(doc(db, 'post', item.id), {
-          bookmark: bookmark + 1,
-        });
-        // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 추가
-        await updateDoc(doc(db, 'user', uid), {
-          bookmarks: [...bookmarks, item.id],
-        });
-        console.log('북마크 추가 성공');
-      } catch {
-        console.log('북마크 추가 실패');
-      }
-    }
-
-    // 현재 유저의 bookmarks에 해당 게시물이 있을 때
-    if (bookmarks.includes(item.id)) {
-      try {
-        // post 컬렉션의 해당 게시물의 bookmark 필드 -1
-        await updateDoc(doc(db, 'post', item.id), {
-          bookmark: bookmark - 1,
-        });
-        // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 삭제
-        await updateDoc(doc(db, 'user', uid), {
-          bookmarks: bookmarks.filter((bookmark) => bookmark !== item.id),
-        });
-        console.log('북마크 삭제 성공');
-      } catch {
-        console.log('북마크 삭제 실패');
-      }
-    }
-  };
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setUid(uid);
-      } else {
-        return;
-      }
-    });
-  }, [uid]);
+const BlurCard = ({ item }) => {
 
   return (
     <PostCard>
       <BookmarkIconBox>
-        <Location>{item.partyLocation}</Location>
-        {/* <span>{item.bookmark}</span> */}
+        <Location>용산구</Location>
         <Bookmark>
-          <span>{item.bookmark}</span>
           <BsBookmarkHeart
-            onClick={handleBookmark}
             cursor="pointer"
             size="20px"
           />
@@ -87,36 +19,23 @@ const CardSection = ({ item, db }) => {
       </BookmarkIconBox>
 
       <PostBox>
-        <PostTitle
-          onClick={() => {
-            navigate(`/matedetail/${item.id}`, { state: { item } });
-          }}
-        >
-          {item.partyPostTitile}
+        <PostTitle>
+          모임제목
         </PostTitle>
-        <PostDesc>{parsedHtml}</PostDesc>
+        <PostDesc>모임설명</PostDesc>
         <TechStackIcon>
-          {item.partyStack?.map((item, idx) => (
-            <Tag key={idx} style={{ fontSize: 12 }} color="purple">
-              {item}
-            </Tag>
-          ))}
         </TechStackIcon>
       </PostBox>
 
       <PartyStatusBox>
         <RecruitingBox>
           <Recruiting>
-            {item.partyIsOpen === true ? (
-              <span style={{ color: 'green' }}>모집 중</span>
-            ) : (
-              <span style={{ color: 'red' }}>모집완료</span>
-            )}
+            모집중
           </Recruiting>
         </RecruitingBox>
         <HeadCountBox>
           <BsPeopleFill size="15px" />
-          <HeadCount>{`: 1 / ${item.partyNum}`}</HeadCount>
+          <HeadCount>2 / 3명</HeadCount>
         </HeadCountBox>
       </PartyStatusBox>
 
@@ -125,9 +44,9 @@ const CardSection = ({ item, db }) => {
       <PostInfo>
         <ProfileBox>
           <ProfileImage
-            src={!item.profileImg ? default_profile : item.profileImg}
+            // src={default_profile}
           ></ProfileImage>
-          <NickName>{item.nickName}</NickName>
+          <NickName>XXX</NickName>
         </ProfileBox>
         <InfoBox>
           <GrFormView size="24px" />
@@ -140,7 +59,7 @@ const CardSection = ({ item, db }) => {
   );
 };
 
-export default CardSection;
+export default BlurCard;
 
 const PostCard = styled.div`
   border: 1px solid black;
@@ -152,6 +71,9 @@ const PostCard = styled.div`
   height: 320px;
   display: flex;
   flex-direction: column;
+  background-color: rgba(238, 238, 232, 0.1);
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
 `;
 
 const BookmarkIconBox = styled.div`
@@ -187,11 +109,7 @@ const PostTitle = styled.div`
   word-break: break-all;
   width: 245px;
   height: 24px;
-  cursor: pointer;
   font-size: 17px;
-  &:hover {
-    color: #531cab;
-  }
 `;
 
 const PostDesc = styled.div`

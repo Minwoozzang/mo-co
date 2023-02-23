@@ -11,7 +11,7 @@ import { useQueries, useQuery } from 'react-query';
 import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 
-const TimeMeeting = ({ recommendTimeList }) => {
+const TimeMeeting = ({ isLoggedIn, recommendTimeList }) => {
   // const [recommendTimeList, setRecommendTimeList] = useState([]);
   // const result = useQueries([
   //   {
@@ -69,12 +69,16 @@ const TimeMeeting = ({ recommendTimeList }) => {
                 </MeetingMoreBox> */}
       </MeetingTitleBox>
       <MeetingCardBox>
-        {recommendTimeList?.length > 0 &&
+        {isLoggedIn ? (
+          recommendTimeList?.length > 0 &&
           recommendTimeList
             .slice(0, 4)
             .map((item, idx) => (
               <CardSection key={`시간대가 맞는 모임 ${idx}`} item={item} />
-            ))}
+            ))
+        ) : (
+          '로그인 안됨'
+        )}
       </MeetingCardBox>
     </TimeMeetingArea>
   );
