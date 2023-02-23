@@ -21,8 +21,8 @@ const HomeMeetingList = ({
         <>
           <TechAndTimeMeetingArea>
             <TechStackMeeting recommendTechList={recommendTechList} />
-            <TimeMeeting recommendTimeList={recommendTimeList} />
           </TechAndTimeMeetingArea>
+          <TimeMeeting recommendTimeList={recommendTimeList} />
           <LocationMeeting recommendLocationList={recommendLocationList} />
         </>
       ) : (

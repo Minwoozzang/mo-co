@@ -148,7 +148,8 @@ const CardSection = ({ item, db }) => {
 export default CardSection;
 
 const PostCard = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border-radius: 20px;
   flex-basis: 245px;
   padding: 16px;
   flex-grow: 0;
@@ -157,6 +158,7 @@ const PostCard = styled.div`
   height: 320px;
   display: flex;
   flex-direction: column;
+  background-color: #232323;
 `;
 
 const BookmarkIconBox = styled.div`

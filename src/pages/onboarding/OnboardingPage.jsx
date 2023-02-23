@@ -19,7 +19,9 @@ export default function OnboardingPage() {
   const [userTime, setUserTime] = useState('');
   const [userLocation, setUserLocation] = useState('');
   const [currentUserName, setCurrentUserName] = useState('');
-
+  // 네비게이트
+  const navigate = useNavigate();
+  
   const stacks = [
     'JavsScript',
     'Python',
@@ -50,21 +52,6 @@ export default function OnboardingPage() {
     setIsDisabled(!isDisabled);
   };
 
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        const auth2 = getAuth();
-        const getUserName = async () => {
-          setCurrentUserName(auth2.currentUser.displayName);
-          console.log('user', currentUserName);
-        };
-        getUserName();
-      }
-    });
-  }, []);
-
-  // 네비게이트
-  const navigate = useNavigate();
 
   const updateIntroduce = async () => {
     const auth = getAuth();
@@ -86,32 +73,21 @@ export default function OnboardingPage() {
     } finally {
       console.log('end');
     }
-    navigate('/');
-  };
-
-  // 온보딩 수정하기
-  const editIntroduce = async () => {
-    const auth = getAuth();
-    const user = auth.currentUser.uid;
-    const userDoc = doc(db, 'user', String(user));
-    const newField = {
-      moreInfo: {
-        u_stack: userStack,
-        u_time: userTime,
-        u_location: userLocation,
-        u_isRemote: isRemote,
-      },
-    };
-    try {
-      await updateDoc(userDoc, newField);
-      console.log('user', user);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      console.log('end');
-    }
     navigate('/mypage');
   };
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        const auth2 = getAuth();
+        const getUserName = async () => {
+          setCurrentUserName(auth2.currentUser.displayName);
+          console.log('user', currentUserName);
+        };
+        getUserName();
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -170,12 +146,12 @@ export default function OnboardingPage() {
           <IntroSubmitBtnBox>
             <>
               <IntroSubmitBtn onClick={updateIntroduce} type="submit">
-                제출하기
+                등록 완료
               </IntroSubmitBtn>
             </>
-            <>
+            {/* <>
               <IntroEditBtn onClick={editIntroduce}>수정하기</IntroEditBtn>
-            </>
+            </> */}
           </IntroSubmitBtnBox>
         </WholeContainer>
       </JustContainer>
