@@ -19,8 +19,9 @@ import {
   UpdateDeleteBody,
   CommentProfileImage,
   CommentDate,
+  UserHr,
 } from './CommentStyle';
-import default_profile from '../../../assets/default_profile.png';
+import default_profile from '../../../assets/Group 290.png';
 
 const Comment = ({ user }) => {
   // comment 컬렉션 데이터 저장
@@ -140,6 +141,7 @@ const Comment = ({ user }) => {
           <CommentDate>{user.date}</CommentDate>
         </ListTextSection>
       </ListContainer>
+      <UserHr />
     </CommentContainer>
   );
 };

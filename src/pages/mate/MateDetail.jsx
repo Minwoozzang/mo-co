@@ -88,9 +88,11 @@ const MateDetailWrap = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0px 400px 230px 150px;
+  margin: 0px 400px 230px 0px;
   // min-height: 100vh;
+  width: 100%;
   height: 100%;
+
   background-size: cover;
   background-color: #111111;
 `;
@@ -110,6 +112,7 @@ const CommentContainHeader = styled.p`
   line-height: 29px;
   margin: 30px 0 30px 0;
   color: #fff;
+  margin: 0 250px 0 250px;
 `;
 const UserHr = styled.hr`
   border: 0;

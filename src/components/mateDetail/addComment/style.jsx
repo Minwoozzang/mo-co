@@ -2,15 +2,18 @@ import styled from '@emotion/styled';
 
 export const AddCommentListAll = styled.div`
   display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const AddCommentListWrap = styled.div`
   display: flex;
   flex-direction: row;
   border: 2px solid #525252;
-  width: 700px;
+  width: 100%;
   height: 130px;
-  padding: 20px 25px 25px 20px;
+  padding: 20px 25px 25px 40px;
   margin-top: 50px;
   box-sizing: border-box;
 `;
@@ -36,6 +39,7 @@ export const AddCommentBtnDiv = styled.div``;
 export const AddCommentBtn = styled.button`
   width: 120px;
   height: 35px;
+  margin-top: 200px;
   cursor: pointer;
   background-color: #545454;
   color: #fff;
