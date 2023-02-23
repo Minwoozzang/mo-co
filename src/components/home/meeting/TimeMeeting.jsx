@@ -4,6 +4,10 @@ import {
   MeetingCardBox,
   TimeMeetingTitle,
   MeetingMoreBox,
+  TimeMeetingInnerSection1,
+  TimeMeetingCardBox,
+  TimeMeetingInnerSection2,
+  TimeMeetingInnerBox,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
@@ -61,16 +65,17 @@ const TimeMeeting = ({ recommendTimeList }) => {
 
   return (
     <TimeMeetingArea>
+      <TimeMeetingInnerSection1>
       <MeetingTitleBox>
         <TimeMeetingTitle>시간대가 맞는 모임</TimeMeetingTitle>
-        {/* <MeetingMoreBox>
-                    더보기 <MdExpandMore size="16" />
-                </MeetingMoreBox> */}
       </MeetingTitleBox>
-      <MeetingCardBox>
+      </TimeMeetingInnerSection1>
+      <TimeMeetingInnerSection2>
+        <TimeMeetingInnerBox />
+      <TimeMeetingCardBox>
         {recommendTimeList?.length > 0 &&
           recommendTimeList
-            .slice(0, 4)
+            .slice(0, 3)
             .map((item, idx) => (
               <CardSection
                 key={`시간대가 맞는 모임 ${idx}`}
@@ -78,7 +83,8 @@ const TimeMeeting = ({ recommendTimeList }) => {
                 db={db}
               />
             ))}
-      </MeetingCardBox>
+      </TimeMeetingCardBox>
+      </TimeMeetingInnerSection2>
     </TimeMeetingArea>
   );
 };

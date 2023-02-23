@@ -2,36 +2,69 @@ import styled from "@emotion/styled";
 
 /* HomeMeetingList */
 export const MeetingArea = styled.div`
-    width: 1180px;
-    height: 1173px;
-    margin: 0 auto 100px;
+    width: 1266px;
+    height: 1876px; // 1876px
+    margin: 0 auto;
+    /* background-color: lightgray; */
 `
 /* TechStackMeeting + TimeMeeting */
 export const TechAndTimeMeetingArea = styled.div`
     width: 1180px;
-    height: 701px;
+    height: 730px;
     display: flex;
-    gap: 0 36px;
+    margin: 0 auto 138px;
+    /* background-color: aliceblue; */
+    /* gap: 0 36px; */
 `
 /* TechStackMeeting */
 export const TechStackMeetingArea = styled.div`
-    height: 701px;
+    height: 730px;
     width: 572px;
+    /* background-color: blue; */
 `
 export const TechStackMeetingTitle = styled.div`
     height: 29px;
     font-size: 20px;
     font-weight: 600;
+    color: #FFFFFF;
 `
 /* TimeMeeting */
 export const TimeMeetingArea = styled.div`
-    height: 701px;
-    width: 572px;
+    height: 386px;
+    width: 1266px;
+    margin: 0 auto;
+    display: flex;
+    /* background-color: skyblue; */
+`
+export const TimeMeetingInnerSection1 = styled.div`
+    height: 386px;
+    width: 386px;
+`
+export const TimeMeetingInnerSection2 = styled.div`
+    height: 386px;
+    width: 880px;
 `
 export const TimeMeetingTitle = styled.div`
     height: 29px;
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 500;
+    color: #FFFFFF;
+`
+export const TimeMeetingTitleBox = styled.div`
+    width: 252px;
+    height: 42px;
+    border: 1px solid gray;
+`
+export const TimeMeetingInnerBox = styled.div`
+    height: 66px;
+    width: 880px;
+    /* border: 1px solid; */
+`
+export const TimeMeetingCardBox = styled.div`
+    height: 320px;
+    width: 880px;
+    display: flex;
+    gap: 0 20px;
 `
 /* Meeting 부분 재사용 */
 export const MeetingTitleBox = styled.div`
@@ -39,7 +72,7 @@ export const MeetingTitleBox = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 `
 export const MeetingMoreBox = styled.div`
     width: 57px;
@@ -62,19 +95,35 @@ export const MeetingCard = styled.div`
 `
 /* LocationMeeting */
 export const LocationMeetingArea = styled.div`
-    width: 1180px;
-    height: 369px;
-    margin-top: 100px;
+    height: 356px;
+    width: 1266px;
+    margin: 107px auto 0;
+    display: flex;
+    /* background-color: pink; */
+`
+export const LocationMeetingInnerSection1 = styled.div`
+    height: 356px;
+    width: 386px;
+`
+export const LocationMeetingInnerSection2 = styled.div`
+    height: 356px;
+    width: 880px;
+`
+export const LocationMeetingInnerBox = styled.div`
+    height: 36px;
+    width: 880px;
+    /* border: 1px solid; */
 `
 export const LocationTitle = styled.div`
     width: 204px;
     height: 29px;
     font-size: 20px;
     font-weight: 600;
+    color: #FFFFFF;
 `
 export const LocationMeetingCardBox = styled.div`
     height: 320px;
-    width: 1180px;
+    width: 880px;
     display: flex;
     gap: 0 20px;
 `

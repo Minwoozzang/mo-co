@@ -4,6 +4,9 @@ import {
   LocationTitle,
   LocationMeetingArea,
   LocationMeetingCardBox,
+  LocationMeetingInnerSection1,
+  LocationMeetingInnerSection2,
+  LocationMeetingInnerBox,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
@@ -50,16 +53,17 @@ const LocationMeeting = ({ recommendLocationList }) => {
   return (
     <>
       <LocationMeetingArea>
+        <LocationMeetingInnerSection1>
         <MeetingTitleBox>
           <LocationTitle>지역이 맞는 모임</LocationTitle>
-          {/* <MeetingMoreBox>
-                    더보기 <MdExpandMore size="16" />
-                </MeetingMoreBox> */}
         </MeetingTitleBox>
-        <LocationMeetingCardBox>
+        </LocationMeetingInnerSection1>
+       <LocationMeetingInnerSection2>
+        <LocationMeetingInnerBox />
+       <LocationMeetingCardBox>
           {recommendLocationList?.length > 0 &&
             recommendLocationList
-              .slice(0, 4)
+              .slice(0, 3)
               .map((item, idx) => (
                 <CardSection
                   key={`지역이 맞는 모임 ${idx}`}
@@ -68,6 +72,7 @@ const LocationMeeting = ({ recommendLocationList }) => {
                 />
               ))}
         </LocationMeetingCardBox>
+       </LocationMeetingInnerSection2>
       </LocationMeetingArea>
     </>
   );
