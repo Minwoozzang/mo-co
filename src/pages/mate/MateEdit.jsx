@@ -91,7 +91,6 @@ const MateEdit = () => {
         console.log('Error getting document:', error);
       });
   };
-  console.log('d오오오ㅗ오오오', postIdInfo);
 
   // 기술 스택 선택 핸들러 함수
   const handlePartyStack = (stack) => {
@@ -109,20 +108,6 @@ const MateEdit = () => {
     setIsDisabled(!isDisabled);
   };
 
-  // 팀 아이디 받아오기
-  const [teamID, setTeamID] = useState([]);
-  const teamGetTeamID = () => {
-    const q = query(collection(db, 'teamPage'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        ids: doc.id,
-        ...doc.data(),
-      }));
-      setTeamID(postIdInfo);
-    });
-    return unsubscribe;
-  };
-
   // ! 모집글 수정 함수
   const handleEditPost = async () => {
     try {
@@ -138,7 +123,7 @@ const MateEdit = () => {
         partyDesc: writtenDesc,
       })
         .then(() => {
-          updateDoc(doc(db, 'teamPage', teamID), {
+          updateDoc(doc(db, 'teamPage', postIdInfo), {
             teamPartyStack: {
               partyName,
               partyTime,
@@ -160,8 +145,6 @@ const MateEdit = () => {
     if (!currentUser) return;
     getUserInfo();
     getPostData();
-    teamGetTeamID();
-    console.log(currentUser);
   }, []);
 
   return (

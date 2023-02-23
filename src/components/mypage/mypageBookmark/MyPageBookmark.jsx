@@ -56,23 +56,25 @@ const MyPageBookmark = () => {
   }, []);
 
   return (
-    <MyBookmarkBody>
+    <>
       <MyBookmarkTitle>스크랩</MyBookmarkTitle>
-      {postBookmark
-        .filter((item) => userBookmark.includes(item.id))
-        .map((item) => {
-          return (
-            <MyBookmarkList key={item.id}>
-              <CardSection
-                item={item}
-                onClick={() => {
-                  navigate(`/matedetail/${item.id}`);
-                }}
-              />
-            </MyBookmarkList>
-          );
-        })}
-    </MyBookmarkBody>
+      <MyBookmarkBody>
+        {postBookmark
+          .filter((item) => userBookmark.includes(item.id))
+          .map((item) => {
+            return (
+              <MyBookmarkList key={item.id}>
+                <CardSection
+                  item={item}
+                  onClick={() => {
+                    navigate(`/matedetail/${item.id}`);
+                  }}
+                />
+              </MyBookmarkList>
+            );
+          })}
+      </MyBookmarkBody>
+    </>
   );
 };
 

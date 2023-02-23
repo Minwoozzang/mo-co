@@ -80,7 +80,7 @@ export const MemberInfoProfileInfo = styled.div`
 `;
 
 export const MemberInfoProfileName = styled.div`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 550;
 `;
 
@@ -114,7 +114,7 @@ export const LeaderProfileInfo = styled.div`
   color: white;
 `;
 export const LeaderName = styled.div`
-  font-size: 20px;
+  font-size: 16px;
 `;
 export const LeaderPosition = styled.div``;
 export const MemberList = styled.div``;
