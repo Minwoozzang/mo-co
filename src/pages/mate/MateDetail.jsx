@@ -1,17 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
 import CommentList from '../../components/mateDetail/commentList/CommentList';
-import { db } from '../../common/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { db, authService } from '../../common/firebase';
+import {
+  doc,
+  updateDoc,
+  query,
+  collection,
+  onSnapshot,
+  where,
+} from 'firebase/firestore';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const MateDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
+
+  // 파베 인증
+  const currentUser = authService.currentUser;
+
+  // 유저 닉네임 - 프로필 가져오기 상태
+  const [nickName, setNickName] = useState('');
+  const [profileImg, setGetProfileImg] = useState('');
+
+  // 유저 닉네임 - 프로필 가져오기 함수
+  const getUserInfo = () => {
+    if (currentUser !== null) {
+      const displayName = currentUser.displayName;
+      const photoURL = currentUser.photoURL;
+      setNickName(displayName);
+      setGetProfileImg(photoURL);
+    }
+  };
+  useEffect(() => {
+    if (!currentUser) return;
+    getUserInfo();
+  }, [currentUser]);
 
   // 작성자만 수정가능하게
   const handleMoveToEdit = () => {
@@ -30,17 +57,19 @@ const MateDetail = () => {
       console.log(error);
     }
   };
+
+  console.log(profileImg);
   return (
     <MateDetailWrap>
       <MateDetailContainer>
-        <MateDetailWriting />
+        <MateDetailWriting img={profileImg} />
         <button onClick={handleDelete}>삭제</button>
         <button onClick={handleMoveToEdit}>수정</button>
       </MateDetailContainer>
       <CommentWrap>
         <UserHr />
         <CommentContainHeader>댓글</CommentContainHeader>
-        <CommentList id={id} />
+        <CommentList id={id} img={profileImg} />
         <AddComment id={id} />
       </CommentWrap>
       <DetailRecruit />
