@@ -23,7 +23,6 @@ const DetailRecruit = () => {
   // 참여신청 버튼 비활성화 여부
   const [teamPage, setTeamPage] = useState([]);
   let isBtnDisabled = false;
-  let isDone = false;
   // 내가 참여 신청한 팀 리스트
   let myTeamIdList = [];
   const getMyTeamIdList = teamPage.forEach((item) => {
@@ -34,20 +33,23 @@ const DetailRecruit = () => {
       }
     });
   });
-
   /*
   참여 신청 버튼 비활성화 조건
   1. 내가 주최자일 경우
   2. 모집이 완료된 경우 ( 모집 완료 텍스트 포함 )
   3. 이미 신청한 경우 ( 신청 완료 텍스트 포함 )
   */
-  if (post.uid === authService.currentUser.uid) {
+
+  if (post.uid === authService?.currentUser?.uid) {
     isBtnDisabled = true;
-  } else if (post.partyIsOpen === false) {
+  }
+
+  if (post.partyIsOpen === false) {
     isBtnDisabled = true;
-  } else if (myTeamIdList.includes(post.teamID)) {
+  }
+
+  if (myTeamIdList.includes(post.teamID)) {
     isBtnDisabled = true;
-    isDone = true;
   }
 
   // 프로필 이미지 받아오기
@@ -157,17 +159,15 @@ const DetailRecruit = () => {
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>{post.partyNum}</RecruitDetail>
       </RecruitCurrent>
+
       <RecruitBtn
         title="dfdfd"
         disabled={isBtnDisabled}
         onClick={handleModalOpen}
       >
-        {isDone
-          ? '신청 완료'
-          : '참여 신청' || post.partyIsOpen === false
-          ? '모집 완료'
-          : '참여 신청'}
+        신청하기
       </RecruitBtn>
+
       <Modal
         open={isModalOpen}
         onOk={handleModalOk}
