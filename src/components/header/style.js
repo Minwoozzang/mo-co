@@ -80,7 +80,10 @@ export const LoginRoute = styled.div`
 `;
 
 export const NavigateMypage = styled.div`
-  margin-right: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   cursor: pointer;
 `;
 

@@ -30,9 +30,9 @@ import {
   HeaderSearchXbutton,
   SearchBox,
 } from './style';
-import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { ImCancelCircle } from 'react-icons/im';
+import defaultImg from '../../../src/assets/Group 290.png';
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -226,8 +226,9 @@ const Header = () => {
                 <>
                   {isUserDropDown ? (
                     <NavigateMypage>
-                      <BsPersonFill
-                        color="white"
+                      <img
+                        src={defaultImg}
+                        alt=""
                         style={{ fontSize: '40px' }}
                       />
                     </NavigateMypage>
@@ -237,11 +238,7 @@ const Header = () => {
                   <HeaderDropDownListBox style={{ position: 'absolute' }}>
                     <HeaderImageBox>
                       <HeaderImage
-                        src={
-                          profileUserInfo[0]?.profileImg
-                            ? profileUserInfo[0].profileImg
-                            : 'https://imhannah.me/common/img/default_profile.png'
-                        }
+                        src={profileUserInfo[0]?.profileImg ?? defaultImg}
                         alt=""
                       />
                       <HeaderImageText>
@@ -260,7 +257,7 @@ const Header = () => {
                 </>
               ) : (
                 <NavigateMypage>
-                  <BsPersonFill color="white" style={{ fontSize: '40px' }} />
+                  <img src={defaultImg} alt="" style={{ fontSize: '40px' }} />
                 </NavigateMypage>
               )}
             </div>
