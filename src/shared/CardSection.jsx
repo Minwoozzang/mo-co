@@ -74,7 +74,7 @@ const CardSection = ({ item, db }) => {
   return (
     <PostCard>
       <BookmarkIconBox>
-        <Location>{item.partyLocation}</Location>
+        <Location>{item.isRemote ? '비대면' : item.partyLocation}</Location>
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
           <span>{item.bookmark}</span>

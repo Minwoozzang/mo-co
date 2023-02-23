@@ -77,11 +77,11 @@ const MateEdit = () => {
     getDoc(postRef)
       .then((doc) => {
         if (doc.exists()) {
+          setPostIdInfo(doc.data().teamID);
           console.log('Document data:', doc.data());
           setPostData(doc.data());
           setSelectedTech(doc.data().partyStack);
           setWrittenDesc(doc.data().partyDesc);
-          setPostIdInfo(doc.data().teamID);
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -91,6 +91,7 @@ const MateEdit = () => {
         console.log('Error getting document:', error);
       });
   };
+  console.log('d오오오ㅗ오오오', postIdInfo);
 
   // 기술 스택 선택 핸들러 함수
   const handlePartyStack = (stack) => {
@@ -131,8 +132,8 @@ const MateEdit = () => {
             },
           });
         })
-        .catch(() => {
-          console.log('에러남');
+        .catch((error) => {
+          console.log('에러남', error);
         });
       navigate(`/matedetail/${id}`);
       console.log('수정 성공');
@@ -145,6 +146,7 @@ const MateEdit = () => {
     if (!currentUser) return;
     getUserInfo();
     getPostData();
+    console.log(currentUser);
   }, []);
 
   return (

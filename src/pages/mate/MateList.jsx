@@ -25,7 +25,7 @@ const MateList = () => {
   // 페이지네이션
   // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
   const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(3);
+  const [maxValue, setMaxValue] = useState(8);
 
   // selectedTech 배열을 텍스트로 변환
   const selectedTechText = [...selectedTech]
@@ -34,8 +34,8 @@ const MateList = () => {
 
   // 페이지네이션 핸들러
   const handleChange = (page) => {
-    setMinValue(page * 3 - 3);
-    setMaxValue(page * 3);
+    setMinValue(page * 8 - 8);
+    setMaxValue(page * 8);
   };
 
   // 필터 옵션 선택 핸들러
@@ -125,7 +125,7 @@ const MateList = () => {
       <PaginationContainer>
         <Pagination
           defaultCurrent={1}
-          defaultPageSize={3}
+          defaultPageSize={8}
           onChange={handleChange}
           total={DATA ? DATA.length : 0}
         />
