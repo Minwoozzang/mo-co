@@ -107,7 +107,7 @@ export const NoneDiv = styled.div`
   display: none;
 `;
 
-export const CommentProfileImage = styled.div`
+export const CommentProfileImage = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 20px;

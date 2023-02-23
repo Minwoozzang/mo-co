@@ -11,7 +11,7 @@ export const GroupHeader = styled.h4`
 export const GroupUserInfo = styled.div`
   display: flex;
 `;
-export const GroupImg = styled.div`
+export const GroupImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 20px;

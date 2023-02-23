@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, authService } from '../../../common/firebase';
-import { Modal, Button } from 'antd';
 import CustomUi from './CustomUi';
 import { GrMoreVertical } from 'react-icons/gr';
 import {
@@ -21,15 +20,17 @@ import {
   CommentProfileImage,
   CommentDate,
 } from './CommentStyle';
+import default_profile from '../../../assets/default_profile.png';
 
 const Comment = ({ user }) => {
   // comment 컬렉션 데이터 저장
-  console.log(user);
+
   const [editBox, setEditBox] = useState(false);
   const [editValue, setEditValue] = useState(user.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
 
+  //console.log(img);
   const handleChange = (e) => {
     setEditValue(e.target.value);
   };
@@ -79,7 +80,9 @@ const Comment = ({ user }) => {
       {/* 댓글 내용 */}
       <ListContainer>
         <ListTextSection>
-          <CommentProfileImage></CommentProfileImage>
+          <CommentProfileImage
+            src={!user.userImg ? default_profile : user.userImg}
+          ></CommentProfileImage>
           <CommentUserName>{user.userName}</CommentUserName>
           {!editBox ? (
             <CommentText>{user.comment}</CommentText>
