@@ -126,7 +126,7 @@ export default function ContentRule({ teamLocationID }) {
               {contentInfo
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
-                  return <div key={item.id}>{item.contentRule}</div>;
+                  return <p key={item.id}>{item.contentRule}</p>;
                 })}
             </div>
           </ContentCard>
