@@ -6,6 +6,7 @@ import {
   LocationMeetingCardBox,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
+import { db } from '../../../common/firebase';
 import { MdExpandMore } from 'react-icons/md';
 import { useQueries } from 'react-query';
 import { getPost, getUser } from '../../../common/utils/getApi';
@@ -60,7 +61,11 @@ const LocationMeeting = ({ recommendLocationList }) => {
             recommendLocationList
               .slice(0, 4)
               .map((item, idx) => (
-                <CardSection key={`지역이 맞는 모임 ${idx}`} item={item} />
+                <CardSection
+                  key={`지역이 맞는 모임 ${idx}`}
+                  item={item}
+                  db={db}
+                />
               ))}
         </LocationMeetingCardBox>
       </LocationMeetingArea>

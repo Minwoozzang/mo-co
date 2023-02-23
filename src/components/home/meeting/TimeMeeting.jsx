@@ -6,6 +6,7 @@ import {
   MeetingMoreBox,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
+import { db } from '../../../common/firebase';
 import { MdExpandMore } from 'react-icons/md';
 import { useQueries, useQuery } from 'react-query';
 import { getPost, getUser } from '../../../common/utils/getApi';
@@ -73,7 +74,11 @@ const TimeMeeting = ({ recommendTimeList }) => {
           recommendTimeList
             .slice(0, 4)
             .map((item, idx) => (
-              <CardSection key={`시간대가 맞는 모임 ${idx}`} item={item} />
+              <CardSection
+                key={`시간대가 맞는 모임 ${idx}`}
+                item={item}
+                db={db}
+              />
             ))}
       </MeetingCardBox>
     </TimeMeetingArea>
