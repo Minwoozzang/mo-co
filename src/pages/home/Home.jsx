@@ -44,7 +44,7 @@ const Home = () => {
 
   // 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
-    if (creationTime === lastSignInTime && currentUser && isClosed === false) {
+    if ( currentUser && isClosed === false) {
       setIsModalOpen(true);
       SetIsClosed(true);
     }
