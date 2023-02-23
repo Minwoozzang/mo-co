@@ -14,12 +14,12 @@ export const GroupUserInfo = styled.div`
 export const GroupImg = styled.div`
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: #d9d9d9;
   margin-top: auto;
 `;
 export const GroupUserId = styled.p`
-  margin: 43px 0 0 8px;
+  margin: 43px 8px 8px;
   text-align: center;
 `;
 
@@ -28,9 +28,7 @@ export const GroupBox = styled.div`
 `;
 export const GroupPerson = styled.div`
   width: 100%;
-  height: 125px;
-  margin-top: 30px;
-  background-color: #d9d9d9;
+  margin: 30px 0 30px 0;
 `;
 
 export const UserHr = styled.hr`
@@ -38,4 +36,10 @@ export const UserHr = styled.hr`
   border: 0;
   height: 0;
   border-top: 1px solid #8c8c8c;
+`;
+
+export const Bookmark = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
 `;

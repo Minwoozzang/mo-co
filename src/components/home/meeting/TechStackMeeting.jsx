@@ -10,6 +10,7 @@ import { MdExpandMore } from 'react-icons/md';
 import { useQueries } from 'react-query';
 import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
+import { db } from '../../../common/firebase';
 
 const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
   // const [recommendTechList, setRecommendTechList] = useState([]);
@@ -54,7 +55,7 @@ const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
         {recommendTechList?.length > 0 &&
           recommendTechList
             .slice(0, 4)
-            .map((item, idx) => <CardSection key={idx} item={item} />)}
+            .map((item, idx) => <CardSection key={idx} item={item} db={db} />)}
       </MeetingCardBox>
     </TechStackMeetingArea>
   );

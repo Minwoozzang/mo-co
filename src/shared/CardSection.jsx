@@ -10,8 +10,10 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import default_profile from '../assets/default_profile.png';
+import { useQueryClient } from 'react-query';
 
 const CardSection = ({ item, db }) => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [uid, setUid] = useState('');
   const bookmark = item.bookmark;
@@ -37,6 +39,7 @@ const CardSection = ({ item, db }) => {
         await updateDoc(doc(db, 'user', uid), {
           bookmarks: [...bookmarks, item.id],
         });
+        queryClient.invalidateQueries('posts');
         console.log('북마크 추가 성공');
       } catch {
         console.log('북마크 추가 실패');
@@ -54,12 +57,14 @@ const CardSection = ({ item, db }) => {
         await updateDoc(doc(db, 'user', uid), {
           bookmarks: bookmarks.filter((bookmark) => bookmark !== item.id),
         });
+        queryClient.invalidateQueries('posts');
         console.log('북마크 삭제 성공');
       } catch {
         console.log('북마크 삭제 실패');
       }
     }
   };
+
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
@@ -74,7 +79,7 @@ const CardSection = ({ item, db }) => {
   return (
     <PostCard>
       <BookmarkIconBox>
-        <Location>{item.partyLocation}</Location>
+        <Location>{item.isRemote ? '비대면' : item.partyLocation}</Location>
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
           <span>{item.bookmark}</span>

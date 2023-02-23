@@ -77,11 +77,11 @@ const MateEdit = () => {
     getDoc(postRef)
       .then((doc) => {
         if (doc.exists()) {
+          setPostIdInfo(doc.data().teamID);
           console.log('Document data:', doc.data());
           setPostData(doc.data());
           setSelectedTech(doc.data().partyStack);
           setWrittenDesc(doc.data().partyDesc);
-          setPostIdInfo(doc.data().teamID);
         } else {
           // doc.data() will be undefined in this case
           console.log('No such document!');
@@ -109,20 +109,6 @@ const MateEdit = () => {
     setIsDisabled(!isDisabled);
   };
 
-  // 팀 아이디 받아오기
-  const [teamID, setTeamID] = useState([]);
-  const teamGetTeamID = () => {
-    const q = query(collection(db, 'teamPage'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        ids: doc.id,
-        ...doc.data(),
-      }));
-      setTeamID(postIdInfo);
-    });
-    return unsubscribe;
-  };
-
   // ! 모집글 수정 함수
   const handleEditPost = async () => {
     try {
@@ -138,7 +124,7 @@ const MateEdit = () => {
         partyDesc: writtenDesc,
       })
         .then(() => {
-          updateDoc(doc(db, 'teamPage', teamID), {
+          updateDoc(doc(db, 'teamPage', postIdInfo), {
             teamPartyStack: {
               partyName,
               partyTime,
@@ -146,8 +132,8 @@ const MateEdit = () => {
             },
           });
         })
-        .catch(() => {
-          console.log('에러남');
+        .catch((error) => {
+          console.log('에러남', error);
         });
       navigate(`/matedetail/${id}`);
       console.log('수정 성공');
@@ -160,7 +146,6 @@ const MateEdit = () => {
     if (!currentUser) return;
     getUserInfo();
     getPostData();
-    teamGetTeamID();
     console.log(currentUser);
   }, []);
 

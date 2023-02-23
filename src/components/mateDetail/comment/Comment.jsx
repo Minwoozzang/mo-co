@@ -8,7 +8,6 @@ import { GrMoreVertical } from 'react-icons/gr';
 import {
   CommentContainer,
   CommentDeleteBtn,
-  CommentContainHeader,
   CommentIconBody,
   CommentUserName,
   CommentUserInput,
@@ -19,10 +18,13 @@ import {
   ListTextSection,
   NoneDiv,
   UpdateDeleteBody,
+  CommentProfileImage,
+  CommentDate,
 } from './CommentStyle';
 
 const Comment = ({ user }) => {
   // comment 컬렉션 데이터 저장
+  console.log(user);
   const [editBox, setEditBox] = useState(false);
   const [editValue, setEditValue] = useState(user.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
@@ -74,12 +76,11 @@ const Comment = ({ user }) => {
 
   return (
     <CommentContainer>
-      <CommentContainHeader>댓글</CommentContainHeader>
       {/* 댓글 내용 */}
       <ListContainer>
         <ListTextSection>
-          <CommentUserName>{user.nickname}</CommentUserName>
-
+          <CommentProfileImage></CommentProfileImage>
+          <CommentUserName>{user.userName}</CommentUserName>
           {!editBox ? (
             <CommentText>{user.comment}</CommentText>
           ) : (
@@ -133,6 +134,7 @@ const Comment = ({ user }) => {
               <NoneDiv></NoneDiv>
             )}
           </CommentTextIcon>
+          <CommentDate>{user.date}</CommentDate>
         </ListTextSection>
       </ListContainer>
     </CommentContainer>

@@ -75,7 +75,7 @@ const Header = () => {
         setIsUserDropDown(true);
         setLoginToggle(false);
         setHeaderMyIcon(true);
-        setHeaderNickName(authService.currentUser.displayName);
+        setHeaderNickName(authService.currentUser?.displayName);
         getUserStackInfo();
         setIsSearchUserDropDown(true);
       } else if (!user) {
@@ -235,7 +235,7 @@ const Header = () => {
                         alt=""
                       />
                       <HeaderImageText>
-                        안녕하세요, {headerNickName}님🥰
+                        안녕하세요, {headerNickName ?? '익명'}님🥰
                       </HeaderImageText>
                     </HeaderImageBox>
                     <HeaderDropDownListSection>

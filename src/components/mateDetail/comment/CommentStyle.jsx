@@ -4,15 +4,6 @@ export const CommentContainer = styled.div`
   margin-top: 80px;
 `;
 
-export const CommentContainHeader = styled.p`
-  width: 97px;
-  height: 29px;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 29px;
-  margin-bottom: 30px;
-`;
-
 export const ListContainer = styled.div``;
 
 export const CommentNickname = styled.div`
@@ -20,7 +11,8 @@ export const CommentNickname = styled.div`
 `;
 
 export const CommentUserName = styled.div`
-  font-size: 1.5rem;
+  font-size: 16px;
+  font-weight: 500;
   color: #555;
   margin-right: 1.5%;
   margin-left: 1.5%;
@@ -36,7 +28,7 @@ export const ListTextSection = styled.div`
   width: 100%;
   height: 70%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   @media screen and (max-width: 900px) {
     width: 350px;
@@ -114,3 +106,11 @@ export const CommentPoliceBtn = styled(CommentDeleteBtn)``;
 export const NoneDiv = styled.div`
   display: none;
 `;
+
+export const CommentProfileImage = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #d9d9d9;
+`;
+export const CommentDate = styled.p``;

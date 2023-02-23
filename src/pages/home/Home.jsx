@@ -30,10 +30,8 @@ const Home = () => {
   }, []);
 
   const { data, isLoading, isError, error } = usePosts();
-  console.log('🚀 ~ file: Home.jsx:24 ~ Home ~ data:', data);
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
-  console.log('🚀 ~ file: Home.jsx:24 ~ Home ~ currentUser:', currentUser);
   const creationTime = currentUser?.metadata.creationTime;
   const lastSignInTime = currentUser?.metadata.lastSignInTime;
 

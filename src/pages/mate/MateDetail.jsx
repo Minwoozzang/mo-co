@@ -13,6 +13,7 @@ const MateDetail = () => {
   const { id } = useParams();
   console.log(id);
 
+  // 작성자만 수정가능하게
   const handleMoveToEdit = () => {
     navigate(`/edit/${id}`);
   };
@@ -37,6 +38,8 @@ const MateDetail = () => {
         <button onClick={handleMoveToEdit}>수정</button>
       </MateDetailContainer>
       <CommentWrap>
+        <UserHr />
+        <CommentContainHeader>댓글</CommentContainHeader>
         <CommentList id={id} />
         <AddComment id={id} />
       </CommentWrap>
@@ -60,6 +63,21 @@ const MateDetailContainer = styled.div`
 `;
 const CommentWrap = styled.div`
   width: 100%;
+  margin: 50px 0 50px 0;
+`;
+
+const CommentContainHeader = styled.p`
+  width: 97px;
+  height: 29px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 29px;
+  margin: 30px 0 30px 0;
+`;
+const UserHr = styled.hr`
+  border: 0;
+  height: 0;
+  border-top: 1px solid #8c8c8c;
 `;
 
 // !

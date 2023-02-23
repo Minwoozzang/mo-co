@@ -6,29 +6,23 @@ import {
   AddInputContent,
   AddCommentText,
   AddCommentBtn,
-  AddCommentDiv,
   AddInputDiv,
   AddCommentBtnDiv,
 } from './style';
 import {
   collection,
-  getDoc,
-  doc,
-  deleteDoc,
-  setDoc,
   addDoc,
   getDocs,
   query,
   where,
   orderBy,
 } from 'firebase/firestore';
-import { authService, db, storage } from '../../../common/firebase';
+import { authService, db } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
 
 import { uuidv4 } from '@firebase/util';
-
 
 const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');
@@ -128,11 +122,11 @@ const AddComment = ({ id }) => {
         <AddCommentListWrap>
           <AddCommentListTwo>
             <AddCommentText>
-              <AddCommentDiv>댓글</AddCommentDiv>
               <AddInputDiv>
                 <AddInputContent
                   onChange={AddCommentTextChange}
                   value={commentText}
+                  placeholder="댓글을 남겨보세요"
                 />
               </AddInputDiv>
             </AddCommentText>
