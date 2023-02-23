@@ -6,9 +6,6 @@ import TimeBlurList from './TimeBlurList';
 const HomeBlurList = ({
   blurList,
   isLoggedIn,
-  recommendTechList,
-  recommendTimeList,
-  recommendLocationList,
 }) => {
   return (
     <MeetingArea>

@@ -14,26 +14,20 @@ const HomeMeetingList = ({
   recommendLocationList,
 }) => {
   // 로그인 안 됐을 때 리스트
-  const blurList = [1, 2, 3];
+  const blurList = [1, 2, 3, 4];
   return (
     <MeetingArea>
       {isLoggedIn ? (
         <>
           <TechAndTimeMeetingArea>
-            <TechStackMeeting 
-              isLoggedIn={isLoggedIn} 
-              recommendTechList={recommendTechList} />
-            <TimeMeeting 
-              isLoggedIn={isLoggedIn}
-              recommendTimeList={recommendTimeList} />
+            <TechStackMeeting recommendTechList={recommendTechList} />
+            <TimeMeeting recommendTimeList={recommendTimeList} />
           </TechAndTimeMeetingArea>
-          <LocationMeeting 
-            isLoggedIn={isLoggedIn}
-            recommendLocationList={recommendLocationList} />
+          <LocationMeeting recommendLocationList={recommendLocationList} />
         </>
       ) : (
         <>
-          <HomeBlurList blurList={blurList}/>
+          <HomeBlurList blurList={blurList} />
         </>
       )}
     </MeetingArea>

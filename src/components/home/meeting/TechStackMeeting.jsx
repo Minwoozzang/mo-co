@@ -49,19 +49,12 @@ const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
     <TechStackMeetingArea>
       <MeetingTitleBox>
         <TechStackMeetingTitle>기술 스택에 맞는 모임</TechStackMeetingTitle>
-        {/* <MeetingMoreBox>
-                    더보기 <MdExpandMore size="16" />
-                </MeetingMoreBox> */}
       </MeetingTitleBox>
       <MeetingCardBox>
-        {isLoggedIn ? (
-          recommendTechList?.length > 0 &&
+        {recommendTechList?.length > 0 &&
           recommendTechList
             .slice(0, 4)
-            .map((item, idx) => <CardSection key={idx} item={item} />)
-        ) : (
-         '로그인 안됨'
-        )}
+            .map((item, idx) => <CardSection key={idx} item={item} />)}
       </MeetingCardBox>
     </TechStackMeetingArea>
   );
