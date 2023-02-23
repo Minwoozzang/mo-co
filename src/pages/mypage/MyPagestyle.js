@@ -9,15 +9,15 @@ export const MyPageBody = styled.div`
 `;
 
 export const MySection = styled.div`
-  width: 1300px;
-
-  margin-top: 80px;
+  width: 1920px;
 
   display: flex;
 `;
 
 export const MyProfilSection = styled.div`
-  width: 400px;
+  width: 695px;
+
+  margin-top: 95px;
 `;
 
 export const MyInfoSection = styled.div`
