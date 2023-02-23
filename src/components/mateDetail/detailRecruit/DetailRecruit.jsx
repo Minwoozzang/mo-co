@@ -157,10 +157,10 @@ const DetailRecruit = () => {
       </RecruitStack>
       <RecruitCurrent>
         <RecruitFont>모집현황</RecruitFont>
-        <RecruitDetail>{post.partyNum}</RecruitDetail>
+        <RecruitDetail>모집진행 {post.partyNum}</RecruitDetail>
       </RecruitCurrent>
       <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
-        신청하기
+        모임 참여 신청
       </RecruitBtn>
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
         <RecruitModal>
@@ -200,7 +200,7 @@ const RecruitWrap = styled.div`
   width: 280px;
   height: 426px;
   border: 1px solid #d9d9d9;
-  background-color: rgba(217, 217, 217, 0.1);
+  background-color: #232323;
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -209,10 +209,12 @@ const RecruitWrap = styled.div`
   position: fixed;
   top: 150px;
   right: 50px;
+  border-radius: 20px;
 `;
 const RecruitFont = styled.p`
   font-size: 12px;
   font-weight: 400;
+  color: #fff;
 `;
 const RecruitArea = styled.div`
   width: 100%;
@@ -220,28 +222,36 @@ const RecruitArea = styled.div`
 const AreaDetail = styled.p`
   font-size: 16px;
   font-weight: 500;
+  color: #fff;
 `;
 const RecruitDate = styled.div`
   width: 100%;
 `;
 const DateDetail = styled.p`
   font-size: 16px;
+  color: #fff;
 `;
 const RecruitStack = styled.div`
   width: 100%;
 `;
-const StackDetail = styled.p``;
+const StackDetail = styled.p`
+  color: #fff;
+`;
 const RecruitCurrent = styled.div`
   width: 100%;
 `;
-const RecruitDetail = styled.div`
+const RecruitDetail = styled.p`
   font-size: 16px;
+  color: #fff;
 `;
 const RecruitBtn = styled.button`
-  width: 152px;
-  height: 40px;
-  border: 1px solid #b9b9b9;
-  background: rgba(217, 217, 217, 0.1);
+  width: 240px;
+  height: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  border: 1px solid;
+  border-radius: 10px;
+  background-color: #feff80;
 `;
 
 const RecruitModal = styled.form`

@@ -91,7 +91,8 @@ const MateDetailWrap = styled.div`
   margin: 0px 400px 230px 150px;
   // min-height: 100vh;
   height: 100%;
-  background-color: #111;
+  background-size: cover;
+  background-color: #111111;
 `;
 const MateDetailContainer = styled.div`
   width: 100%;
