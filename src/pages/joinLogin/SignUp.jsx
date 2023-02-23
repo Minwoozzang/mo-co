@@ -30,6 +30,11 @@ import { useNavigate } from 'react-router';
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
 import { authService, db } from '../../common/firebase';
 import { doc, setDoc } from '@firebase/firestore';
+import Vector from '../../../src/assets/login/Vector.png';
+import Vector1 from '../../../src/assets/login/Vector-1.png';
+import Vector2 from '../../../src/assets/login/Vector-2.png';
+import Vector3 from '../../../src/assets/login/Vector-3.png';
+import Vector4 from '../../../src/assets/login/Vector-4.png';
 
 const SignUp = () => {
   // 이메일
@@ -55,6 +60,12 @@ const SignUp = () => {
 
   // 로딩중일때
   const [loding, setLoding] = useState(false);
+
+  const EnterKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSignUp();
+    }
+  };
 
   //  유효성 검사
   const validateInputs = () => {
@@ -108,7 +119,7 @@ const SignUp = () => {
           setDoc(doc(db, 'user', res.user.uid), {
             uid: res.user.uid,
             email: email,
-            profileImg: 'https://imhannah.me/common/img/default_profile.png',
+            profileImg: null,
             bookmarks: [],
             teamID: '',
           });
@@ -141,11 +152,13 @@ const SignUp = () => {
     <SignUpBody>
       <SignUpForm>
         <SignUpTitleLogo>
-          <>
-            <CiFaceSmile style={{ width: 70, height: 70 }} />
-          </>
+          <img src={Vector} alt="" />
+          <img src={Vector1} alt="" />
+          <img src={Vector2} alt="" />
+          <img src={Vector3} alt="" />
+          <img src={Vector4} alt="" />
         </SignUpTitleLogo>
-        <SignUpTitle>MoCo에 오신 것을 환영합니다. !!</SignUpTitle>
+        {/* <SignUpTitle>MoCo에 오신 것을 환영합니다. !!</SignUpTitle> */}
 
         <SignUpInputBody>
           <SignUpInputSection>
@@ -156,6 +169,7 @@ const SignUp = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 ref={emailRef}
+                onKeyPress={EnterKeyPress}
               />
             </EmailBody>
             <PasswordBody>
@@ -165,6 +179,7 @@ const SignUp = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 ref={pwRef}
+                onKeyPress={EnterKeyPress}
               />
             </PasswordBody>
             <CheckPasswordBody>
@@ -174,6 +189,7 @@ const SignUp = () => {
                 value={checkPassword}
                 onChange={(e) => setCheckPassword(e.target.value)}
                 ref={pwCheckRef}
+                onKeyPress={EnterKeyPress}
               />
             </CheckPasswordBody>
             <NickNameBody>
@@ -183,6 +199,7 @@ const SignUp = () => {
                 value={nickName}
                 onChange={(e) => setNickName(e.target.value)}
                 ref={nickNameRef}
+                onKeyPress={EnterKeyPress}
               />
             </NickNameBody>
           </SignUpInputSection>
@@ -191,14 +208,13 @@ const SignUp = () => {
         <WarnigTextBody>
           <WarnigText>{warningText}</WarnigText>
         </WarnigTextBody>
-
+        <SignUpBtn onClick={handleSignUp} disabled={loding}>
+          회원가입
+        </SignUpBtn>
         <SignUpLouteBody>
           <LouteSignUpPageBtn onClick={navigationLoginPage}>
             로그인 화면으로
           </LouteSignUpPageBtn>
-          <SignUpBtn onClick={handleSignUp} disabled={loding}>
-            회원가입
-          </SignUpBtn>
         </SignUpLouteBody>
       </SignUpForm>
     </SignUpBody>

@@ -9,7 +9,7 @@ const HomeAllBtn = () => {
 
   return (
     <AllBtnContainer>
-      <AllBtnTitle onClick={goTomate}>전체 모임</AllBtnTitle>
+      <AllBtnTitle onClick={goTomate}>전체 보기</AllBtnTitle>
     </AllBtnContainer>
   );
 };

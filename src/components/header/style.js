@@ -3,11 +3,10 @@ import styled from '@emotion/styled';
 export const HeaderBody = styled.div`
   width: 100%;
   height: 80px;
-  background-color: #f2f2f2;
+  background-color: #111111;
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 1;
 `;
 
@@ -30,11 +29,18 @@ export const LogoAndMateBox = styled.div`
 export const HeaderLogo = styled.div`
   cursor: pointer;
   font-size: 30px;
+  background-image: url('images/logo.png');
+  background-size: 16rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 130px;
+  height: 50px;
 `;
 
 export const MyCodingMate = styled.div`
   cursor: pointer;
   font-size: 20px;
+  color: #ffffff;
 `;
 
 export const TeamAndLoginBox = styled.div`
@@ -49,6 +55,7 @@ export const MakeTeam = styled.button`
   width: 114px;
   height: 40px;
   border-radius: 20px;
+  border: none;
 `;
 
 export const HeaderIcon = styled.div`
@@ -69,10 +76,14 @@ export const MateRoute = styled.div`
 
 export const LoginRoute = styled.div`
   cursor: pointer;
+  color: #ffffff;
 `;
 
 export const NavigateMypage = styled.div`
-  margin-right: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   cursor: pointer;
 `;
 

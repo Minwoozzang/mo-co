@@ -3,19 +3,21 @@ import styled from "@emotion/styled";
 /* HomeAllBtn */
 export const AllBtnContainer = styled.div`
     width: 100%;
-    height: 394px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 503px;
+    /* background-color: skyblue; */
+    padding: 200px 924px 303px;
 `
 export const AllBtnTitle = styled.div`
-    width: 152px;
-    height: 24px;
-    font-size: 20px;
+    width: 72px;
+    height: 20px;
+    font-size: 16px;
     font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
-    background-color: #f2f2f2;
+    color: #6C6C6C;
+    /* margin-top: 120px; */
+    /* background-color: pink; */
+    &:hover {
+    background-color: #D9D9D9;
+    }
+    /* background-color: #f2f2f2; */
 `

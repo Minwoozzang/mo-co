@@ -11,6 +11,9 @@ import { Modal } from 'antd';
 import AddInfoModal from '../../components/home/AddInfoModal';
 import { useNavigate } from 'react-router-dom';
 import usePosts from '../../hooks/usePost';
+import styled from '@emotion/styled';
+import main_background from '../../assets/main_background.png';
+import CardSection from '../../shared/CardSection';
 
 const Home = () => {
   const [init, setInit] = useState(false);
@@ -44,7 +47,7 @@ const Home = () => {
 
   // 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
-    if (creationTime === lastSignInTime && currentUser && isClosed === false) {
+    if (currentUser && isClosed === false) {
       setIsModalOpen(true);
       SetIsClosed(true);
     }
@@ -102,32 +105,69 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <FullScreen>
       <MocoChat />
       <HomeBanner />
-      {init ? (
-        <>
-          <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
-          <HomeMeetingList
-            isLoggedIn={isLoggedIn}
-            recommendTechList={recommendTechList}
-            recommendTimeList={recommendTimeList}
-            recommendLocationList={recommendLocationList}
-          />
-        </>
-      ) : (
-        <>
-         ...
-        </>
-      )}
-      <HomeNewMeetingList data={data} />
-      <HomeAllBtn />
+      <MainBackground>
+        {init ? (
+          <>
+            <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
+            <RecommendListContainer>
+              <RecommendListCardBox>
+                {data
+                  ? data
+                      .slice(0, 3)
+                      .map((item, idx) => <CardSection key={idx} item={item} />)
+                  : []}
+              </RecommendListCardBox>
+            </RecommendListContainer>
+            <HomeMeetingList
+              isLoggedIn={isLoggedIn}
+              recommendTechList={recommendTechList}
+              recommendTimeList={recommendTimeList}
+              recommendLocationList={recommendLocationList}
+            />
+          </>
+        ) : (
+          <>...</>
+        )}
+        <HomeNewMeetingList data={data} />
+        <HomeAllBtn />
+      </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
         <AddInfoModal handleModalClose={handleModalClose} />
       </Modal>
-    </>
+    </FullScreen>
   );
 };
 
 export default Home;
+
+const FullScreen = styled.div`
+  width: 100%;
+  /* height: 100%; */
+  background-size: cover;
+  background-color: #111111;
+`;
+const MainBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  background: url(${main_background});
+  background-size: cover;
+  /* background-color: white; */
+`;
+const RecommendListContainer = styled.div`
+  width: 1004px;
+  height: 320px;
+  margin: 50px auto 171px;
+  /* border: 0.3px solid gray; */
+`;
+const RecommendListCardBox = styled.div`
+  width: 900px;
+  height: 320px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0 30px;
+  /* background-color: aliceblue; */
+`;

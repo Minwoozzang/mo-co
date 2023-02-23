@@ -28,10 +28,11 @@ import {
   HeaderSearchDropDownHr,
   HeaderSearchXbuttonBox,
   HeaderSearchXbutton,
+  SearchBox,
 } from './style';
-import { BsPersonFill } from 'react-icons/bs';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { ImCancelCircle } from 'react-icons/im';
+import defaultImg from '../../../src/assets/Group 290.png';
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -155,7 +156,7 @@ const Header = () => {
     <HeaderBody>
       <HeaderInfoBody>
         <LogoAndMateBox>
-          <HeaderLogo onClick={navigateHome}>MOCO</HeaderLogo>
+          <HeaderLogo onClick={navigateHome}></HeaderLogo>
           <MyCodingMate onClick={navigateMyCodingMate}>
             내 코딩모임
           </MyCodingMate>
@@ -178,7 +179,10 @@ const Header = () => {
               <>
                 {isSearchUserDropDown ? (
                   <NavigateMypage>
-                    <AiOutlineSearch style={{ fontSize: '30px' }} />
+                    <AiOutlineSearch
+                      color="white"
+                      style={{ fontSize: '30px' }}
+                    />
                   </NavigateMypage>
                 ) : (
                   ''
@@ -193,7 +197,10 @@ const Header = () => {
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
                     <HeaderSearchBox>
-                      <AiOutlineSearch style={{ fontSize: '30px' }} />
+                      <AiOutlineSearch
+                        color="black"
+                        style={{ fontSize: '30px' }}
+                      />
                       <HeaderSearchInput
                         onChange={onChangeSearch}
                         onKeyPress={handleonKeyPress}
@@ -208,7 +215,7 @@ const Header = () => {
               </>
             ) : (
               <NavigateMypage>
-                <AiOutlineSearch style={{ fontSize: '30px' }} />
+                <AiOutlineSearch color="white" style={{ fontSize: '30px' }} />
               </NavigateMypage>
             )}
           </div>
@@ -219,7 +226,11 @@ const Header = () => {
                 <>
                   {isUserDropDown ? (
                     <NavigateMypage>
-                      <BsPersonFill style={{ fontSize: '40px' }} />
+                      <img
+                        src={defaultImg}
+                        alt=""
+                        style={{ fontSize: '40px' }}
+                      />
                     </NavigateMypage>
                   ) : (
                     ''
@@ -227,11 +238,7 @@ const Header = () => {
                   <HeaderDropDownListBox style={{ position: 'absolute' }}>
                     <HeaderImageBox>
                       <HeaderImage
-                        src={
-                          profileUserInfo[0]?.profileImg
-                            ? profileUserInfo[0].profileImg
-                            : 'https://imhannah.me/common/img/default_profile.png'
-                        }
+                        src={profileUserInfo[0]?.profileImg ?? defaultImg}
                         alt=""
                       />
                       <HeaderImageText>
@@ -250,7 +257,7 @@ const Header = () => {
                 </>
               ) : (
                 <NavigateMypage>
-                  <BsPersonFill style={{ fontSize: '40px' }} />
+                  <img src={defaultImg} alt="" style={{ fontSize: '40px' }} />
                 </NavigateMypage>
               )}
             </div>

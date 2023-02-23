@@ -19,9 +19,9 @@ const HomeNewMeetingList = ({ data }) => {
           <NewMeetingTitle>새로 생긴 모임</NewMeetingTitle>
         </NewMeetingTitleBox>
         <NewMeetingCardWrap>
-          <NewMeetingArrow>
+          {/* <NewMeetingArrow>
             <AiOutlineArrowLeft size="36" />
-          </NewMeetingArrow>
+          </NewMeetingArrow> */}
           <NewMeetingCardBox>
             {data
               ? data
@@ -31,9 +31,9 @@ const HomeNewMeetingList = ({ data }) => {
                   ))
               : []}
           </NewMeetingCardBox>
-          <NewMeetingArrow>
+          {/* <NewMeetingArrow>
             <AiOutlineArrowRight size="36" />
-          </NewMeetingArrow>
+          </NewMeetingArrow> */}
         </NewMeetingCardWrap>
       </NewMeetingListBox>
     </NewMeetingArea>

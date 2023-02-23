@@ -11,111 +11,127 @@ export const LoginBody = styled.div`
 
 export const LoginForm = styled.div`
   width: 500px;
-  height: 600px;
+  height: 555px;
 
-  border-radius: 30px;
+  border-radius: 20px;
 
-  background-color: #0000;
-  box-shadow: 2px 2px 10px 10px #0004;
+  background-color: #111111;
 `;
 
 export const LoginTitleLogo = styled.div`
-  width: 100%;
-  height: 100px;
+  height: 33px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+
+  margin-top: 80px;
 `;
 
 export const LoginTitle = styled.div`
   width: 100%;
-  height: 25px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: 'Pretendard';
+  font-style: normal;
 
-  margin-top: 30px;
+  letter-spacing: -0.03em;
+
+  color: #ffffff;
+
+  margin-top: 85px;
 `;
 
 export const LoginInputBody = styled.div`
-  width: 100%;
-  height: 150px;
+  width: 500px;
+  height: 105px;
 
-  margin-top: 30px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 65px;
 `;
 
-export const LoginInputSection = styled.div``;
+export const LoginInputSection = styled.div`
+  margin-left: 100px;
+`;
 
 export const EmailBody = styled.div`
   width: 380px;
   height: 40px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const EmailText = styled.div`
-  font-weight: 600;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 17px;
 
-  margin-left: 13px;
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 `;
 
 export const LoginEmailInput = styled.input`
   width: 300px;
-  height: 35px;
+  height: 25px;
 
-  font-size: 20px;
+  font-size: 1.2rem;
 
-  border-radius: 15px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
 
-  border: 1px solid rgb(150, 150, 150);
+  border-bottom-color: #545454;
+  color: #ffffff;
+
+  background: none;
 
   :focus-visible {
     outline: none;
   }
 
-  padding-left: 8px;
+  padding-left: 1px;
 `;
 
 export const PasswordText = styled.div`
-  font-weight: 600;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 17px;
+
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 `;
 
 export const PasswordBody = styled.div`
   width: 380px;
   height: 40px;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   margin-top: 20px;
 `;
 
 export const LoginPasswordInput = styled.input`
   width: 300px;
-  height: 35px;
+  height: 25px;
 
-  font-size: 20px;
+  font-size: 1.2rem;
 
-  border-radius: 15px;
-  border: 1px solid rgb(150, 150, 150);
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+
+  border-bottom-color: #545454;
+  color: #ffffff;
+
+  background: none;
 
   :focus-visible {
     outline: none;
   }
 
-  padding-left: 8px;
+  padding-left: 1px;
 `;
 
 export const WarnigTextBody = styled.div`
@@ -124,7 +140,7 @@ export const WarnigTextBody = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 25px;
+  margin-top: 10px;
 `;
 
 export const WarnigText = styled.div`
@@ -138,91 +154,133 @@ export const LoginLogo = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin-top: 80px;
+  margin-top: 30px;
 
   gap: 50px;
 `;
 
 export const GoogleLogo = styled.div`
+  width: 120px;
+  height: 140px;
+
+  background-color: #232323;
+
+  border-radius: 20px;
+  border: 1px solid #3b3b3b;
   cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const GithubLogo = styled.div`
+  width: 120px;
+  height: 140px;
+
+  background-color: #232323;
+
+  border-radius: 20px;
+  border: 1px solid #3b3b3b;
   cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LogoIcon = styled.img`
+  width: 80px;
+  height: 80px;
+
+  margin-bottom: 10px;
+`;
+export const LogoIconTitle = styled.div`
+  color: #ffffff;
+  font-size: 0.875rem;
 `;
 
 export const LoginLouteBody = styled.div`
-  width: 100%;
+  width: 300px;
 
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-left: 100px;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
-
-  gap: 40px;
+  justify-content: flex-end;
 `;
 
 export const LoginBtn = styled.div`
-  width: 120px;
-  height: 40px;
+  width: 300px;
+  height: 44px;
 
-  background-color: #567189;
-  color: white;
-  border-radius: 15px;
+  background-color: #feff80;
+  border-radius: 5px;
 
   font-weight: 600;
+
+  margin-left: 100px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   cursor: pointer;
+
+  margin-top: 15px;
 `;
 
 export const LouteSignUpPageBtn = styled.div`
-  width: 120px;
-  height: 40px;
+  width: 48px;
+  height: 15px;
 
-  background-color: #567189;
-  color: white;
-  border-radius: 15px;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 14px;
+  letter-spacing: -0.03em;
 
-  font-weight: 600;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: #858585;
 
   cursor: pointer;
 `;
 
 export const ToggleEmailBtn = styled.div`
-  width: 100%;
-  height: 35px;
-
-  color: #567189;
+  color: #9d9d9d;
   cursor: pointer;
 
+  text-align: center;
+
+  font-size: 0.95rem;
+
+  text-decoration: underline;
+  text-underline-offset: 5px;
+`;
+
+export const ToggleEmailBack = styled.div`
+  width: 170px;
+
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 14px;
+
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+
+  color: #9d9d9d;
+
+  cursor: pointer;
+`;
+
+export const ToggleSocialBox = styled.div`
   display: flex;
   justify-content: center;
 
   margin-top: 80px;
-
-  font-size: 20px;
-`;
-
-export const ToggleEmailBack = styled.div`
-  width: 100%;
-  height: 35px;
-
-  color: #567189;
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-
-  margin-top: 30px;
-
-  font-size: 20px;
 `;

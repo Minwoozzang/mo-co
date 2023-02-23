@@ -14,17 +14,19 @@ import {
   where,
 } from 'firebase/firestore';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import usePosts from '../../hooks/usePost';
 
 const MateDetail = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
-
+  const navigate = useNavigate();
   // 파베 인증
   const currentUser = authService.currentUser;
-
   // 유저 닉네임 - 프로필 가져오기 상태
   const [nickName, setNickName] = useState('');
   const [profileImg, setGetProfileImg] = useState('');
+  const { data } = usePosts();
+  const thisPost = data?.filter((item) => item.id === id);
+  let isMyPost = thisPost[0]?.uid === currentUser?.uid;
 
   // 유저 닉네임 - 프로필 가져오기 함수
   const getUserInfo = () => {
@@ -62,8 +64,12 @@ const MateDetail = () => {
     <MateDetailWrap>
       <MateDetailContainer>
         <MateDetailWriting />
-        <button onClick={handleDelete}>삭제</button>
-        <button onClick={handleMoveToEdit}>수정</button>
+        {isMyPost === true ? (
+          <button onClick={handleDelete}>삭제</button>
+        ) : null}
+        {isMyPost === true ? (
+          <button onClick={handleMoveToEdit}>수정</button>
+        ) : null}
       </MateDetailContainer>
       <CommentWrap>
         <UserHr />
