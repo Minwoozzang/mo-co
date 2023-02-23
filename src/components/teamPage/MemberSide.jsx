@@ -44,7 +44,7 @@ export default function MemberSide({ teamLocationID }) {
   const [teamProfileUserInfo, setTeamProfileUserInfo] = useState([]);
 
   // 멤버 숫자
-  const [meberNumber, setMeberNumber] = useState(1);
+  const [memberNumber, setMemberNumber] = useState(1);
 
   // 내 유저 정보 가져오기
   const teamGetMyUserInfo = () => {
@@ -72,6 +72,10 @@ export default function MemberSide({ teamLocationID }) {
       }));
       setTeamLeaderInfo(newInfo);
       setTeamMemberInfo(newInfo);
+      setMemberNumber(
+        newInfo.filter((d) => d.teamID === teamLocationID)[0]?.teamMember
+          .length + 1,
+      );
     });
     return unsubscribe;
   };
@@ -110,14 +114,14 @@ export default function MemberSide({ teamLocationID }) {
             </MemberInfoProfileInfo>
           </MemberInfoProfile>
         </SideWrapper>
-        <MembersInfoProfileTitle>팀원 ({meberNumber})</MembersInfoProfileTitle>
+        <MembersInfoProfileTitle>팀원 ({memberNumber})</MembersInfoProfileTitle>
 
         {/* 팅장 */}
         {teamLeaderInfo
           .filter((item) => item.id === teamLocationID)
           .map((item) => {
             return (
-              <LeaderInfoProfile key={item.id}>
+              <LeaderInfoProfile key={v4()}>
                 <HostBox>
                   {/* <MemberInfoHost src={item.teamLeader.host} /> */}
                   <RiVipCrownFill

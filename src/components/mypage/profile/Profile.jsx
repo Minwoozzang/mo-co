@@ -37,6 +37,7 @@ import {
   where,
 } from '@firebase/firestore';
 import { useNavigate } from 'react-router';
+import defaultImg from '../../../../src/assets/Group 290.png';
 
 const Profile = () => {
   // 네이게이트
@@ -159,11 +160,7 @@ const Profile = () => {
 
         <ProfileImageBody>
           <ProfileImage
-            src={
-              profileUserInfo[0]?.profileImg
-                ? profileUserInfo[0].profileImg
-                : 'https://imhannah.me/common/img/default_profile.png'
-            }
+            src={profileUserInfo[0]?.profileImg ?? defaultImg}
             width="150"
             height="150"
             alt=""
