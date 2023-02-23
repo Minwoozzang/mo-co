@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const CommentContainer = styled.div`
-  margin-top: 80px;
+  margin: 80px 80px 0 80px;
 `;
 
 export const ListContainer = styled.div``;
@@ -117,4 +117,11 @@ export const CommentProfileImage = styled.img`
 `;
 export const CommentDate = styled.p`
   color: #fff;
+`;
+
+export const UserHr = styled.hr`
+  margin: 35px 40px 0px 40px;
+  border: 1;
+  width: 100%;
+  border-top: 1px solid #3b3b3b;
 `;
