@@ -58,7 +58,7 @@ const GuideContainer = styled.div`
 const GuideText = styled.div`
     width: 364px;
     height: 88px;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 500;
     text-align: center;
 `

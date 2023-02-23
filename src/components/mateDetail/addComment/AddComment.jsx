@@ -6,23 +6,18 @@ import {
   AddInputContent,
   AddCommentText,
   AddCommentBtn,
-  AddCommentDiv,
   AddInputDiv,
   AddCommentBtnDiv,
 } from './style';
 import {
   collection,
-  getDoc,
-  doc,
-  deleteDoc,
-  setDoc,
   addDoc,
   getDocs,
   query,
   where,
   orderBy,
 } from 'firebase/firestore';
-import { authService, db, storage } from '../../../common/firebase';
+import { authService, db } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
@@ -98,6 +93,7 @@ const AddComment = ({ id }) => {
       //comment adddoc할때 mateDetailId값에 id(userid = :id)가져오기
       mateDetailId: id,
       postId: id,
+      userImg: currentUser.photoURL,
     };
 
     // console.log(newComment);

@@ -13,11 +13,25 @@ import { useNavigate } from 'react-router-dom';
 import usePosts from '../../hooks/usePost';
 
 const Home = () => {
+  const [init, setInit] = useState(false);
+  // 처음에는 false이고 나중에 사용자 존재 판명이 모두 끝났을 때 true를 통해 해당 화면을 render
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      // user 판명을 듣고
+      if (user) {
+        // 있으면
+        setIsLoggedIn(true); // 로그인 됨
+      } else {
+        setIsLoggedIn(false); // 로그인 안됨
+      }
+      setInit(true); // user 판명 끝
+    });
+  }, []);
+
   const { data, isLoading, isError, error } = usePosts();
-  console.log('🚀 ~ file: Home.jsx:24 ~ Home ~ data:', data);
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
-  console.log('🚀 ~ file: Home.jsx:24 ~ Home ~ currentUser:', currentUser);
   const creationTime = currentUser?.metadata.creationTime;
   const lastSignInTime = currentUser?.metadata.lastSignInTime;
 
@@ -91,12 +105,21 @@ const Home = () => {
     <>
       <MocoChat />
       <HomeBanner />
-      <HomeGuideText currentUser={currentUser} />
-      <HomeMeetingList
-        recommendTechList={recommendTechList}
-        recommendTimeList={recommendTimeList}
-        recommendLocationList={recommendLocationList}
-      />
+      {init ? (
+        <>
+          <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
+          <HomeMeetingList
+            isLoggedIn={isLoggedIn}
+            recommendTechList={recommendTechList}
+            recommendTimeList={recommendTimeList}
+            recommendLocationList={recommendLocationList}
+          />
+        </>
+      ) : (
+        <>
+         ...
+        </>
+      )}
       <HomeNewMeetingList data={data} />
       <HomeAllBtn />
       {/* 신규 유저면 모달 오픈 */}

@@ -9,6 +9,7 @@ import {
   NewMeetingTitleBox,
 } from '../../../homestyle/homenewmeeting';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import { db } from '../../../../common/firebase';
 
 const HomeNewMeetingList = ({ data }) => {
   return (
@@ -25,7 +26,9 @@ const HomeNewMeetingList = ({ data }) => {
             {data
               ? data
                   .slice(0, 4)
-                  .map((item) => <CardSection key={item.id} item={item} />)
+                  .map((item) => (
+                    <CardSection key={item.id} item={item} db={db} />
+                  ))
               : []}
           </NewMeetingCardBox>
           <NewMeetingArrow>

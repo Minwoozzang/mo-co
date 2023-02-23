@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { collection, doc, getDoc, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
@@ -50,8 +50,7 @@ const TeamList = () => {
 
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
-    // item.teamID in myAppliedteamID
-    myAppliedteamID?.includes(item.teamID),
+    myAppliedteamID?.includes(item.teamID)
   );
 
   // 카테고리 클릭 시
@@ -78,11 +77,6 @@ const TeamList = () => {
       setCategory(clickedCategory);
     }
   };
-
-  console.log('postList', postList);
-  console.log('teamPage', teamPage);
-  console.log(teamPage[0]?.teamLeader?.isWait);
-  console.log(teamPage[0]?.teamID);
 
   // teamPage/teamID 로 이동
   const navigate = useNavigate();
