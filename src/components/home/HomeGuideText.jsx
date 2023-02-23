@@ -6,9 +6,7 @@ const HomeGuideText = ({ currentUser, isLoggedIn }) => {
     <GuideContainer>
       {isLoggedIn ? (
         <GuideText>
-          {currentUser?.displayName}님과 딱 맞는
-          <br />
-        모각코 모임을 알려드릴게요!
+          {currentUser?.displayName}님을 위한 추천 모각코 모임
         </GuideText>
       ) : (
         <>로그인 해주세요</>
