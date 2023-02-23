@@ -114,7 +114,7 @@ const Home = () => {
           <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
           <RecommendListContainer>
             <RecommendListCardBox>
-              {data.slice(0, 3).map((item, idx) => (
+              {data?.slice(0, 3).map((item, idx) => (
                 <CardSection 
                   key={idx}
                   item={item}
