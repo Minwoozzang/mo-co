@@ -128,8 +128,8 @@ const Login = () => {
           uid: res.user.uid,
           email: res.user.email,
           nickname: res.user.displayName,
-          bookmarkId: [],
-          profileImg: res.user.photoURL,
+          bookmarks: [],
+          profileImg: 'https://imhannah.me/common/img/default_profile.png',
         });
       })
       .catch((err) => {
@@ -147,8 +147,8 @@ const Login = () => {
           uid: res.user.uid,
           email: res.user.email,
           nickname: res.user.displayName,
-          bookmarkId: [],
-          profileImg: res.user.photoURL,
+          bookmarks: [],
+          profileImg: 'https://imhannah.me/common/img/default_profile.png',
         });
       })
       .catch((err) => {
