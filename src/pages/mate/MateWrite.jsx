@@ -189,6 +189,8 @@ const MateWrite = () => {
         </PageTitle>
         <PageInfo>
           모임 개설을 위해 정보와 상세한 설명을 입력해주세요 🙌
+          <br />
+          <br />* 모집 글 작성 시, 자동으로 팀페이지가 생성됩니다.
         </PageInfo>
       </GuideTextsBox>
       <EditingBox onSubmit={handleSubmit}>
