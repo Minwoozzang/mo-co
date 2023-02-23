@@ -149,6 +149,9 @@ const FullScreen = styled.div`
   /* height: 100%; */
   background-size: cover;
   background-color: #111111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const MainBackground = styled.div`
   width: 100%;
@@ -167,6 +170,7 @@ const RecommendListCardBox = styled.div`
   width: 900px;
   height: 320px;
   margin: 0 auto;
+  margin-top: 140px;
   display: flex;
   gap: 0 30px;
   /* background-color: aliceblue; */
