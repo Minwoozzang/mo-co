@@ -72,7 +72,7 @@ const MateDetail = () => {
         ) : null}
       </MateDetailContainer>
       <CommentWrap>
-        <UserHr />
+        {/* <UserHr /> */}
         <CommentContainHeader>댓글</CommentContainHeader>
         <CommentList id={id} img={profileImg} />
         <AddComment id={id} />

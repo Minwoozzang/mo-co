@@ -26,6 +26,9 @@ export const AddInputContent = styled.input`
   height: 100%;
   background-color: #111;
   border: none;
+  :focus {
+    color: #858585;
+  }
 `;
 
 export const AddCommentBtnDiv = styled.div``;

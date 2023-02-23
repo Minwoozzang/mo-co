@@ -169,15 +169,17 @@ const DetailRecruit = () => {
         <RecruitFont>모임지역</RecruitFont>
         <AreaDetail>{post.partyLocation}</AreaDetail>
       </RecruitArea>
-      {/* <UserHr /> */}
+      <UserHr />
       <RecruitDate>
         <RecruitFont>모임시간</RecruitFont>
         <DateDetail>{post.partyTime}</DateDetail>
       </RecruitDate>
+      <UserHr />
       <RecruitStack>
         <RecruitFont>기술스택</RecruitFont>
         <StackDetail>{post.partyStack}</StackDetail>
       </RecruitStack>
+      <UserHr />
       <RecruitCurrent>
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>모집진행 {post.partyNum}</RecruitDetail>

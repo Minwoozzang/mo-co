@@ -18,7 +18,8 @@ export const RecruitWrap = styled.div`
 export const RecruitFont = styled.p`
   font-size: 12px;
   font-weight: 400;
-  color: #fff;
+  color: #cecece;
+  margin-bottom: 16px;
 `;
 export const RecruitArea = styled.div`
   width: 100%;
@@ -123,8 +124,8 @@ export const RecruitGuide = styled.div`
 `;
 
 export const UserHr = styled.hr`
-  margin-top: 24px;
-  border: 0;
-  height: 0;
-  border-top: 1px solid #8c8c8c;
+  margin: 0px 40px 0px 40px;
+  border: 1;
+  width: 100%;
+  border-top: 1px solid #3b3b3b;
 `;
