@@ -39,8 +39,10 @@ export const HeaderLogo = styled.div`
 
 export const MyCodingMate = styled.div`
   cursor: pointer;
-  font-size: 20px;
+  font-size: 19px;
+  font-weight: 600;
   color: #ffffff;
+  margin-left: 5px;
 `;
 
 export const TeamAndLoginBox = styled.div`
@@ -56,6 +58,10 @@ export const MakeTeam = styled.button`
   height: 40px;
   border-radius: 20px;
   border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0A0A0A;
+  background-color: #FFFFFF;
 `;
 
 export const HeaderIcon = styled.div`
@@ -100,7 +106,7 @@ export const HeaderDropDownListBox = styled.div`
   margin-top: 10px;
 
   border-radius: 5px;
-  background-color: white;
+  background-color: #3B3B3B;
   box-shadow: 2px 2px 10px 10px #0001;
 
   z-index: 999;
@@ -113,7 +119,7 @@ export const HeaderDropDownListBox = styled.div`
     width: 0;
     height: 0;
     border: 20px solid transparent;
-    border-bottom-color: white;
+    border-bottom-color: #3B3B3B;
     border-top: 0;
     margin-left: -22px;
     margin-top: -13px;
@@ -133,7 +139,7 @@ export const HeaderImageBox = styled.div`
 
 export const HeaderImageText = styled.div`
   margin-top: 20px;
-
+  color: #FFFFFF;
   font-size: 1.2rem;
   font-weight: 550;
 `;
@@ -151,7 +157,7 @@ export const DropDownListBody = styled.div`
   justify-content: center;
   align-items: center;
   :hover {
-    background-color: aliceblue;
+    background-color: #B6B6B6;
   }
 
   margin-top: 20px;
@@ -160,7 +166,7 @@ export const DropDownListBody = styled.div`
 
 export const HeaderDropDownList = styled.li`
   font-size: 1.3rem;
-
+  color: #FFFFFF;
   list-style: none;
 `;
 
@@ -169,7 +175,7 @@ export const HeaderSearchDropDownListBox = styled.div`
   height: 100px; //200px
   margin-top: 10px;
   border-radius: 5px;
-  background-color: white;
+  background-color: #3B3B3B;
   box-shadow: 2px 2px 10px 10px #0001;
   z-index: 999;
 
@@ -181,7 +187,7 @@ export const HeaderSearchDropDownListBox = styled.div`
     width: 0;
     height: 0;
     border: 20px solid transparent;
-    border-bottom-color: white;
+    border-bottom-color: #3B3B3B;
     border-top: 0;
     margin-left: -22px;
     margin-top: -13px;
@@ -222,7 +228,7 @@ export const HeaderSearchDropDownHr = styled.div`
 
 export const HeaderSearchBox = styled.div`
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
   width: 200px;
   height: 30px;
@@ -231,9 +237,11 @@ export const HeaderSearchBox = styled.div`
 export const HeaderSearchInput = styled.input`
   border-radius: 10px;
   height: 30px;
-  width: 100px;
+  width: 140px;
   border: 0.1px solid gray;
   padding-left: 10px;
+  margin-left: 15px;
+  :focus { outline: none}
 `;
 
 export const HeaderSearchInputBtn = styled.button`

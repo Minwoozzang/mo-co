@@ -19,7 +19,10 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
           </OngoingMeetingTagBox>
           {item?.teamLeader?.nickName ===
           authService?.currentUser?.displayName ? (
-            <BiCrown style={{ fontSize: '26px' }} />
+            <BiCrown 
+              style={{ fontSize: '26px' }} 
+              color='#FFFFFF'
+            />
           ) : (
             ''
           )}
@@ -30,14 +33,17 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
         </OngoingMeetingPartyName>
         <OngoingMeetingStackWrapper>
           <StackBox>
+            {/* <StackIcon />
             <StackIcon />
-            <StackIcon />
-            <StackIcon />
+            <StackIcon /> */}
           </StackBox>
           {showTeamPageBtn ? (
             <NavigateArrow>
             <NavigateBtn onClick={()=>goToTeamPage(item.teamID)}>
-            <AiOutlineArrowRight style={{ fontSize: '36px' }} />
+            <AiOutlineArrowRight 
+              style={{ fontSize: '36px' }} 
+              color='#FEFF80'
+            />
             </NavigateBtn>
           </NavigateArrow>
           ) : (
@@ -60,13 +66,14 @@ const OngoingMeetingContainer = styled.div`
   border-radius: 10px;
   border: 1px solid;
   /* padding: 20px 24px 24px; */
-  border-color: #b9b9b9;
+  border-color: #3B3B3B;
+  background-color: #232323;
 `;
 const OngoingMeetingBox = styled.div`
   width: 332px;
   height: 146px;
   margin: 20px 24px 24px;
-  background-color: white;
+  background-color: #232323;
 `;
 const OngoingMeetingTagWrapper = styled.div`
   height: 26px;
@@ -85,7 +92,8 @@ const OngoingMeetingTagItem = styled.div`
   font-size: 12px;
   font-weight: 400;
   border-radius: 20px;
-  background-color: #d9d9d9;
+  background-color: #111111;
+  color: #FFFFFF;
 `;
 const OngoingMeetingPartyName = styled.div`
   height: 24px;
@@ -93,6 +101,7 @@ const OngoingMeetingPartyName = styled.div`
   font-size: 18px;
   margin-top: 10px;
   margin-bottom: 50px;
+  color: #FFFFFF;
 `;
 const OngoingMeetingStackWrapper = styled.div`
   width: 332px;
