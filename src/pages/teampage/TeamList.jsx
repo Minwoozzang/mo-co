@@ -9,29 +9,38 @@ import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
   const params = useParams();
-  
+
   const [postList, setPostList] = useState([]);
   const [teamPage, setTeamPage] = useState([]);
 
   // teamPage로 가는 버튼 팀리스트에서만 보이게하기
   const [show, setShow] = useState(true);
-  
+
   // teamPage teamMember에서 내 닉네임이 포함된 teamPage 데이터
   let myAppliedMeeting = [];
-  const myApplyMeeting = teamPage.forEach((item) =>{
-    item.teamMember.forEach(member => {
-      if (member.nickName === authService?.currentUser?.displayName){
-        myAppliedMeeting.push(item)
+  const myApplyMeeting = teamPage.forEach((item) => {
+    item.teamMember.forEach((member) => {
+      if (member.nickName === authService?.currentUser?.displayName) {
+        myAppliedMeeting.push(item);
         return false;
-      } 
-    })
-  }
-  );
+      }
+    });
+  });
+  console.log(myAppliedMeeting);
 
-  // 참여 신청 수락 후 데이터(진행 중 모임)
-  const approvedMeeting = myAppliedMeeting?.filter(
-    (item) => item.teamMember[0]?.isWait === false,
-  );
+  // 참여 신청 수락 후 데이터(진행 중 모임), teamMember isWait=false, nickName=usernickName
+  let myApprovedMeeting = [];
+  const approvedMeeting = myAppliedMeeting.forEach((item) => {
+    item.teamMember.forEach((member) => {
+      if (
+        member.isWait === false &&
+        member.nickName === authService?.currentUser?.displayName
+      ) {
+        myApprovedMeeting.push(item);
+        return false;
+      }
+    });
+  });
 
   // 자신이 개설한 팀 데이터(리더)
   const myOnGoingMeeting = teamPage?.filter((item) =>
@@ -39,9 +48,9 @@ const TeamList = () => {
   );
 
   // 진행 중 모임
-  const onGoingMeeting = approvedMeeting?.concat(myOnGoingMeeting); //리더 표시해주기
-  console.log('리더표시할 데이터', myOnGoingMeeting )
-  console.log('리더 표시X', approvedMeeting)
+  const onGoingMeeting = myApprovedMeeting?.concat(myOnGoingMeeting); //리더 표시해주기
+  console.log('리더표시할 데이터', myOnGoingMeeting);
+  console.log('리더 표시X', myApprovedMeeting);
 
   // 참여 신청 데이터 -> postList에서 불러와야 됨
   // 내 닉네임이 포함된 데이터에서 teamID만 추출
@@ -50,7 +59,7 @@ const TeamList = () => {
 
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
-    myAppliedteamID?.includes(item.teamID)
+    myAppliedteamID?.includes(item.teamID),
   );
 
   // 카테고리 클릭 시
@@ -111,50 +120,63 @@ const TeamList = () => {
     });
     return getTeamPage;
   }, []);
-  
+
   return (
-    <TeamListContainer>
-      <UserMeetingTitle>{params.nickname}님의 코딩모임</UserMeetingTitle>
-      <MeetingCategory>
-        {category.map((item, idx) => (
-          <TeamListCategory
-            key={idx}
-            item={item}
-            isClickedMeeting={isClickedMeeting}
-          />
-        ))}
-      </MeetingCategory>
-      <CardContainer>
-        {myTeamIsWait
-          ? appliedMeeting?.map((item, idx) => (
-              <CardSection key={idx} item={item} />
-            ))
-          : onGoingMeeting?.map((item, idx) => (
-              <OngoingCardSection
-                key={idx}
-                item={item}
-                goToTeamPage={goToTeamPage}
-                showTeamPageBtn={show}
-              />
-            ))}
-      </CardContainer>
-    </TeamListContainer>
+    <TeamListFullScreen>
+      <TeamListContainer>
+        <GapBox />
+        <UserMeetingTitle>{params.nickname}님의 코딩모임</UserMeetingTitle>
+        <MeetingCategory>
+          {category.map((item, idx) => (
+            <TeamListCategory
+              key={idx}
+              item={item}
+              isClickedMeeting={isClickedMeeting}
+            />
+          ))}
+        </MeetingCategory>
+        <CardContainer>
+          {myTeamIsWait
+            ? appliedMeeting?.map((item, idx) => (
+                <CardSection key={idx} item={item} />
+              ))
+            : onGoingMeeting?.map((item, idx) => (
+                <OngoingCardSection
+                  key={idx}
+                  item={item}
+                  goToTeamPage={goToTeamPage}
+                  showTeamPageBtn={show}
+                />
+              ))}
+        </CardContainer>
+      </TeamListContainer>
+    </TeamListFullScreen>
   );
 };
 
 export default TeamList;
 
+const TeamListFullScreen = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: #111111;
+`;
 const TeamListContainer = styled.div`
   width: 1178px;
   margin: 0 auto;
   /* background-color: #d7e5f1; */
 `;
+const GapBox = styled.div`
+  height: 90px;
+  /* background-color: aliceblue; */
+`
 const UserMeetingTitle = styled.div`
   /* width: 233px; */
   height: 40px;
-  margin-top: 90px;
+  /* margin-top: 90px; */
   font-size: 30px;
   font-weight: 500;
+  color: #FFFFFF;
 `;
 const MeetingCategory = styled.div`
   /* width: 250px; */

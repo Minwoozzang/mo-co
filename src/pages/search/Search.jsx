@@ -45,23 +45,35 @@ const Search = () => {
   console.log(searchData);
 
   return (
-    <SearchResultContainer>
+    <SearchResultFullScreen>
+      <SearchResultContainer>
       <SearchTitle>검색어 : {params.word.toLowerCase()}</SearchTitle>
       <CardWrapper>
-        {searchData.map((searchdata) => (
-          <SearchResultCard key={searchdata.id} {...searchdata} />
+        {searchData.map((item, idx) => (
+          <SearchResultCard key={idx} {...item} />
         ))}
       </CardWrapper>
     </SearchResultContainer>
+    </SearchResultFullScreen>
   );
 };
 
 export default Search;
 
+const SearchResultFullScreen = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: #111111;
+  /* background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center; */
+`
 const SearchResultContainer = styled.div`
   width: 1180px;
+  /* height: 1000px; */
   margin: 0 auto;
-  /* background-color: aliceblue; */
+  /* background-color: #111111; */
 `;
 const SearchTitle = styled.div`
   height: 50px;
@@ -73,5 +85,5 @@ const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   /* background-color: #c8f1e8; */
-  gap: 20px 20px;
+  gap: 100px 20px;
 `;

@@ -4,65 +4,144 @@ import { GrFormView } from 'react-icons/gr';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import { BsPower } from 'react-icons/bs';
+import { useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { authService, db } from '../../common/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import defaultImg from '../../assets/Group 290.png';
+import { Tag } from 'antd';
 
-const SearchResultCard = ( searchdata ) => {
-    // const {
-    //     createdDate,
-    //     isDeleted,
-    //     isRemoted,
-    //     nickName,
-    //     partyDesc,
-    //     partyIsOpen,
-    //     partyLocation,
-    //     partyName,
-    //     partyNum,
-    //     partyPostTitle,
-    //     partyStack
-    // } = searchdata
-    // console.log(searchdata)
+const SearchResultCard = ( item ) => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const [uid, setUid] = useState('');
+  const bookmark = item.bookmark;
+
+  // HTML을 plain text로 변환
+  const parsedHtml = item.partyDesc?.replace(/(<([^>]+)>)/gi, '');
+
+  // 북마크 핸들링 함수
+  const handleBookmark = async () => {
+    // 현재 유저 문서 가져오기
+    const userDoc = await getDoc(doc(db, 'user', uid));
+    const userData = userDoc.data();
+    const bookmarks = await userData.bookmarks;
+
+    // 현재 유저의 bookmarks에 해당 게시물이 없을 때
+    if (!bookmarks.includes(item.id)) {
+      try {
+        // post 컬렉션의 해당 게시물의 bookmark 필드 +1
+        await updateDoc(doc(db, 'post', item.id), {
+          bookmark: bookmark + 1,
+        });
+        // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 추가
+        await updateDoc(doc(db, 'user', uid), {
+          bookmarks: [...bookmarks, item.id],
+        });
+        queryClient.invalidateQueries('posts');
+        console.log('북마크 추가 성공');
+      } catch {
+        console.log('북마크 추가 실패');
+      }
+    }
+
+    // 현재 유저의 bookmarks에 해당 게시물이 있을 때
+    if (bookmarks.includes(item.id)) {
+      try {
+        // post 컬렉션의 해당 게시물의 bookmark 필드 -1
+        await updateDoc(doc(db, 'post', item.id), {
+          bookmark: bookmark - 1,
+        });
+        // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 삭제
+        await updateDoc(doc(db, 'user', uid), {
+          bookmarks: bookmarks.filter((bookmark) => bookmark !== item.id),
+        });
+        queryClient.invalidateQueries('posts');
+        console.log('북마크 삭제 성공');
+      } catch {
+        console.log('북마크 삭제 실패');
+      }
+    }
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setUid(uid);
+      } else {
+        return;
+      }
+    });
+  }, [uid]);
+
   return (
     <PostCard>
       <BookmarkIconBox>
-        <Location>
-            {searchdata.partyLocation}
-        </Location>
-        {/* <Location>{searchdata.partyTime}</Location> */}
-        <BsBookmarkHeart cursor="pointer" size="20px" />
+        <LoactionAndTimeBox>
+          <Location>{item.isRemote ? '비대면' : item.partyLocation}</Location>
+          <Time>{item.partyTime}</Time>
+        </LoactionAndTimeBox>
+        {/* <span>{item.bookmark}</span> */}
+        <Bookmark>
+          <span>{item.bookmark}</span>
+          <BsBookmarkHeart
+            onClick={handleBookmark}
+            cursor="pointer"
+            size="20px"
+            color="white"
+          />
+        </Bookmark>
       </BookmarkIconBox>
 
       <PostBox>
-        <PostTitle>{searchdata.partyName}</PostTitle>
-        <PostDesc>
-          {searchdata.partyDesc}
-        </PostDesc>
-        <TechStackIcon></TechStackIcon>
-        {searchdata.partyStack.map((a)=>a)}
+        <PostTitle
+          onClick={() => {
+            navigate(`/matedetail/${item.id}`, { state: { item } });
+          }}
+        >
+          {item.partyPostTitile}
+        </PostTitle>
+        <PostDesc>{parsedHtml}</PostDesc>
+        <TechStackIcon>
+          {item.partyStack?.map((item, idx) => (
+            <Tag key={idx} style={{ fontSize: 12 }} color="red">
+              {item}
+            </Tag>
+          ))}
+        </TechStackIcon>
       </PostBox>
-
-      <PartyStatusBox>
-        <RecruitingBox>
-          <BsPower color="green" size="15px" />
-          <Recruiting>{searchdata.partyIsOpen ? "모집중" : "마감"}</Recruiting>
-        </RecruitingBox>
-        <HeadCountBox>
-          <BsPeopleFill size="15px" />
-          <HeadCount>{searchdata.partyNum}</HeadCount>
-        </HeadCountBox>
-      </PartyStatusBox>
 
       <HorizontalLine />
 
+      <PartyStatusBox>
+        <RecruitingBox>
+          <Recruiting>모집 현황</Recruiting>
+        </RecruitingBox>
+        <HeadCountBox>
+          {item.partyIsOpen === true ? (
+            <span style={{ color: 'white' }}>모집중</span>
+          ) : (
+            <span style={{ color: 'white' }}>모집완료</span>
+          )}
+          <HeadCount>{`: 1 / ${item.partyNum}`}</HeadCount>
+        </HeadCountBox>
+      </PartyStatusBox>
+
       <PostInfo>
         <ProfileBox>
-          <ProfileImage src={searchdata.profileImg} />
-          {/* <img width="30" height="30" src={searchdata.profileImg} /> */}
-          <NickName>{searchdata.nickName}</NickName>
+          <ProfileImage
+            src={!item.profileImg ? defaultImg : item.profileImg}
+          ></ProfileImage>
+          <NickName>{item.nickName}</NickName>
         </ProfileBox>
         <InfoBox>
-          <GrFormView size="24px" />
+          {/* <GrFormView size="24px" />
           <PostView>12</PostView>
           <FaRegCommentDots size="15px" />
-          <PostComments>3</PostComments>
+          <PostComments>3</PostComments> */}
         </InfoBox>
       </PostInfo>
     </PostCard>
@@ -72,15 +151,18 @@ const SearchResultCard = ( searchdata ) => {
 export default SearchResultCard;
 
 const PostCard = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border-radius: 20px;
   flex-basis: 245px;
-  padding: 16px;
+  padding: 24px;
   flex-grow: 0;
   flex-shrink: 0;
   width: 280px;
-  height: 320px;
+  height: 234px;
   display: flex;
   flex-direction: column;
+  background-color: #232323;
+  border: 1px solid #3b3b3b;
 `;
 
 const BookmarkIconBox = styled.div`
@@ -90,10 +172,36 @@ const BookmarkIconBox = styled.div`
   align-items: center;
 `;
 
+const LoactionAndTimeBox = styled.div`
+  display: flex;
+  gap: 6px;
+`;
+
 const Location = styled.div`
-  width: 62px;
-  height: 16px;
-  color: #4f4f4f;
+  width: 85px;
+  height: 26px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 26px;
+`;
+
+const Time = styled.div`
+  width: 80px;
+  height: 26px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 26px;
+`;
+
+const Bookmark = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
 `;
 
 const PostBox = styled.div`
@@ -104,26 +212,42 @@ const PostBox = styled.div`
 `;
 
 const PostTitle = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
   width: 245px;
   height: 24px;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 1.3em;
+  color: white;
+  font-weight: 600;
+  &:hover {
+    color: #531cab;
+  }
 `;
 
 const PostDesc = styled.div`
-  overflow-wrap: break-word;
   display: inline-block;
   width: 240px;
+  height: 20px;
   margin-bottom: 20px;
-  color: #828282;
+  color: #b6b6b6;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  margin-top: 6px;
 `;
 
 const PartyStatusBox = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const HeadCountBox = styled.div`
@@ -133,6 +257,7 @@ const HeadCountBox = styled.div`
 
 const HeadCount = styled.div`
   font-size: 15px;
+  color: white;
 `;
 
 const RecruitingBox = styled.div`
@@ -142,20 +267,22 @@ const RecruitingBox = styled.div`
 
 const Recruiting = styled.div`
   font-size: 15px;
+  color: #6c6c6c;
 `;
 
 const TechStackIcon = styled.div`
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  background-image: url('https://images.velog.io/images/hang_kem_0531/post/05903636-878d-4e75-bf8b-aaddfcecbcce/js-logo.png');
-  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 240px;
+  margin-bottom: 16px;
 `;
 
 const HorizontalLine = styled.div`
-  border: 0.5px solid grey;
+  border: 0.1px solid #3b3b3b;
   width: 100%;
   margin: auto;
+  color: #3b3b3b;
 `;
 
 const PostInfo = styled.div`
@@ -163,6 +290,8 @@ const PostInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 18px;
+  position: relative;
+  left: -25px;
 `;
 
 const ProfileBox = styled.div`
@@ -171,6 +300,7 @@ const ProfileBox = styled.div`
 `;
 
 const ProfileImage = styled.img`
+  background-color: grey;
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -181,6 +311,7 @@ const NickName = styled.div`
   width: 70px;
   height: 20px;
   font-size: 15px;
+  color: white;
 `;
 
 const InfoBox = styled.div`

@@ -131,8 +131,10 @@ const Home = () => {
         ) : (
           <>...</>
         )}
+        <CoverBackground>
         <HomeNewMeetingList data={data} />
         <HomeAllBtn />
+        </CoverBackground>
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
@@ -175,3 +177,7 @@ const RecommendListCardBox = styled.div`
   gap: 0 30px;
   /* background-color: aliceblue; */
 `;
+const CoverBackground = styled.div`
+  width: 100%;
+  background-color: #111111;
+`
