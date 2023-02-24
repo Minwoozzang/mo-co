@@ -100,14 +100,13 @@ export const YellowBox = styled.div`
 export const MemberInfoProfile = styled.div`
   align-items: center;
   display: flex;
-  min-width: 0;
+  margin: 10px;
 `;
 
 export const MemberInfoProfileImg = styled.img`
   height: 40px;
   width: 40px;
   border-radius: 25px;
-  margin-left: 10px;
   border: 1px solid black;
   object-fit: cover;
 `;
