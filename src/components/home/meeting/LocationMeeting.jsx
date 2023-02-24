@@ -1,12 +1,14 @@
 import {
-  MeetingTitleBox,
-  MeetingMoreBox,
   LocationTitle,
   LocationMeetingArea,
   LocationMeetingCardBox,
   LocationMeetingInnerSection1,
   LocationMeetingInnerSection2,
   LocationMeetingInnerBox,
+  LocationMeetingTitleBox,
+  LocationMeetingTitleBox1,
+  LocationMeetingTitleBox2,
+  LocationMeetingTitleBox3,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
@@ -16,47 +18,20 @@ import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 
 const LocationMeeting = ({ recommendLocationList }) => {
-  // const [recommendLocationList, setRecommendLocationList] = useState([]);
-  // const result = useQueries([
-  //   {
-  //     queryKey: ['user'],
-  //     queryFn: getUser,
-  //   },
-  //   {
-  //     queryKey: ['post'],
-  //     queryFn: getPost,
-  //   },
-  // ]);
-
-  // useEffect(() => {
-  //   console.log(result); // [{rune 정보, data: [], isSucces: true ...}, {spell 정보, data: [], isSucces: true ...}]
-  //   const loadingFinishAll = result.some((result) => result.isLoading);
-  //   console.log(loadingFinishAll); // loadingFinishAll이 false이면 최종 완료
-
-  //   if (loadingFinishAll === false) {
-  //     const newrecommendLocationList = result[1]?.data?.filter((item) =>
-  //       item.partyLocation.includes(result[0]?.data[0]?.moreInfo.u_location),
-  //     );
-
-  //     if (
-  //       result[1]?.data?.length > 0 &&
-  //       newrecommendLocationList?.length > 0 &&
-  //       recommendLocationList?.length === 0
-  //     ) {
-  //       setRecommendLocationList(newrecommendLocationList);
-  //     }
-  //   }
-  // }, [result, recommendLocationList]);
-
-  // console.log('recommendLocationList', recommendLocationList);
+  const titlestring1 = '{=';
+  const titlestring2 = ';';
+  const titlestring3 = '} * --- />';
 
   return (
     <>
       <LocationMeetingArea>
         <LocationMeetingInnerSection1>
-        <MeetingTitleBox>
+        <LocationMeetingTitleBox>
+          <LocationMeetingTitleBox1>{titlestring1}</LocationMeetingTitleBox1>
           <LocationTitle>지역이 맞는 모임</LocationTitle>
-        </MeetingTitleBox>
+          <LocationMeetingTitleBox2>{titlestring2}</LocationMeetingTitleBox2>
+        </LocationMeetingTitleBox>
+        <LocationMeetingTitleBox3>{titlestring3}</LocationMeetingTitleBox3>
         </LocationMeetingInnerSection1>
        <LocationMeetingInnerSection2>
         <LocationMeetingInnerBox />

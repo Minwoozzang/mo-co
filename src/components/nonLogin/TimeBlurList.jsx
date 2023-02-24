@@ -7,16 +7,33 @@ import {
   TimeMeetingCardBox,
   TimeMeetingInnerSection2,
   TimeMeetingInnerBox,
+  TimeMeetingLeftCornerBox,
+  TimeMeetingTitleBox1,
+  TimeMeetingTitleBox3,
+  TimeMeetingTitleBox2,
+  TimeMeetingTitleBox,
 } from '../homestyle/homemeeting';
 import BlurCard from './blurcard/BlurCard';
 
 const TimeBlurList = ({ isLoggedIn, blurList }) => {
+  const titlestring = '</---*';
+  const titlestring1 = '{=';
+  const titlestring2 = '{';
+
   return (
     <TimeMeetingArea>
       <TimeMeetingInnerSection1>
-      <MeetingTitleBox>
+        <TimeMeetingLeftCornerBox>
+          {titlestring}
+        </TimeMeetingLeftCornerBox>
+      <TimeMeetingTitleBox>
+        <TimeMeetingTitleBox1>
+          {titlestring1}
+        </TimeMeetingTitleBox1>
         <TimeMeetingTitle>시간대가 맞는 모임</TimeMeetingTitle>
-      </MeetingTitleBox>
+        <TimeMeetingTitleBox2>;</TimeMeetingTitleBox2>
+      </TimeMeetingTitleBox>
+      <TimeMeetingTitleBox3>{titlestring2}</TimeMeetingTitleBox3>
       </TimeMeetingInnerSection1>
      <TimeMeetingInnerSection2>
       <TimeMeetingInnerBox />
