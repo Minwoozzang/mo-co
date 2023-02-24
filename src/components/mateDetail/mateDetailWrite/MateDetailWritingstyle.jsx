@@ -20,7 +20,6 @@ export const GroupImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  background-color: #d9d9d9;
   margin-top: auto;
   margin-left: 420px;
 `;
