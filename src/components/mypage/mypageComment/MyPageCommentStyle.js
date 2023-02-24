@@ -25,10 +25,9 @@ export const MyCommentList = styled.div`
 
 export const MyCommentsBox = styled.div`
   width: 570px;
-  height: 50px;
+  height: 80px;
 
-  border-radius: 10px 10px 0px 0px;
-  border-bottom: 1px solid wheat;
+  border-bottom: 1px solid white;
 
   padding: 10px;
 
@@ -46,18 +45,13 @@ export const MyCommentOfComment = styled.div`
 `;
 
 export const MyCommentDate = styled.div`
-  width: 100%;
-  height: 30px;
-
-  color: #0006;
-`;
-
-export const MyCommentCommentTitle = styled.div`
-  width: 100%;
-  height: 30px;
-
-  font-size: 1.2rem;
+  font-family: 'Pretendard';
+  font-style: normal;
   font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 22px;
 
-  color: #0009;
+  color: #ffffff;
+
+  margin-top: 15px;
 `;
