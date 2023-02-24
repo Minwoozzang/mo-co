@@ -134,13 +134,14 @@ const ContentChatContainer = styled.div`
   width: 700px;
   height: 100%;
   padding: 30px;
+  background-color: white;
 `;
 
 const ContentTitle = styled.div`
   text-decoration: none;
-  color: #fff;
   font-size: 19px;
   font-weight: 600;
+  margin-top: 10px;
 `;
 
 const ContentChatAreaBox = styled.div`
