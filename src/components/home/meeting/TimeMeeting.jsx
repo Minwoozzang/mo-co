@@ -8,6 +8,11 @@ import {
   TimeMeetingCardBox,
   TimeMeetingInnerSection2,
   TimeMeetingInnerBox,
+  TimeMeetingLeftCornerBox,
+  TimeMeetingTitleBox,
+  TimeMeetingTitleBox1,
+  TimeMeetingTitleBox2,
+  TimeMeetingTitleBox3,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
@@ -17,58 +22,24 @@ import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 
 const TimeMeeting = ({ recommendTimeList }) => {
-  // const [recommendTimeList, setRecommendTimeList] = useState([]);
-  // const result = useQueries([
-  //   {
-  //     queryKey: ['user'],
-  //     queryFn: getUser,
-  //   },
-  //   {
-  //     queryKey: ['post'],
-  //     queryFn: getPost,
-  //   },
-  // ]);
-
-  // useEffect(() => {
-  //   console.log(result); // [{rune 정보, data: [], isSucces: true ...}, {spell 정보, data: [], isSucces: true ...}]
-  //   const loadingFinishAll = result.some((result) => result.isLoading);
-  //   console.log(loadingFinishAll); // loadingFinishAll이 false이면 최종 완료
-
-  //   if (loadingFinishAll === false) {
-  //     const newrecommendTimeList = result[1]?.data?.filter((item) =>
-  //       item.partyTime.includes(result[0]?.data[0]?.moreInfo.u_time),
-  //     );
-
-  //     if (
-  //       result[1]?.data?.length > 0 &&
-  //       newrecommendTimeList?.length > 0 &&
-  //       recommendTimeList?.length === 0
-  //     ) {
-  //       setRecommendTimeList(newrecommendTimeList);
-  //     }
-  //   }
-  // }, [result, recommendTimeList]);
-
-  // console.log('recommendTimeList', recommendTimeList);
-  // useEffect(() => {
-  //   console.log(result); // [{rune 정보, data: [], isSucces: true ...}, {spell 정보, data: [], isSucces: true ...}]
-  //   const loadingFinishAll = result.some((result) => result.isLoading);
-  //   console.log(loadingFinishAll); // loadingFinishAll이 false이면 최종 완료
-  //   // if (loadingFinishAll) return;
-
-  //   // const newrecommendTimeList = result[1].data?.filter((item) =>
-  //   // item.partyTime.includes(result[0].data[0].moreInfo.u_time)
-  //   // );
-  //   // setRecommendTimeList(newrecommendTimeList);
-  //   //무한루프 도는 이유 모르겠음
-  // }, [result]);
+  const titlestring = '</---*';
+  const titlestring1 = '{=';
+  const titlestring2 = '{';
 
   return (
     <TimeMeetingArea>
       <TimeMeetingInnerSection1>
-      <MeetingTitleBox>
+        <TimeMeetingLeftCornerBox>
+          {titlestring}
+        </TimeMeetingLeftCornerBox>
+      <TimeMeetingTitleBox>
+        <TimeMeetingTitleBox1>
+          {titlestring1}
+        </TimeMeetingTitleBox1>
         <TimeMeetingTitle>시간대가 맞는 모임</TimeMeetingTitle>
-      </MeetingTitleBox>
+        <TimeMeetingTitleBox2>;</TimeMeetingTitleBox2>
+      </TimeMeetingTitleBox>
+      <TimeMeetingTitleBox3>{titlestring2}</TimeMeetingTitleBox3>
       </TimeMeetingInnerSection1>
       <TimeMeetingInnerSection2>
         <TimeMeetingInnerBox />

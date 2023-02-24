@@ -14,11 +14,11 @@ const HomeBlurList = ({
           isLoggedIn={isLoggedIn}
           blurList={blurList}
         />
-        <TimeBlurList
+      </TechAndTimeMeetingArea>
+      <TimeBlurList
           isLoggedIn={isLoggedIn}
           blurList={blurList}
         />
-      </TechAndTimeMeetingArea>
       <LocationBlurList
         isLoggedIn={isLoggedIn}
         blurList={blurList}
