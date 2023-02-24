@@ -132,7 +132,7 @@ export default function TeamPlace({ teamLocationID }) {
                   }}
                   style={{
                     // 지도의 크기
-                    width: '50%',
+                    width: '180px',
                     height: '21vh',
                   }}
                   level={4} // 지도의 확대 레벨
@@ -153,7 +153,7 @@ export default function TeamPlace({ teamLocationID }) {
                   >
                     {address}
                   </PlaceBtn>
-                  <div>{placeName}</div>
+                  <PlaceBtn>{placeName}</PlaceBtn>
                 </PlaceTextWrap>
               </PlaceWrap>
               {modal === true ? (
@@ -197,7 +197,7 @@ export default function TeamPlace({ teamLocationID }) {
                         }}
                         style={{
                           // 지도의 크기
-                          width: '50%',
+                          width: '180px',
                           height: '21vh',
                         }}
                         level={4} // 지도의 확대 레벨
@@ -211,8 +211,8 @@ export default function TeamPlace({ teamLocationID }) {
                         />
                       </Map>
                       <PlaceTextWrap>
-                        <PlaceBtn>{item.contentPlaceName}</PlaceBtn>
-                        <div>{item.contentPlaceAddress}</div>
+                        <PlaceName>{item.contentPlaceName}</PlaceName>
+                        <PlaceName>{item.contentPlaceAddress}</PlaceName>
                       </PlaceTextWrap>
                     </>
                   );
@@ -276,7 +276,7 @@ const ContentCard = styled.div`
 `;
 
 const PlaceBtn = styled.div`
-  width: 100%;
+  width: 180px;
   height: 10px;
   align-items: center;
   font-size: 15px;
@@ -284,6 +284,15 @@ const PlaceBtn = styled.div`
   border: none;
   background-color: transparent;
   color: grey;
+`;
+
+const PlaceName = styled.div`
+  width: 180px;
+  height: 10px;
+  align-items: center;
+  font-size: 15px;
+  margin-top: 10px;
+  color: black;
 `;
 
 const PlaceWrap = styled.div`
