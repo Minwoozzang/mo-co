@@ -1,145 +1,149 @@
 import styled from '@emotion/styled';
 
 export const MyProfileBody = styled.div`
-  width: 100%;
-  height: 600px;
-
-  display: flex;
-  justify-content: center;
-
-  background-color: #0000;
-  box-shadow: 2px 2px 10px 10px #0001;
+  width: 330px;
+  height: 100%;
 `;
 
 export const ProfileSection = styled.div`
-  width: 270px;
+  width: 100%;
+  height: 100%;
 
-  margin-top: 15px;
+  margin-top: 80px;
+`;
+
+export const ProfileMocoText = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.875rem;
+  line-height: 36px;
+
+  letter-spacing: -0.02em;
+
+  color: #ffffff;
+`;
+
+export const NicknameImageBox = styled.div`
+  width: 330px;
+  height: 100px;
+
+  display: flex;
+
+  margin-top: 70px;
+  margin-bottom: 40px;
+`;
+
+export const NicknameTextBox = styled.div`
+  width: 150px;
+`;
+
+export const NicaknameHello = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 24px;
+
+  letter-spacing: -0.03em;
+
+  color: #ffffff;
+
+  margin-bottom: 5px;
 `;
 
 export const ProfileHeaderIcon = styled.div`
-  width: 230px;
-
   cursor: pointer;
-
-  display: flex;
-  justify-content: flex-end;
 `;
 
 export const ProfileImageBody = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
+  margin-right: 20px;
 `;
 
 export const ProfileImage = styled.img`
-  border-radius: 75px;
+  border-radius: 45px;
 `;
 
-export const ProfileEditBody = styled.div`
-  width: 100%;
-
-  margin-top: 20px;
-  margin-bottom: 15px;
-`;
+export const ProfileEditBody = styled.div``;
 
 export const EditNickNameInput = styled.input`
-  width: 45%;
+  width: 120px;
+  height: 25px;
 
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #ffffff;
 
+  background: none;
+
+  color: #ffffff;
   font-size: 1.2rem;
   font-weight: 600;
-
-  margin-left: 1%;
 
   :focus {
     outline: none;
   }
+
+  margin-bottom: 20px;
 `;
 
-export const ProfileNickNameBody = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export const ProfileNickNameBody = styled.div``;
 
 export const ProfileNickName = styled.div`
-  background-color: #0000;
+  width: 120px;
 
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 24px;
 
-  border: none;
-  border-bottom: 0.6px solid #0009;
-  outline: none;
+  letter-spacing: -0.03em;
+
+  color: #ffffff;
+
+  margin-bottom: 20px;
 `;
-
-export const ProfileMyEmailBox = styled.div`
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-
-  margin-top: 5px;
-`;
-
-export const ProfileMyEmail = styled.div``;
 
 export const ProfileNickNameBtn = styled.div`
-  width: 50px;
-  height: 40px;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 14px;
+  letter-spacing: -0.03em;
 
-  color: #0004;
-
-  border: 1px solid #0005;
-  border-radius: 15px;
-  font-weight: 600;
+  color: #9d9d9d;
 
   cursor: pointer;
-  margin-left: 15px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const NickNameCompleteBtn = styled.div`
-  width: 50px;
-  height: 40px;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 14px;
+  letter-spacing: -0.03em;
 
-  color: #0004;
-
-  border: 1px solid #0005;
-  border-radius: 15px;
-  font-weight: 600;
+  color: #9d9d9d;
 
   cursor: pointer;
-  margin-left: 15px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const ProfileMiddleSection = styled.div`
-  width: 100%;
+  width: 330px;
   height: 200px;
 
-  margin-top: 20px;
+  margin-top: 40px;
 
   display: flex;
   justify-content: center;
 `;
 
 export const MiddleBody = styled.div`
-  width: 80%;
+  width: 95%;
   height: 100%;
 `;
 
@@ -158,10 +162,28 @@ export const ProfileStackBody = styled.div`
 export const StackbodyTitle = styled.div`
   width: 48%;
 
-  color: #0004;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 17px;
+
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 `;
 
-export const StackbodyText = styled.div``;
+export const StackbodyText = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.16rem;
+  line-height: 17px;
+
+  letter-spacing: -0.03em;
+
+  color: #ffffff;
+`;
 
 export const ProfileTechBody = styled.div`
   width: 100%;
@@ -170,9 +192,15 @@ export const ProfileTechBody = styled.div`
 `;
 
 export const TechBodyTitle = styled.div`
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #0004;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 17px;
+
+  letter-spacing: -0.03em;
+
+  color: #9d9d9d;
 
   margin-bottom: 10px;
 `;
@@ -182,10 +210,6 @@ export const TechBodyImage = styled.div``;
 export const ProfileFooterBody = styled.div`
   width: 100%;
 
-  display: flex;
-  justify-content: center;
-
-  gap: 20px;
   margin-top: 25px;
 `;
 
@@ -209,16 +233,11 @@ export const ProfileCompleteBtn = styled.div`
 `;
 
 export const ProfileStackBtn = styled.div`
-  width: 120px;
-  height: 40px;
+  width: 305px;
+  height: 50px;
 
-  margin-bottom: 20px;
-
-  color: #0004;
-
-  border: 1px solid #0005;
-  border-radius: 15px;
-  font-weight: 600;
+  background: #feff80;
+  border-radius: 10px;
 
   cursor: pointer;
 

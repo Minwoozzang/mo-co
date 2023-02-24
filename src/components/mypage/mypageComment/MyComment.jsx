@@ -16,7 +16,6 @@ const MyComment = ({ myItem }) => {
     <MyCommentsBox onClick={navigateComment}>
       <MyCommentOfComment>{myItem.comment}</MyCommentOfComment>
       <MyCommentDate>{myItem.date}</MyCommentDate>
-      <MyCommentCommentTitle>{myItem.commentTitle}</MyCommentCommentTitle>
     </MyCommentsBox>
   );
 };

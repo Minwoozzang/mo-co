@@ -119,7 +119,7 @@ const SignUp = () => {
           setDoc(doc(db, 'user', res.user.uid), {
             uid: res.user.uid,
             email: email,
-            profileImg: null,
+            profileImg: 'https://imhannah.me/common/img/default_profile.png',
             bookmarks: [],
             teamID: '',
           });

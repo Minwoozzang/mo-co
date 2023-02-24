@@ -143,7 +143,7 @@ const Login = () => {
           email: res.user.email,
           nickname: res.user.displayName,
           bookmarks: [],
-          profileImg: null,
+          profileImg: 'https://imhannah.me/common/img/default_profile.png',
         });
       })
       .catch((err) => {
@@ -162,7 +162,7 @@ const Login = () => {
           email: res.user.email,
           nickname: res.user.displayName,
           bookmarks: [],
-          profileImg: null,
+          profileImg: 'https://imhannah.me/common/img/default_profile.png',
         });
       })
       .catch((err) => {
