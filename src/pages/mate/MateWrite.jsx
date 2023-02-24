@@ -81,10 +81,18 @@ const MateWrite = () => {
   };
 
   // 기술 스택 선택 핸들러 함수
+  // const handlePartyStack = (stack) => {
+  //   if (partyStack.includes(stack)) {
+  //     setPartyStack(partyStack.filter((item) => item !== stack));
+  //   } else {
+  //     setPartyStack([...partyStack, stack]);
+  //   }
+  // };
   const handlePartyStack = (stack) => {
     if (partyStack.includes(stack)) {
       setPartyStack(partyStack.filter((item) => item !== stack));
-    } else {
+    } else if (partyStack.length < 3) {
+      // 최대 3개의 기술만 선택할 수 있도록 제한
       setPartyStack([...partyStack, stack]);
     }
   };
@@ -181,6 +189,8 @@ const MateWrite = () => {
         </PageTitle>
         <PageInfo>
           모임 개설을 위해 정보와 상세한 설명을 입력해주세요 🙌
+          <br />
+          <br />* 모집 글 작성 시, 자동으로 팀페이지가 생성됩니다.
         </PageInfo>
       </GuideTextsBox>
       <EditingBox onSubmit={handleSubmit}>
@@ -197,7 +207,7 @@ const MateWrite = () => {
           </PartyTitleBox>
 
           <TechStackBox>
-            <h3>기술스택</h3>
+            <h3>기술스택 (최대 3개)</h3>
             <TechStacks>
               {stacks.map((stack, idx) => (
                 <Tech

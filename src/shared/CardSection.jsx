@@ -1,15 +1,12 @@
 import styled from '@emotion/styled';
 import { BsBookmarkHeart } from 'react-icons/bs';
-import { GrFormView } from 'react-icons/gr';
-import { FaRegCommentDots } from 'react-icons/fa';
-import { BsPeopleFill } from 'react-icons/bs';
 import { Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../common/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import default_profile from '../assets/default_profile.png';
+import defaultImg from '../assets/Group 290.png';
 import { useQueryClient } from 'react-query';
 
 const CardSection = ({ item, db }) => {
@@ -79,7 +76,10 @@ const CardSection = ({ item, db }) => {
   return (
     <PostCard>
       <BookmarkIconBox>
-        <Location>{item.isRemote ? '비대면' : item.partyLocation}</Location>
+        <LoactionAndTimeBox>
+          <Location>{item.isRemote ? '비대면' : item.partyLocation}</Location>
+          <Time>{item.partyTime}</Time>
+        </LoactionAndTimeBox>
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
           <span>{item.bookmark}</span>
@@ -87,6 +87,7 @@ const CardSection = ({ item, db }) => {
             onClick={handleBookmark}
             cursor="pointer"
             size="20px"
+            color="white"
           />
         </Bookmark>
       </BookmarkIconBox>
@@ -102,43 +103,41 @@ const CardSection = ({ item, db }) => {
         <PostDesc>{parsedHtml}</PostDesc>
         <TechStackIcon>
           {item.partyStack?.map((item, idx) => (
-            <Tag key={idx} style={{ fontSize: 12 }} color="purple">
+            <Tag key={idx} style={{ fontSize: 12 }} color="red">
               {item}
             </Tag>
           ))}
         </TechStackIcon>
       </PostBox>
 
+      <HorizontalLine />
+
       <PartyStatusBox>
         <RecruitingBox>
-          <Recruiting>
-            {item.partyIsOpen === true ? (
-              <span style={{ color: 'green' }}>모집 중</span>
-            ) : (
-              <span style={{ color: 'red' }}>모집완료</span>
-            )}
-          </Recruiting>
+          <Recruiting>모집 현황</Recruiting>
         </RecruitingBox>
         <HeadCountBox>
-          <BsPeopleFill size="15px" />
+          {item.partyIsOpen === true ? (
+            <span style={{ color: 'white' }}>모집중</span>
+          ) : (
+            <span style={{ color: 'white' }}>모집완료</span>
+          )}
           <HeadCount>{`: 1 / ${item.partyNum}`}</HeadCount>
         </HeadCountBox>
       </PartyStatusBox>
 
-      <HorizontalLine />
-
       <PostInfo>
         <ProfileBox>
           <ProfileImage
-            src={!item.profileImg ? default_profile : item.profileImg}
+            src={!item.profileImg ? defaultImg : item.profileImg}
           ></ProfileImage>
           <NickName>{item.nickName}</NickName>
         </ProfileBox>
         <InfoBox>
-          <GrFormView size="24px" />
+          {/* <GrFormView size="24px" />
           <PostView>12</PostView>
           <FaRegCommentDots size="15px" />
-          <PostComments>3</PostComments>
+          <PostComments>3</PostComments> */}
         </InfoBox>
       </PostInfo>
     </PostCard>
@@ -151,14 +150,15 @@ const PostCard = styled.div`
   /* border: 1px solid black; */
   border-radius: 20px;
   flex-basis: 245px;
-  padding: 16px;
+  padding: 24px;
   flex-grow: 0;
   flex-shrink: 0;
   width: 280px;
-  height: 320px;
+  height: 234px;
   display: flex;
   flex-direction: column;
   background-color: #232323;
+  border: 1px solid #3b3b3b;
 `;
 
 const BookmarkIconBox = styled.div`
@@ -168,16 +168,36 @@ const BookmarkIconBox = styled.div`
   align-items: center;
 `;
 
+const LoactionAndTimeBox = styled.div`
+  display: flex;
+  gap: 6px;
+`;
+
 const Location = styled.div`
-  width: 62px;
-  height: 16px;
-  color: #4f4f4f;
+  width: 85px;
+  height: 26px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 26px;
+`;
+
+const Time = styled.div`
+  width: 80px;
+  height: 26px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 26px;
 `;
 
 const Bookmark = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
+  color: white;
 `;
 
 const PostBox = styled.div`
@@ -195,7 +215,9 @@ const PostTitle = styled.div`
   width: 245px;
   height: 24px;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 1.3em;
+  color: white;
+  font-weight: 600;
   &:hover {
     color: #531cab;
   }
@@ -206,19 +228,22 @@ const PostDesc = styled.div`
   width: 240px;
   height: 20px;
   margin-bottom: 20px;
-  color: #828282;
+  color: #b6b6b6;
   font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
+  margin-top: 6px;
 `;
 
 const PartyStatusBox = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const HeadCountBox = styled.div`
@@ -228,6 +253,7 @@ const HeadCountBox = styled.div`
 
 const HeadCount = styled.div`
   font-size: 15px;
+  color: white;
 `;
 
 const RecruitingBox = styled.div`
@@ -237,6 +263,7 @@ const RecruitingBox = styled.div`
 
 const Recruiting = styled.div`
   font-size: 15px;
+  color: #6c6c6c;
 `;
 
 const TechStackIcon = styled.div`
@@ -244,13 +271,14 @@ const TechStackIcon = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 240px;
-  margin: 43px 0;
+  margin-bottom: 16px;
 `;
 
 const HorizontalLine = styled.div`
-  border: 0.5px solid grey;
+  border: 0.1px solid #3b3b3b;
   width: 100%;
   margin: auto;
+  color: #3b3b3b;
 `;
 
 const PostInfo = styled.div`
@@ -258,6 +286,8 @@ const PostInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 18px;
+  position: relative;
+  left: -25px;
 `;
 
 const ProfileBox = styled.div`
@@ -277,6 +307,7 @@ const NickName = styled.div`
   width: 70px;
   height: 20px;
   font-size: 15px;
+  color: white;
 `;
 
 const InfoBox = styled.div`

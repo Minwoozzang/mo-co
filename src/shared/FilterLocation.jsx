@@ -11,6 +11,7 @@ const FilterLocation = ({ isDisabled, onSelectedLoaction }) => {
 
   return (
     <Select
+      styles={{ menu: (provided) => ({ ...provided, backgroundColor: 'black' })}}
       options={locations}
       placeholder="지역"
       onChange={handleSelect}

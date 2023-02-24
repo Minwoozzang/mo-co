@@ -25,7 +25,7 @@ const MateList = () => {
   // 페이지네이션
   // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
   const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(8);
+  const [maxValue, setMaxValue] = useState(12);
 
   // selectedTech 배열을 텍스트로 변환
   const selectedTechText = [...selectedTech]
@@ -34,8 +34,8 @@ const MateList = () => {
 
   // 페이지네이션 핸들러
   const handleChange = (page) => {
-    setMinValue(page * 8 - 8);
-    setMaxValue(page * 8);
+    setMinValue(page * 12 - 12);
+    setMaxValue(page * 12);
   };
 
   // 필터 옵션 선택 핸들러
@@ -83,7 +83,7 @@ const MateList = () => {
   }
 
   return (
-    <>
+    <FullScreen>
       {/* 필터 & 정렬 */}
       <ViewOptions>
         <FilterBox>
@@ -125,16 +125,21 @@ const MateList = () => {
       <PaginationContainer>
         <Pagination
           defaultCurrent={1}
-          defaultPageSize={8}
+          defaultPageSize={12}
           onChange={handleChange}
           total={DATA ? DATA.length : 0}
         />
       </PaginationContainer>
-    </>
+    </FullScreen>
   );
 };
 
 export default MateList;
+
+const FullScreen = styled.div`
+  background-color: #181616;
+  height: 100vh;
+`;
 
 // 필터 & 정렬
 const ViewOptions = styled.div`
@@ -158,9 +163,11 @@ const SortBox = styled.div`
 
 const SortByRecommend = styled.div`
   cursor: pointer;
+  color: white;
 `;
 const SortByNew = styled.div`
   cursor: pointer;
+  color: white;
 `;
 
 // 카드 리스트
@@ -176,6 +183,7 @@ const CardList = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1em;
+  row-gap: 5em;
   > * {
     flex-grow: 1;
     flex-shrink: 1;
@@ -187,4 +195,6 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 3rem;
+  margin-top: 110px;
+  color: white;
 `;
