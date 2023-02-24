@@ -8,7 +8,7 @@ export const NewMeetingArea = styled.div`
     justify-content: center;
     align-items: center;
     /* margin-top: 40px; */
-    /* background-color: blue; */
+    background-color: #161616;
 `
 export const NewMeetingListBox = styled.div`
     width: 100%;

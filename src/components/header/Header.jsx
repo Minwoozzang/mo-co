@@ -161,17 +161,6 @@ const Header = () => {
             내 코딩모임
           </MyCodingMate>
         </LogoAndMateBox>
-        {/* <HeaderSearchBox>
-          <AiOutlineSearch style={{ fontSize: '30px' }} />
-          <HeaderSearchInput
-            onChange={onChangeSearch}
-            // type={'text'}
-            // onKeyDown={handleKeyDown}
-          />
-          <HeaderSearchInputBtn type="button" onClick={onSubmit}>
-            검색
-          </HeaderSearchInputBtn>
-        </HeaderSearchBox> */}
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
           <div onClick={searchdropDownHandler}>
@@ -192,22 +181,22 @@ const Header = () => {
                     <HeaderSearchXbutton
                       onClick={() => setSearchdropDownClick(false)}
                     >
-                      <ImCancelCircle style={{ fontSize: '20px' }} />
+                      <ImCancelCircle color='white' style={{ fontSize: '20px' }} />
                     </HeaderSearchXbutton>
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
                     <HeaderSearchBox>
                       <AiOutlineSearch
-                        color="black"
+                        color="white"
                         style={{ fontSize: '30px' }}
                       />
                       <HeaderSearchInput
                         onChange={onChangeSearch}
                         onKeyPress={handleonKeyPress}
                       />
-                      <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                      {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
-                      </HeaderSearchInputBtn>
+                      </HeaderSearchInputBtn> */}
                     </HeaderSearchBox>
                   </HeaderSearchDropDownListSection>
                   {/* <HeaderSearchDropDownHr /> */}

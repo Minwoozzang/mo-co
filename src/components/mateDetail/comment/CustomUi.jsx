@@ -45,9 +45,10 @@ const ConfirmBox = styled.div`
   width: 350px;
   height: 200px;
   border-radius: 10px;
-  background-color: #ddd;
+  background-color: #fff;
   position: relative;
   bottom: 80px;
+  padding-top: 40px;
 `;
 
 const TitleBox = styled.div`
@@ -62,7 +63,9 @@ const TextBox = styled.div`
   justify-content: center;
 `;
 
-const ConfirmText = styled.p``;
+const ConfirmText = styled.p`
+  margin-top: 10px;
+`;
 
 const BtnBox = styled.div`
   margin-top: 7%;
