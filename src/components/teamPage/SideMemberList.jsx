@@ -8,36 +8,36 @@ import {
   LeaderProfileInfo,
   LeaderName,
   LeaderPosition,
+  MemberInfoProfile,
+  MemberInfoProfileInfo,
+  MemberInfoProfileName,
 } from './style';
 
 const SideMemberList = ({ item }) => {
   // 멤버 리스트
   const memberList = item.teamMember;
   return (
-    <LeaderInfoProfile>
+    <>
       {memberList
         .filter((data) => data.isWait === false)
         .map((data) => {
           return (
-            <LeaderBox key={uuidv4()}>
-              <LeaderImgBox>
-                <MemberInfoProfileImg
-                  src={
-                    data.profileImg
-                      ? data.profileImg
-                      : 'https://imhannah.me/common/img/default_profile.png'
-                  }
-                />
-              </LeaderImgBox>
-
-              <LeaderProfileInfo>
-                <LeaderName>{data.nickName}</LeaderName>
+            <MemberInfoProfile key={uuidv4()}>
+              <MemberInfoProfileImg
+                src={
+                  data.profileImg
+                    ? data.profileImg
+                    : 'https://imhannah.me/common/img/default_profile.png'
+                }
+              />
+              <MemberInfoProfileInfo>
+                <MemberInfoProfileName>{data.nickName}</MemberInfoProfileName>
                 <LeaderPosition>{data.teamPositon}</LeaderPosition>
-              </LeaderProfileInfo>
-            </LeaderBox>
+              </MemberInfoProfileInfo>
+            </MemberInfoProfile>
           );
         })}
-    </LeaderInfoProfile>
+    </>
   );
 };
 

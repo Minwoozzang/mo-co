@@ -121,9 +121,7 @@ export default function MemberSide({ teamLocationID }) {
           </SideWrapper>
           <SectionLine />
           <SideWrapperTwo>
-            <MembersInfoProfileTitle>
-              팀원 ({memberNumber})
-            </MembersInfoProfileTitle>
+            <MembersInfoProfileTitle>팀원</MembersInfoProfileTitle>
             {/* 팅장 */}
             {teamLeaderInfo
               .filter((item) => item.id === teamLocationID)
@@ -142,7 +140,7 @@ export default function MemberSide({ teamLocationID }) {
                         {item.teamLeader.nickName ?? '익명'}
                       </MemberInfoProfileName>
                       <LeaderPosition>
-                        {item.teamLeader.teamPosition}
+                        {item.teamLeader.teamPosition ?? '멤버'}
                       </LeaderPosition>
                     </MemberInfoProfileInfo>
                   </MemberInfoProfile>
