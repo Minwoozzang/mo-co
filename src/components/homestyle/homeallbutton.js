@@ -14,7 +14,7 @@ export const AllBtnTitle = styled.div`
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
-    color: #6C6C6C;
+    color: #E7E7E7;
     /* margin-top: 120px; */
     /* background-color: pink; */
     &:hover {
