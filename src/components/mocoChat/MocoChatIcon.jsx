@@ -11,7 +11,8 @@ const MocoChat = () => {
 
   return (
     <>
-      <MocoChatIcon onClick={handleMocoChatOpen} />
+      {/* <MocoChatIcon onClick={handleMocoChatOpen} /> */}
+      <img  src = 'images/moco.png' alt = 'chat' width = '120px' style = {{position: 'fixed', bottom: '30px', right: '30px', borderRadius: '50%'}} onClick = {handleMocoChatOpen} />
       {isChatOpen && <ChatWindow handleMocoChatOpen={handleMocoChatOpen} />}
     </>
   );

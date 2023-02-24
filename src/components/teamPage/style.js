@@ -1,15 +1,29 @@
 import styled from '@emotion/styled';
+import { HiChevronRight } from 'react-icons/hi';
 
 export const MemberSidebar = styled.div`
-  width: 220px;
+  width: 240px;
   height: 100%;
-  padding: 30px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   transition-duration: 0.2s;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #232323;
+`;
+
+export const WrapWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SectionLine = styled.hr`
+  width: 100%;
+  color: grey;
+  position: sticky;
+  top: 125px;
 `;
 
 export const MemberInfoTitle = styled.a`
@@ -35,53 +49,94 @@ export const MemberInfoTitle = styled.a`
 `;
 
 export const SideWrapper = styled.div`
-  border-bottom: 1px solid var(--border-color);
-  padding: 36px 0;
-  width: 145px;
+  padding: 10px 0;
+  margin: 10px;
+  width: 170px;
   position: sticky;
-  top: 40px;
+  top: 10px;
+`;
+
+export const SideWrapperTwo = styled.div`
+  padding: 10px 0;
+  margin: 30px 10px 10px;
+  width: 170px;
+  position: sticky;
+  top: 155px;
+`;
+
+export const SideWrapperThr = styled.div`
+  padding: 10px 0;
+  margin: 30px 10px 10px;
+  width: 170px;
+  position: sticky;
+  top: 500px;
 `;
 
 export const MemberInfoProfileTitle = styled.div`
-  font-size: 15px;
+  font-size: 12px;
   letter-spacing: 0.07em;
-  margin-bottom: 24px;
+  margin-bottom: 15px;
   color: white;
 `;
 
 export const MembersInfoProfileTitle = styled.div`
-  font-size: 15px;
+  font-size: 12px;
   letter-spacing: 0.07em;
-  margin-bottom: 24px;
+  margin-bottom: 15px;
   color: white;
   position: sticky;
-  top: 205px;
+`;
+
+export const YellowBox = styled.div`
+  width: 175px;
+  height: 45px;
+  background: #feff80;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+  display: flex;
 `;
 
 export const MemberInfoProfile = styled.div`
   align-items: center;
   display: flex;
   min-width: 0;
-  margin-bottom: 20px;
 `;
 
 export const MemberInfoProfileImg = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 25px;
+  margin-left: 10px;
+  border: 1px solid black;
+  object-fit: cover;
+`;
+
+export const MemberInfoProfileImgTwo = styled.img`
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  margin-left: 15px;
   border: 1px solid black;
   object-fit: cover;
 `;
 
 export const MemberInfoProfileInfo = styled.div`
-  margin-left: 15px;
+  margin-left: 12px;
   overflow: hidden;
+  width: 145px;
   color: #fff;
 `;
 
 export const MemberInfoProfileName = styled.div`
-  font-size: 16px;
-  font-weight: 550;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+export const MemberInfoProfileNameTwo = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
 `;
 
 export const MemberInfoProfilePosition = styled.p`
@@ -107,6 +162,7 @@ export const LeaderBox = styled.div`
   align-items: center;
   margin-top: 5px;
 `;
+
 export const LeaderImgBox = styled.div``;
 export const LeaderProfileInfo = styled.div`
   margin-left: 20px;
@@ -115,6 +171,7 @@ export const LeaderProfileInfo = styled.div`
 `;
 export const LeaderName = styled.div`
   font-size: 16px;
+  color: black;
 `;
 export const LeaderPosition = styled.div``;
 export const MemberList = styled.div``;
@@ -125,6 +182,10 @@ export const WaitMember = styled.div`
 `;
 export const WaitMemberTitle = styled.div`
   color: white;
+  position: sticky;
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  margin-bottom: 15px;
 `;
 export const WaitMemberListBox = styled.div`
   margin-top: 20px;
@@ -133,17 +194,15 @@ export const WaitMemberListBox = styled.div`
 export const WaitProfileInfo = styled.div`
   width: 110px;
   height: 45px;
-
   color: white;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-left: 15px;
 `;
 
-export const WaitChangeIcon = styled.div`
-  font-size: 30px;
+export const WaitChangeIcon = styled(HiChevronRight)`
+  font-size: 25px;
   cursor: pointer;
+  color: black;
 `;

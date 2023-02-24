@@ -137,11 +137,10 @@ const JustWrap = styled.div`
 `;
 
 const JustContainer = styled.div`
-  font-family: var(--body-font);
   color: var(--body-color);
   background-position: center;
   background-size: cover;
-  background-color: rgba(18, 21, 39, 0.86);
+  background-color: #3b3b3b;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -170,7 +169,8 @@ const DashBoardContainer = styled.div`
   position: relative;
   padding: 50px 40px;
   color: var(--color-text, #333333);
-  background-color: var(--color-bg, #fff);
+  background-color: #f4f4f4;
+
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -215,7 +215,7 @@ const ProjectPlaceName = styled.span`
 `;
 
 const ContentContainer = styled.div`
-  flex: 2.5;
+  flex: 2;
   margin: 10px;
 `;
 

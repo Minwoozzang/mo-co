@@ -99,49 +99,48 @@ export default function ContentRule({ teamLocationID }) {
     convertChange();
   };
   return (
-    <div>
-      <ButtonPlaceTitleWrap>
-        <ContentTitle>📌 모임 공지</ContentTitle>
-        {isOwner && (
-          <>
-            <SubmitBtn onClick={updateContentRule} type="submit">
-              작성
-            </SubmitBtn>
-          </>
-        )}
-      </ButtonPlaceTitleWrap>
-      <TextAreaWrapper>
-        {convert ? (
-          <textarea
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
-            className="text"
-            placeholder="내용을 입력하세요"
-            value={content}
-          />
-        ) : (
-          <ContentCard>
-            <div>
+    <>
+      <ContentCard>
+        <ButtonPlaceTitleWrap>
+          <ContentTitle>모임 공지</ContentTitle>
+          {isOwner && (
+            <>
+              <SubmitBtn onClick={updateContentRule} type="submit">
+                작성
+              </SubmitBtn>
+            </>
+          )}
+        </ButtonPlaceTitleWrap>
+        <TextAreaWrapper>
+          {convert ? (
+            <textarea
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
+              className="text"
+              placeholder="내용을 입력하세요"
+              value={content}
+            />
+          ) : (
+            <>
               {contentInfo
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return <p key={item.id}>{item.contentRule}</p>;
                 })}
-            </div>
-          </ContentCard>
-        )}
-      </TextAreaWrapper>
-    </div>
+            </>
+          )}
+        </TextAreaWrapper>
+      </ContentCard>
+    </>
   );
 }
+
+const CotentRule = styled.div``;
 
 const TextAreaWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  .title {
-    margin-bottom: 0.7rem;
-  }
   .text {
     width: 100%;
     height: 200px;
@@ -159,12 +158,13 @@ const TextAreaWrapper = styled.div`
     border: 1px solid whitesmoke;
     border-radius: 5px;
     transition: border 1s;
-    padding: 5px;
+    padding: 20px;
     box-sizing: border-box;
 
     &:focus {
       outline: none;
-      border: 3px solid skyblue;
+      border: 2px solid skyblue;
+      border-radius: 15px;
     }
   }
 `;
@@ -190,7 +190,8 @@ const ContentCard = styled.div`
   overflow: hidden;
   transition: 0.4s;
   height: 30vh;
-  background-color: whitesmoke;
+  margin-top: 40px;
+  background-color: white;
   p {
     padding: 20px;
   }
@@ -199,12 +200,14 @@ const ContentCard = styled.div`
 const ButtonPlaceTitleWrap = styled.div`
   display: flex;
   align-items: center;
+  padding: 10px 20px;
+  background-color: #232323;
 `;
 
 const ContentTitle = styled.a`
   display: flex;
-  font-size: 18px;
-  font-weight: 700;
-  padding-bottom: 20px;
-  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  align-items: center;
+  color: white;
 `;
