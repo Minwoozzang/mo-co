@@ -227,7 +227,11 @@ const Header = () => {
                   <HeaderDropDownListBox style={{ position: 'absolute' }}>
                     <HeaderImageBox>
                       <HeaderImage
-                        src={profileUserInfo[0]?.profileImg ?? defaultImg}
+                        src={
+                          profileUserInfo[0]?.profileImg
+                            ? profileUserInfo[0].profileImg
+                            : 'https://imhannah.me/common/img/default_profile.png'
+                        }
                         alt=""
                       />
                       <HeaderImageText>
