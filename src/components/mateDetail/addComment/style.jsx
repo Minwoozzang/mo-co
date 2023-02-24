@@ -50,7 +50,7 @@ export const AddCommentBtn = styled.button`
   border-radius: 5px;
   font-size: 14px;
   font-weight: 600;
-  margin: 30px 0 0 680px;
+  margin: 30px 0 0 280px;
   :hover {
     background-color: #3b3b3b;
     color: #fff;

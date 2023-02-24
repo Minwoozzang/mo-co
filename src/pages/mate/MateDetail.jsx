@@ -88,7 +88,7 @@ const MateDetailWrap = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0px 400px 230px 0px;
+  margin: 0px 400px 0px 0px;
   // min-height: 100vh;
   width: 100%;
   height: 100%;

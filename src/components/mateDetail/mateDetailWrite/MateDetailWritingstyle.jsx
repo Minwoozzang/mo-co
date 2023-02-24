@@ -33,12 +33,13 @@ export const GroupUserId = styled.p`
 export const GroupBox = styled.div`
   width: 100%;
   height: 100%;
+  min-width: 1200px;
   min-height: 1100px;
   background-color: #f1f1f1;
 `;
 export const GroupPerson = styled.div`
   width: 100%;
-  padding: 90px 0 0 420px;
+  padding: 90px 150px 0 420px;
   margin: 30px 0 30px 0;
 `;
 
