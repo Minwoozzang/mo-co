@@ -64,12 +64,14 @@ const MateDetail = () => {
     <MateDetailWrap>
       <MateDetailContainer>
         <MateDetailWriting />
-        {isMyPost === true ? (
-          <button onClick={handleDelete}>삭제</button>
-        ) : null}
-        {isMyPost === true ? (
-          <button onClick={handleMoveToEdit}>수정</button>
-        ) : null}
+        <CommentBtnWrap>
+          {isMyPost === true ? (
+            <CommentBtn onClick={handleDelete}>삭제</CommentBtn>
+          ) : null}
+          {isMyPost === true ? (
+            <CommentBtn onClick={handleMoveToEdit}>수정</CommentBtn>
+          ) : null}
+        </CommentBtnWrap>
       </MateDetailContainer>
       <CommentWrap>
         {/* <UserHr /> */}
@@ -92,7 +94,6 @@ const MateDetailWrap = styled.div`
   // min-height: 100vh;
   width: 100%;
   height: 100%;
-
   background-size: cover;
   background-color: #111111;
 `;
@@ -118,6 +119,21 @@ const UserHr = styled.hr`
   border: 0;
   height: 0;
   border-top: 1px solid #8c8c8c;
+`;
+const CommentBtnWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px 0 0 150px;
+`;
+const CommentBtn = styled.button`
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #fff;
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 // !
