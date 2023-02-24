@@ -12,6 +12,7 @@ export const AllBtnTitle = styled.div`
     height: 20px;
     font-size: 16px;
     font-weight: 600;
+    border-radius: 5px;
     cursor: pointer;
     color: #6C6C6C;
     /* margin-top: 120px; */
