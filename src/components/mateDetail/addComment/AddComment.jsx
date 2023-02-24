@@ -121,21 +121,17 @@ const AddComment = ({ id }) => {
     <>
       <AddCommentListAll>
         <AddCommentListWrap>
-          <AddCommentListTwo>
-            <AddCommentText>
-              <AddInputDiv>
-                <AddInputContent
-                  onChange={AddCommentTextChange}
-                  value={commentText}
-                  placeholder="댓글을 남겨보세요"
-                />
-              </AddInputDiv>
-            </AddCommentText>
-            <AddCommentBtnDiv>
-              <AddCommentBtn onClick={AddCommentButton}>등록하기</AddCommentBtn>
-            </AddCommentBtnDiv>
-          </AddCommentListTwo>
+          <AddInputDiv>
+            <AddInputContent
+              onChange={AddCommentTextChange}
+              value={commentText}
+              placeholder={'댓글을 남겨주세요.'}
+            />
+          </AddInputDiv>
         </AddCommentListWrap>
+        <AddCommentBtnDiv>
+          <AddCommentBtn onClick={AddCommentButton}>등록하기</AddCommentBtn>
+        </AddCommentBtnDiv>
       </AddCommentListAll>
     </>
   );
