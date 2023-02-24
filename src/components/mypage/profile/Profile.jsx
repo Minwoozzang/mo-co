@@ -185,7 +185,11 @@ const Profile = () => {
 
           <ProfileImageBody>
             <ProfileImage
-              src={profileUserInfo[0]?.profileImg ?? defaultImg}
+              src={
+                profileUserInfo[0]?.profileImg
+                  ? profileUserInfo[0].profileImg
+                  : 'https://imhannah.me/common/img/default_profile.png'
+              }
               width="90"
               height="90"
               alt=""

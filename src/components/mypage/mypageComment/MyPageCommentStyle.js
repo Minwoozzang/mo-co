@@ -2,6 +2,9 @@ import styled from '@emotion/styled';
 
 export const MyCommentBody = styled.div`
   margin-top: 100px;
+  margin-left: 100px;
+
+  display: flex;
 `;
 export const MyCommetTitle = styled.div`
   font-family: 'Pretendard';
@@ -11,35 +14,35 @@ export const MyCommetTitle = styled.div`
   line-height: 36px;
 
   color: #ffffff;
+
+  margin-right: 70px;
 `;
 export const MyCommentList = styled.div`
-  margin-top: 25px;
+  margin-bottom: 25px;
 `;
 
 // MyComment 부분
 
 export const MyCommentsBox = styled.div`
-  width: 100%;
-  height: 130px;
+  width: 570px;
+  height: 50px;
 
   border-radius: 10px 10px 0px 0px;
-  border-bottom: 1px solid #0005;
+  border-bottom: 1px solid wheat;
 
   padding: 10px;
 
   cursor: pointer;
-
-  :hover {
-    background-color: #fdfcfc;
-  }
 `;
 
 export const MyCommentOfComment = styled.div`
-  width: 100%;
-  height: 50px;
-
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
   font-size: 1.5rem;
-  font-weight: 500;
+  line-height: 22px;
+
+  color: #ffffff;
 `;
 
 export const MyCommentDate = styled.div`

@@ -7,20 +7,27 @@ import {
   MySection,
   MyProfilSectionBox,
   MyInfoSection,
+  DummyProfile,
+  DummyBookmark,
+  DummyBox,
 } from './MyPagestyle';
 
 const MyPage = () => {
   return (
     <MyPageBody>
-      <MySection>
-        <MyProfilSectionBox>
-          <Profile />
-        </MyProfilSectionBox>
-        <MyInfoSection>
-          <MyPageBookmark />
-          <MyPageComment />
-        </MyInfoSection>
-      </MySection>
+      <DummyBox>
+        <DummyProfile></DummyProfile>
+        <MySection>
+          <MyProfilSectionBox>
+            <Profile />
+          </MyProfilSectionBox>
+          <MyInfoSection>
+            <MyPageBookmark />
+            <MyPageComment />
+          </MyInfoSection>
+        </MySection>
+        <DummyBookmark></DummyBookmark>
+      </DummyBox>
     </MyPageBody>
   );
 };
