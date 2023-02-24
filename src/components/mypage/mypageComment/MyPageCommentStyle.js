@@ -4,8 +4,13 @@ export const MyCommentBody = styled.div`
   margin-top: 100px;
 `;
 export const MyCommetTitle = styled.div`
-  font-size: 1.5rem;
+  font-family: 'Pretendard';
+  font-style: normal;
   font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 36px;
+
+  color: #ffffff;
 `;
 export const MyCommentList = styled.div`
   margin-top: 25px;

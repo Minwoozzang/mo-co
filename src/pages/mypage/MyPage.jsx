@@ -5,7 +5,7 @@ import Profile from '../../components/mypage/profile/Profile';
 import {
   MyPageBody,
   MySection,
-  MyProfilSection,
+  MyProfilSectionBox,
   MyInfoSection,
 } from './MyPagestyle';
 
@@ -13,9 +13,9 @@ const MyPage = () => {
   return (
     <MyPageBody>
       <MySection>
-        <MyProfilSection>
+        <MyProfilSectionBox>
           <Profile />
-        </MyProfilSection>
+        </MyProfilSectionBox>
         <MyInfoSection>
           <MyPageBookmark />
           <MyPageComment />

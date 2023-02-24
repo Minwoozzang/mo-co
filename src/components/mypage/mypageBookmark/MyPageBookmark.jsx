@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { authService, db } from '../../../common/firebase';
 import CardSection from '../../../shared/CardSection';
 import {
+  MyBookmarkBox,
   MyBookmarkBody,
   MyBookmarkTitle,
   MyBookmarkList,
@@ -56,8 +57,11 @@ const MyPageBookmark = () => {
   }, []);
 
   return (
-    <>
-      <MyBookmarkTitle>스크랩</MyBookmarkTitle>
+    <MyBookmarkBox>
+      <MyBookmarkTitle>
+        스크랩 <br />
+        모임리스트
+      </MyBookmarkTitle>
       <MyBookmarkBody>
         {postBookmark
           .filter((item) => userBookmark.includes(item.id))
@@ -74,7 +78,7 @@ const MyPageBookmark = () => {
             );
           })}
       </MyBookmarkBody>
-    </>
+    </MyBookmarkBox>
   );
 };
 
