@@ -13,6 +13,7 @@ import {
   UserHr,
 } from './MateDetailWritingstyle';
 import parse from 'html-react-parser';
+import defaultImg from '../../../assets/Group 290.png';
 
 // getDoc 사용 doc
 const MateDetailWriting = () => {
@@ -42,7 +43,10 @@ const MateDetailWriting = () => {
       <GroupWrap>
         <GroupHeader>{post.partyPostTitile}</GroupHeader>
         <GroupUserInfo>
-          <GroupImg src={post.profileImg} alt={post.profileImg}></GroupImg>
+          <GroupImg
+            src={post.profileImg === null ? defaultImg : post.profileImg}
+            alt={post.profileImg}
+          ></GroupImg>
           <GroupUserId>{post.nickName}</GroupUserId>
         </GroupUserInfo>
         {/* <UserHr /> */}
