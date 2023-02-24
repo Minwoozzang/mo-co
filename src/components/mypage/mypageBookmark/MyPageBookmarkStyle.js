@@ -26,6 +26,6 @@ export const MyBookmarkTitle = styled.div`
 `;
 export const MyBookmarkList = styled.div`
   margin-right: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   cursor: pointer;
 `;

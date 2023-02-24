@@ -4,12 +4,12 @@ export const MyPageBody = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  /* background-color: #111111; */
 `;
 
 export const DummyBox = styled.div`
   width: 100%;
   height: 100%;
-
   display: flex;
   justify-content: center;
 `;

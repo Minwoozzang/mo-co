@@ -29,6 +29,7 @@ import {
   NicknameImageBox,
   NicknameTextBox,
   NicaknameHello,
+  ProfileSectionGap,
 } from './ProfileStyle';
 import {
   collection,
@@ -155,8 +156,8 @@ const Profile = () => {
   return (
     <MyProfileBody>
       <ProfileSection>
+        <ProfileSectionGap />
         <ProfileMocoText>마이 모코</ProfileMocoText>
-
         <NicknameImageBox>
           <NicknameTextBox>
             <NicaknameHello>안녕하세요</NicaknameHello>
