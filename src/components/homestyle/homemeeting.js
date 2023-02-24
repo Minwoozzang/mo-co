@@ -119,7 +119,6 @@ export const MeetingTitleBox = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    /* background-color: blue; */
 `
 export const MeetingMoreBox = styled.div`
     width: 57px;
