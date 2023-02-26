@@ -104,9 +104,10 @@ export const MemberInfoProfile = styled.div`
 `;
 
 export const MemberInfoProfileImg = styled.img`
-  height: 40px;
   width: 40px;
-  border-radius: 25px;
+  height: 40px;
+
+  border-radius: 20px;
   border: 1px solid black;
   object-fit: cover;
 `;

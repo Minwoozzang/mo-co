@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 export const AllBtnContainer = styled.div`
     width: 100%;
     height: 503px;
-    /* background-color: skyblue; */
     padding: 200px 924px 303px;
 `
 export const AllBtnTitle = styled.div`
@@ -15,10 +14,7 @@ export const AllBtnTitle = styled.div`
     border-radius: 5px;
     cursor: pointer;
     color: #E7E7E7;
-    /* margin-top: 120px; */
-    /* background-color: pink; */
     &:hover {
     background-color: #D9D9D9;
     }
-    /* background-color: #f2f2f2; */
 `

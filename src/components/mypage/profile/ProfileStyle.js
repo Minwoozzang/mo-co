@@ -5,11 +5,15 @@ export const MyProfileBody = styled.div`
   height: 100%;
 `;
 
+export const ProfileSectionGap = styled.div`
+  width: 100%;
+  height: 80px;
+`;
+
 export const ProfileSection = styled.div`
   width: 100%;
   height: 100%;
-
-  margin-top: 80px;
+  /* margin-top: 80px; */
 `;
 
 export const ProfileMocoText = styled.div`
