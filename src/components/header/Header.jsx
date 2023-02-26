@@ -162,7 +162,17 @@ const Header = () => {
           </MyCodingMate>
         </LogoAndMateBox>
         <TeamAndLoginBox>
-          <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
+          <MakeTeam
+            onClick={() => {
+              if (!authService.currentUser) {
+                alert('로그인이 필요합니다.');
+              } else {
+                navigate('/write');
+              }
+            }}
+          >
+            팀 개설하기
+          </MakeTeam>
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (
               <>
@@ -181,7 +191,10 @@ const Header = () => {
                     <HeaderSearchXbutton
                       onClick={() => setSearchdropDownClick(false)}
                     >
-                      <ImCancelCircle color='white' style={{ fontSize: '20px' }} />
+                      <ImCancelCircle
+                        color="white"
+                        style={{ fontSize: '20px' }}
+                      />
                     </HeaderSearchXbutton>
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
