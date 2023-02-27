@@ -126,7 +126,11 @@ export default function ContentRule({ teamLocationID }) {
               {contentInfo
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
-                  return <p key={item.id}>{item.contentRule}</p>;
+                  return (
+                    <textarea disabled key={item.id}>
+                      {item.contentRule}
+                    </textarea>
+                  );
                 })}
             </>
           )}
@@ -135,8 +139,6 @@ export default function ContentRule({ teamLocationID }) {
     </>
   );
 }
-
-const CotentRule = styled.div``;
 
 const TextAreaWrapper = styled.div`
   display: flex;
@@ -153,13 +155,14 @@ const TextAreaWrapper = styled.div`
     }
 
     resize: none;
+    border: none;
     font-size: 16px;
     font-weight: 500;
-    border: 1px solid whitesmoke;
     border-radius: 5px;
     transition: border 1s;
     padding: 20px;
     box-sizing: border-box;
+    white-space: pre-line;
 
     &:focus {
       outline: none;

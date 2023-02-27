@@ -18,7 +18,6 @@ const CustomConfirmUI = (props) => {
   const myInfo = props.data;
   // 팀 ID
   const teamID = props.id;
-  console.log('myinfo', myInfo.profileImg);
   //  팀 멤버
   const member = props.item;
   const otherMember = member.filter((d) => d.uid !== myId);
@@ -134,7 +133,7 @@ const TitleBox = styled.div`
   justify-content: flex-end;
   align-items: center;
 
-  margin-top: 10px;
+  margin-top: 15px;
 `;
 
 const MessageBox = styled.div`

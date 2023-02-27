@@ -16,6 +16,7 @@ import {
   SectionLine,
   SideWrapperTwo,
   SideWrapperThr,
+  MemberWrap,
 } from './style';
 import { useEffect, useState } from 'react';
 import { authService, db } from '../../common/firebase';
@@ -113,49 +114,49 @@ export default function MemberSide({ teamLocationID }) {
           </SideWrapper>
           <SectionLine />
           <SideWrapperTwo>
-            <MembersInfoProfileTitle>팀원</MembersInfoProfileTitle>
+            <MembersInfoProfileTitle>모임 멤버</MembersInfoProfileTitle>
             {/* 팅장 */}
-            {teamLeaderInfo
-              .filter((item) => item.id === teamLocationID)
-              .map((item) => {
-                return (
-                  <MemberInfoProfile key={v4()}>
-                    <MemberInfoProfileImg
-                      src={
-                        item.teamLeader?.profileImg
-                          ? item.teamLeader.profileImg
-                          : 'https://imhannah.me/common/img/default_profile.png'
-                      }
-                    />
-                    <MemberInfoProfileInfo>
-                      <MemberInfoProfileName>
-                        {item.teamLeader.nickName ?? '익명'}
-                      </MemberInfoProfileName>
-                      <LeaderPosition>
-                        {item.teamLeader.teamPosition ?? '멤버'}
-                      </LeaderPosition>
-                    </MemberInfoProfileInfo>
-                  </MemberInfoProfile>
-                );
-              })}
-            {/* 팀원 */}
-            {teamMemberInfo
-              .filter((item) => item.id === teamLocationID)
-              .map((item) => {
-                return <SideMemberList item={item} key={v4()} />;
-              })}
+            <MemberWrap>
+              {teamLeaderInfo
+                .filter((item) => item.id === teamLocationID)
+                .map((item) => {
+                  return (
+                    <MemberInfoProfile key={v4()}>
+                      <MemberInfoProfileImg
+                        src={
+                          item.teamLeader?.profileImg
+                            ? item.teamLeader.profileImg
+                            : 'https://imhannah.me/common/img/default_profile.png'
+                        }
+                      />
+                      <MemberInfoProfileInfo>
+                        <MemberInfoProfileName>
+                          {item.teamLeader.nickName ?? '익명'}
+                        </MemberInfoProfileName>
+                        <LeaderPosition>
+                          {item.teamLeader.teamPosition ?? '멤버'}
+                        </LeaderPosition>
+                      </MemberInfoProfileInfo>
+                    </MemberInfoProfile>
+                  );
+                })}
+              {/* 팅원 */}
+              {teamMemberInfo
+                .filter((item) => item.id === teamLocationID)
+                .map((item) => {
+                  return <SideMemberList item={item} key={v4()} />;
+                })}
+            </MemberWrap>
           </SideWrapperTwo>
           <SideWrapperThr>
-            <WaitMember>
-              <WaitMemberTitle>참여 신청</WaitMemberTitle>
-              <WaitMemberListBox>
-                {teamMemberInfo
-                  .filter((item) => item.id === teamLocationID)
-                  .map((item) => {
-                    return <WaitMemberList item={item} key={v4()} />;
-                  })}
-              </WaitMemberListBox>
-            </WaitMember>
+            <WaitMemberTitle>참여 신청</WaitMemberTitle>
+            <WaitMemberListBox>
+              {teamMemberInfo
+                .filter((item) => item.id === teamLocationID)
+                .map((item) => {
+                  return <WaitMemberList item={item} key={v4()} />;
+                })}
+            </WaitMemberListBox>
           </SideWrapperThr>
         </WrapWrap>
       </MemberSidebar>

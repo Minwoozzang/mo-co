@@ -81,7 +81,13 @@ export default function ContentBoard({ teamLocationID }) {
               {boardContentInfo
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
-                  return <p key={item.id}>{item.contentBoard}</p>;
+                  return (
+                    <div key={item.id}>
+                      <textarea disabled value={item.contentBoard}>
+                        {item.contentBoard}
+                      </textarea>
+                    </div>
+                  );
                 })}
             </>
           )}
@@ -108,12 +114,13 @@ const TextAreaWrapper = styled.div`
     resize: none;
     font-size: 16px;
     font-weight: 500;
-    border: 1px solid whitesmoke;
+    border: none;
+    height: 500px;
     border-radius: 5px;
     transition: border 1s;
     padding: 20px;
     box-sizing: border-box;
-
+    white-space: pre-line;
     &:focus {
       outline: none;
       border: 2px solid skyblue;
