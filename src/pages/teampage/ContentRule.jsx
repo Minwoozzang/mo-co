@@ -145,7 +145,7 @@ const TextAreaWrapper = styled.div`
   flex-direction: column;
   .text {
     width: 100%;
-    height: 260px;
+    height: 230px;
   }
 
   input,
@@ -159,6 +159,7 @@ const TextAreaWrapper = styled.div`
     font-size: 16px;
     font-weight: 500;
     border-radius: 5px;
+    height: 350px;
     transition: border 1s;
     padding: 20px;
     box-sizing: border-box;
@@ -168,6 +169,9 @@ const TextAreaWrapper = styled.div`
       outline: none;
       border: 2px solid skyblue;
       border-radius: 15px;
+    }
+    &:disabled {
+      background-color: white;
     }
   }
 `;
@@ -192,7 +196,7 @@ const ContentCard = styled.div`
   border-radius: 20px;
   overflow-y: auto;
   transition: 0.4s;
-  height: 37vh;
+  height: 400px;
   margin-top: 40px;
   background-color: white;
   p {
@@ -205,6 +209,8 @@ const ButtonPlaceTitleWrap = styled.div`
   align-items: center;
   padding: 10px 20px;
   background-color: #232323;
+  position: sticky;
+  top: 0;
 `;
 
 const ContentTitle = styled.a`

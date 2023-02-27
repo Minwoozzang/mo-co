@@ -133,7 +133,7 @@ export default function TeamPlace({ teamLocationID }) {
                   style={{
                     // 지도의 크기
                     width: '180px',
-                    height: '21vh',
+                    height: '100px',
                   }}
                   level={4} // 지도의 확대 레벨
                 >
@@ -197,7 +197,7 @@ export default function TeamPlace({ teamLocationID }) {
                         }}
                         style={{
                           // 지도의 크기
-                          width: '180px',
+                          width: '200px',
                           height: '21vh',
                         }}
                         level={4} // 지도의 확대 레벨
@@ -265,12 +265,12 @@ const TextAreaWrapper = styled.div`
 `;
 
 const ContentCard = styled.div`
-  width: 100%;
+  width: 300px;
   position: relative;
   border-radius: 20px;
   overflow: hidden;
   transition: 0.4s;
-  height: 25vh;
+  height: 200px;
   background-color: white;
   margin-top: 25px;
 `;

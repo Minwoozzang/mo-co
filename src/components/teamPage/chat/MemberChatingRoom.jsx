@@ -116,12 +116,12 @@ const MemberChatingRoom = ({ teamLocationID }) => {
               onChange={handleChange}
               onKeyPress={EnterKeyPress}
             />
+            <ChatBtn onClick={handleSubmit}>
+              <SendBtn>전송</SendBtn>
+            </ChatBtn>
           </ChatInputBody>
 
           {/* TODO: 텍스트 값이 있는 경우에만 전송 버튼 나오게 */}
-          <ChatBtn onClick={handleSubmit}>
-            <IoMdSend style={{ fontSize: '30px', color: '#343645' }} />
-          </ChatBtn>
         </ChatFormSection>
       </ContentChatAreaBox>
     </ContentChatContainer>
@@ -129,6 +129,17 @@ const MemberChatingRoom = ({ teamLocationID }) => {
 };
 
 export default MemberChatingRoom;
+
+const SendBtn = styled.div`
+  width: 85px;
+  height: 35px;
+  background-color: #232323;
+  border-radius: 5px;
+  position: absolute;
+  color: white;
+  padding: 8px;
+  text-align: center;
+`;
 
 const ContentChatContainer = styled.div`
   width: 650px;
@@ -155,13 +166,13 @@ const ContentChatAreaBox = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
-  border-bottom: 1px solid black;
   padding: 10px;
+  height: 85%;
 `;
 
 const ContentChatArea = styled.div`
   width: 100%;
-  height: 480px;
+  height: 80%;
   overflow-y: scroll;
   /* 스크롤바 숨기기 */
   ::-webkit-scrollbar {
@@ -169,7 +180,7 @@ const ContentChatArea = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(185, 185, 185, 0.3);
 `;
 
 const ChatFormSection = styled.div`
@@ -180,7 +191,7 @@ const ChatFormSection = styled.div`
 `;
 
 const ChatInputBody = styled.div`
-  width: 90%;
+  width: 100%;
   height: 100%;
 `;
 
@@ -202,4 +213,6 @@ const ChatInput = styled.input`
 
 export const ChatBtn = styled.div`
   cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 `;
