@@ -6,8 +6,9 @@ import { authService } from '../common/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import defaultImg from '../assets/Group 290.png';
+import defaultImg from '../assets/icon/user.png';
 import { useQueryClient } from 'react-query';
+import BookmarkImg from '../assets/icon/Icon_Scrap.png';
 
 const CardSection = ({ item, db }) => {
   const queryClient = useQueryClient();
@@ -20,6 +21,10 @@ const CardSection = ({ item, db }) => {
 
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
+    if (!authService.currentUser) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     // 현재 유저 문서 가져오기
     const userDoc = await getDoc(doc(db, 'user', uid));
     const userData = userDoc.data();
@@ -83,10 +88,13 @@ const CardSection = ({ item, db }) => {
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
           <span>{item.bookmark}</span>
-          <BsBookmarkHeart
+
+          <img
+            src={BookmarkImg}
+            alt="bookmark"
             onClick={handleBookmark}
             cursor="pointer"
-            size="20px"
+            width="20px"
             color="white"
           />
         </Bookmark>
@@ -103,9 +111,12 @@ const CardSection = ({ item, db }) => {
         <PostDesc>{parsedHtml}</PostDesc>
         <TechStackIcon>
           {item.partyStack?.map((item, idx) => (
-            <Tag key={idx} style={{ fontSize: 12 }} color="red">
-              {item}
-            </Tag>
+            <img
+              key={idx}
+              src={require(`../assets/stack/${item}.png`)}
+              alt={item}
+              style={{ width: 30, height: 30, marginRight: 5 }}
+            />
           ))}
         </TechStackIcon>
       </PostBox>

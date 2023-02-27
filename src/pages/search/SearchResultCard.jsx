@@ -10,10 +10,10 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { authService, db } from '../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import defaultImg from '../../assets/Group 290.png';
+import defaultImg from '../../assets/icon/user.png';
 import { Tag } from 'antd';
 
-const SearchResultCard = ( item ) => {
+const SearchResultCard = (item) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [uid, setUid] = useState('');

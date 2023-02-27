@@ -3,10 +3,9 @@ import { BsBookmarkHeart } from 'react-icons/bs';
 import { GrFormView } from 'react-icons/gr';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
-import defaultImg from '../../../assets/Group 290.png';
+import defaultImg from '../../../assets/icon/user.png';
 
 const BlurCard = ({ item }) => {
-
   return (
     <PostCard>
       <BookmarkIconBox>
@@ -16,23 +15,14 @@ const BlurCard = ({ item }) => {
         </LoactionAndTimeBox>
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
-          
-          <BsBookmarkHeart
-            cursor="pointer"
-            size="20px"
-            color="white"
-          />
+          <BsBookmarkHeart cursor="pointer" size="20px" color="white" />
         </Bookmark>
       </BookmarkIconBox>
 
       <PostBox>
-        <PostTitle>
-          모임제목
-        </PostTitle>
+        <PostTitle>모임제목</PostTitle>
         <PostDesc>모임설명</PostDesc>
-        <TechStackIcon>
-          OOO
-        </TechStackIcon>
+        <TechStackIcon>OOO</TechStackIcon>
       </PostBox>
 
       <HorizontalLine />
@@ -49,9 +39,7 @@ const BlurCard = ({ item }) => {
 
       <PostInfo>
         <ProfileBox>
-          <ProfileImage
-            src={defaultImg}
-          ></ProfileImage>
+          <ProfileImage src={defaultImg}></ProfileImage>
           <NickName>닉네임</NickName>
         </ProfileBox>
         <InfoBox>

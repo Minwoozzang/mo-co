@@ -12,7 +12,7 @@ import AddInfoModal from '../../components/home/AddInfoModal';
 import { useNavigate } from 'react-router-dom';
 import usePosts from '../../hooks/usePost';
 import styled from '@emotion/styled';
-import main_background from '../../assets/main_background.png';
+import main_background from '../../assets/background/main_background.png';
 import CardSection from '../../shared/CardSection';
 
 const Home = () => {
@@ -132,8 +132,8 @@ const Home = () => {
           <>...</>
         )}
         <CoverBackground>
-        <HomeNewMeetingList data={data} />
-        <HomeAllBtn />
+          <HomeNewMeetingList data={data} />
+          <HomeAllBtn />
         </CoverBackground>
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
@@ -180,4 +180,4 @@ const RecommendListCardBox = styled.div`
 const CoverBackground = styled.div`
   width: 100%;
   background-color: #111111;
-`
+`;
