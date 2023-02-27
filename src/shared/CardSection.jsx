@@ -111,15 +111,15 @@ const CardSection = ({ item, db }) => {
         <PostDesc>{parsedHtml}</PostDesc>
         <TechStackIcon>
           {item.partyStack?.map((item, idx) => (
-            // <Tag key={idx} style={{ fontSize: 12 }} color="red">
-            //   {item}
-            // </Tag>
-            <img
-              key={idx}
-              src={require(`../assets/stack/${item}.png`)}
-              alt={item}
-              style={{ width: 30, height: 30, marginRight: 5 }}
-            />
+            <Tag key={idx} style={{ fontSize: 12 }} color="red">
+              {item}
+            </Tag>
+            // <img
+            //   key={idx}
+            //   src={require(`../assets/stack/${item}.png`)}
+            //   alt={item}
+            //   style={{ width: 30, height: 30, marginRight: 5 }}
+            // />
           ))}
         </TechStackIcon>
       </PostBox>
