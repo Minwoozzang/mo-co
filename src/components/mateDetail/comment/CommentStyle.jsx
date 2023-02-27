@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const CommentContainer = styled.div`
-  margin: 80px 800px 0 350px;
+  margin: 80px 800px 0 420px;
 `;
 
 export const ListContainer = styled.div``;
