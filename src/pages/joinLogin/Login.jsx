@@ -26,7 +26,6 @@ import {
   LogoIcon,
   LogoIconTitle,
 } from './Loginstyle';
-
 import { useNavigate } from 'react-router';
 import { emailRegex, pwRegex } from '../../common/utils';
 import {
