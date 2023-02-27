@@ -21,9 +21,11 @@ export const WrapWrap = styled.div`
 
 export const SectionLine = styled.hr`
   width: 100%;
-  color: grey;
+  background-color: #3b3b3b;
+  height: 1px;
+  border: 0;
   position: sticky;
-  top: 125px;
+  top: 110px;
 `;
 
 export const MemberInfoTitle = styled.a`
@@ -49,7 +51,7 @@ export const MemberInfoTitle = styled.a`
 `;
 
 export const SideWrapper = styled.div`
-  padding: 10px 0;
+  padding: 10px 0 0;
   margin: 10px;
   width: 170px;
   position: sticky;
@@ -58,10 +60,19 @@ export const SideWrapper = styled.div`
 
 export const SideWrapperTwo = styled.div`
   padding: 10px 0;
-  margin: 30px 10px 10px;
+  margin: 20px 10px 10px;
   width: 170px;
   position: sticky;
-  top: 155px;
+  top: 135px;
+`;
+
+export const SectionLineTwo = styled.hr`
+  width: 100%;
+  background-color: #3b3b3b;
+  height: 1px;
+  border: 0;
+  position: sticky;
+  top: 550px;
 `;
 
 export const SideWrapperThr = styled.div`
@@ -69,7 +80,7 @@ export const SideWrapperThr = styled.div`
   margin: 30px 10px 10px;
   width: 170px;
   position: sticky;
-  top: 500px;
+  top: 0px;
 `;
 
 export const MemberInfoProfileTitle = styled.div`
@@ -85,6 +96,12 @@ export const MembersInfoProfileTitle = styled.div`
   margin-bottom: 15px;
   color: white;
   position: sticky;
+`;
+
+export const MemberWrap = styled.div`
+  width: 100%;
+  height: 350px;
+  overflow-y: auto;
 `;
 
 export const YellowBox = styled.div`
@@ -116,7 +133,7 @@ export const MemberInfoProfileImgTwo = styled.img`
   height: 25px;
   width: 25px;
   border-radius: 25px;
-  margin-left: 15px;
+  margin-left: 5px;
   border: 1px solid black;
   object-fit: cover;
 `;
@@ -178,7 +195,7 @@ export const MemberList = styled.div``;
 
 // 대기멤버
 export const WaitMember = styled.div`
-  margin-top: 250px;
+  margin-top: 5px;
 `;
 export const WaitMemberTitle = styled.div`
   color: white;
@@ -189,6 +206,9 @@ export const WaitMemberTitle = styled.div`
 `;
 export const WaitMemberListBox = styled.div`
   margin-top: 20px;
+  width: 175px;
+  height: 220px;
+  overflow-y: auto;
 `;
 
 export const WaitProfileInfo = styled.div`
@@ -198,7 +218,7 @@ export const WaitProfileInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 15px;
+  margin-left: 10px;
 `;
 
 export const WaitChangeIcon = styled(HiChevronRight)`
