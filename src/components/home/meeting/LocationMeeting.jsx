@@ -9,6 +9,7 @@ import {
   LocationMeetingTitleBox1,
   LocationMeetingTitleBox2,
   LocationMeetingTitleBox3,
+  NonRecommendText2,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
@@ -26,28 +27,35 @@ const LocationMeeting = ({ recommendLocationList }) => {
     <>
       <LocationMeetingArea>
         <LocationMeetingInnerSection1>
-        <LocationMeetingTitleBox>
-          <LocationMeetingTitleBox1>{titlestring1}</LocationMeetingTitleBox1>
-          <LocationTitle>지역이 맞는 모임</LocationTitle>
-          <LocationMeetingTitleBox2>{titlestring2}</LocationMeetingTitleBox2>
-        </LocationMeetingTitleBox>
-        <LocationMeetingTitleBox3>{titlestring3}</LocationMeetingTitleBox3>
+          <LocationMeetingTitleBox>
+            <LocationMeetingTitleBox1>{titlestring1}</LocationMeetingTitleBox1>
+            <LocationTitle>지역이 맞는 모임</LocationTitle>
+            <LocationMeetingTitleBox2>{titlestring2}</LocationMeetingTitleBox2>
+          </LocationMeetingTitleBox>
+          <LocationMeetingTitleBox3>{titlestring3}</LocationMeetingTitleBox3>
         </LocationMeetingInnerSection1>
-       <LocationMeetingInnerSection2>
-        <LocationMeetingInnerBox />
-       <LocationMeetingCardBox>
-          {recommendLocationList?.length > 0 &&
-            recommendLocationList
-              .slice(0, 3)
-              .map((item, idx) => (
-                <CardSection
-                  key={`지역이 맞는 모임 ${idx}`}
-                  item={item}
-                  db={db}
-                />
-              ))}
-        </LocationMeetingCardBox>
-       </LocationMeetingInnerSection2>
+        <LocationMeetingInnerSection2>
+          <LocationMeetingInnerBox />
+          <LocationMeetingCardBox>
+            {recommendLocationList.length === 0 ? (
+              <NonRecommendText2>
+                추천 모임이 없습니다.
+                <br />
+                추가 정보를 등록 or 수정해주세요!
+              </NonRecommendText2>
+            ) : (
+              recommendLocationList
+                .slice(0, 3)
+                .map((item, idx) => (
+                  <CardSection
+                    key={`지역이 맞는 모임 ${idx}`}
+                    item={item}
+                    db={db}
+                  />
+                ))
+            )}
+          </LocationMeetingCardBox>
+        </LocationMeetingInnerSection2>
       </LocationMeetingArea>
     </>
   );
