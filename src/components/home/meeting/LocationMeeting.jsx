@@ -33,12 +33,6 @@ const LocationMeeting = ({ recommendLocationList, uid, userBookmark }) => {
             <LocationMeetingTitleBox2>{titlestring2}</LocationMeetingTitleBox2>
           </LocationMeetingTitleBox>
           <LocationMeetingTitleBox3>{titlestring3}</LocationMeetingTitleBox3>
-          <LocationMeetingTitleBox>
-            <LocationMeetingTitleBox1>{titlestring1}</LocationMeetingTitleBox1>
-            <LocationTitle>지역이 맞는 모임</LocationTitle>
-            <LocationMeetingTitleBox2>{titlestring2}</LocationMeetingTitleBox2>
-          </LocationMeetingTitleBox>
-          <LocationMeetingTitleBox3>{titlestring3}</LocationMeetingTitleBox3>
         </LocationMeetingInnerSection1>
         <LocationMeetingInnerSection2>
           <LocationMeetingInnerBox />
