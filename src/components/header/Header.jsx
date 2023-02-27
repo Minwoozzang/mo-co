@@ -32,6 +32,7 @@ import {
 } from './style';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Search from '../../assets/icon/Icon_Search.png';
+import Alarm from '../../assets/icon/Icon_Alarm.png';
 import { ImCancelCircle } from 'react-icons/im';
 import defaultImg from '../../../src/assets/icon/user.png';
 
@@ -164,6 +165,7 @@ const Header = () => {
         </LogoAndMateBox>
         <TeamAndLoginBox>
           <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
+          <img src={Alarm} alt="alarm" style={{ width: '20px' }} />
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (
               <>
