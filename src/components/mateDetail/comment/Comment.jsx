@@ -86,7 +86,13 @@ const Comment = ({ user }) => {
           ></CommentProfileImage>
           <CommentUserName>{user.userName}</CommentUserName>
           <CommentIconBody>
-            <GrMoreVertical onClick={() => ToggleDropDown(user.userId)} />
+            <GrMoreVertical
+              style={{
+                color: '#858585',
+                width: '550px',
+              }}
+              onClick={() => ToggleDropDown(user.userId)}
+            />
           </CommentIconBody>
           {!editBox ? (
             <CommentText>{user.comment}</CommentText>

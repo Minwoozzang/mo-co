@@ -41,6 +41,7 @@ export const ListTextSection = styled.div`
 `;
 
 export const CommentText = styled.p`
+  width: 100%;
   font-size: 1rem;
   font-weight: 400;
   margin-left: 1%;
@@ -62,7 +63,6 @@ export const CommentUserInput = styled.input`
 `;
 
 export const CommentTextIcon = styled.div`
-  width: 7%;
   font-size: 1.4rem;
   display: flex;
   justify-content: space-between;
@@ -72,7 +72,7 @@ export const CommentTextIcon = styled.div`
 
 export const CommentIconBody = styled.div`
   width: 25%;
-  margin-right: 15%;
+  margin-left: 45%;
 `;
 
 export const UpdateDeleteBody = styled.div`
@@ -122,8 +122,8 @@ export const CommentDate = styled.p`
 `;
 
 export const UserHr = styled.hr`
-  margin: 35px 40px 0px 40px;
+  margin: 35px 40px 0px 0px;
   border: 1;
-  width: 100%;
+  width: 710px;
   border-top: 1px solid #3b3b3b;
 `;
