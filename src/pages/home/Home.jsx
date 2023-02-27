@@ -72,7 +72,7 @@ const Home = () => {
           ),
       )
     : [];
-  
+
   const recommendTimeList = data
     ? data.filter(
         (item) =>
@@ -88,7 +88,19 @@ const Home = () => {
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
-  console.log(recommendLocationList.length)
+
+  const customList = data
+    ? data.filter(
+        (item) =>
+          !item.isDeleted &&
+          item.partyStack.includes(
+            currentUserData[0]?.moreInfo?.u_stack.toString(),
+          ) &&
+          item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time) &&
+          item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
+      )
+    : [];
+  console.log(customList);
   //postList -> 로그인 안 됐을 시 안보이게
   useEffect(() => {
     const userCollectionRef = collection(db, 'user');
@@ -112,15 +124,15 @@ const Home = () => {
         {init ? (
           <>
             <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
-            <RecommendListContainer>
-              <RecommendListCardBox>
-                {data
-                  ? data
-                      .slice(0, 3)
-                      .map((item, idx) => <CardSection key={idx} item={item} />)
-                  : []}
-              </RecommendListCardBox>
-            </RecommendListContainer>
+            <CustomListContainer>
+              <CustomListCardBox>
+                {customList.length === 0 ?
+                <NonCustomList>맞춤 정보에 해당하는 모임이 없습니다.</NonCustomList> :
+                customList.slice(0, 3).map((item, idx) => (
+                  <CardSection key={idx} item={item} />
+                ))}
+              </CustomListCardBox>
+            </CustomListContainer>
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
               recommendTechList={recommendTechList}
@@ -162,22 +174,39 @@ const MainBackground = styled.div`
   background-size: cover;
   /* background-color: white; */
 `;
-const RecommendListContainer = styled.div`
+const CustomListContainer = styled.div`
   width: 1004px;
   height: 320px;
   margin: 50px auto 171px;
   /* border: 0.3px solid gray; */
 `;
-const RecommendListCardBox = styled.div`
+const CustomListCardBox = styled.div`
   width: 900px;
   height: 320px;
   margin: 0 auto;
   margin-top: 140px;
   display: flex;
   gap: 0 30px;
-  /* background-color: aliceblue; */
 `;
 const CoverBackground = styled.div`
   width: 100%;
   background-color: #111111;
 `;
+// customList.length === 0
+const NonCustomList = styled.div`
+  width: 900px;
+  height: 265px;
+  margin: 0 auto;
+  /* margin-top: 140px; */
+  display: flex;
+  background-color: #232323;
+  border: 1px solid #3b3b3b;
+  color: #FFFFFF;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 600;
+  font-size: 24px;
+  box-shadow: 2px 4px 8px #545454;
+`
