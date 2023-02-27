@@ -75,7 +75,8 @@ const TechStackMeeting = ({
                 uid={uid}
                 userBookmark={userBookmark}
               />
-            ))}
+            ))
+        )}
       </MeetingCardBox>
     </TechStackMeetingArea>
   );

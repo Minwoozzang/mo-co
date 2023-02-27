@@ -158,7 +158,12 @@ const Home = () => {
         {init ? (
           <>
             <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
-            <CustomMeeting isLoggedIn={isLoggedIn} customList={customList} />
+            <CustomMeeting
+              isLoggedIn={isLoggedIn}
+              customList={customList}
+              uid={uid}
+              userBookmark={userBookmark}
+            />
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
               recommendTechList={recommendTechList}
