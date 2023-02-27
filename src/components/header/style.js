@@ -101,7 +101,7 @@ export const HeaderImage = styled.img`
 
 export const HeaderDropDownListBox = styled.div`
   width: 250px;
-  height: 350px;
+  height: 300px;
 
   margin-top: 10px;
 
@@ -130,7 +130,7 @@ export const HeaderDropDownListBox = styled.div`
 
 export const HeaderImageBox = styled.div`
   width: 100%;
-  height: 150px;
+  height: 100px;
 
   text-align: center;
 

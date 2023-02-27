@@ -64,7 +64,7 @@ const MyPageBookmark = () => {
       </MyBookmarkTitle>
       <MyBookmarkBody>
         {postBookmark
-          .filter((item) => userBookmark.includes(item.id))
+          .filter((item) => userBookmark?.includes(item.id))
           .map((item) => {
             return (
               <MyBookmarkList key={item.id}>

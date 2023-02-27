@@ -121,7 +121,7 @@ const SignUp = () => {
             email: email,
             profileImg: 'https://imhannah.me/common/img/default_profile.png',
             bookmarks: [],
-            teamID: '',
+            teamID: [],
           });
 
         updateProfile(authService.currentUser, {

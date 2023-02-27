@@ -50,7 +50,8 @@ export default function TeamPage() {
             id: doc.id,
             ...doc.data(),
           }));
-          if (teamLocationID !== newInfo[0]?.teamID) {
+
+          if (!newInfo[0].teamID.filter((a) => a.includes(teamLocationID))) {
             navigate('/');
           }
         });
