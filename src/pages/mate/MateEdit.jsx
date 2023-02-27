@@ -29,12 +29,10 @@ const MateEdit = () => {
   // 파베 인증
   const currentUser = authService.currentUser;
   const quillRef = useRef(null);
-  // 유저 닉네임 - 프로필 가져오기 상태
-  const [nickName, setNickName] = useState('');
-  const [profileImg, setGetProfileImg] = useState('');
   // 글쓰기 페이지에서 유저가 입력한 데이터를 저장하는 상태
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
+  console.log('🚀 ~ file: MateEdit.jsx:35 ~ partyName:', partyName);
   const [partyTime, setPartyTime] = useState('');
   const [partyNum, setPartyNum] = useState('');
   const [partyLocation, setPartyLocation] = useState('');
@@ -42,7 +40,6 @@ const MateEdit = () => {
   const [partyIsOpen, setPartyIsOpen] = useState(true);
   const [partyPostTitile, setPartyPostTitle] = useState('');
   const [partyDesc, setPartyDesc] = useState('');
-  console.log('🚀 ~ file: MateEdit.jsx:38 ~ MateEdit ~ partyDesc', partyDesc);
   const [isDisabled, setIsDisabled] = useState(false);
   // 작성글 버튼 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
@@ -53,36 +50,31 @@ const MateEdit = () => {
   const [writtenDesc, setWrittenDesc] = useState('');
   const [postIdInfo, setPostIdInfo] = useState([]);
 
-  // 유저 닉네임 - 프로필 가져오기 함수
-  const getUserInfo = () => {
-    if (currentUser !== null) {
-      const displayName = currentUser.displayName;
-      const photoURL = currentUser.photoURL;
-      setNickName(displayName);
-      setGetProfileImg(photoURL);
-    }
-  };
-
   const getPostData = async () => {
     const postRef = await doc(db, 'post', id);
     getDoc(postRef)
       .then((doc) => {
         if (doc.exists()) {
           setPostIdInfo(doc.data().teamID);
-          console.log('Document data:', doc.data());
+          console.log('문서:', doc.data());
           setPostData(doc.data());
+          setPartyname(doc.data().partyName);
+          setPartyTime(doc.data().partyTime);
+          setPartyNum(doc.data().partyNum);
+          setPartyLocation(doc.data().partyLocation);
+          setIsRemote(doc.data().isRemote);
+          setPartyIsOpen(doc.data().partyIsOpen);
+          setPartyPostTitle(doc.data().partyPostTitile);
           setSelectedTech(doc.data().partyStack);
           setWrittenDesc(doc.data().partyDesc);
         } else {
-          // doc.data() will be undefined in this case
-          console.log('No such document!');
+          console.log('문서 찾기 실패');
         }
       })
       .catch((error) => {
-        console.log('Error getting document:', error);
+        console.log('에러', error);
       });
   };
-  console.log('d오오오ㅗ오오오', postIdInfo);
 
   // 기술 스택 선택 핸들러 함수
   const handlePartyStack = (stack) => {
@@ -135,7 +127,6 @@ const MateEdit = () => {
 
   useEffect(() => {
     if (!currentUser) return;
-    getUserInfo();
     getPostData();
     console.log(currentUser);
   }, []);

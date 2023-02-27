@@ -36,8 +36,6 @@ const MateDetailWriting = () => {
   useEffect(() => {
     getPost();
   }, []);
-
-  console.log(post.profileImg);
   return (
     <>
       <GroupWrap>

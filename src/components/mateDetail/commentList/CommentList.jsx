@@ -20,7 +20,6 @@ const CommentList = ({ id }) => {
     });
     return getPost;
   }, []);
-  console.log(comments);
 
   return (
     <>
