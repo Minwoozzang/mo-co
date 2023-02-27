@@ -20,7 +20,6 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
-// 이메일로 가입 시, 글 작성이 안 된다는 이슈가 있었음. 확인 요망.
 
 const MateEdit = () => {
   const navigate = useNavigate();
@@ -53,14 +52,6 @@ const MateEdit = () => {
   const [changedDesc, setChangedDesc] = useState('');
   const [writtenDesc, setWrittenDesc] = useState('');
   const [postIdInfo, setPostIdInfo] = useState([]);
-  console.log(
-    '🚀 ~ file: MateEdit.jsx:47 ~ MateEdit ~ writtenDesc',
-    writtenDesc,
-  );
-  console.log(
-    '🚀 ~ file: MateEdit.jsx:46 ~ MateEdit ~ changedDesc',
-    changedDesc,
-  );
 
   // 유저 닉네임 - 프로필 가져오기 함수
   const getUserInfo = () => {
