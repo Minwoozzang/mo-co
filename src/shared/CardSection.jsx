@@ -300,11 +300,12 @@ const ProfileBox = styled.div`
 `;
 
 const ProfileImage = styled.img`
-  background-color: grey;
+  background-color: white;
   border-radius: 50%;
   width: 30px;
   height: 30px;
   margin-right: 10px;
+  object-fit: scale-down;
 `;
 
 const NickName = styled.div`
