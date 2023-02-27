@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const FilterTech = ({ onSelectedTech }) => {
   const options = [
-    { value: 'JavsScript', label: 'JavsScript' },
+    { value: 'Javascript', label: 'Javascript' },
     { value: 'React', label: 'React' },
     { value: 'Next.js', label: 'Next.js' },
     { value: 'Python', label: 'Python' },

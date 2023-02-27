@@ -14,7 +14,7 @@ import {
 
 const MyPage = () => {
   return (
-      <MyPageBody>
+    <MyPageBody>
       <DummyBox>
         <DummyProfile></DummyProfile>
         <MySection>

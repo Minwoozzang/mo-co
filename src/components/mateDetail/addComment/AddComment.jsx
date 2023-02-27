@@ -83,6 +83,10 @@ const AddComment = ({ id }) => {
 
   const AddCommentButton = async (e) => {
     e.preventDefault();
+    if (!currentUser) {
+      alert('로그인을 해주세요');
+      return;
+    }
     const newComment = {
       comment: commentText,
       userName: currentUser.displayName,

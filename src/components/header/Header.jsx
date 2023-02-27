@@ -164,7 +164,17 @@ const Header = () => {
           </MyCodingMate>
         </LogoAndMateBox>
         <TeamAndLoginBox>
-          <MakeTeam onClick={() => navigate('/write')}>팀 개설하기</MakeTeam>
+          <MakeTeam
+            onClick={() => {
+              if (!authService.currentUser) {
+                alert('로그인이 필요합니다.');
+              } else {
+                navigate('/write');
+              }
+            }}
+          >
+            팀 개설하기
+          </MakeTeam>
           <img src={Alarm} alt="alarm" style={{ width: '20px' }} />
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (

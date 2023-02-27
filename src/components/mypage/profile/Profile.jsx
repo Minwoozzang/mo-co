@@ -69,6 +69,7 @@ const Profile = () => {
   const [stackIsRemote, setStaclIsRemote] = useState('');
   const [stackPlace, setStackPlace] = useState('');
   const [stackTime, setStackTime] = useState('');
+  const [techStack, setTechStack] = useState([]);
 
   // 유저 정보 불러오기
   const getUserStackInfo = () => {
@@ -86,6 +87,7 @@ const Profile = () => {
       setStaclIsRemote(newInfo[0]?.moreInfo.u_isRemote);
       setStackPlace(newInfo[0]?.moreInfo.u_location);
       setStackTime(newInfo[0]?.moreInfo.u_time);
+      setTechStack(newInfo[0]?.moreInfo.u_stack);
     });
 
     return unsubscribe;
@@ -234,12 +236,14 @@ const Profile = () => {
             <ProfileTechBody>
               <TechBodyTitle>기술 스택</TechBodyTitle>
               <TechBodyImage>
-                <img
-                  src="https://logo-download.com/wp-content/data/images/png/React-logo.png"
-                  alt=""
-                  width={50}
-                  height={30}
-                />
+                {techStack.map((item, idx) => (
+                  <img
+                    key={idx}
+                    src={require(`../../../assets/stack/${item}.png`)}
+                    alt={item}
+                    style={{ width: 30, height: 30, marginRight: 10 }}
+                  />
+                ))}
               </TechBodyImage>
             </ProfileTechBody>
           </MiddleBody>

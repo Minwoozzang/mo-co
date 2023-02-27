@@ -17,8 +17,13 @@ export const MessageImage = styled.img`
 
   border-radius: 20px;
 `;
-export const MessageTextBox = styled.div``;
-export const MessageNickName = styled.div``;
+export const MessageTextBox = styled.div`
+  padding: 10px;
+`;
+export const MessageNickName = styled.div`
+  color: grey;
+`;
 export const MessageContent = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
+  margin-top: 8px;
 `;
