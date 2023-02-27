@@ -25,8 +25,6 @@ const MyPageComment = () => {
         ...doc.data(),
       }));
       setMyComment(newInfo);
-
-      console.log(myComment);
     });
 
     return unsubscribe;

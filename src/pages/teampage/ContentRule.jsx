@@ -143,7 +143,7 @@ const TextAreaWrapper = styled.div`
   flex-direction: column;
   .text {
     width: 100%;
-    height: 200px;
+    height: 260px;
   }
 
   input,
@@ -187,9 +187,9 @@ const ContentCard = styled.div`
   width: 100%;
   position: relative;
   border-radius: 20px;
-  overflow: hidden;
+  overflow-y: auto;
   transition: 0.4s;
-  height: 30vh;
+  height: 37vh;
   margin-top: 40px;
   background-color: white;
   p {

@@ -54,6 +54,8 @@ export default function MemberSide({ teamLocationID }) {
         ...doc.data(),
       }));
       setTeamProfileUserInfo(newInfo);
+
+      console.log('이미지', newInfo);
     });
     return unsubscribe;
   };
@@ -80,14 +82,13 @@ export default function MemberSide({ teamLocationID }) {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setNickName(authService.currentUser.displayName);
-        setProfileImg(authService.currentUser.photoURL);
         teamGetMyUserInfo();
         teamGetTeamUserInfo();
       } else if (!user) {
         return;
       }
     });
-  }, [nickName, profileImg]);
+  }, [nickName]);
 
   return (
     <>
@@ -95,35 +96,28 @@ export default function MemberSide({ teamLocationID }) {
         <WrapWrap>
           <SideWrapper>
             <MemberInfoProfileTitle>프로필</MemberInfoProfileTitle>
-            {teamLeaderInfo
-              .filter((item) => item.id === teamLocationID)
-              .map((item) => {
-                return (
-                  <MemberInfoProfile>
-                    <MemberInfoProfileImg
-                      src={
-                        item.teamLeader?.profileImg
-                          ? item.teamLeader.profileImg
-                          : 'https://imhannah.me/common/img/default_profile.png'
-                      }
-                    />
-                    <MemberInfoProfileInfo>
-                      <MemberInfoProfileName>
-                        {item.teamLeader.nickName ?? '익명'}
-                      </MemberInfoProfileName>
-                      <LeaderPosition>
-                        {item.teamLeader.teamPosition}
-                      </LeaderPosition>
-                    </MemberInfoProfileInfo>
-                  </MemberInfoProfile>
-                );
-              })}
+            {teamProfileUserInfo.map((item) => {
+              return (
+                <MemberInfoProfile>
+                  <MemberInfoProfileImg
+                    src={
+                      item?.profileImg
+                        ? item.profileImg
+                        : 'https://imhannah.me/common/img/default_profile.png'
+                    }
+                  />
+                  <MemberInfoProfileInfo>
+                    <MemberInfoProfileName>
+                      {nickName ?? '익명'}
+                    </MemberInfoProfileName>
+                  </MemberInfoProfileInfo>
+                </MemberInfoProfile>
+              );
+            })}
           </SideWrapper>
           <SectionLine />
           <SideWrapperTwo>
-            <MembersInfoProfileTitle>
-              팀원 ({memberNumber})
-            </MembersInfoProfileTitle>
+            <MembersInfoProfileTitle>팀원</MembersInfoProfileTitle>
             {/* 팅장 */}
             {teamLeaderInfo
               .filter((item) => item.id === teamLocationID)
@@ -142,7 +136,7 @@ export default function MemberSide({ teamLocationID }) {
                         {item.teamLeader.nickName ?? '익명'}
                       </MemberInfoProfileName>
                       <LeaderPosition>
-                        {item.teamLeader.teamPosition}
+                        {item.teamLeader.teamPosition ?? '멤버'}
                       </LeaderPosition>
                     </MemberInfoProfileInfo>
                   </MemberInfoProfile>

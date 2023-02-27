@@ -3,17 +3,24 @@ import { BsBookmarkHeart } from 'react-icons/bs';
 import { GrFormView } from 'react-icons/gr';
 import { FaRegCommentDots } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
+import defaultImg from '../../../assets/Group 290.png';
 
 const BlurCard = ({ item }) => {
 
   return (
     <PostCard>
       <BookmarkIconBox>
-        <Location>용산구</Location>
+        <LoactionAndTimeBox>
+          <Location>대면</Location>
+          <Time>주말/오후</Time>
+        </LoactionAndTimeBox>
+        {/* <span>{item.bookmark}</span> */}
         <Bookmark>
+          
           <BsBookmarkHeart
             cursor="pointer"
             size="20px"
+            color="white"
           />
         </Bookmark>
       </BookmarkIconBox>
@@ -24,35 +31,34 @@ const BlurCard = ({ item }) => {
         </PostTitle>
         <PostDesc>모임설명</PostDesc>
         <TechStackIcon>
+          OOO
         </TechStackIcon>
       </PostBox>
 
+      <HorizontalLine />
+
       <PartyStatusBox>
         <RecruitingBox>
-          <Recruiting>
-            모집중
-          </Recruiting>
+          <Recruiting>모집 현황</Recruiting>
         </RecruitingBox>
         <HeadCountBox>
-          <BsPeopleFill size="15px" />
-          <HeadCount>2 / 3명</HeadCount>
+          모집중
+          <HeadCount>: 1 / 3명</HeadCount>
         </HeadCountBox>
       </PartyStatusBox>
-
-      <HorizontalLine />
 
       <PostInfo>
         <ProfileBox>
           <ProfileImage
-            // src={default_profile}
+            src={defaultImg}
           ></ProfileImage>
-          <NickName>XXX</NickName>
+          <NickName>닉네임</NickName>
         </ProfileBox>
         <InfoBox>
-          <GrFormView size="24px" />
+          {/* <GrFormView size="24px" />
           <PostView>12</PostView>
           <FaRegCommentDots size="15px" />
-          <PostComments>3</PostComments>
+          <PostComments>3</PostComments> */}
         </InfoBox>
       </PostInfo>
     </PostCard>
@@ -62,16 +68,18 @@ const BlurCard = ({ item }) => {
 export default BlurCard;
 
 const PostCard = styled.div`
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border-radius: 20px;
   flex-basis: 245px;
-  padding: 16px;
+  padding: 24px;
   flex-grow: 0;
   flex-shrink: 0;
   width: 280px;
-  height: 320px;
+  height: 234px;
   display: flex;
   flex-direction: column;
-  background-color: rgba(238, 238, 232, 0.1);
+  background-color: #232323;
+  border: 1px solid #3b3b3b;
   filter: blur(5px);
   -webkit-filter: blur(5px);
 `;
@@ -83,16 +91,36 @@ const BookmarkIconBox = styled.div`
   align-items: center;
 `;
 
+const LoactionAndTimeBox = styled.div`
+  display: flex;
+  gap: 6px;
+`;
+
 const Location = styled.div`
-  width: 62px;
-  height: 16px;
-  color: #4f4f4f;
+  width: 85px;
+  height: 26px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 26px;
+`;
+
+const Time = styled.div`
+  width: 80px;
+  height: 26px;
+  color: white;
+  background-color: black;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 26px;
 `;
 
 const Bookmark = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
+  color: white;
 `;
 
 const PostBox = styled.div`
@@ -109,7 +137,13 @@ const PostTitle = styled.div`
   word-break: break-all;
   width: 245px;
   height: 24px;
-  font-size: 17px;
+  cursor: pointer;
+  font-size: 1.3em;
+  color: white;
+  font-weight: 600;
+  &:hover {
+    color: #531cab;
+  }
 `;
 
 const PostDesc = styled.div`
@@ -117,19 +151,22 @@ const PostDesc = styled.div`
   width: 240px;
   height: 20px;
   margin-bottom: 20px;
-  color: #828282;
+  color: #b6b6b6;
   font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   word-break: break-all;
+  margin-top: 6px;
 `;
 
 const PartyStatusBox = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 const HeadCountBox = styled.div`
@@ -139,6 +176,7 @@ const HeadCountBox = styled.div`
 
 const HeadCount = styled.div`
   font-size: 15px;
+  color: white;
 `;
 
 const RecruitingBox = styled.div`
@@ -148,6 +186,7 @@ const RecruitingBox = styled.div`
 
 const Recruiting = styled.div`
   font-size: 15px;
+  color: #6c6c6c;
 `;
 
 const TechStackIcon = styled.div`
@@ -155,13 +194,14 @@ const TechStackIcon = styled.div`
   align-items: center;
   justify-content: flex-start;
   width: 240px;
-  margin: 43px 0;
+  margin-bottom: 16px;
 `;
 
 const HorizontalLine = styled.div`
-  border: 0.5px solid grey;
+  border: 0.1px solid #3b3b3b;
   width: 100%;
   margin: auto;
+  color: #3b3b3b;
 `;
 
 const PostInfo = styled.div`
@@ -169,6 +209,8 @@ const PostInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 18px;
+  position: relative;
+  left: -25px;
 `;
 
 const ProfileBox = styled.div`
@@ -188,6 +230,7 @@ const NickName = styled.div`
   width: 70px;
   height: 20px;
   font-size: 15px;
+  color: white;
 `;
 
 const InfoBox = styled.div`

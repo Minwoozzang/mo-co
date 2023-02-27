@@ -5,22 +5,29 @@ import Profile from '../../components/mypage/profile/Profile';
 import {
   MyPageBody,
   MySection,
-  MyProfilSection,
+  MyProfilSectionBox,
   MyInfoSection,
+  DummyProfile,
+  DummyBookmark,
+  DummyBox,
 } from './MyPagestyle';
 
 const MyPage = () => {
   return (
-    <MyPageBody>
-      <MySection>
-        <MyProfilSection>
-          <Profile />
-        </MyProfilSection>
-        <MyInfoSection>
-          <MyPageBookmark />
-          <MyPageComment />
-        </MyInfoSection>
-      </MySection>
+      <MyPageBody>
+      <DummyBox>
+        <DummyProfile></DummyProfile>
+        <MySection>
+          <MyProfilSectionBox>
+            <Profile />
+          </MyProfilSectionBox>
+          <MyInfoSection>
+            <MyPageBookmark />
+            <MyPageComment />
+          </MyInfoSection>
+        </MySection>
+        <DummyBookmark></DummyBookmark>
+      </DummyBox>
     </MyPageBody>
   );
 };

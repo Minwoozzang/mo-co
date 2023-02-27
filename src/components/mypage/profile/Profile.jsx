@@ -13,8 +13,6 @@ import {
   EditNickNameInput,
   ProfileNickNameBody,
   ProfileNickName,
-  ProfileMyEmailBox,
-  ProfileMyEmail,
   ProfileNickNameBtn,
   NickNameCompleteBtn,
   ProfileMiddleSection,
@@ -27,6 +25,11 @@ import {
   TechBodyImage,
   ProfileFooterBody,
   ProfileStackBtn,
+  ProfileMocoText,
+  NicknameImageBox,
+  NicknameTextBox,
+  NicaknameHello,
+  ProfileSectionGap,
 } from './ProfileStyle';
 import {
   collection,
@@ -37,7 +40,8 @@ import {
   where,
 } from '@firebase/firestore';
 import { useNavigate } from 'react-router';
-import defaultImg from '../../../../src/assets/icon/user.png';
+import defaultImg from '../../../../src/assets/Group 290.png';
+import wheel from '../../../../src/assets/login/wheel.png';
 
 const Profile = () => {
   // 네이게이트
@@ -67,6 +71,7 @@ const Profile = () => {
   const [stackPlace, setStackPlace] = useState('');
   const [stackTime, setStackTime] = useState('');
 
+  // 유저 정보 불러오기
   const getUserStackInfo = () => {
     const q = query(
       collection(db, 'user'),
@@ -151,55 +156,65 @@ const Profile = () => {
   return (
     <MyProfileBody>
       <ProfileSection>
-        <ProfileHeaderIcon>
-          <RiFolderUserFill
-            style={{ width: 30, height: 30 }}
-            onClick={profileHandler}
-          />
-        </ProfileHeaderIcon>
+        <ProfileSectionGap />
+        <ProfileMocoText>마이 모코</ProfileMocoText>
+        <NicknameImageBox>
+          <NicknameTextBox>
+            <NicaknameHello>안녕하세요</NicaknameHello>
+            <ProfileEditBody>
+              <ProfileNickNameBody>
+                {editNickNameBtn ? (
+                  <EditNickNameInput
+                    value={nickNamevalue ? nickNamevalue : ''}
+                    onChange={(e) => setNickNameValue(e.target.value)}
+                  />
+                ) : (
+                  <ProfileNickName>{nickName}님</ProfileNickName>
+                )}
+                {clickEditBtn ? (
+                  <ProfileNickNameBtn onClick={edditNickName}>
+                    수정
+                  </ProfileNickNameBtn>
+                ) : (
+                  <NickNameCompleteBtn onClick={completeNickName}>
+                    완료
+                  </NickNameCompleteBtn>
+                )}
+              </ProfileNickNameBody>
+            </ProfileEditBody>
+          </NicknameTextBox>
 
-        <ProfileImageBody>
-          <ProfileImage
-            src={profileUserInfo[0]?.profileImg ?? defaultImg}
-            width="150"
-            height="150"
-            alt=""
-          />
-          <input
-            type="file"
-            onChange={onFileChange}
-            ref={inputImageRef}
-            style={{ display: 'none' }}
-            accept="image/*"
-          />
-        </ProfileImageBody>
+          <ProfileImageBody>
+            <ProfileImage
+              src={
+                profileUserInfo[0]?.profileImg
+                  ? profileUserInfo[0].profileImg
+                  : 'https://imhannah.me/common/img/default_profile.png'
+              }
+              width="90"
+              height="90"
+              alt=""
+            />
+          </ProfileImageBody>
+          <ProfileHeaderIcon>
+            <img
+              src={wheel}
+              alt=""
+              style={{ fontSize: '25px' }}
+              onClick={profileHandler}
+            />
+          </ProfileHeaderIcon>
+        </NicknameImageBox>
 
-        <ProfileEditBody>
-          <ProfileNickNameBody>
-            {editNickNameBtn ? (
-              <EditNickNameInput
-                value={nickNamevalue ? nickNamevalue : ''}
-                onChange={(e) => setNickNameValue(e.target.value)}
-              />
-            ) : (
-              <ProfileNickName>{nickName}</ProfileNickName>
-            )}
-            {clickEditBtn ? (
-              <ProfileNickNameBtn onClick={edditNickName}>
-                수정
-              </ProfileNickNameBtn>
-            ) : (
-              <NickNameCompleteBtn onClick={completeNickName}>
-                완료
-              </NickNameCompleteBtn>
-            )}
-          </ProfileNickNameBody>
-          <ProfileMyEmailBox>
-            <ProfileMyEmail>{authService.currentUser?.email}</ProfileMyEmail>
-          </ProfileMyEmailBox>
-        </ProfileEditBody>
+        <input
+          type="file"
+          onChange={onFileChange}
+          ref={inputImageRef}
+          style={{ display: 'none' }}
+          accept="image/*"
+        />
 
-        <hr />
+        <hr style={{ width: '305px' }} />
 
         <ProfileMiddleSection>
           <MiddleBody>

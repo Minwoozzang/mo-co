@@ -17,6 +17,7 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
             </OngoingMeetingTagItem>
             <OngoingMeetingTagItem>팀원</OngoingMeetingTagItem>
           </OngoingMeetingTagBox>
+          {/* {리더 표시해주기} */}
           {item?.teamLeader?.nickName ===
           authService?.currentUser?.displayName ? (
             <BiCrown 

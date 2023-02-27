@@ -133,15 +133,15 @@ export default MemberChatingRoom;
 const ContentChatContainer = styled.div`
   width: 700px;
   height: 100%;
-
   padding: 30px;
+  background-color: white;
 `;
 
 const ContentTitle = styled.div`
   text-decoration: none;
-  color: #fff;
   font-size: 19px;
   font-weight: 600;
+  margin-top: 10px;
 `;
 
 const ContentChatAreaBox = styled.div`
@@ -152,10 +152,10 @@ const ContentChatAreaBox = styled.div`
 `;
 
 const ContentChatArea = styled.div`
-  width: 100%;
-  height: 480px;
-
-  overflow: scroll;
+  width: 345px;
+  height: 550px;
+  overflow-x: hidden;
+  overflow-y: scroll;
 `;
 
 const ChatFormSection = styled.div`
