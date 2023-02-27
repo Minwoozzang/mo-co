@@ -10,12 +10,10 @@ import {
   doc,
   getDoc,
   updateDoc,
-  arrayRemove,
   where,
   deleteDoc,
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import { async } from '@firebase/util';
 
 export default function TeamManage({ teamLocationID, item }) {
   const [showOptions, setShowOptions] = useState(false);
@@ -47,7 +45,6 @@ export default function TeamManage({ teamLocationID, item }) {
     });
     if (!currentUser) return;
     getPostData();
-    teamGetTeamID();
     getFindTeamID();
     getFindTeamPostInfo();
   }, []);
@@ -102,19 +99,19 @@ export default function TeamManage({ teamLocationID, item }) {
       });
   };
 
-  // 팀 아이디 받아오기
-  const [teamID, setTeamID] = useState([]);
-  const teamGetTeamID = () => {
-    const q = query(collection(db, 'teamPage'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        ids: doc.id,
-        ...doc.data(),
-      }));
-      setTeamID(newInfo);
-    });
-    return unsubscribe;
-  };
+  // // 팀 아이디 받아오기
+  // const [teamID, setTeamID] = useState([]);
+  // const teamGetTeamID = () => {
+  //   const q = query(collection(db, 'teamPage'));
+  //   const unsubscribe = onSnapshot(q, (snapshot) => {
+  //     const newInfo = snapshot.docs.map((doc) => ({
+  //       ids: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamID(newInfo);
+  //   });
+  //   return unsubscribe;
+  // };
 
   const [teamPostInfo, setTeamPostInfo] = useState([]);
   const getFindTeamPostInfo = () => {

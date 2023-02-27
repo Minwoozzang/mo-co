@@ -1,17 +1,53 @@
 import styled from '@emotion/styled';
-import { deleteDoc, deleteField, doc, updateDoc } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
+import {
+  collection,
+  deleteDoc,
+  deleteField,
+  doc,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
-import { db } from '../../common/firebase';
+import { authService, db } from '../../common/firebase';
 
 const CustomConfirmUI = (props) => {
   // 본인 아이디
-  const myId = props.data.nickName;
+  const myId = props.data.uid;
   const myInfo = props.data;
+  // 팀 ID
+  const teamID = props.id;
+
   //  팀 멤버
   const member = props.item;
-  const otherMember = member.filter((d) => d.nickName !== myId);
+  const otherMember = member.filter((d) => d.uid !== myId);
 
-  console.log('other', otherMember);
+  // 해당 유저 컬렉션에 팀 ID에 접근하기
+  const [userTeamID, setUserTeamID] = useState([]);
+  const getUserTeamID = () => {
+    const q = query(collection(db, 'user'), where('uid', '==', myId));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUserTeamID(newInfo[0]?.teamID.filter((a) => a !== teamID));
+    });
+
+    return unsubscribe;
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        getUserTeamID();
+      }
+    });
+  }, []);
+
   // 수락할 경우
   const updateIsWait = () => {
     updateDoc(doc(db, 'teamPage', props.id), {
@@ -32,16 +68,15 @@ const CustomConfirmUI = (props) => {
   };
 
   // 거절할 경우
-  const rejectSuggestion = async (uid) => {
+  async function rejectSuggestion(uid) {
     await updateDoc(doc(db, 'user', uid), {
-      teamID: deleteField(),
+      teamID: [...userTeamID],
     });
     await updateDoc(doc(db, 'teamPage', props.id), {
       teamMember: [...otherMember],
     });
     props.onClose();
-  };
-
+  }
   return (
     <ConfirmBody>
       <ConfirmBox>

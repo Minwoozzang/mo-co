@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
+import { uuidv4 } from '@firebase/util';
 
 export default function TeamPlaceModal({
   setAddress,
@@ -81,24 +82,26 @@ export default function TeamPlaceModal({
               </button>
             </InputWrap>
             <ResultSearch>
-              {resultData.map((info, idx) => (
-                <>
-                  <JustWrap
-                    key={idx}
-                    onClick={() => {
-                      handlePlace(
-                        info.place_name,
-                        info.address_name,
-                        info.x,
-                        info.y,
-                      );
-                    }}
-                  >
-                    <div>{info.place_name}</div>
-                    <div>{info.address_name}</div>
-                  </JustWrap>
-                </>
-              ))}
+              {resultData.map((info) => {
+                return (
+                  <div key={uuidv4()}>
+                    <JustWrap
+                      key={uuidv4()}
+                      onClick={() => {
+                        handlePlace(
+                          info.place_name,
+                          info.address_name,
+                          info.x,
+                          info.y,
+                        );
+                      }}
+                    >
+                      <div>{info.place_name}</div>
+                      <div>{info.address_name}</div>
+                    </JustWrap>
+                  </div>
+                );
+              })}
             </ResultSearch>
           </ModalChang>
         </PlaceModal>

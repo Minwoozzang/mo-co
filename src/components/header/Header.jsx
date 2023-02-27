@@ -71,7 +71,6 @@ const Header = () => {
     });
     return unsubscribe;
   };
-
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
@@ -253,7 +252,7 @@ const Header = () => {
                         }}
                       />
                       <HeaderImageText>
-                        안녕하세요, {headerNickName ?? '익명'}님🥰
+                        {/* 안녕하세요, {headerNickName ?? '익명'}님🥰 */}
                       </HeaderImageText>
                     </HeaderImageBox>
                     <HeaderDropDownListSection>

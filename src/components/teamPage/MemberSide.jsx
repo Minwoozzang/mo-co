@@ -54,8 +54,6 @@ export default function MemberSide({ teamLocationID }) {
         ...doc.data(),
       }));
       setTeamProfileUserInfo(newInfo);
-
-      console.log('이미지', newInfo);
     });
     return unsubscribe;
   };
@@ -98,7 +96,7 @@ export default function MemberSide({ teamLocationID }) {
             <MemberInfoProfileTitle>프로필</MemberInfoProfileTitle>
             {teamProfileUserInfo.map((item) => {
               return (
-                <MemberInfoProfile>
+                <MemberInfoProfile key={v4()}>
                   <MemberInfoProfileImg
                     src={
                       item?.profileImg

@@ -51,8 +51,9 @@ const MateWrite = () => {
 
   const [teamID, setTeamID] = useState(uuidv4());
 
-  // 리더 이미지 가져오기
+  // 리더 이미지, 팀 ID 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
+  const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
 
   const getLeaderImg = () => {
     const q = query(
@@ -65,6 +66,7 @@ const MateWrite = () => {
         ...doc.data(),
       }));
       setProfileUserInfo(newInfo[0]?.profileImg);
+      setTeamIDUserInfo(newInfo[0]?.teamID);
     });
 
     return unsubscribe;
@@ -106,13 +108,13 @@ const MateWrite = () => {
   // 모집글 게시 함수 (동시에 팀페이지 생성)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userDoc = await getDoc(doc(db, 'user', authService.currentUser.uid));
-    const userData = userDoc.data();
-    const _teamID = await userData.teamID;
-    console.log(
-      '🚀 ~ file: MateWrite.jsx:104 ~ handleSubmit ~ _teamID:',
-      _teamID,
-    );
+    // const userDoc = await getDoc(doc(db, 'user', authService.currentUser.uid));
+    // const userData = userDoc.data();
+    // const _teamID = await userData.teamID;
+    // console.log(
+    //   '🚀 ~ file: MateWrite.jsx:104 ~ handleSubmit ~ _teamID:',
+    //   _teamID,
+    // );
     try {
       await addDoc(collection(db, 'post'), {
         partyName,
@@ -155,12 +157,12 @@ const MateWrite = () => {
         })
         .then(() => {
           updateDoc(doc(db, 'user', authService.currentUser.uid), {
-            teamID: teamID,
+            teamID: [...teamIDUserInfo, teamID],
           });
         })
         .then(() => {
           setDoc(doc(db, 'teamChat', teamID), {
-            teamID,
+            teamID: teamID,
             message: [],
           });
         })
