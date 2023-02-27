@@ -4,6 +4,7 @@ import {
   TechStackMeetingArea,
   MeetingTitleBox,
   TechStackMeetingTitle,
+  NonRecommendText1,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { MdExpandMore } from 'react-icons/md';
@@ -12,7 +13,12 @@ import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 import { db } from '../../../common/firebase';
 
-const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
+const TechStackMeeting = ({
+  isLoggedIn,
+  recommendTechList,
+  uid,
+  userBookmark,
+}) => {
   // const [recommendTechList, setRecommendTechList] = useState([]);
   // const result = useQueries([
   //   {
@@ -52,10 +58,25 @@ const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
         <TechStackMeetingTitle>기술 스택에 맞는 모임</TechStackMeetingTitle>
       </MeetingTitleBox>
       <MeetingCardBox>
-        {recommendTechList?.length > 0 &&
+        {recommendTechList.length === 0 ? (
+          <NonRecommendText1>
+            추천 모임이 없습니다.
+            <br />
+            추가 정보를 등록 or 수정해주세요!
+          </NonRecommendText1>
+        ) : (
           recommendTechList
             .slice(0, 4)
-            .map((item, idx) => <CardSection key={idx} item={item} db={db} />)}
+            .map((item, idx) => (
+              <CardSection
+                key={idx}
+                item={item}
+                db={db}
+                uid={uid}
+                userBookmark={userBookmark}
+              />
+            ))
+        )}
       </MeetingCardBox>
     </TechStackMeetingArea>
   );

@@ -9,11 +9,11 @@ import { onAuthStateChanged } from 'firebase/auth';
 import defaultImg from '../assets/icon/user.png';
 import { useQueryClient } from 'react-query';
 import BookmarkImg from '../assets/icon/Icon_Scrap.png';
+import BookmarkedImg from '../assets/icon/Icon_Scrap_active.png';
 
-const CardSection = ({ item, db }) => {
+const CardSection = ({ item, db, userBookmark, uid }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [uid, setUid] = useState('');
   const bookmark = item.bookmark;
 
   // HTML을 plain text로 변환
@@ -67,17 +67,6 @@ const CardSection = ({ item, db }) => {
     }
   };
 
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setUid(uid);
-      } else {
-        return;
-      }
-    });
-  }, [uid]);
-
   return (
     <PostCard>
       <BookmarkIconBox>
@@ -88,15 +77,13 @@ const CardSection = ({ item, db }) => {
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
           <span>{item.bookmark}</span>
-
-          <img
-            src={BookmarkImg}
-            alt="bookmark"
-            onClick={handleBookmark}
-            cursor="pointer"
-            width="20px"
-            color="white"
-          />
+          <BookmarkIcon onClick={handleBookmark}>
+            {userBookmark?.includes(item.id) ? (
+              <img src={BookmarkedImg} alt="bookmarked" width="20px" />
+            ) : (
+              <img src={BookmarkImg} alt="bookmark" width="20px" />
+            )}
+          </BookmarkIcon>
         </Bookmark>
       </BookmarkIconBox>
 
@@ -209,6 +196,12 @@ const Bookmark = styled.div`
   align-items: center;
   gap: 6px;
   color: white;
+`;
+
+const BookmarkIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 `;
 
 const PostBox = styled.div`
