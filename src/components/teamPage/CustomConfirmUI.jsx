@@ -84,7 +84,12 @@ const CustomConfirmUI = (props) => {
           {/* <ConfirmTitle>참여신청</ConfirmTitle> */}
           <IoMdClose
             onClick={props.onClose}
-            style={{ fontSize: '25px', marginRight: '10px', cursor: 'pointer' }}
+            style={{
+              fontSize: '25px',
+              marginRight: '10px',
+              cursor: 'pointer',
+              color: 'white',
+            }}
           />
         </TitleBox>
         <MessageBox>{props.data.joinMessage}</MessageBox>
@@ -116,10 +121,10 @@ const ConfirmBody = styled.div`
 `;
 
 const ConfirmBox = styled.div`
-  width: 350px;
-  height: 200px;
+  width: 400px;
+  height: 480px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #232323;
 
   position: relative;
   bottom: 80px;
@@ -130,7 +135,7 @@ const TitleBox = styled.div`
   justify-content: flex-end;
   align-items: center;
 
-  margin-top: 10px;
+  margin-top: 15px;
 `;
 
 const ConfirmTitle = styled.div`

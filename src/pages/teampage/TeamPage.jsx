@@ -153,17 +153,19 @@ const JustContainer = styled.div`
 `;
 
 const WholeContainer = styled.div`
-  max-width: 1500px;
-  max-height: 900px;
-  height: 95vh;
+  width: 1350px;
+  height: 900px;
   display: flex;
   overflow: hidden;
-  width: 100%;
   border-radius: 20px;
   font-size: 15px;
   font-weight: 500;
   box-shadow: 0 20px 50px rgb(0 0 0 / 30%);
   position: relative;
+  @media screen and (max-width: 1280px) {
+    max-width: 1200px;
+    height: 650px;
+  }
 `;
 
 const DashBoardContainer = styled.div`
@@ -216,7 +218,7 @@ const ProjectPlaceName = styled.span`
 `;
 
 const ContentContainer = styled.div`
-  flex: 2;
+  flex: 1;
   margin: 10px;
 `;
 
