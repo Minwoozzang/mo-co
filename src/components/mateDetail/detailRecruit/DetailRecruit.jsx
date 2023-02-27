@@ -160,7 +160,10 @@ const DetailRecruit = () => {
 
   useEffect(() => {
     getPost();
-    GetMyProfileImg();
+    if (authService.currentUser) {
+      GetMyProfileImg();
+    }
+    // GetMyProfileImg();
   }, []);
 
   return (
