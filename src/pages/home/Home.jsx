@@ -14,6 +14,7 @@ import usePosts from '../../hooks/usePost';
 import styled from '@emotion/styled';
 import main_background from '../../assets/background/main_background.png';
 import CardSection from '../../shared/CardSection';
+import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 
 const Home = () => {
   const [init, setInit] = useState(false);
@@ -89,6 +90,18 @@ const Home = () => {
       )
     : [];
 
+  const customList = data
+    ? data.filter(
+        (item) =>
+          !item.isDeleted &&
+          item.partyStack.includes(
+            currentUserData[0]?.moreInfo?.u_stack.toString(),
+          ) &&
+          item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time) &&
+          item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
+      )
+    : [];
+  console.log(customList);
   //postList -> 로그인 안 됐을 시 안보이게
   useEffect(() => {
     const userCollectionRef = collection(db, 'user');
@@ -112,15 +125,7 @@ const Home = () => {
         {init ? (
           <>
             <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
-            <RecommendListContainer>
-              <RecommendListCardBox>
-                {data
-                  ? data
-                      .slice(0, 3)
-                      .map((item, idx) => <CardSection key={idx} item={item} />)
-                  : []}
-              </RecommendListCardBox>
-            </RecommendListContainer>
+            <CustomMeeting isLoggedIn={isLoggedIn} customList={customList} />
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
               recommendTechList={recommendTechList}
@@ -161,21 +166,6 @@ const MainBackground = styled.div`
   background: url(${main_background});
   background-size: cover;
   /* background-color: white; */
-`;
-const RecommendListContainer = styled.div`
-  width: 1004px;
-  height: 320px;
-  margin: 50px auto 171px;
-  /* border: 0.3px solid gray; */
-`;
-const RecommendListCardBox = styled.div`
-  width: 900px;
-  height: 320px;
-  margin: 0 auto;
-  margin-top: 140px;
-  display: flex;
-  gap: 0 30px;
-  /* background-color: aliceblue; */
 `;
 const CoverBackground = styled.div`
   width: 100%;
