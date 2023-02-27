@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   LoginBody,
   LoginForm,
@@ -29,13 +29,22 @@ import {
 import { useNavigate } from 'react-router';
 import { emailRegex, pwRegex } from '../../common/utils';
 import {
+  getRedirectResult,
   GithubAuthProvider,
   GoogleAuthProvider,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from '@firebase/auth';
 import { authService, db } from '../../common/firebase';
-import { doc, setDoc } from '@firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+} from '@firebase/firestore';
 import Vector from '../../../src/assets/login/Vector.png';
 import Vector1 from '../../../src/assets/login/Vector-1.png';
 import Vector2 from '../../../src/assets/login/Vector-2.png';
@@ -52,10 +61,41 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const pwRef = useRef(null);
 
-  // 걍고문자
+  // 경고문자
   const [warningText, setWarningText] = useState('');
 
   const navigate = useNavigate();
+
+  // 이미지, 팀 ID, 북마크 가져오기
+  const [userBookmark, setUserBookmark] = useState([]);
+  const [profileUserInfo, setProfileUserInfo] = useState('');
+  const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
+
+  const getUserInfo = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUserBookmark(newInfo[0]?.bookmarks);
+      setProfileUserInfo(newInfo[0]?.profileImg);
+      setTeamIDUserInfo(newInfo[0]?.teamID);
+    });
+
+    return unsubscribe;
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        getUserInfo();
+      }
+    });
+  }, []);
 
   // 유효성 검시
   const validateInputs = () => {
@@ -132,6 +172,7 @@ const Login = () => {
   };
 
   // 구글 로그인
+  // TODO: 이미지 디폴트가 아닌 현재 이미지로 변경
   const gooleLogin = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(authService, provider)
@@ -141,9 +182,14 @@ const Login = () => {
           uid: res.user.uid,
           email: res.user.email,
           nickname: res.user.displayName,
-          bookmarks: [],
-          profileImg: 'https://imhannah.me/common/img/default_profile.png',
+          bookmarks: [...userBookmark],
+          profileImg:
+            profileUserInfo === ''
+              ? authService.currentUser.photoURL
+              : profileUserInfo,
+          teamID: [...teamIDUserInfo],
         });
+        console.log('프로바이다', getRedirectResult(res));
       })
       .catch((err) => {
         console.log(err);
@@ -160,8 +206,12 @@ const Login = () => {
           uid: res.user.uid,
           email: res.user.email,
           nickname: res.user.displayName,
-          bookmarks: [],
-          profileImg: 'https://imhannah.me/common/img/default_profile.png',
+          bookmarks: [...userBookmark],
+          profileImg:
+            profileUserInfo === ''
+              ? authService.currentUser.photoURL
+              : profileUserInfo,
+          teamID: [...teamIDUserInfo],
         });
       })
       .catch((err) => {

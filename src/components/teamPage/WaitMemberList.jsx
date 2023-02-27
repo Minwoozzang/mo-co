@@ -63,8 +63,8 @@ const WaitMemberList = ({ item }) => {
         .filter((data) => data.isWait === true)
         .map((data) => {
           return (
-            <YellowBox>
-              <MemberInfoProfile key={uuidv4()}>
+            <YellowBox key={uuidv4()}>
+              <MemberInfoProfile>
                 <MemberInfoProfileImgTwo
                   src={
                     data.profileImg

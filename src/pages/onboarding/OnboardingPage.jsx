@@ -67,7 +67,6 @@ export default function OnboardingPage() {
         const auth2 = getAuth();
         const getUserName = async () => {
           setCurrentUserName(auth2.currentUser.displayName);
-          console.log('user', currentUserName);
         };
         getUserName();
       }
