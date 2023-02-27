@@ -85,6 +85,9 @@ const Comment = ({ user }) => {
             src={!user.userImg ? default_profile : user.userImg}
           ></CommentProfileImage>
           <CommentUserName>{user.userName}</CommentUserName>
+          <CommentIconBody>
+            <GrMoreVertical onClick={() => ToggleDropDown(user.userId)} />
+          </CommentIconBody>
           {!editBox ? (
             <CommentText>{user.comment}</CommentText>
           ) : (
@@ -95,10 +98,6 @@ const Comment = ({ user }) => {
             />
           )}
           <CommentTextIcon>
-            <CommentIconBody>
-              <GrMoreVertical onClick={() => ToggleDropDown(user.userId)} />
-            </CommentIconBody>
-
             {toggleBtn ? (
               <>
                 {areYouUser ? (

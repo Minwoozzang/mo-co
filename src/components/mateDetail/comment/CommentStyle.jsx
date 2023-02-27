@@ -29,7 +29,8 @@ export const ListTextSection = styled.div`
   width: 100%;
   height: 70%;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: center;
   @media screen and (max-width: 900px) {
     width: 350px;
@@ -44,6 +45,7 @@ export const CommentText = styled.p`
   font-weight: 400;
   margin-left: 1%;
   color: #fff;
+  margin: 16px 0 16px 0;
 `;
 
 export const CommentUserInput = styled.input`
