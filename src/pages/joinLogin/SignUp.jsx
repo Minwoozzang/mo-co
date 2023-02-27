@@ -183,7 +183,7 @@ const SignUp = () => {
               />
             </PasswordBody>
             <CheckPasswordBody>
-              <CheckPasswordText>재확인</CheckPasswordText>
+              <CheckPasswordText>비밀번호 확인</CheckPasswordText>
               <CheckSignUpPasswordInput
                 type="password"
                 value={checkPassword}
