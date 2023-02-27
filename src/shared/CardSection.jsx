@@ -20,6 +20,10 @@ const CardSection = ({ item, db }) => {
 
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
+    if (!authService.currentUser) {
+      alert('로그인 후 이용해 주세요.');
+      return;
+    }
     // 현재 유저 문서 가져오기
     const userDoc = await getDoc(doc(db, 'user', uid));
     const userData = userDoc.data();
