@@ -74,11 +74,8 @@ export const SignUpEmailInput = styled.input`
 
   font-size: 1.2rem;
 
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-
-  border-bottom-color: #545454;
+  border: #545454 solid 1px;
+  padding: 13px;
   color: #ffffff;
 
   background: none;
