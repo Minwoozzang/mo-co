@@ -6,8 +6,9 @@ import { authService } from '../common/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import defaultImg from '../assets/Group 290.png';
+import defaultImg from '../assets/icon/user.png';
 import { useQueryClient } from 'react-query';
+import BookmarkImg from '../assets/icon/Icon_Scrap.png';
 
 const CardSection = ({ item, db }) => {
   const queryClient = useQueryClient();
@@ -87,10 +88,13 @@ const CardSection = ({ item, db }) => {
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
           <span>{item.bookmark}</span>
-          <BsBookmarkHeart
+
+          <img
+            src={BookmarkImg}
+            alt="bookmark"
             onClick={handleBookmark}
             cursor="pointer"
-            size="20px"
+            width="20px"
             color="white"
           />
         </Bookmark>
