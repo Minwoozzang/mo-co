@@ -9,8 +9,8 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { IoMdClose } from 'react-icons/io';
 import { authService, db } from '../../common/firebase';
+import cancel from '../../../src/assets/icon/Icon_cancel.png';
 
 const CustomConfirmUI = (props) => {
   // 본인 아이디
@@ -18,7 +18,7 @@ const CustomConfirmUI = (props) => {
   const myInfo = props.data;
   // 팀 ID
   const teamID = props.id;
-
+  console.log('myinfo', myInfo.profileImg);
   //  팀 멤버
   const member = props.item;
   const otherMember = member.filter((d) => d.uid !== myId);
@@ -79,11 +79,7 @@ const CustomConfirmUI = (props) => {
     <ConfirmBody>
       <ConfirmBox>
         <TitleBox>
-          {/* <ConfirmTitle>참여신청</ConfirmTitle> */}
-          <IoMdClose
-            onClick={props.onClose}
-            style={{ fontSize: '25px', marginRight: '10px', cursor: 'pointer' }}
-          />
+          <CancelImg src={cancel} onClick={props.onClose} />
         </TitleBox>
         <MessageBox>{props.data.joinMessage}</MessageBox>
         <TextBox>
@@ -114,13 +110,23 @@ const ConfirmBody = styled.div`
 `;
 
 const ConfirmBox = styled.div`
-  width: 350px;
-  height: 200px;
-  border-radius: 10px;
-  background-color: #fff;
+  width: 400px;
+  height: 480px;
+
+  background: #232323;
+  border-radius: 20px;
 
   position: relative;
   bottom: 80px;
+`;
+
+const CancelImg = styled.img`
+  width: 20px;
+  height: 20px;
+
+  margin-right: 15px;
+
+  cursor: pointer;
 `;
 
 const TitleBox = styled.div`
@@ -129,12 +135,6 @@ const TitleBox = styled.div`
   align-items: center;
 
   margin-top: 10px;
-`;
-
-const ConfirmTitle = styled.div`
-  font-size: 20px;
-
-  margin-right: 105px;
 `;
 
 const MessageBox = styled.div`

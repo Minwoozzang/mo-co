@@ -58,6 +58,10 @@ const MemberCancelConfirmUI = (props) => {
   return (
     <ConfirmBody>
       <ConfirmBox>
+        <ImageTitleBox>
+          <ImageBox></ImageBox>
+          <TitleBox></TitleBox>
+        </ImageTitleBox>
         <TextBox>
           <ConfirmText>
             {props.data.nickName} 님을 퇴장 시키시겠습니까?
@@ -87,14 +91,21 @@ const ConfirmBody = styled.div`
 `;
 
 const ConfirmBox = styled.div`
-  width: 350px;
-  height: 200px;
-  border-radius: 10px;
-  background-color: #fff;
+  width: 400px;
+  height: 480px;
+
+  background: #232323;
+  border-radius: 20px;
 
   position: relative;
   bottom: 80px;
 `;
+
+const ImageTitleBox = styled.div``;
+
+const ImageBox = styled.div``;
+
+const TitleBox = styled.div``;
 
 const TextBox = styled.div`
   display: flex;
@@ -112,7 +123,7 @@ const BtnBox = styled.div`
   margin-top: 60px;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 35px;
 `;
 const ConfirmCancelBtn = styled.button`
   font-size: 16px;

@@ -24,11 +24,9 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { v4 } from 'uuid';
 import SideMemberList from './SideMemberList';
 import WaitMemberList from './WaitMemberList';
-import { RiVipCrownFill } from 'react-icons/ri';
 
 export default function MemberSide({ teamLocationID }) {
   const [nickName, setNickName] = useState('');
-  const [profileImg, setProfileImg] = useState('');
 
   // 팀 리더 정보
   const [teamLeaderInfo, setTeamLeaderInfo] = useState([]);
