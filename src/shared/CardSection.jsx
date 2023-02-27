@@ -1,20 +1,30 @@
 import styled from '@emotion/styled';
-import { BsBookmarkHeart } from 'react-icons/bs';
-import { Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../common/firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import defaultImg from '../assets/icon/user.png';
 import { useQueryClient } from 'react-query';
 import BookmarkImg from '../assets/icon/Icon_Scrap.png';
 import BookmarkedImg from '../assets/icon/Icon_Scrap_active.png';
+import { useEffect, useState } from 'react';
 
 const CardSection = ({ item, db, userBookmark, uid }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const bookmark = item.bookmark;
+  const [partyNum, setPartyNum] = useState(0);
+  console.log(
+    '🚀 ~ file: CardSection.jsx:24 ~ CardSection ~ partyNum:',
+    partyNum,
+  );
 
   // HTML을 plain text로 변환
   const parsedHtml = item.partyDesc?.replace(/(<([^>]+)>)/gi, '');
@@ -66,6 +76,18 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
       }
     }
   };
+
+  const getPartyNum = async () => {
+    const userDoc = await getDoc(doc(db, 'teamPage', item.teamID));
+    const teamDoc = userDoc.data();
+    setPartyNum(
+      userDoc.data().teamMember.filter((item) => item.isWait === false).length,
+    );
+  };
+
+  useEffect(() => {
+    getPartyNum();
+  }, []);
 
   return (
     <PostCard>
@@ -120,7 +142,7 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
           ) : (
             <span style={{ color: 'white' }}>모집완료</span>
           )}
-          <HeadCount>{`: 1 / ${item.partyNum}`}</HeadCount>
+          <HeadCount>{`: ${partyNum + 1} / ${item.partyNum}`}</HeadCount>
         </HeadCountBox>
       </PartyStatusBox>
 
