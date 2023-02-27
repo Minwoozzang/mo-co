@@ -57,8 +57,6 @@ export const EmailBody = styled.div`
 `;
 
 export const EmailText = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 17px;
@@ -88,8 +86,6 @@ export const SignUpEmailInput = styled.input`
 `;
 
 export const PasswordText = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 17px;
@@ -134,8 +130,6 @@ export const CheckPasswordBody = styled.div`
 `;
 
 export const CheckPasswordText = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 17px;
@@ -250,7 +244,7 @@ export const SignUpBtn = styled.div`
 
   font-weight: 600;
 
-  margin-left: 100px;
+  margin: 65px 0 0 100px;
 
   display: flex;
   justify-content: center;

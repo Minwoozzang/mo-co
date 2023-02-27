@@ -175,6 +175,9 @@ const SignUp = () => {
             </EmailBody>
             <PasswordBody>
               <PasswordText>비밀번호</PasswordText>
+              <SignUpComment>
+                영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+              </SignUpComment>
               <SignUpPasswordInput
                 type="password"
                 value={password}
@@ -195,6 +198,9 @@ const SignUp = () => {
             </CheckPasswordBody>
             <NickNameBody>
               <NickNameText>닉네임</NickNameText>
+              <SignUpComment>
+                다른 유저와 겹치지 않도록 입력해주세요.(2~8자)
+              </SignUpComment>
               <SignUpNickNameInput
                 type="text"
                 value={nickName}
