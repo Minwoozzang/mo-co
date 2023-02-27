@@ -11,7 +11,7 @@ import {
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { db } from '../../../../common/firebase';
 
-const HomeNewMeetingList = ({ data }) => {
+const HomeNewMeetingList = ({ data, uid, userBookmark }) => {
   return (
     <NewMeetingArea>
       <NewMeetingListBox>
@@ -27,7 +27,13 @@ const HomeNewMeetingList = ({ data }) => {
               ? data
                   .slice(0, 4)
                   .map((item) => (
-                    <CardSection key={item.id} item={item} db={db} />
+                    <CardSection
+                      key={item.id}
+                      item={item}
+                      db={db}
+                      uid={uid}
+                      userBookmark={userBookmark}
+                    />
                   ))
               : []}
           </NewMeetingCardBox>
