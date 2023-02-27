@@ -10,6 +10,7 @@ import { authService, db } from '../../common/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { Checkbox } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { stacks } from '../../data/stacks';
 
 export default function OnboardingPage() {
   const [isRemote, setIsRemote] = useState(false);
@@ -21,21 +22,6 @@ export default function OnboardingPage() {
   const [currentUserName, setCurrentUserName] = useState('');
   // 네비게이트
   const navigate = useNavigate();
-  
-  const stacks = [
-    'JavsScript',
-    'Python',
-    'Java',
-    'Go',
-    'Typescript',
-    'Node.js',
-    'Spring',
-    'Rust',
-    'Next.js',
-    'Svelt',
-    'Vue',
-    'React',
-  ];
 
   // 기술 스택 선택 핸들러 함수
   const handleStack = (stack) => {
@@ -51,7 +37,6 @@ export default function OnboardingPage() {
     setIsRemote(!isRemote);
     setIsDisabled(!isDisabled);
   };
-
 
   const updateIntroduce = async () => {
     const auth = getAuth();

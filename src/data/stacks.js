@@ -1,5 +1,5 @@
 export const stacks = [
-  'JavsScript',
+  'Javascript',
   'Python',
   'Java',
   'Go',
