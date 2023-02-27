@@ -15,7 +15,7 @@ import {
 } from 'firebase/firestore';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import usePosts from '../../hooks/usePost';
-import defaultImg from '../../assets/Group 290.png';
+import defaultImg from '../../assets/icon/user.png';
 
 const MateDetail = () => {
   const { id } = useParams();

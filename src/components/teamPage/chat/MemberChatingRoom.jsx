@@ -147,15 +147,29 @@ const ContentTitle = styled.div`
 const ContentChatAreaBox = styled.div`
   background-color: white;
   border-radius: 20px;
-
   margin-top: 25px;
+  overflow-y: scroll;
+  /* 스크롤바 숨기기 */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  border-bottom: 1px solid black;
+  padding: 10px;
 `;
 
 const ContentChatArea = styled.div`
-  width: 345px;
-  height: 550px;
-  overflow-x: hidden;
+  width: 100%;
+  height: 480px;
   overflow-y: scroll;
+  /* 스크롤바 숨기기 */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  border-bottom: 1px solid black;
 `;
 
 const ChatFormSection = styled.div`

@@ -95,6 +95,10 @@ const DetailRecruit = () => {
   };
 
   const handleModalOpen = () => {
+    if (!authService.currentUser) {
+      alert('로그인 후 이용해주세요');
+      return;
+    }
     setIsModalOpen(true);
     getTeamID();
   };
@@ -163,7 +167,10 @@ const DetailRecruit = () => {
 
   useEffect(() => {
     getPost();
-    GetMyProfileImg();
+    if (authService.currentUser) {
+      GetMyProfileImg();
+    }
+    // GetMyProfileImg();
   }, []);
 
   return (
