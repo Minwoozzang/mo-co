@@ -31,6 +31,7 @@ import {
   SearchBox,
 } from './style';
 import { AiOutlineSearch } from 'react-icons/ai';
+import Search from '../../assets/icon/Icon_Search.png';
 import { ImCancelCircle } from 'react-icons/im';
 import defaultImg from '../../../src/assets/icon/user.png';
 
@@ -168,10 +169,7 @@ const Header = () => {
               <>
                 {isSearchUserDropDown ? (
                   <NavigateMypage>
-                    <AiOutlineSearch
-                      color="white"
-                      style={{ fontSize: '30px' }}
-                    />
+                    <img src={Search} alt="search" style={{ width: '20px' }} />
                   </NavigateMypage>
                 ) : (
                   ''
@@ -189,9 +187,10 @@ const Header = () => {
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
                     <HeaderSearchBox>
-                      <AiOutlineSearch
-                        color="white"
-                        style={{ fontSize: '30px' }}
+                      <img
+                        src={Search}
+                        alt="search"
+                        style={{ width: '20px' }}
                       />
                       <HeaderSearchInput
                         onChange={onChangeSearch}
@@ -207,7 +206,7 @@ const Header = () => {
               </>
             ) : (
               <NavigateMypage>
-                <AiOutlineSearch color="white" style={{ fontSize: '30px' }} />
+                <img src={Search} alt="search" style={{ width: '20px' }} />
               </NavigateMypage>
             )}
           </div>
@@ -220,8 +219,12 @@ const Header = () => {
                     <NavigateMypage>
                       <img
                         src={defaultImg}
-                        alt=""
-                        style={{ fontSize: '40px' }}
+                        alt="user"
+                        style={{
+                          fontSize: '40px',
+                          width: '40px',
+                          height: '40px',
+                        }}
                       />
                     </NavigateMypage>
                   ) : (
@@ -231,7 +234,11 @@ const Header = () => {
                     <HeaderImageBox>
                       <HeaderImage
                         src={profileUserInfo[0]?.profileImg ?? defaultImg}
-                        alt=""
+                        alt="user"
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                        }}
                       />
                       <HeaderImageText>
                         안녕하세요, {headerNickName ?? '익명'}님🥰
@@ -249,7 +256,11 @@ const Header = () => {
                 </>
               ) : (
                 <NavigateMypage>
-                  <img src={defaultImg} alt="" style={{ fontSize: '40px' }} />
+                  <img
+                    src={defaultImg}
+                    alt="user"
+                    style={{ fontSize: '40px', width: '40px', height: '40px' }}
+                  />
                 </NavigateMypage>
               )}
             </div>
