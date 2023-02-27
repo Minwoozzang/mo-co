@@ -13,7 +13,7 @@ import {
   UserHr,
 } from './MateDetailWritingstyle';
 import parse from 'html-react-parser';
-import defaultImg from '../../../assets/Group 290.png';
+import defaultImg from '../../../assets/icon/Group 290.png';
 
 // getDoc 사용 doc
 const MateDetailWriting = () => {

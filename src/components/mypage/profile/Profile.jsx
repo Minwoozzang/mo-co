@@ -37,7 +37,7 @@ import {
   where,
 } from '@firebase/firestore';
 import { useNavigate } from 'react-router';
-import defaultImg from '../../../../src/assets/Group 290.png';
+import defaultImg from '../../../../src/assets/icon/user.png';
 
 const Profile = () => {
   // 네이게이트

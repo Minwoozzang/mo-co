@@ -32,7 +32,7 @@ import {
 } from './style';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { ImCancelCircle } from 'react-icons/im';
-import defaultImg from '../../../src/assets/Group 290.png';
+import defaultImg from '../../../src/assets/icon/user.png';
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -181,7 +181,10 @@ const Header = () => {
                     <HeaderSearchXbutton
                       onClick={() => setSearchdropDownClick(false)}
                     >
-                      <ImCancelCircle color='white' style={{ fontSize: '20px' }} />
+                      <ImCancelCircle
+                        color="white"
+                        style={{ fontSize: '20px' }}
+                      />
                     </HeaderSearchXbutton>
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
