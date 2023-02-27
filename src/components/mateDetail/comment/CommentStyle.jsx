@@ -72,7 +72,7 @@ export const CommentTextIcon = styled.div`
 
 export const CommentIconBody = styled.div`
   width: 25%;
-  margin-left: 45%;
+  margin-left: 69%;
 `;
 
 export const UpdateDeleteBody = styled.div`
@@ -124,6 +124,6 @@ export const CommentDate = styled.p`
 export const UserHr = styled.hr`
   margin: 35px 40px 0px 0px;
   border: 1;
-  width: 710px;
+  width: 920px;
   border-top: 1px solid #3b3b3b;
 `;

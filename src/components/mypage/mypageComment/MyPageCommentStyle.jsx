@@ -28,7 +28,7 @@ export const MyCommentsBox = styled.div`
   height: 80px;
 
   border-bottom: 1px solid white;
-
+  margin-bottom: 20px;
   padding: 10px;
 
   cursor: pointer;
