@@ -5,7 +5,7 @@ import HomeBanner from '../../components/home/HomeBanner';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
 import { authService, db } from '../../common/firebase';
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import MocoChat from '../../components/mocoChat/MocoChatIcon';
 import { Modal } from 'antd';
 import AddInfoModal from '../../components/home/AddInfoModal';
@@ -20,6 +20,26 @@ const Home = () => {
   const [init, setInit] = useState(false);
   // 처음에는 false이고 나중에 사용자 존재 판명이 모두 끝났을 때 true를 통해 해당 화면을 render
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [uid, setUid] = useState('');
+  const [userBookmark, setUserBookmark] = useState([]);
+
+  // 내 정보 가져오기
+  const getUserBookmark = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setUserBookmark(newInfo[0]?.bookmarks);
+    });
+
+    return unsubscribe;
+  };
+
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       // user 판명을 듣고
@@ -30,15 +50,15 @@ const Home = () => {
         setIsLoggedIn(false); // 로그인 안됨
       }
       setInit(true); // user 판명 끝
+      const uid = user.uid;
+      setUid(uid);
+      getUserBookmark();
     });
   }, []);
 
   const { data, isLoading, isError, error } = usePosts();
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
-  const creationTime = currentUser?.metadata.creationTime;
-  const lastSignInTime = currentUser?.metadata.lastSignInTime;
-
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   //* 신규 유저 여부 상태
@@ -48,14 +68,25 @@ const Home = () => {
 
   // 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
-    if (currentUser && isClosed === false) {
+    if (
+      currentUser &&
+      localStorage.getItem(`${currentUser.uid}`) !== 'true' &&
+      !isClosed
+    ) {
       setIsModalOpen(true);
       SetIsClosed(true);
+    } else if (
+      localStorage.getItem(`${currentUser.uid}`) === 'true' &&
+      currentUser &&
+      isClosed === false
+    ) {
+      return;
     }
   };
 
   // 모달 닫기 핸들러
   const handleModalClose = () => {
+    localStorage.setItem(`${currentUser.uid}`, true);
     setIsModalOpen(false);
   };
 
@@ -113,7 +144,9 @@ const Home = () => {
       }));
       setUserList(userData);
     });
-    handleModalOpen();
+    if (currentUser) {
+      handleModalOpen();
+    }
     return getUser;
   }, []);
 
@@ -125,25 +158,39 @@ const Home = () => {
         {init ? (
           <>
             <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
-            <CustomMeeting isLoggedIn={isLoggedIn} customList={customList} />
+            <CustomMeeting
+              isLoggedIn={isLoggedIn}
+              customList={customList}
+              uid={uid}
+              userBookmark={userBookmark}
+            />
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
               recommendTechList={recommendTechList}
               recommendTimeList={recommendTimeList}
               recommendLocationList={recommendLocationList}
+              uid={uid}
+              userBookmark={userBookmark}
             />
           </>
         ) : (
           <>...</>
         )}
         <CoverBackground>
-          <HomeNewMeetingList data={data} />
+          <HomeNewMeetingList
+            data={data}
+            uid={uid}
+            userBookmark={userBookmark}
+          />
           <HomeAllBtn />
         </CoverBackground>
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
-        <AddInfoModal handleModalClose={handleModalClose} />
+        <AddInfoModal
+          currentUser={currentUser}
+          handleModalClose={handleModalClose}
+        />
       </Modal>
     </FullScreen>
   );
