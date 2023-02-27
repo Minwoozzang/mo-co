@@ -140,6 +140,7 @@ export default function MemberSide({ teamLocationID }) {
                   </MemberInfoProfile>
                 );
               })}
+            {/* 팀원 */}
             {teamMemberInfo
               .filter((item) => item.id === teamLocationID)
               .map((item) => {

@@ -18,7 +18,7 @@ export const MyCommetTitle = styled.div`
   margin-right: 70px;
 `;
 export const MyCommentList = styled.div`
-  margin-bottom: 25px;
+  /* margin-bottom: 25px; */
 `;
 
 // MyComment 부분

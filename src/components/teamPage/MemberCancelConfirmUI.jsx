@@ -9,13 +9,11 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { IoMdClose } from 'react-icons/io';
 import { authService, db } from '../../common/firebase';
 
-const CustomConfirmUI = (props) => {
+const MemberCancelConfirmUI = (props) => {
   // 본인 아이디
   const myId = props.data.uid;
-  const myInfo = props.data;
   // 팀 ID
   const teamID = props.id;
 
@@ -46,25 +44,6 @@ const CustomConfirmUI = (props) => {
     });
   }, []);
 
-  // 수락할 경우
-  const updateIsWait = () => {
-    updateDoc(doc(db, 'teamPage', props.id), {
-      teamMember: [
-        ...otherMember,
-        {
-          isWait: false,
-          joinMessage: myInfo.joinMessage,
-          nickName: myInfo.nickName,
-          profileImg: myInfo.profileImg,
-          teamPositon: myInfo.teamPositon,
-          uid: myInfo.uid,
-        },
-      ],
-    });
-
-    props.onClose();
-  };
-
   // 거절할 경우
   async function rejectSuggestion(uid) {
     await updateDoc(doc(db, 'user', uid), {
@@ -75,33 +54,27 @@ const CustomConfirmUI = (props) => {
     });
     props.onClose();
   }
+
   return (
     <ConfirmBody>
       <ConfirmBox>
-        <TitleBox>
-          {/* <ConfirmTitle>참여신청</ConfirmTitle> */}
-          <IoMdClose
-            onClick={props.onClose}
-            style={{ fontSize: '25px', marginRight: '10px', cursor: 'pointer' }}
-          />
-        </TitleBox>
-        <MessageBox>{props.data.joinMessage}</MessageBox>
         <TextBox>
           <ConfirmText>
-            {props.data.nickName} 님을 수락하시겠습니까?
+            {props.data.nickName} 님을 퇴장 시키시겠습니까?
           </ConfirmText>
         </TextBox>
         <BtnBox>
-          <ConfirmCancelBtn onClick={() => rejectSuggestion(props.data.uid)}>
-            거절
-          </ConfirmCancelBtn>
-          <ConfirmDeleteBtn onClick={updateIsWait}>수락</ConfirmDeleteBtn>
+          <ConfirmCancelBtn onClick={props.onClose}>취소</ConfirmCancelBtn>
+          <ConfirmDeleteBtn onClick={() => rejectSuggestion(props.data.uid)}>
+            퇴장
+          </ConfirmDeleteBtn>
         </BtnBox>
       </ConfirmBox>
     </ConfirmBody>
   );
 };
-export default CustomConfirmUI;
+
+export default MemberCancelConfirmUI;
 
 const ConfirmBody = styled.div`
   display: flex;
@@ -123,34 +96,11 @@ const ConfirmBox = styled.div`
   bottom: 80px;
 `;
 
-const TitleBox = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  margin-top: 10px;
-`;
-
-const ConfirmTitle = styled.div`
-  font-size: 20px;
-
-  margin-right: 105px;
-`;
-
-const MessageBox = styled.div`
-  width: 100%;
-  text-align: center;
-
-  font-size: 23px;
-
-  margin-top: 20px;
-`;
-
 const TextBox = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 35px;
+  margin-top: 45px;
 `;
 
 const ConfirmText = styled.p`
@@ -159,7 +109,7 @@ const ConfirmText = styled.p`
 `;
 
 const BtnBox = styled.div`
-  margin-top: 20px;
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   gap: 15px;

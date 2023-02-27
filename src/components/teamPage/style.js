@@ -176,6 +176,13 @@ export const LeaderName = styled.div`
 export const LeaderPosition = styled.div``;
 export const MemberList = styled.div``;
 
+export const MemberCancel = styled.img`
+  width: 15px;
+  height: 15px;
+
+  cursor: pointer;
+`;
+
 // 대기멤버
 export const WaitMember = styled.div`
   margin-top: 250px;
