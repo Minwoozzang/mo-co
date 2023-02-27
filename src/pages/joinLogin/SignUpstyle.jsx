@@ -239,8 +239,6 @@ export const SignUpLouteBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  gap: 40px;
 `;
 
 export const SignUpBtn = styled.div`
@@ -279,4 +277,10 @@ export const LouteSignUpPageBtn = styled.div`
   color: #9d9d9d;
 
   cursor: pointer;
+`;
+
+export const SignUpComment = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+  color: #858585;
 `;

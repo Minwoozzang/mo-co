@@ -23,6 +23,7 @@ import {
   CheckPasswordBody,
   CheckPasswordText,
   CheckSignUpPasswordInput,
+  SignUpComment,
 } from './SignUpstyle';
 import { CiFaceSmile } from 'react-icons/ci';
 import { emailRegex, pwRegex } from '../../common/utils';
@@ -209,11 +210,12 @@ const SignUp = () => {
           <WarnigText>{warningText}</WarnigText>
         </WarnigTextBody>
         <SignUpBtn onClick={handleSignUp} disabled={loding}>
-          회원가입
+          회원가입하기
         </SignUpBtn>
         <SignUpLouteBody>
+          <SignUpComment>이미 아이디가 있으신가요?</SignUpComment>
           <LouteSignUpPageBtn onClick={navigationLoginPage}>
-            로그인 화면으로
+            로그인
           </LouteSignUpPageBtn>
         </SignUpLouteBody>
       </SignUpForm>
