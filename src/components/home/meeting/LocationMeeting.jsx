@@ -18,7 +18,7 @@ import { useQueries } from 'react-query';
 import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 
-const LocationMeeting = ({ recommendLocationList }) => {
+const LocationMeeting = ({ recommendLocationList, uid, userBookmark }) => {
   const titlestring1 = '{=';
   const titlestring2 = ';';
   const titlestring3 = '} * --- />';
@@ -37,13 +37,7 @@ const LocationMeeting = ({ recommendLocationList }) => {
         <LocationMeetingInnerSection2>
           <LocationMeetingInnerBox />
           <LocationMeetingCardBox>
-            {recommendLocationList.length === 0 ? (
-              <NonRecommendText2>
-                추천 모임이 없습니다.
-                <br />
-                추가 정보를 등록 or 수정해주세요!
-              </NonRecommendText2>
-            ) : (
+            {recommendLocationList?.length > 0 &&
               recommendLocationList
                 .slice(0, 3)
                 .map((item, idx) => (
@@ -51,9 +45,10 @@ const LocationMeeting = ({ recommendLocationList }) => {
                     key={`지역이 맞는 모임 ${idx}`}
                     item={item}
                     db={db}
+                    uid={uid}
+                    userBookmark={userBookmark}
                   />
-                ))
-            )}
+                ))}
           </LocationMeetingCardBox>
         </LocationMeetingInnerSection2>
       </LocationMeetingArea>

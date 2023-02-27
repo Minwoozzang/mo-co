@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
-const AddInfoModal = ({ handleModalClose }) => {
+const AddInfoModal = ({ handleModalClose, currentUser }) => {
   const navigate = useNavigate();
   return (
     <InfoModal>
@@ -20,7 +20,12 @@ const AddInfoModal = ({ handleModalClose }) => {
         1. 미등록시, 맞춤 모임 추천을 받을 수 없습니다.<br></br>
         2. 마이페이지에서 추가 정보를 등록할 수도 있습니다.
       </InfoModalGuide>
-      <InfoModalBtn onClick={() => navigate('/onboarding')}>
+      <InfoModalBtn
+        onClick={() => {
+          localStorage.setItem(`${currentUser.uid}`, true);
+          navigate('/onboarding');
+        }}
+      >
         추가 정보 등록
       </InfoModalBtn>
     </InfoModal>

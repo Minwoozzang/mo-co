@@ -13,7 +13,12 @@ import { getPost, getUser } from '../../../common/utils/getApi';
 import { useEffect, useState } from 'react';
 import { db } from '../../../common/firebase';
 
-const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
+const TechStackMeeting = ({
+  isLoggedIn,
+  recommendTechList,
+  uid,
+  userBookmark,
+}) => {
   // const [recommendTechList, setRecommendTechList] = useState([]);
   // const result = useQueries([
   //   {
@@ -62,7 +67,15 @@ const TechStackMeeting = ({ isLoggedIn, recommendTechList }) => {
         ) : (
           recommendTechList
             .slice(0, 4)
-            .map((item, idx) => <CardSection key={idx} item={item} db={db} />)
+            .map((item, idx) => (
+              <CardSection
+                key={idx}
+                item={item}
+                db={db}
+                uid={uid}
+                userBookmark={userBookmark}
+              />
+            ))
         )}
       </MeetingCardBox>
     </TechStackMeetingArea>

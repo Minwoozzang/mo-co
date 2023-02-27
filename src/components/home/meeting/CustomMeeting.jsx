@@ -1,21 +1,28 @@
-import styled from "@emotion/styled";
-import CardSection from "../../../shared/CardSection";
-import CustomBlurList from "../../nonLogin/CustomBlurList";
+import styled from '@emotion/styled';
+import CardSection from '../../../shared/CardSection';
+import CustomBlurList from '../../nonLogin/CustomBlurList';
 
-const CustomMeeting = ({ isLoggedIn, customList }) => {
+const CustomMeeting = ({ isLoggedIn, customList, uid, userBookmark }) => {
   return (
     <CustomListContainer>
       <CustomListCardBox>
         {isLoggedIn ? (
-            customList.length === 0 ? (
-                <NonCustomList>맞춤 정보에 해당하는 모임이 없습니다.</NonCustomList>
-              ) : (
-                customList
-                  .slice(0, 3)
-                  .map((item, idx) => <CardSection key={idx} item={item} />)
-              )
+          customList.length === 0 ? (
+            <NonCustomList>맞춤 정보에 해당하는 모임이 없습니다.</NonCustomList>
+          ) : (
+            customList
+              .slice(0, 3)
+              .map((item, idx) => (
+                <CardSection
+                  key={idx}
+                  item={item}
+                  uid={uid}
+                  userBookmark={userBookmark}
+                />
+              ))
+          )
         ) : (
-            <CustomBlurList />
+          <CustomBlurList />
         )}
       </CustomListCardBox>
     </CustomListContainer>
