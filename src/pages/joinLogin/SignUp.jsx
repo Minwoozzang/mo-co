@@ -176,7 +176,7 @@ const SignUp = () => {
             <PasswordBody>
               <PasswordText>비밀번호</PasswordText>
               <SignUpComment>
-                영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.
+                영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요
               </SignUpComment>
               <SignUpPasswordInput
                 type="password"
