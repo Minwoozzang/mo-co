@@ -74,8 +74,10 @@ const DetailRecruit = () => {
     isBtnDisabled = true;
   }
 
-  // 프로필 이미지 받아오기
+  // 프로필 이미지, 팀 ID 받아오기
   const [myProfileImg, setMyProfileImg] = useState([]);
+  const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
+
   const GetMyProfileImg = () => {
     const q = query(
       collection(db, 'user'),
@@ -87,6 +89,7 @@ const DetailRecruit = () => {
         ...doc.data(),
       }));
       setMyProfileImg(newInfo[0]?.profileImg);
+      setTeamIDUserInfo(newInfo[0]?.teamID);
     });
     return unsubscribe;
   };
@@ -124,7 +127,7 @@ const DetailRecruit = () => {
     })
       .then(() => {
         updateDoc(doc(db, 'user', authService.currentUser.uid), {
-          teamID: post.teamID,
+          teamID: [...teamIDUserInfo, post.teamID],
         });
       })
       .catch(() => {

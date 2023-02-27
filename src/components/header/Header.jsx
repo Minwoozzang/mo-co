@@ -69,7 +69,6 @@ const Header = () => {
     });
     return unsubscribe;
   };
-
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
@@ -181,7 +180,10 @@ const Header = () => {
                     <HeaderSearchXbutton
                       onClick={() => setSearchdropDownClick(false)}
                     >
-                      <ImCancelCircle color='white' style={{ fontSize: '20px' }} />
+                      <ImCancelCircle
+                        color="white"
+                        style={{ fontSize: '20px' }}
+                      />
                     </HeaderSearchXbutton>
                   </HeaderSearchXbuttonBox>
                   <HeaderSearchDropDownListSection>
@@ -235,7 +237,7 @@ const Header = () => {
                         alt=""
                       />
                       <HeaderImageText>
-                        안녕하세요, {headerNickName ?? '익명'}님🥰
+                        {/* 안녕하세요, {headerNickName ?? '익명'}님🥰 */}
                       </HeaderImageText>
                     </HeaderImageBox>
                     <HeaderDropDownListSection>

@@ -21,7 +21,7 @@ export default function OnboardingPage() {
   const [currentUserName, setCurrentUserName] = useState('');
   // 네비게이트
   const navigate = useNavigate();
-  
+
   const stacks = [
     'JavsScript',
     'Python',
@@ -52,7 +52,6 @@ export default function OnboardingPage() {
     setIsDisabled(!isDisabled);
   };
 
-
   const updateIntroduce = async () => {
     const auth = getAuth();
     const user = auth.currentUser.uid;
@@ -82,7 +81,6 @@ export default function OnboardingPage() {
         const auth2 = getAuth();
         const getUserName = async () => {
           setCurrentUserName(auth2.currentUser.displayName);
-          console.log('user', currentUserName);
         };
         getUserName();
       }
