@@ -20,7 +20,7 @@ const TeamList = () => {
   let myAppliedMeeting = [];
   const myApplyMeeting = teamPage.forEach((item) => {
     item.teamMember.forEach((member) => {
-      if (member.nickName === authService?.currentUser?.displayName) {
+      if (member.uid === authService?.currentUser?.uid) {
         myAppliedMeeting.push(item);
         return false;
       }
@@ -34,17 +34,17 @@ const TeamList = () => {
     item.teamMember.forEach((member) => {
       if (
         member.isWait === false &&
-        member.nickName === authService?.currentUser?.displayName
+        member.uid === authService?.currentUser?.uid
       ) {
         myApprovedMeeting.push(item);
         return false;
       }
     });
   });
-
+  console.log(myApprovedMeeting)
   // 자신이 개설한 팀 데이터(리더)
   const myOnGoingMeeting = teamPage?.filter((item) =>
-    item.teamLeader?.nickName?.includes(authService?.currentUser?.displayName),
+    item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
   );
 
   // 진행 중 모임

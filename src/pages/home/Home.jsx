@@ -72,7 +72,7 @@ const Home = () => {
           ),
       )
     : [];
-
+  
   const recommendTimeList = data
     ? data.filter(
         (item) =>
@@ -88,7 +88,7 @@ const Home = () => {
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
-
+  console.log(recommendLocationList.length)
   //postList -> 로그인 안 됐을 시 안보이게
   useEffect(() => {
     const userCollectionRef = collection(db, 'user');

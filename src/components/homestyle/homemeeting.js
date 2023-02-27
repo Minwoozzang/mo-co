@@ -217,3 +217,33 @@ export const LocationMeetingCardBox = styled.div`
     display: flex;
     gap: 0 20px;
 `
+// 추천모임 없을 때 (기술스택)
+export const NonRecommendText1 = styled.div`
+    width: 572px;
+    height: 652px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 30px;
+    background-color: #232323;
+    box-shadow: 2px 4px 8px #545454;
+`
+// 추천모임 없을 때 (시간, 장소)
+export const NonRecommendText2 = styled.div`
+    height: 320px;
+    width: 880px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 20px;
+    background-color: #232323;
+    box-shadow: 2px 4px 8px #545454;
+`
