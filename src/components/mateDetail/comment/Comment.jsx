@@ -93,6 +93,46 @@ const Comment = ({ user }) => {
               }}
               onClick={() => ToggleDropDown(user.userId)}
             />
+            <CommentTextIcon>
+              {toggleBtn ? (
+                <>
+                  {areYouUser ? (
+                    <UpdateDeleteBody>
+                      {!editBox ? (
+                        <CommentUpdateBtn
+                          onClick={() => {
+                            editHandler(user.comment);
+                          }}
+                        >
+                          수정
+                        </CommentUpdateBtn>
+                      ) : (
+                        <CommentUpdateBtn
+                          onClick={() =>
+                            completeHandler(user, editValue, user.uid)
+                          }
+                        >
+                          수정완료
+                        </CommentUpdateBtn>
+                      )}
+
+                      <CommentDeleteBtn
+                        onClick={() => {
+                          deleteHandler(user.id);
+                        }}
+                        user={user}
+                      >
+                        삭제
+                      </CommentDeleteBtn>
+                    </UpdateDeleteBody>
+                  ) : (
+                    <UpdateDeleteBody></UpdateDeleteBody>
+                  )}
+                </>
+              ) : (
+                <NoneDiv></NoneDiv>
+              )}
+            </CommentTextIcon>
           </CommentIconBody>
           {!editBox ? (
             <CommentText>{user.comment}</CommentText>
@@ -103,46 +143,7 @@ const Comment = ({ user }) => {
               onChange={(e) => handleChange(e)}
             />
           )}
-          <CommentTextIcon>
-            {toggleBtn ? (
-              <>
-                {areYouUser ? (
-                  <UpdateDeleteBody>
-                    {!editBox ? (
-                      <CommentUpdateBtn
-                        onClick={() => {
-                          editHandler(user.comment);
-                        }}
-                      >
-                        수정
-                      </CommentUpdateBtn>
-                    ) : (
-                      <CommentUpdateBtn
-                        onClick={() =>
-                          completeHandler(user, editValue, user.uid)
-                        }
-                      >
-                        수정완료
-                      </CommentUpdateBtn>
-                    )}
 
-                    <CommentDeleteBtn
-                      onClick={() => {
-                        deleteHandler(user.id);
-                      }}
-                      user={user}
-                    >
-                      삭제
-                    </CommentDeleteBtn>
-                  </UpdateDeleteBody>
-                ) : (
-                  <UpdateDeleteBody></UpdateDeleteBody>
-                )}
-              </>
-            ) : (
-              <NoneDiv></NoneDiv>
-            )}
-          </CommentTextIcon>
           <CommentDate>{user.date}</CommentDate>
         </ListTextSection>
       </ListContainer>

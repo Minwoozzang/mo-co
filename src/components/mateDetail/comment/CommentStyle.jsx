@@ -77,15 +77,15 @@ export const CommentIconBody = styled.div`
 
 export const UpdateDeleteBody = styled.div`
   width: 50%;
-  margin-right: 25%;
+  margin-left: 275px;
 `;
 
 export const CommentDeleteBtn = styled.button`
   width: 80px;
   height: 30px;
-  background-color: #fff;
-  border: 2px solid #ddd;
-  color: #222222;
+  background-color: #3b3b3b;
+  border: 2px solid #3b3b3b;
+  color: #fff;
   border-radius: 5px;
   font-size: 0.9rem;
   font-weight: 600;
