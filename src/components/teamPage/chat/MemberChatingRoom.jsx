@@ -131,7 +131,7 @@ const MemberChatingRoom = ({ teamLocationID }) => {
 export default MemberChatingRoom;
 
 const ContentChatContainer = styled.div`
-  width: 700px;
+  width: 650px;
   height: 100%;
   padding: 30px;
   background-color: white;
