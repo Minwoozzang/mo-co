@@ -28,7 +28,7 @@ export const MyCommentsBox = styled.div`
   height: 80px;
 
   border-bottom: 1px solid white;
-
+  margin-bottom: 20px;
   padding: 10px;
 
   cursor: pointer;
@@ -45,13 +45,10 @@ export const MyCommentOfComment = styled.div`
 `;
 
 export const MyCommentDate = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1.5rem;
+  font-weight: 500;
+  font-size: 15px;
   line-height: 22px;
 
-  color: #ffffff;
-
-  margin-top: 15px;
+  color: #b6b6b6;
+  margin: 4px 0 10px 0;
 `;

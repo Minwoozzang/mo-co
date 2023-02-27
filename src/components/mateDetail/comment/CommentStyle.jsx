@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const CommentContainer = styled.div`
-  margin: 80px 800px 0 350px;
+  margin: 80px 800px 0 420px;
 `;
 
 export const ListContainer = styled.div``;
@@ -29,7 +29,8 @@ export const ListTextSection = styled.div`
   width: 100%;
   height: 70%;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: center;
   @media screen and (max-width: 900px) {
     width: 350px;
@@ -40,10 +41,12 @@ export const ListTextSection = styled.div`
 `;
 
 export const CommentText = styled.p`
+  width: 100%;
   font-size: 1rem;
   font-weight: 400;
   margin-left: 1%;
   color: #fff;
+  margin: 16px 0 16px 0;
 `;
 
 export const CommentUserInput = styled.input`
@@ -60,7 +63,6 @@ export const CommentUserInput = styled.input`
 `;
 
 export const CommentTextIcon = styled.div`
-  width: 7%;
   font-size: 1.4rem;
   display: flex;
   justify-content: space-between;
@@ -70,20 +72,20 @@ export const CommentTextIcon = styled.div`
 
 export const CommentIconBody = styled.div`
   width: 25%;
-  margin-right: 15%;
+  margin-left: 69%;
 `;
 
 export const UpdateDeleteBody = styled.div`
   width: 50%;
-  margin-right: 25%;
+  margin-left: 275px;
 `;
 
 export const CommentDeleteBtn = styled.button`
   width: 80px;
   height: 30px;
-  background-color: #fff;
-  border: 2px solid #ddd;
-  color: #222222;
+  background-color: #3b3b3b;
+  border: 2px solid #3b3b3b;
+  color: #fff;
   border-radius: 5px;
   font-size: 0.9rem;
   font-weight: 600;
@@ -120,8 +122,8 @@ export const CommentDate = styled.p`
 `;
 
 export const UserHr = styled.hr`
-  margin: 35px 40px 0px 40px;
+  margin: 35px 40px 0px 0px;
   border: 1;
-  width: 100%;
+  width: 920px;
   border-top: 1px solid #3b3b3b;
 `;

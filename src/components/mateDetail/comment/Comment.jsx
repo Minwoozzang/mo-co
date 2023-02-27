@@ -85,6 +85,55 @@ const Comment = ({ user }) => {
             src={!user.userImg ? default_profile : user.userImg}
           ></CommentProfileImage>
           <CommentUserName>{user.userName}</CommentUserName>
+          <CommentIconBody>
+            <GrMoreVertical
+              style={{
+                color: '#858585',
+                width: '550px',
+              }}
+              onClick={() => ToggleDropDown(user.userId)}
+            />
+            <CommentTextIcon>
+              {toggleBtn ? (
+                <>
+                  {areYouUser ? (
+                    <UpdateDeleteBody>
+                      {!editBox ? (
+                        <CommentUpdateBtn
+                          onClick={() => {
+                            editHandler(user.comment);
+                          }}
+                        >
+                          수정
+                        </CommentUpdateBtn>
+                      ) : (
+                        <CommentUpdateBtn
+                          onClick={() =>
+                            completeHandler(user, editValue, user.uid)
+                          }
+                        >
+                          수정완료
+                        </CommentUpdateBtn>
+                      )}
+
+                      <CommentDeleteBtn
+                        onClick={() => {
+                          deleteHandler(user.id);
+                        }}
+                        user={user}
+                      >
+                        삭제
+                      </CommentDeleteBtn>
+                    </UpdateDeleteBody>
+                  ) : (
+                    <UpdateDeleteBody></UpdateDeleteBody>
+                  )}
+                </>
+              ) : (
+                <NoneDiv></NoneDiv>
+              )}
+            </CommentTextIcon>
+          </CommentIconBody>
           {!editBox ? (
             <CommentText>{user.comment}</CommentText>
           ) : (
@@ -94,50 +143,7 @@ const Comment = ({ user }) => {
               onChange={(e) => handleChange(e)}
             />
           )}
-          <CommentTextIcon>
-            <CommentIconBody>
-              <GrMoreVertical onClick={() => ToggleDropDown(user.userId)} />
-            </CommentIconBody>
 
-            {toggleBtn ? (
-              <>
-                {areYouUser ? (
-                  <UpdateDeleteBody>
-                    {!editBox ? (
-                      <CommentUpdateBtn
-                        onClick={() => {
-                          editHandler(user.comment);
-                        }}
-                      >
-                        수정
-                      </CommentUpdateBtn>
-                    ) : (
-                      <CommentUpdateBtn
-                        onClick={() =>
-                          completeHandler(user, editValue, user.uid)
-                        }
-                      >
-                        수정완료
-                      </CommentUpdateBtn>
-                    )}
-
-                    <CommentDeleteBtn
-                      onClick={() => {
-                        deleteHandler(user.id);
-                      }}
-                      user={user}
-                    >
-                      삭제
-                    </CommentDeleteBtn>
-                  </UpdateDeleteBody>
-                ) : (
-                  <UpdateDeleteBody></UpdateDeleteBody>
-                )}
-              </>
-            ) : (
-              <NoneDiv></NoneDiv>
-            )}
-          </CommentTextIcon>
           <CommentDate>{user.date}</CommentDate>
         </ListTextSection>
       </ListContainer>
