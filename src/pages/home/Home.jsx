@@ -35,26 +35,34 @@ const Home = () => {
   const { data, isLoading, isError, error } = usePosts();
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
-  const creationTime = currentUser?.metadata.creationTime;
-  const lastSignInTime = currentUser?.metadata.lastSignInTime;
-
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
   //* 신규 유저 여부 상태
   const [isClosed, SetIsClosed] = useState(false);
   //* 유저 콜렉션 데이터
   const [userList, setUserList] = useState([]);
-
+  
   // 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
-    if (currentUser && isClosed === false) {
+    if (
+      currentUser &&
+      localStorage.getItem(`${currentUser.uid}`) !== 'true' &&
+      !isClosed
+    ) {
       setIsModalOpen(true);
       SetIsClosed(true);
+    } else if (
+      localStorage.getItem(`${currentUser.uid}`) === 'true' &&
+      currentUser &&
+      isClosed === false
+    ) {
+      return;
     }
   };
 
   // 모달 닫기 핸들러
   const handleModalClose = () => {
+    localStorage.setItem(`${currentUser.uid}`, true);
     setIsModalOpen(false);
   };
 
@@ -100,7 +108,9 @@ const Home = () => {
       }));
       setUserList(userData);
     });
-    handleModalOpen();
+    if (currentUser) {
+      handleModalOpen();
+    }
     return getUser;
   }, []);
 
@@ -138,7 +148,7 @@ const Home = () => {
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
-        <AddInfoModal handleModalClose={handleModalClose} />
+        <AddInfoModal currentUser={currentUser} handleModalClose={handleModalClose} />
       </Modal>
     </FullScreen>
   );

@@ -88,15 +88,14 @@ const CardSection = ({ item, db }) => {
         {/* <span>{item.bookmark}</span> */}
         <Bookmark>
           <span>{item.bookmark}</span>
-
-          <img
-            src={BookmarkImg}
-            alt="bookmark"
-            onClick={handleBookmark}
-            cursor="pointer"
-            width="20px"
-            color="white"
-          />
+          <BookmarkIcon onClick={handleBookmark}>
+            <img
+              src={BookmarkImg}
+              alt="bookmark"
+              width="20px"
+              color="white"
+            />
+          </BookmarkIcon>
         </Bookmark>
       </BookmarkIconBox>
 
@@ -209,6 +208,12 @@ const Bookmark = styled.div`
   align-items: center;
   gap: 6px;
   color: white;
+`;
+
+const BookmarkIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 `;
 
 const PostBox = styled.div`
