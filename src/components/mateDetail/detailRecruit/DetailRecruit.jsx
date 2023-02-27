@@ -38,6 +38,7 @@ import {
 const DetailRecruit = () => {
   const { id } = useParams();
   const [post, setpost] = useState([]);
+  console.log('🚀 ~ file: DetailRecruit.jsx:41 ~ DetailRecruit ~ post:', post);
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 주최자에게 전하는 말
   const [joinMessage, setJoinMessage] = useState('');
@@ -55,12 +56,23 @@ const DetailRecruit = () => {
       }
     });
   });
+
+  // 정원 모집 여부 조건 표현
+  const itsTeamDoc = teamPage?.filter((item) => item.teamID === post.teamID);
+
+  const teamMembers = `${itsTeamDoc[0]?.teamMember.length + 1}명`;
+
   /*
   참여 신청 버튼 비활성화 조건
   1. 내가 주최자일 경우
   2. 모집이 완료된 경우 ( 모집 완료 텍스트 포함 )
   3. 이미 신청한 경우 ( 신청 완료 텍스트 포함 )
+  4. 정원이 다 찬 경우
   */
+
+  if (teamMembers == post.partyNum) {
+    isBtnDisabled = true;
+  }
 
   if (post.uid === authService?.currentUser?.uid) {
     isBtnDisabled = true;
