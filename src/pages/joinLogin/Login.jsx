@@ -42,8 +42,8 @@ import Vector1 from '../../../src/assets/login/Vector-1.png';
 import Vector2 from '../../../src/assets/login/Vector-2.png';
 import Vector3 from '../../../src/assets/login/Vector-3.png';
 import Vector4 from '../../../src/assets/login/Vector-4.png';
-import Github from '../../../src/assets/login/GITHUB-LOGO.png';
-import Google from '../../../src/assets/login/GOOGLE-LOGO.png';
+import Github from '../../../src/assets/login/github.png';
+import Google from '../../../src/assets/login/google.png';
 
 const Login = () => {
   const emailRef = useRef(null);
