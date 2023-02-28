@@ -18,7 +18,7 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { v4 } from 'uuid';
 
 export default function TeamPlace({ teamLocationID }) {
-  const [place, setPlace] = useState([]);
+  // const [place, setPlace] = useState([]);
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
   const [address, setAddress] = useState('주소를 등록해주세요!'); // 주소
@@ -44,19 +44,19 @@ export default function TeamPlace({ teamLocationID }) {
   };
 
   // 팀 아이디 받아오기
-  const [teamID, setTeamID] = useState([]);
-  const teamGetTeamID = () => {
-    const q = query(collection(db, 'teamPage'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamID(newInfo[0]?.id);
-      setPlace(newInfo[0]?.contentPlace);
-    });
-    return unsubscribe;
-  };
+  // const [teamID, setTeamID] = useState([]);
+  // const teamGetTeamID = () => {
+  //   const q = query(collection(db, 'teamPage'));
+  //   const unsubscribe = onSnapshot(q, (snapshot) => {
+  //     const newInfo = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamID(newInfo[0]?.id);
+  //     setPlace(newInfo[0]?.contentPlace);
+  //   });
+  //   return unsubscribe;
+  // };
 
   useEffect(() => {
     const teamPageCollectionRef = collection(db, 'teamPage');
@@ -71,7 +71,6 @@ export default function TeamPlace({ teamLocationID }) {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setCurrentUserId(authService.currentUser.uid);
-        teamGetTeamID();
         postGetTeamID();
       }
     });
@@ -187,9 +186,9 @@ export default function TeamPlace({ teamLocationID }) {
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
-                    <>
+                    <div key={v4()}>
                       <Map
-                        key={v4()} // 지도를 표시할 Container
+                        // 지도를 표시할 Container
                         center={{
                           // 지도의 중심좌표
                           lat: item.contentLat,
@@ -214,7 +213,7 @@ export default function TeamPlace({ teamLocationID }) {
                         <PlaceName>{item.contentPlaceName}</PlaceName>
                         <PlaceName>{item.contentPlaceAddress}</PlaceName>
                       </PlaceTextWrap>
-                    </>
+                    </div>
                   );
                 })}
             </PlaceWrap>

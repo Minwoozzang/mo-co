@@ -189,7 +189,7 @@ const Login = () => {
               : profileUserInfo,
           teamID: [...teamIDUserInfo],
         });
-        console.log('프로바이다', getRedirectResult(res));
+        console.log('프로', getRedirectResult(res));
       })
       .catch((err) => {
         console.log(err);

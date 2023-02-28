@@ -82,11 +82,11 @@ export default function ContentBoard({ teamLocationID }) {
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
-                    <>
-                      <textarea disabled key={item.id}>
+                    <div key={item.id}>
+                      <textarea disabled value={item.contentBoard}>
                         {item.contentBoard}
                       </textarea>
-                    </>
+                    </div>
                   );
                 })}
             </>
