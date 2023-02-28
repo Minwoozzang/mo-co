@@ -76,7 +76,7 @@ const MateList = () => {
     setSelectedNumOfMember(numOfMember);
   };
 
-  let DATA = data;
+  let DATA = data?.filter((item) => item.isDeleted === false);
 
   // 기술을 여러 개 선택했을 때는 필터가 작동을 안 함
   if (selectedTech.length > 0) {
