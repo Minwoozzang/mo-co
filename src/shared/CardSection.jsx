@@ -1,15 +1,7 @@
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../common/firebase';
-import {
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import defaultImg from '../assets/icon/user.png';
 import { useQueryClient } from 'react-query';
 import BookmarkImg from '../assets/icon/Icon_Scrap.png';
@@ -21,10 +13,6 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
   const navigate = useNavigate();
   const bookmark = item.bookmark;
   const [partyNum, setPartyNum] = useState(0);
-  console.log(
-    '🚀 ~ file: CardSection.jsx:24 ~ CardSection ~ partyNum:',
-    partyNum,
-  );
 
   // HTML을 plain text로 변환
   const parsedHtml = item.partyDesc?.replace(/(<([^>]+)>)/gi, '');

@@ -25,8 +25,10 @@ import {
   where,
 } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 const MateWrite = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   // 파베 인증
   const currentUser = authService.currentUser;
@@ -166,7 +168,7 @@ const MateWrite = () => {
         .catch(() => {
           console.log('팀페이지 에러');
         });
-
+      queryClient.invalidateQueries('posts');
       console.log('업로드 성공');
       navigate(`/mate`);
     } catch (error) {
