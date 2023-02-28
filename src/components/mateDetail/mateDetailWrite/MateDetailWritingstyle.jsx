@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { FiShare2 } from 'react-icons/fi';
 
 export const GroupWrap = styled.div`
   margin: 0 750px 0 0;
@@ -15,7 +16,14 @@ export const GroupHeader = styled.h4`
 `;
 export const GroupUserInfo = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
+export const UserInfoWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const GroupImg = styled.img`
   width: 40px;
   height: 40px;
@@ -27,6 +35,18 @@ export const GroupUserId = styled.p`
   margin: 43px 8px 8px;
   text-align: center;
   color: #fff;
+`;
+
+export const Social = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const DropdownOptions = styled(FiShare2)`
+  font-size: 25px;
+  margin-top: 43px;
+  color: white;
+  cursor: pointer;
 `;
 
 export const GroupBox = styled.div`
