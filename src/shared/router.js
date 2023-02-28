@@ -13,6 +13,7 @@ import Search from '../pages/search/Search';
 import TeamPage from '../pages/teampage/TeamPage';
 import MateEdit from '../pages/mate/MateEdit';
 import TeamList from '../pages/teampage/TeamList';
+import Amplitude from '../amplitude';
 // * 테스트 페이지
 import Test from '../pages/Test';
 
@@ -36,6 +37,7 @@ const Router = () => {
         <Route path="/teamlist/:nickname" element={<TeamList />} />
         {/* 테스트페이지 */}
         <Route path="/test" element={<Test />} />
+        <Route path="/amplitude" element={<Amplitude />} />
       </Routes>
     </BrowserRouter>
   );
