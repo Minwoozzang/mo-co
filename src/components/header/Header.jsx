@@ -1,4 +1,12 @@
-import { collection, onSnapshot, query, where } from '@firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
@@ -17,20 +25,15 @@ import {
   HeaderDropDownListBox,
   HeaderDropDownList,
   HeaderImageBox,
-  HeaderImageText,
   HeaderDropDownListSection,
   DropDownListBody,
   HeaderSearchBox,
   HeaderSearchInput,
-  HeaderSearchInputBtn,
   HeaderSearchDropDownListBox,
   HeaderSearchDropDownListSection,
-  HeaderSearchDropDownHr,
   HeaderSearchXbuttonBox,
   HeaderSearchXbutton,
-  SearchBox,
 } from './style';
-import { AiOutlineSearch } from 'react-icons/ai';
 import Search from '../../assets/icon/Icon_Search.png';
 import Alarm from '../../assets/icon/Icon_Alarm.png';
 import { ImCancelCircle } from 'react-icons/im';
@@ -42,9 +45,6 @@ const Header = () => {
 
   // 헤더  토글
   const [headerMyIcon, setHeaderMyIcon] = useState(false);
-
-  // 헤더 닉네임
-  const [headerNickName, setHeaderNickName] = useState('');
 
   // 드랍다운
   const [dropDownClick, setDropDownClick] = useState(false);
@@ -71,13 +71,13 @@ const Header = () => {
     });
     return unsubscribe;
   };
+
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setIsUserDropDown(true);
         setLoginToggle(false);
         setHeaderMyIcon(true);
-        setHeaderNickName(authService.currentUser?.displayName);
         getUserStackInfo();
         setIsSearchUserDropDown(true);
       } else if (!user) {
@@ -131,14 +131,42 @@ const Header = () => {
       setSearchdropDownClick(true);
     }
   };
-  // const navigateMate = () => [navigate('/mate')];
+
   // 로그아웃
-  const HeaderLogOut = () => {
+  const HeaderLogOut = async () => {
+    // 구글, 깃헙 기존 정보 입력하기
+    if (authService.currentUser.providerData[0].providerId === 'google.com') {
+      await setDoc(doc(db, 'google', authService.currentUser.uid), {
+        bookmarks: [...profileUserInfo[0]?.bookmarks],
+        teamID: [...profileUserInfo[0]?.teamID],
+        uid: authService.currentUser.uid,
+        profileImg: profileUserInfo[0]?.profileImg,
+        moreInfo: {
+          u_isRemote: profileUserInfo[0]?.moreInfo.u_isRemote,
+          u_location: profileUserInfo[0]?.moreInfo.u_location,
+          u_stack: [...profileUserInfo[0]?.moreInfo.u_stack],
+          u_time: profileUserInfo[0]?.moreInfo.u_time,
+        },
+      });
+    } else if (
+      authService.currentUser.providerData[0].providerId === 'github.com'
+    ) {
+      await setDoc(doc(db, 'github', authService.currentUser.uid), {
+        bookmarks: [...profileUserInfo[0].bookmarks],
+        teamID: [...profileUserInfo[0].teamID],
+        uid: authService.currentUser.uid,
+        profileImg: profileUserInfo[0].profileImg,
+        moreInfo: {
+          u_isRemote: profileUserInfo[0].moreInfo.u_isRemote,
+          u_location: profileUserInfo[0].moreInfo.u_location,
+          u_stack: [...profileUserInfo[0].moreInfo.u_stack],
+          u_time: profileUserInfo[0].moreInfo.u_time,
+        },
+      });
+    }
     authService.signOut();
     window.location.replace('/');
   };
-
-  const navigateMate = () => [navigate('/mate')];
 
   // 헤더 유무
   const locationNow = useLocation();
@@ -247,13 +275,11 @@ const Header = () => {
                         src={profileUserInfo[0]?.profileImg ?? defaultImg}
                         alt="user"
                         style={{
-                          width: '40px',
-                          height: '40px',
+                          width: '80px',
+                          height: '80px',
+                          borderRadius: '40px',
                         }}
                       />
-                      <HeaderImageText>
-                        {/* 안녕하세요, {headerNickName ?? '익명'}님🥰 */}
-                      </HeaderImageText>
                     </HeaderImageBox>
                     <HeaderDropDownListSection>
                       <DropDownListBody onClick={navigateMyPage}>

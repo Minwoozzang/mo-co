@@ -21,10 +21,10 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
   const navigate = useNavigate();
   const bookmark = item.bookmark;
   const [partyNum, setPartyNum] = useState(0);
-  console.log(
-    '🚀 ~ file: CardSection.jsx:24 ~ CardSection ~ partyNum:',
-    partyNum,
-  );
+  // console.log(
+  //   '🚀 ~ file: CardSection.jsx:24 ~ CardSection ~ partyNum:',
+  //   partyNum,
+  // );
 
   // HTML을 plain text로 변환
   const parsedHtml = item.partyDesc?.replace(/(<([^>]+)>)/gi, '');
@@ -81,7 +81,7 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
     const userDoc = await getDoc(doc(db, 'teamPage', item.teamID));
     const teamDoc = userDoc.data();
     setPartyNum(
-      userDoc.data().teamMember.filter((item) => item.isWait === false).length,
+      userDoc.data()?.teamMember.filter((item) => item.isWait === false).length,
     );
   };
 
