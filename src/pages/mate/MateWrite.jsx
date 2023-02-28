@@ -25,8 +25,11 @@ import {
   where,
 } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
+import { withTheme } from '@emotion/react';
 
 const MateWrite = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   // 파베 인증
   const currentUser = authService.currentUser;
@@ -160,7 +163,7 @@ const MateWrite = () => {
         .catch(() => {
           console.log('팀페이지 에러');
         });
-
+      queryClient.invalidateQueries('posts');
       console.log('업로드 성공');
       navigate(`/mate`);
     } catch (error) {
@@ -175,7 +178,7 @@ const MateWrite = () => {
   }, [currentUser]);
 
   return (
-    <WritePageContainer>
+    <FullScreen>
       <GuideTextsBox>
         <PageTitle>
           <h2>모각코 모임 개설</h2>
@@ -186,147 +189,169 @@ const MateWrite = () => {
           <br />* 모집 글 작성 시, 자동으로 팀페이지가 생성됩니다.
         </PageInfo>
       </GuideTextsBox>
-      <EditingBox onSubmit={handleSubmit}>
-        <PartyInfoBox>
-          <PartyTitleBox>
-            <h3>모임명</h3>
-            <PartyTitle
-              type="text"
-              value={partyName}
-              onChange={(e) => setPartyname(e.target.value)}
-              maxLength={10}
-              placeholder="12자 이내로 작성해주세요"
-            />
-          </PartyTitleBox>
+      <WritePageContainer>
+        <EditingBox onSubmit={handleSubmit}>
+          <PartyInfoBox>
+            <PartyTitleBox>
+              <h3>모임명</h3>
+              <PartyTitle
+                type="text"
+                value={partyName}
+                onChange={(e) => setPartyname(e.target.value)}
+                maxLength={10}
+                placeholder="12자 이내로 작성해주세요"
+              />
+            </PartyTitleBox>
 
-          <TechStackBox>
-            <h3>기술스택 (최대 3개)</h3>
-            <TechStacks>
-              {stacks.map((stack, idx) => (
-                <Tech
-                  style={{
-                    backgroundColor: partyStack.includes(stack)
-                      ? '#f7f7f7'
-                      : 'white',
+            <TechStackBox>
+              <h3>기술스택 (최대 3개)</h3>
+              <TechStacks>
+                {stacks.map((stack, idx) => (
+                  <Tech
+                    style={{
+                      backgroundColor: partyStack.includes(stack)
+                        ? '#FEFF80'
+                        : '#212121',
+                      color: partyStack.includes(stack) ? '#212121' : 'white',
+                    }}
+                    key={idx}
+                    onClick={() => handlePartyStack(stack)}
+                  >
+                    {stack}
+                  </Tech>
+                ))}
+              </TechStacks>
+            </TechStackBox>
+
+            <MeetingTimeandPeopleBox>
+              <MeetingTimeBox>
+                <h3 style={{ marginBottom: 20 }}>모임 시간대</h3>
+                <Select
+                  styles={{
+                    menu: (provided) => ({ ...provided, color: 'black' }),
                   }}
-                  key={idx}
-                  onClick={() => handlePartyStack(stack)}
+                  options={times}
+                  placeholder={!partyTime ? '모임 시간대' : partyTime}
+                  onChange={(time) => setPartyTime(time.value)}
+                  value={partyTime}
+                />
+              </MeetingTimeBox>
+              <PeopleBox>
+                <h3 style={{ marginBottom: 20 }}>모집 인원</h3>
+                <Select
+                  styles={{
+                    menu: (provided) => ({ ...provided, color: 'black' }),
+                  }}
+                  options={people}
+                  placeholder={!partyNum ? '모집 인원' : partyNum}
+                  onChange={(num) => setPartyNum(num.value)}
+                  value={partyNum}
+                />
+              </PeopleBox>
+            </MeetingTimeandPeopleBox>
+
+            <MeetingTimeandPeopleBox>
+              <MeetingTimeBox>
+                <h3 style={{ marginBottom: 20 }}>모집 여부</h3>
+                <Select
+                  styles={{
+                    menu: (provided) => ({ ...provided, color: 'black' }),
+                  }}
+                  options={opens}
+                  placeholder={partyIsOpen === true ? '모집 중' : '모집 완료'}
+                  onChange={(open) => setPartyIsOpen(open.value)}
+                  value={partyIsOpen}
+                />
+              </MeetingTimeBox>
+              <PeopleBox>
+                <h3 style={{ display: 'inline' }}>모집 지역</h3>
+                <Checkbox
+                  style={{ marginBottom: 20, marginLeft: 10, color: 'white' }}
+                  onChange={handleisRemote}
                 >
-                  {stack}
-                </Tech>
-              ))}
-            </TechStacks>
-          </TechStackBox>
+                  비대면을 원해요
+                </Checkbox>
+                <Select
+                  styles={{
+                    menu: (provided) => ({ ...provided, color: 'black' }),
+                  }}
+                  options={locations}
+                  placeholder={!partyLocation ? '모집 지역' : partyLocation}
+                  onChange={(loc) => setPartyLocation(loc.value)}
+                  value={partyLocation}
+                  isDisabled={isDisabled}
+                />
+              </PeopleBox>
+            </MeetingTimeandPeopleBox>
+          </PartyInfoBox>
 
-          <MeetingTimeandPeopleBox>
-            <MeetingTimeBox>
-              <h3 style={{ marginBottom: 20 }}>모임 시간대</h3>
-              <Select
-                options={times}
-                placeholder={!partyTime ? '모임 시간대' : partyTime}
-                onChange={(time) => setPartyTime(time.value)}
-                value={partyTime}
-              />
-            </MeetingTimeBox>
-            <PeopleBox>
-              <h3 style={{ marginBottom: 20 }}>모집 인원</h3>
-              <Select
-                options={people}
-                placeholder={!partyNum ? '모집 인원' : partyNum}
-                onChange={(num) => setPartyNum(num.value)}
-                value={partyNum}
-              />
-            </PeopleBox>
-          </MeetingTimeandPeopleBox>
-
-          <MeetingTimeandPeopleBox>
-            <MeetingTimeBox>
-              <h3 style={{ marginBottom: 20 }}>모집 여부</h3>
-              <Select
-                options={opens}
-                placeholder={partyIsOpen === true ? '모집 중' : '모집 완료'}
-                onChange={(open) => setPartyIsOpen(open.value)}
-                value={partyIsOpen}
-              />
-            </MeetingTimeBox>
-            <PeopleBox>
-              <h3 style={{ display: 'inline' }}>모집 지역</h3>
-              <Checkbox
-                style={{ marginBottom: 20, marginLeft: 10 }}
-                onChange={handleisRemote}
-              >
-                비대면을 원해요
-              </Checkbox>
-              <Select
-                options={locations}
-                placeholder={!partyLocation ? '모집 지역' : partyLocation}
-                onChange={(loc) => setPartyLocation(loc.value)}
-                value={partyLocation}
-                isDisabled={isDisabled}
-              />
-            </PeopleBox>
-          </MeetingTimeandPeopleBox>
-        </PartyInfoBox>
-
-        <EditorBox>
-          <PostTitleBox>
-            <h3 style={{ marginBottom: 20 }}>모집글 제목</h3>
-            <PostTitle
-              type="text"
-              value={partyPostTitile}
-              onChange={(e) => setPartyPostTitle(e.target.value)}
-              placeholder="글 제목을 작성하세요"
-            ></PostTitle>
-          </PostTitleBox>
-          <h3 style={{ marginBottom: 20 }}>모임 설명</h3>
-          <ReactQuill
-            value={partyDesc}
-            onChange={setPartyDesc}
-            ref={quillRef}
-            modules={{
-              toolbar: [
-                [{ header: [1, 2, false] }],
-                ['bold', 'italic', 'underline'],
-                [
-                  { list: 'ordered' },
-                  { list: 'bullet' },
-                  { indent: '-1' },
-                  { indent: '+1' },
+          <EditorBox>
+            <PostTitleBox>
+              <h3 style={{ marginBottom: 20 }}>모집글 제목</h3>
+              <PostTitle
+                type="text"
+                value={partyPostTitile}
+                onChange={(e) => setPartyPostTitle(e.target.value)}
+                placeholder="글 제목을 작성하세요"
+              ></PostTitle>
+            </PostTitleBox>
+            <h3 style={{ marginBottom: 20 }}>모임 설명</h3>
+            <ReactQuill
+              style={{ backgroundColor: 'white', color: 'black' }}
+              value={partyDesc}
+              onChange={setPartyDesc}
+              ref={quillRef}
+              modules={{
+                toolbar: [
+                  [{ header: [1, 2, false] }],
+                  ['bold', 'italic', 'underline'],
+                  [
+                    { list: 'ordered' },
+                    { list: 'bullet' },
+                    { indent: '-1' },
+                    { indent: '+1' },
+                  ],
                 ],
-              ],
-            }}
-          />
-        </EditorBox>
+              }}
+            />
+          </EditorBox>
 
-        <WriteButtonBox>
-          <WriteButton
-            onClick={() => {
-              setIsClicked(!isClicked);
-            }}
-            style={{
-              backgroundColor: isClicked ? '#f7f7f7' : 'white',
-            }}
-            type="submit"
-          >
-            모집글 올리기
-          </WriteButton>
-        </WriteButtonBox>
-      </EditingBox>
-    </WritePageContainer>
+          <WriteButtonBox>
+            <WriteButton
+              onClick={() => {
+                setIsClicked(!isClicked);
+              }}
+              style={{
+                backgroundColor: isClicked ? '#f7f7f7' : '#FEFF80',
+              }}
+              type="submit"
+            >
+              작성 완료
+            </WriteButton>
+          </WriteButtonBox>
+        </EditingBox>
+      </WritePageContainer>
+    </FullScreen>
   );
 };
 
 export default MateWrite;
 
-const WritePageContainer = styled.div`
+const FullScreen = styled.body`
+  background-color: black;
+`;
+
+const Deco = styled.div`
+  color: #80ffe9;
   max-width: 977px;
   margin: auto;
-  border: 1px solid black;
-  padding: 45px;
 `;
 
 const GuideTextsBox = styled.div`
-  margin-bottom: 50px;
+  max-width: 977px;
+  margin: auto;
+  padding: 45px;
+  color: white;
 `;
 
 const PageTitle = styled.div`
@@ -334,6 +359,15 @@ const PageTitle = styled.div`
 `;
 
 const PageInfo = styled.div``;
+
+const WritePageContainer = styled.div`
+  max-width: 977px;
+  margin: auto;
+  padding: 45px;
+  color: white;
+  background-color: #212121;
+  border-radius: 20px;
+`;
 
 const EditingBox = styled.form``;
 
@@ -346,13 +380,15 @@ const PartyTitleBox = styled.div`
 `;
 
 const PartyTitle = styled.input`
-  border-style: none;
-  border-bottom: 0.5px solid #b9b9b9;
+  border: 1px solid #3b3b3b;
+  border-radius: 10px;
   outline-style: none;
   width: 877px;
   margin-top: 20px;
   font-size: 15px;
-  padding: 10px 0;
+  padding: 10px;
+  background-color: #212121;
+  color: white;
 `;
 
 const TechStackBox = styled.div`
@@ -368,7 +404,8 @@ const TechStacks = styled.div`
 
 const Tech = styled.div`
   border-radius: 30px;
-  border: 1px solid #b9b9b9;
+  border: 1px solid #3b3b3b;
+  color: #ffffff;
   font-size: 15px;
   text-align: center;
   padding: 12px 0;
@@ -395,12 +432,14 @@ const PostTitleBox = styled.div`
   margin-bottom: 40px;
 `;
 const PostTitle = styled.input`
-  border-style: none;
-  border-bottom: 0.5px solid #b9b9b9;
+  border: 1px solid #3b3b3b;
+  border-radius: 10px;
+  background-color: #212121;
   outline-style: none;
   font-size: 15px;
-  padding: 10px 0;
+  padding: 10px;
   width: 877px;
+  color: white;
 `;
 
 const EditorBox = styled.div``;
@@ -413,9 +452,10 @@ const WriteButtonBox = styled.div`
 
 const WriteButton = styled.button`
   width: 200px;
-  background-color: transparent;
-  border: 1px solid #b9b9b9;
-  padding: 20px;
-  font-size: 15px;
+  height: 44px;
+  padding: 12px 30px 13px;
   margin: auto;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
 `;
