@@ -4,7 +4,8 @@ export const MyPageBody = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
-  /* background-color: #111111; */
+
+  background-color: red;
 `;
 
 export const DummyBox = styled.div`
@@ -17,7 +18,6 @@ export const DummyBox = styled.div`
 export const DummyProfile = styled.div`
   width: 50%;
 
-  margin-left: 0;
   background-color: #232323;
 `;
 
@@ -25,9 +25,9 @@ export const MySection = styled.div`
   width: 1500px;
   height: 100%;
 
-  display: flex;
+  background-color: #232323;
 
-  z-index: 990;
+  display: flex;
 `;
 
 export const MyProfilSectionBox = styled.div`
@@ -49,6 +49,4 @@ export const DummyBookmark = styled.div`
   width: 50%;
 
   background-color: black;
-
-  margin-right: 0;
 `;

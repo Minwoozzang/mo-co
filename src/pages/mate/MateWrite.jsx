@@ -105,13 +105,7 @@ const MateWrite = () => {
   // 모집글 게시 함수 (동시에 팀페이지 생성)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const userDoc = await getDoc(doc(db, 'user', authService.currentUser.uid));
-    // const userData = userDoc.data();
-    // const _teamID = await userData.teamID;
-    // console.log(
-    //   '🚀 ~ file: MateWrite.jsx:104 ~ handleSubmit ~ _teamID:',
-    //   _teamID,
-    // );
+
     try {
       await addDoc(collection(db, 'post'), {
         partyName,
