@@ -15,6 +15,6 @@ export const AllBtnTitle = styled.div`
   cursor: pointer;
   color: #e7e7e7;
   &:hover {
-    background-color: #d9d9d9;
+    color: #feff80;
   }
 `;

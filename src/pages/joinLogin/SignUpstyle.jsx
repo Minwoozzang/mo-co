@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const SignUpBody = styled.div`
   width: 100%;
   height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,14 +40,11 @@ export const SignUpTitleLogo = styled.div`
 export const SignUpTitle = styled.div`
   width: 100%;
   height: 25px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-size: 20px;
   font-weight: 600;
-
   margin-top: 30px;
 `;
 
@@ -56,7 +52,7 @@ export const SignUpInputBody = styled.div`
   width: 500px;
   height: 225px;
 
-  margin-top: 40px;
+  margin-top: 30px;
 `;
 
 export const SignUpInputSection = styled.div``;
@@ -169,9 +165,7 @@ export const CheckPasswordText = styled.div`
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 17px;
-
   letter-spacing: -0.03em;
-
   color: #9d9d9d;
 `;
 
@@ -207,9 +201,7 @@ export const NickNameText = styled.div`
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 17px;
-
   letter-spacing: -0.03em;
-
   color: #9d9d9d;
 `;
 export const SignUpNickNameInput = styled.input`
@@ -240,37 +232,31 @@ export const SignUpNickNameInput = styled.input`
 
 export const WarnigTextBody = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
-
   margin-top: 10px;
 `;
 
 export const WarnigText = styled.div`
   margin-left: 5px;
-  margin-top: 5px;
-
+  margin-top: 2px;
   color: red;
+
+  font-size: 0.9rem;
 `;
 
 export const SignUpLogo = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin-top: 30px;
-
   gap: 50px;
 `;
 
 export const SignUpLouteBody = styled.div`
   width: 100%;
-
   margin-top: 30px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -281,18 +267,13 @@ export const SignUpLouteBody = styled.div`
 export const SignUpBtn = styled.div`
   width: 300px;
   height: 44px;
-
   background-color: #feff80;
   border-radius: 5px;
-
   font-weight: 600;
-
   margin-left: 100px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   cursor: pointer;
 
   margin-top: 45px;
@@ -318,12 +299,9 @@ export const LouteSignUpPageBtn = styled.div`
   font-weight: 500;
   font-size: 0.95rem;
   line-height: 14px;
-
   text-align: center;
   text-decoration: underline;
   text-underline-offset: 8px;
-
   color: #9d9d9d;
-
   cursor: pointer;
 `;

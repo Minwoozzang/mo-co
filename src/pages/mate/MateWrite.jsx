@@ -33,7 +33,6 @@ const MateWrite = () => {
   const quillRef = useRef(null);
   // 유저 닉네임 - 프로필 가져오기 상태
   const [nickName, setNickName] = useState('');
-  const [profileImg, setGetProfileImg] = useState('');
   // 글쓰기 페이지에서 유저가 입력한 데이터를 저장하는 상태
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
@@ -76,9 +75,7 @@ const MateWrite = () => {
   const getUserInfo = () => {
     if (currentUser !== null) {
       const displayName = currentUser.displayName;
-      const photoURL = currentUser.photoURL;
       setNickName(displayName);
-      setGetProfileImg(photoURL);
     }
   };
 
@@ -121,7 +118,7 @@ const MateWrite = () => {
         partyPostTitile,
         partyDesc,
         nickName,
-        profileImg,
+        profileImg: profileUserInfo,
         createdDate: now(),
         teamID: teamID,
         uid: currentUser.uid,

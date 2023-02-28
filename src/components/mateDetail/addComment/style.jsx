@@ -16,7 +16,7 @@ export const AddCommentListWrap = styled.div`
   width: 100%;
   height: 130px;
   padding: 20px 25px 25px 40px;
-  margin: 50px 750px 0 400px;
+  margin: 50px 770px 0 420px;
   box-sizing: border-box;
   border-radius: 10px;
 `;
@@ -50,7 +50,7 @@ export const AddCommentBtn = styled.button`
   border-radius: 5px;
   font-size: 14px;
   font-weight: 600;
-  margin: 30px 0 0 280px;
+  margin: 30px 40px 0 280px;
   :hover {
     background-color: #3b3b3b;
     color: #fff;

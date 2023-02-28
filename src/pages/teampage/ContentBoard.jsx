@@ -115,7 +115,7 @@ const TextAreaWrapper = styled.div`
     font-size: 16px;
     font-weight: 500;
     border: none;
-    height: 500px;
+    height: 590px;
     border-radius: 5px;
     transition: border 1s;
     padding: 20px;
@@ -126,6 +126,9 @@ const TextAreaWrapper = styled.div`
       border: 2px solid skyblue;
       border-radius: 15px;
     }
+    &:disabled {
+      background-color: white;
+    }
   }
 `;
 
@@ -135,7 +138,7 @@ const ContentCard = styled.div`
   border-radius: 20px;
   overflow-y: auto;
   transition: 0.4s;
-  height: 67vh;
+  height: 640px;
   background-color: white;
   margin-top: 25px;
   p {
@@ -148,6 +151,8 @@ const ButtonPlaceTitleWrap = styled.div`
   align-items: center;
   padding: 10px 20px;
   background-color: #232323;
+  position: sticky;
+  top: 0;
 `;
 
 const ContentTitle = styled.a`
