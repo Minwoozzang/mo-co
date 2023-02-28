@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BsThreeDots } from 'react-icons/bs';
+import { IoSettingsOutline } from 'react-icons/io5';
 import styled from '@emotion/styled';
 import { db, authService } from '../../common/firebase';
 import {
@@ -188,10 +188,10 @@ const Social = styled.span`
   display: block;
 `;
 
-const DropdownOptions = styled(BsThreeDots)`
-  font-size: 20px;
-  margin-top: 1rem;
+const DropdownOptions = styled(IoSettingsOutline)`
+  font-size: 25px;
   color: black;
+  margin-bottom: 20px;
   cursor: pointer;
 `;
 

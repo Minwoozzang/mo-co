@@ -3,7 +3,7 @@ import {
   SignUpBody,
   SignUpForm,
   SignUpTitleLogo,
-  SignUpTitle,
+  FormBox,
   SignUpInputBody,
   SignUpEmailInput,
   SignUpPasswordInput,
@@ -24,18 +24,16 @@ import {
   CheckPasswordText,
   CheckSignUpPasswordInput,
   FullScreen,
+  PasswordTextBody,
+  PasswordTextInfo,
+  LoginFooterText,
 } from './SignUpstyle';
-import { CiFaceSmile } from 'react-icons/ci';
+
 import { emailRegex, pwRegex } from '../../common/utils';
 import { useNavigate } from 'react-router';
 import { createUserWithEmailAndPassword, updateProfile } from '@firebase/auth';
 import { authService, db } from '../../common/firebase';
 import { doc, setDoc } from '@firebase/firestore';
-import Vector from '../../../src/assets/login/Vector.png';
-import Vector1 from '../../../src/assets/login/Vector-1.png';
-import Vector2 from '../../../src/assets/login/Vector-2.png';
-import Vector3 from '../../../src/assets/login/Vector-3.png';
-import Vector4 from '../../../src/assets/login/Vector-4.png';
 
 const SignUp = () => {
   // 이메일
@@ -55,7 +53,15 @@ const SignUp = () => {
   const nickNameRef = useRef(null);
 
   // 경고문
-  const [warningText, setWarningText] = useState('');
+  const [emailWarningText, setEmailWarningText] = useState('');
+  const [pwWarningText, setPwWarningText] = useState('');
+  const [checkPwWarningText, setCheckPwWarningText] = useState('');
+  const [nickNameWarningText, setNickNameWarningText] = useState('');
+  // 포커스 border color RED
+  const [emRedColor, setEmRedColor] = useState('');
+  const [pwRedColor, setPwRedColor] = useState('');
+  const [checkPwdColor, setCheckPwdColor] = useState('');
+  const [nickNameRedColor, setNickNameRedColor] = useState('');
 
   const navigate = useNavigate();
 
@@ -71,42 +77,47 @@ const SignUp = () => {
   //  유효성 검사
   const validateInputs = () => {
     if (!email) {
-      setWarningText('이메일을 입력해주세요.');
+      setEmailWarningText('필수 입력 항목입니다.');
       emailRef.current.focus();
+      setEmRedColor('1.5px solid red');
       return true;
     }
     if (!password) {
-      setWarningText('비밀번호를 입력해주세요.');
+      setPwWarningText('비밀번호를 입력해주세요.');
       pwRef.current.focus();
+      setPwRedColor('1.5px solid red');
       return true;
     }
     if (checkPassword !== password) {
-      setWarningText('비밀번호를 다시 확인해주세요.');
+      setCheckPwWarningText('비밀번호가 일치하지 않습니다.');
       pwCheckRef.current.focus();
+      setCheckPwdColor('1.5px solid red');
       return true;
     }
-    if (nickName === '') {
-      setWarningText('닉네임을 입력해주세요.');
+    if (nickName.length < 2 || nickName.length > 6) {
+      setNickNameWarningText('2 ~ 6 자의 닉네임을 입력헤주세요.');
       nickNameRef.current.focus();
+      setNickNameRedColor('1.5px solid red');
       return true;
     }
     const matchedEmail = email.match(emailRegex);
     const matchedPw = password.match(pwRegex);
 
     if (matchedEmail === null) {
-      setWarningText('이메일 형식에 맞게 입력해 주세요.');
+      setEmailWarningText('이메일 형식에 맞게 입력해 주세요.');
       emailRef.current.focus();
+      setEmRedColor('1.5px solid red');
       return true;
     }
     if (matchedPw === null) {
-      setWarningText(
+      setPwWarningText(
         '비밀번호는 8자리 이상 영문자, 숫자, 특수문자 조합이어야 합니다.',
       );
       pwRef.current.focus();
+      setPwRedColor('1.5px solid red');
       return true;
     }
   };
-
   // 회원가입 버튼 클릭
   const handleSignUp = () => {
     if (validateInputs()) {
@@ -129,7 +140,6 @@ const SignUp = () => {
           displayName: nickName,
         });
 
-        console.log('회원가입성공');
         setLoding(false);
         setEmail('');
         setPassword('');
@@ -140,7 +150,7 @@ const SignUp = () => {
       .catch((err) => {
         setLoding(false);
         if (err.message.includes('already-in-use')) {
-          setWarningText('이미 사용중인 아이디입니다.');
+          setEmailWarningText('이미 사용중인 아이디입니다.');
         }
       });
   };
@@ -150,17 +160,10 @@ const SignUp = () => {
     navigate('/login');
   };
   return (
-    <FullScreen>
-      <SignUpBody>
-        <SignUpForm>
-          <SignUpTitleLogo>
-            <img src={Vector} alt="" />
-            <img src={Vector1} alt="" />
-            <img src={Vector2} alt="" />
-            <img src={Vector3} alt="" />
-            <img src={Vector4} alt="" />
-          </SignUpTitleLogo>
-          {/* <SignUpTitle>MoCo에 오신 것을 환영합니다. !!</SignUpTitle> */}
+    <SignUpBody>
+      <SignUpForm>
+        <FormBox>
+          <SignUpTitleLogo>회원가입</SignUpTitleLogo>
 
           <SignUpInputBody>
             <SignUpInputSection>
@@ -172,18 +175,34 @@ const SignUp = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   ref={emailRef}
                   onKeyPress={EnterKeyPress}
+                  placeholder="example@google.com"
+                  style={{ border: emRedColor }}
                 />
               </EmailBody>
+
+              <WarnigText>{emailWarningText}</WarnigText>
+
               <PasswordBody>
-                <PasswordText>비밀번호</PasswordText>
+                <PasswordTextBody>
+                  <PasswordText>비밀번호</PasswordText>
+                  <PasswordTextInfo>
+                    영문, 숫자, 특수문자를 포함한 8자 이상의 비밀번호를
+                    입력해주세요
+                  </PasswordTextInfo>
+                </PasswordTextBody>
+
                 <SignUpPasswordInput
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   ref={pwRef}
                   onKeyPress={EnterKeyPress}
+                  style={{ border: pwRedColor }}
                 />
               </PasswordBody>
+
+              <WarnigText>{pwWarningText}</WarnigText>
+
               <CheckPasswordBody>
                 <CheckPasswordText>비밀번호 확인</CheckPasswordText>
                 <CheckSignUpPasswordInput
@@ -192,8 +211,12 @@ const SignUp = () => {
                   onChange={(e) => setCheckPassword(e.target.value)}
                   ref={pwCheckRef}
                   onKeyPress={EnterKeyPress}
+                  style={{ border: checkPwdColor }}
                 />
               </CheckPasswordBody>
+
+              <WarnigText>{checkPwWarningText}</WarnigText>
+
               <NickNameBody>
                 <NickNameText>닉네임</NickNameText>
                 <SignUpNickNameInput
@@ -202,25 +225,26 @@ const SignUp = () => {
                   onChange={(e) => setNickName(e.target.value)}
                   ref={nickNameRef}
                   onKeyPress={EnterKeyPress}
+                  placeholder="닉네임 2 ~ 6자"
+                  style={{ border: nickNameRedColor }}
                 />
               </NickNameBody>
+
+              <WarnigText>{nickNameWarningText}</WarnigText>
             </SignUpInputSection>
           </SignUpInputBody>
-
-          <WarnigTextBody>
-            <WarnigText>{warningText}</WarnigText>
-          </WarnigTextBody>
-          <SignUpBtn onClick={handleSignUp} disabled={loding}>
-            회원가입
-          </SignUpBtn>
-          <SignUpLouteBody>
-            <LouteSignUpPageBtn onClick={navigationLoginPage}>
-              로그인 화면으로
-            </LouteSignUpPageBtn>
-          </SignUpLouteBody>
-        </SignUpForm>
-      </SignUpBody>
-    </FullScreen>
+        </FormBox>
+        <SignUpBtn onClick={handleSignUp} disabled={loding}>
+          회원가입
+        </SignUpBtn>
+        <SignUpLouteBody>
+          <LoginFooterText>이미 아이디가 있으신가요?</LoginFooterText>
+          <LouteSignUpPageBtn onClick={navigationLoginPage}>
+            로그인
+          </LouteSignUpPageBtn>
+        </SignUpLouteBody>
+      </SignUpForm>
+    </SignUpBody>
   );
 };
 

@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
   collection,
-  deleteDoc,
-  deleteField,
   doc,
   onSnapshot,
   query,
@@ -11,8 +9,9 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { IoMdClose } from 'react-icons/io';
 import { authService, db } from '../../common/firebase';
+import cancel from '../../../src/assets/icon/Icon_cancel.png';
+import { user } from '../../assets/icon/user.png';
 
 const CustomConfirmUI = (props) => {
   // 본인 아이디
@@ -20,7 +19,6 @@ const CustomConfirmUI = (props) => {
   const myInfo = props.data;
   // 팀 ID
   const teamID = props.id;
-
   //  팀 멤버
   const member = props.item;
   const otherMember = member.filter((d) => d.uid !== myId);
@@ -78,37 +76,88 @@ const CustomConfirmUI = (props) => {
     props.onClose();
   }
   return (
-    <ConfirmBody>
-      <ConfirmBox>
-        <TitleBox>
-          {/* <ConfirmTitle>참여신청</ConfirmTitle> */}
-          <IoMdClose
-            onClick={props.onClose}
-            style={{
-              fontSize: '25px',
-              marginRight: '10px',
-              cursor: 'pointer',
-              color: 'white',
-            }}
-          />
-        </TitleBox>
-        <MessageBox>{props.data.joinMessage}</MessageBox>
-        <TextBox>
-          <ConfirmText>
-            {props.data.nickName} 님을 수락하시겠습니까?
-          </ConfirmText>
-        </TextBox>
-        <BtnBox>
-          <ConfirmCancelBtn onClick={() => rejectSuggestion(props.data.uid)}>
-            거절
-          </ConfirmCancelBtn>
-          <ConfirmDeleteBtn onClick={updateIsWait}>수락</ConfirmDeleteBtn>
-        </BtnBox>
-      </ConfirmBox>
-    </ConfirmBody>
+    <WholeWrap>
+      <PlaceModal>
+        <ConfirmBox>
+          <TitleBox>
+            {/* <ConfirmTitle>참여신청</ConfirmTitle> */}
+            {/* <IoMdClose
+              onClick={props.onClose}
+              style={{
+                fontSize: '30px',
+                marginRight: '10px',
+                cursor: 'pointer',
+                color: 'white',
+              }}
+            /> */}
+          </TitleBox>
+          <UserAcceptOrNot>
+            <UserImgBox
+              src={
+                props.data.profileImg
+                  ? props.data.profileImg
+                  : '../../assets/icon/user.png'
+              }
+            />
+            <ConfirmText>
+              <p>{props.data.nickName} 님이</p>
+              <p>모임에 참여 신청하였습니다</p>
+            </ConfirmText>
+            <IntroduceText>
+              <MessageBox>{props.data.joinMessage}</MessageBox>
+            </IntroduceText>
+          </UserAcceptOrNot>
+          <BtnBox>
+            <ConfirmCancelBtnOne
+              onClick={() => rejectSuggestion(props.data.uid)}
+            >
+              거절
+            </ConfirmCancelBtnOne>
+            <ConfirmCancelBtnTwo onClick={updateIsWait}>
+              수락
+            </ConfirmCancelBtnTwo>
+          </BtnBox>
+        </ConfirmBox>
+      </PlaceModal>
+    </WholeWrap>
   );
 };
 export default CustomConfirmUI;
+
+const IntroduceText = styled.div`
+  width: 330px;
+  height: 160px;
+  background-color: #e7e7e7;
+  border-radius: 10px; ;
+`;
+
+const WholeWrap = styled.div`
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  position: relative;
+`;
+
+const PlaceModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const UserAcceptOrNot = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
+const UserImgBox = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+`;
 
 const ConfirmBody = styled.div`
   display: flex;
@@ -125,9 +174,16 @@ const ConfirmBox = styled.div`
   height: 480px;
   border-radius: 10px;
   background-color: #232323;
+  padding: 5px;
+`;
 
-  position: relative;
-  bottom: 80px;
+const CancelImg = styled.img`
+  width: 20px;
+  height: 20px;
+
+  margin-right: 15px;
+
+  cursor: pointer;
 `;
 
 const TitleBox = styled.div`
@@ -138,19 +194,12 @@ const TitleBox = styled.div`
   margin-top: 15px;
 `;
 
-const ConfirmTitle = styled.div`
-  font-size: 20px;
-
-  margin-right: 105px;
-`;
-
 const MessageBox = styled.div`
   width: 100%;
   text-align: center;
 
-  font-size: 23px;
-
-  margin-top: 20px;
+  font-size: 14px;
+  padding: 20px;
 `;
 
 const TextBox = styled.div`
@@ -161,24 +210,43 @@ const TextBox = styled.div`
 `;
 
 const ConfirmText = styled.p`
-  font-size: 20px;
-  font-weight: 550;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 15px 0 25px;
 `;
 
 const BtnBox = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
 `;
-const ConfirmCancelBtn = styled.button`
+
+const ConfirmCancelBtnOne = styled.button`
   font-size: 16px;
   font-weight: 800;
 
-  background: none;
-  border: none;
+  background-color: #545454;
+  border: 1px solid #6c6c6c;
+  border-radius: 5px;
+
+  width: 160px;
+  height: 45px;
 
   cursor: pointer;
 `;
 
-const ConfirmDeleteBtn = styled(ConfirmCancelBtn)``;
+const ConfirmCancelBtnTwo = styled.button`
+  font-size: 16px;
+  font-weight: 800;
+
+  background-color: #feff80;
+  border: none;
+  border-radius: 5px;
+
+  width: 160px;
+  height: 45px;
+
+  cursor: pointer;
+`;

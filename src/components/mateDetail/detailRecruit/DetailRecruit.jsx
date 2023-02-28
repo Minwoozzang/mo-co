@@ -199,7 +199,16 @@ const DetailRecruit = () => {
       <UserHr />
       <RecruitStack>
         <RecruitFont>기술스택</RecruitFont>
-        <StackDetail>{post.partyStack}</StackDetail>
+        <StackDetail>
+          {post?.partyStack?.map((item, idx) => (
+            <img
+              key={idx}
+              src={require(`../../../assets/stack/${item}.png`)}
+              alt={item}
+              style={{ width: 30, height: 30, marginRight: 10 }}
+            />
+          ))}
+        </StackDetail>
       </RecruitStack>
       <UserHr />
       <RecruitCurrent>

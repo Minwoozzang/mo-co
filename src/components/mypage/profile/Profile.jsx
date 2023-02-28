@@ -41,6 +41,7 @@ import {
 } from '@firebase/firestore';
 import { useNavigate } from 'react-router';
 import wheel from '../../../../src/assets/login/wheel.png';
+import default_profile from '../../../assets/icon/user.png';
 
 const Profile = () => {
   // 네이게이트
@@ -190,7 +191,7 @@ const Profile = () => {
               src={
                 profileUserInfo[0]?.profileImg
                   ? profileUserInfo[0].profileImg
-                  : 'https://imhannah.me/common/img/default_profile.png'
+                  : default_profile
               }
               width="90"
               height="90"
@@ -236,6 +237,7 @@ const Profile = () => {
             <ProfileTechBody>
               <TechBodyTitle>기술 스택</TechBodyTitle>
               <TechBodyImage>
+                {/* ㅗㅗ{' '} */}
                 {techStack.map((item, idx) => (
                   <img
                     key={idx}
