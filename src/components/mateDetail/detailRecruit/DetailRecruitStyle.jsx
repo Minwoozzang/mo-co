@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Modal } from 'antd';
 
 export const RecruitWrap = styled.div`
   width: 320px;
@@ -81,6 +82,7 @@ export const RecruitModalContentBox = styled.div`
 export const RecruitModalContent = styled.textarea`
   flex: 1;
   padding: 20px;
+  border-radius: 10px;
   border: 1px solid #d9d9d9;
   overflow-y: scroll;
   ::-webkit-scrollbar {
@@ -103,15 +105,18 @@ export const RecruitModalBtnBox = styled.div`
 export const RecruitModalBtnNo = styled.button`
   width: 200px;
   height: 45px;
+  border-radius: 5px;
+  background-color: #6c6c6c;
+  color: white;
   border: 1px solid black;
-  background-color: transparent;
 `;
 
 export const RecruitModalBtnYes = styled.button`
   width: 200px;
   height: 45px;
+  border-radius: 5px;
+  background-color: #feff80;
   border: 1px solid black;
-  background-color: transparent;
 `;
 
 export const RecruitFooter = styled.div`
