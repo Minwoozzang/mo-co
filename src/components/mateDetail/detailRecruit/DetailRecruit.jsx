@@ -218,9 +218,15 @@ const DetailRecruit = () => {
       <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
         모임 참여 신청
       </RecruitBtn>
-      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
+      <Modal
+        open={isModalOpen}
+        centered={true}
+        closable={false}
+        footer={false}
+        
+      >
         <RecruitModal>
-          <RecruitModalTitle>참여하시겠어요?</RecruitModalTitle>
+          <RecruitModalTitle>이 모임에 참여하시겠어요?</RecruitModalTitle>
           <RecruitModalContentBox>
             <RecruitModalContent
               onChange={(e) => {
@@ -233,10 +239,10 @@ const DetailRecruit = () => {
           </RecruitModalContentBox>
           <RecruitModalBtnBox>
             <RecruitModalBtnNo onClick={handleModalCancel}>
-              취소
+              아니오
             </RecruitModalBtnNo>
             <RecruitModalBtnYes onClick={handleModalOk}>
-              참여하기
+              예
             </RecruitModalBtnYes>
           </RecruitModalBtnBox>
           <RecruitFooter>
@@ -251,3 +257,4 @@ const DetailRecruit = () => {
 };
 
 export default DetailRecruit;
+

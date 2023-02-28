@@ -11,15 +11,20 @@ import {
   GroupBox,
   GroupPerson,
   UserHr,
+  Social,
+  UserInfoWrap,
+  DropdownOptions,
 } from './MateDetailWritingstyle';
 import parse from 'html-react-parser';
 import defaultImg from '../../../assets/icon/user.png';
+import SocialShare from './SocialShare';
 
 // getDoc 사용 doc
 const MateDetailWriting = () => {
   const { id } = useParams();
   const [post, setpost] = useState([]);
   const [parsedHtml, setparsedHtml] = useState('');
+  const [showOptions, setShowOptions] = useState(false);
 
   //useEffect에선 async사용할 수 없음
   const getPost = async () => {
@@ -41,11 +46,27 @@ const MateDetailWriting = () => {
       <GroupWrap>
         <GroupHeader>{post.partyPostTitile}</GroupHeader>
         <GroupUserInfo>
-          <GroupImg
-            src={post.profileImg === null ? defaultImg : post.profileImg}
-            alt={post.profileImg}
-          ></GroupImg>
-          <GroupUserId>{post.nickName}</GroupUserId>
+          <UserInfoWrap>
+            <GroupImg
+              src={post.profileImg === null ? defaultImg : post.profileImg}
+              alt={post.profileImg}
+            ></GroupImg>
+            <GroupUserId>{post.nickName}</GroupUserId>
+          </UserInfoWrap>
+          <Social
+            onClick={() => {
+              setShowOptions(!showOptions);
+            }}
+          >
+            <DropdownOptions />
+          </Social>
+          {showOptions === true ? (
+            <SocialShare
+              onClose={() => {
+                setShowOptions(!showOptions);
+              }}
+            />
+          ) : null}
         </GroupUserInfo>
         {/* <UserHr /> */}
         <GroupBox>
