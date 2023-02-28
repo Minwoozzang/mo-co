@@ -445,6 +445,7 @@ const PostTitle = styled.input`
   font-size: 15px;
   padding: 10px;
   width: 877px;
+  color: white;
 `;
 
 const EditorBox = styled.div``;
