@@ -127,3 +127,5 @@ export const UserHr = styled.hr`
   width: 920px;
   border-top: 1px solid #3b3b3b;
 `;
+
+export const Replybutton = styled.button``;

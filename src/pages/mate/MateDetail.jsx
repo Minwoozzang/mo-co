@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
-import DetailComment from './../../components/mateDetail/detailComment/detailComment';
+import ReplyComment from '../../components/mateDetail/replyComment/replyComment';
 import CommentList from '../../components/mateDetail/commentList/CommentList';
 import { db, authService } from '../../common/firebase';
 import {
@@ -79,7 +79,7 @@ const MateDetail = () => {
         {/* <UserHr /> */}
         <CommentContainHeader>댓글</CommentContainHeader>
         <CommentList id={id} img={profileImg} />
-        <DetailComment id={id} img={profileImg} />
+        <ReplyComment id={id} img={profileImg} />
         <AddComment id={id} />
       </CommentWrap>
       <DetailRecruit />

@@ -20,8 +20,10 @@ import {
   CommentProfileImage,
   CommentDate,
   UserHr,
+  Replybutton,
 } from './CommentStyle';
 import default_profile from '../../../assets/icon/user.png';
+import ReplyComment from './../replyComment/replyComment';
 
 const Comment = ({ user }) => {
   // comment 컬렉션 데이터 저장
@@ -143,8 +145,8 @@ const Comment = ({ user }) => {
               onChange={(e) => handleChange(e)}
             />
           )}
-
           <CommentDate>{user.date}</CommentDate>
+          <Replybutton>댓글쓰기</Replybutton>
         </ListTextSection>
       </ListContainer>
       <UserHr />
