@@ -13,9 +13,9 @@ import Search from '../pages/search/Search';
 import TeamPage from '../pages/teampage/TeamPage';
 import MateEdit from '../pages/mate/MateEdit';
 import TeamList from '../pages/teampage/TeamList';
-import Amplitude from '../amplitude';
 // * 테스트 페이지
 import Test from '../pages/Test';
+import Amplitude from './../amplitude';
 
 const Router = () => {
   // path 이름은 보통 소문자로 하니, 저희도 소문자로 통일하겠습니다
