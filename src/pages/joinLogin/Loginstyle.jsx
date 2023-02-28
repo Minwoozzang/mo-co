@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import background from '../../assets/background/login_background.png';
 
 export const LoginBody = styled.div`
   width: 100%;
@@ -237,4 +238,8 @@ export const ToggleSocialBox = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 80px;
+`;
+
+export const FullScreen = styled.body`
+  background-image: url(${background});
 `;

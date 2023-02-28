@@ -23,6 +23,7 @@ import {
   CheckPasswordBody,
   CheckPasswordText,
   CheckSignUpPasswordInput,
+  FullScreen,
 } from './SignUpstyle';
 import { CiFaceSmile } from 'react-icons/ci';
 import { emailRegex, pwRegex } from '../../common/utils';
@@ -149,75 +150,77 @@ const SignUp = () => {
     navigate('/login');
   };
   return (
-    <SignUpBody>
-      <SignUpForm>
-        <SignUpTitleLogo>
-          <img src={Vector} alt="" />
-          <img src={Vector1} alt="" />
-          <img src={Vector2} alt="" />
-          <img src={Vector3} alt="" />
-          <img src={Vector4} alt="" />
-        </SignUpTitleLogo>
-        {/* <SignUpTitle>MoCo에 오신 것을 환영합니다. !!</SignUpTitle> */}
+    <FullScreen>
+      <SignUpBody>
+        <SignUpForm>
+          <SignUpTitleLogo>
+            <img src={Vector} alt="" />
+            <img src={Vector1} alt="" />
+            <img src={Vector2} alt="" />
+            <img src={Vector3} alt="" />
+            <img src={Vector4} alt="" />
+          </SignUpTitleLogo>
+          {/* <SignUpTitle>MoCo에 오신 것을 환영합니다. !!</SignUpTitle> */}
 
-        <SignUpInputBody>
-          <SignUpInputSection>
-            <EmailBody>
-              <EmailText>이메일</EmailText>
-              <SignUpEmailInput
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                ref={emailRef}
-                onKeyPress={EnterKeyPress}
-              />
-            </EmailBody>
-            <PasswordBody>
-              <PasswordText>비밀번호</PasswordText>
-              <SignUpPasswordInput
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                ref={pwRef}
-                onKeyPress={EnterKeyPress}
-              />
-            </PasswordBody>
-            <CheckPasswordBody>
-              <CheckPasswordText>비밀번호 확인</CheckPasswordText>
-              <CheckSignUpPasswordInput
-                type="password"
-                value={checkPassword}
-                onChange={(e) => setCheckPassword(e.target.value)}
-                ref={pwCheckRef}
-                onKeyPress={EnterKeyPress}
-              />
-            </CheckPasswordBody>
-            <NickNameBody>
-              <NickNameText>닉네임</NickNameText>
-              <SignUpNickNameInput
-                type="text"
-                value={nickName}
-                onChange={(e) => setNickName(e.target.value)}
-                ref={nickNameRef}
-                onKeyPress={EnterKeyPress}
-              />
-            </NickNameBody>
-          </SignUpInputSection>
-        </SignUpInputBody>
+          <SignUpInputBody>
+            <SignUpInputSection>
+              <EmailBody>
+                <EmailText>이메일</EmailText>
+                <SignUpEmailInput
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  ref={emailRef}
+                  onKeyPress={EnterKeyPress}
+                />
+              </EmailBody>
+              <PasswordBody>
+                <PasswordText>비밀번호</PasswordText>
+                <SignUpPasswordInput
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  ref={pwRef}
+                  onKeyPress={EnterKeyPress}
+                />
+              </PasswordBody>
+              <CheckPasswordBody>
+                <CheckPasswordText>비밀번호 확인</CheckPasswordText>
+                <CheckSignUpPasswordInput
+                  type="password"
+                  value={checkPassword}
+                  onChange={(e) => setCheckPassword(e.target.value)}
+                  ref={pwCheckRef}
+                  onKeyPress={EnterKeyPress}
+                />
+              </CheckPasswordBody>
+              <NickNameBody>
+                <NickNameText>닉네임</NickNameText>
+                <SignUpNickNameInput
+                  type="text"
+                  value={nickName}
+                  onChange={(e) => setNickName(e.target.value)}
+                  ref={nickNameRef}
+                  onKeyPress={EnterKeyPress}
+                />
+              </NickNameBody>
+            </SignUpInputSection>
+          </SignUpInputBody>
 
-        <WarnigTextBody>
-          <WarnigText>{warningText}</WarnigText>
-        </WarnigTextBody>
-        <SignUpBtn onClick={handleSignUp} disabled={loding}>
-          회원가입
-        </SignUpBtn>
-        <SignUpLouteBody>
-          <LouteSignUpPageBtn onClick={navigationLoginPage}>
-            로그인 화면으로
-          </LouteSignUpPageBtn>
-        </SignUpLouteBody>
-      </SignUpForm>
-    </SignUpBody>
+          <WarnigTextBody>
+            <WarnigText>{warningText}</WarnigText>
+          </WarnigTextBody>
+          <SignUpBtn onClick={handleSignUp} disabled={loding}>
+            회원가입
+          </SignUpBtn>
+          <SignUpLouteBody>
+            <LouteSignUpPageBtn onClick={navigationLoginPage}>
+              로그인 화면으로
+            </LouteSignUpPageBtn>
+          </SignUpLouteBody>
+        </SignUpForm>
+      </SignUpBody>
+    </FullScreen>
   );
 };
 

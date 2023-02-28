@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import background from '../../assets/background/login_background.png';
 
 export const SignUpBody = styled.div`
   width: 100%;
@@ -279,4 +280,8 @@ export const LouteSignUpPageBtn = styled.div`
   color: #9d9d9d;
 
   cursor: pointer;
+`;
+
+export const FullScreen = styled.body`
+  background-image: url(${background});
 `;
