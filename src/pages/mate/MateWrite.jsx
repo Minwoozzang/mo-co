@@ -40,6 +40,10 @@ const MateWrite = () => {
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
   const [partyTime, setPartyTime] = useState('');
+  console.log(
+    '🚀 ~ file: MateWrite.jsx:43 ~ MateWrite ~ partyTime:',
+    partyTime,
+  );
   const [partyNum, setPartyNum] = useState('');
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
@@ -82,14 +86,6 @@ const MateWrite = () => {
     }
   };
 
-  // 기술 스택 선택 핸들러 함수
-  // const handlePartyStack = (stack) => {
-  //   if (partyStack.includes(stack)) {
-  //     setPartyStack(partyStack.filter((item) => item !== stack));
-  //   } else {
-  //     setPartyStack([...partyStack, stack]);
-  //   }
-  // };
   const handlePartyStack = (stack) => {
     if (partyStack.includes(stack)) {
       setPartyStack(partyStack.filter((item) => item !== stack));
@@ -108,6 +104,16 @@ const MateWrite = () => {
   // 모집글 게시 함수 (동시에 팀페이지 생성)
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (
+      partyStack.length === 0 ||
+      partyTime === '' ||
+      partyNum === '' ||
+      partyLocation === '' ||
+      partyDesc === ''
+    ) {
+      alert('모임 정보를 모두 입력해주세요');
+      return;
+    }
 
     try {
       await addDoc(collection(db, 'post'), {
@@ -131,7 +137,7 @@ const MateWrite = () => {
       })
         .then(() => {
           setDoc(doc(db, 'teamPage', teamID), {
-            teamID: teamID, // 문제 : post의 teamID와 다름
+            teamID: teamID,
             teamLeader: {
               teamID: teamID,
               uid: authService.currentUser?.uid,
@@ -184,7 +190,7 @@ const MateWrite = () => {
           <h2>모각코 모임 개설</h2>
         </PageTitle>
         <PageInfo>
-          모임 개설을 위해 정보와 상세한 설명을 입력해주세요 🙌
+          모임 개설을 위해 정보와 상세한 설명을 모두 입력해주세요 🙌
           <br />
           <br />* 모집 글 작성 시, 자동으로 팀페이지가 생성됩니다.
         </PageInfo>
@@ -195,16 +201,25 @@ const MateWrite = () => {
             <PartyTitleBox>
               <h3>모임명</h3>
               <PartyTitle
+                autoFocus
+                required
                 type="text"
                 value={partyName}
                 onChange={(e) => setPartyname(e.target.value)}
-                maxLength={10}
+                maxLength={12}
                 placeholder="12자 이내로 작성해주세요"
               />
             </PartyTitleBox>
 
             <TechStackBox>
               <h3>기술스택 (최대 3개)</h3>
+              {partyStack.length === 0 ? (
+                <span
+                  style={{ position: 'relative', top: 8, color: '#FEFF80' }}
+                >
+                  최소 1개 이상 기술을 선택해주세요!
+                </span>
+              ) : null}
               <TechStacks>
                 {stacks.map((stack, idx) => (
                   <Tech
@@ -226,6 +241,13 @@ const MateWrite = () => {
             <MeetingTimeandPeopleBox>
               <MeetingTimeBox>
                 <h3 style={{ marginBottom: 20 }}>모임 시간대</h3>
+                {partyTime === '' ? (
+                  <span
+                    style={{ position: 'relative', top: -12, color: '#FEFF80' }}
+                  >
+                    모임 시간대를 선택해주세요
+                  </span>
+                ) : null}
                 <Select
                   styles={{
                     menu: (provided) => ({ ...provided, color: 'black' }),
@@ -238,6 +260,13 @@ const MateWrite = () => {
               </MeetingTimeBox>
               <PeopleBox>
                 <h3 style={{ marginBottom: 20 }}>모집 인원</h3>
+                {partyNum === '' ? (
+                  <span
+                    style={{ position: 'relative', top: -12, color: '#FEFF80' }}
+                  >
+                    모임 인원을 선택해주세요
+                  </span>
+                ) : null}
                 <Select
                   styles={{
                     menu: (provided) => ({ ...provided, color: 'black' }),
@@ -253,6 +282,13 @@ const MateWrite = () => {
             <MeetingTimeandPeopleBox>
               <MeetingTimeBox>
                 <h3 style={{ marginBottom: 20 }}>모집 여부</h3>
+                {partyIsOpen === true ? (
+                  <span
+                    style={{ position: 'relative', top: -12, color: '#a4a4a4' }}
+                  >
+                    모집 중으로 기본 설정됩니다
+                  </span>
+                ) : null}
                 <Select
                   styles={{
                     menu: (provided) => ({ ...provided, color: 'black' }),
@@ -271,6 +307,13 @@ const MateWrite = () => {
                 >
                   비대면을 원해요
                 </Checkbox>
+                {partyLocation === '' && isRemote === false ? (
+                  <div
+                    style={{ position: 'relative', top: -12, color: '#FEFF80' }}
+                  >
+                    모임 지역을 선택해주세요
+                  </div>
+                ) : null}
                 <Select
                   styles={{
                     menu: (provided) => ({ ...provided, color: 'black' }),
@@ -289,6 +332,7 @@ const MateWrite = () => {
             <PostTitleBox>
               <h3 style={{ marginBottom: 20 }}>모집글 제목</h3>
               <PostTitle
+                required
                 type="text"
                 value={partyPostTitile}
                 onChange={(e) => setPartyPostTitle(e.target.value)}
@@ -296,6 +340,13 @@ const MateWrite = () => {
               ></PostTitle>
             </PostTitleBox>
             <h3 style={{ marginBottom: 20 }}>모임 설명</h3>
+            {partyDesc === '' ? (
+              <span
+                style={{ position: 'relative', top: -12, color: '#FEFF80' }}
+              >
+                보다 자세한 설명을 작성하면 모임 결성에 도움이 됩니다
+              </span>
+            ) : null}
             <ReactQuill
               style={{ backgroundColor: 'white', color: 'black' }}
               value={partyDesc}
