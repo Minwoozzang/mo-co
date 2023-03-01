@@ -1,15 +1,70 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { IoCloseOutline } from 'react-icons/io5';
+import axios from 'axios';
+import moco from '../../assets/mocoChat/moco.png';
 
 const ChatWindow = ({ handleMocoChatOpen }) => {
   const [inputValue, setInputValue] = useState('');
-  const messages = ['안녕', '안녕하세요', '반가워요', '반가워요!'];
+  const [response, setResponse] = useState('');
+  console.log(response);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+  const messages = [
+    {
+      id: 1,
+      content:
+        '안녕하세요? 저는 모코입니다. 오늘은 기분이 좋아 보여요! 무슨 좋은 일이라도?',
+      isMine: false,
+    },
+    { id: 2, content: `${inputValue}`, isSent: true },
+    { id: 3, content: `${response}`, isSent: false },
+    { id: 4, content: '반가워요!', isSent: true },
+    { id: 5, content: '반가워요!', isSent: false },
+    { id: 6, content: '반가워요!', isSent: true },
+    { id: 7, content: '반가워요!', isSent: false },
+    { id: 8, content: '반가워요!', isSent: true },
+    { id: 9, content: '반가워요!', isSent: false },
+    { id: 10, content: '반가워요!', isSent: true },
+  ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // inputValue 값을 서버에 보내는 로직
-    setInputValue('');
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setIsLoading(true);
+    setIsError(false);
+    setIsDone(false);
+
+    const API_KEY = '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';
+    const ENDPOINT = `https://api.openai.com/v1/completions`;
+
+    const requestData = {
+      prompt: inputValue,
+      model: 'text-davinci-003',
+      max_tokens: 1000,
+    };
+
+    try {
+      const response = await axios.post(ENDPOINT, requestData, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      });
+
+      setResponse(response.data.choices[0].text);
+      setIsDone(true);
+    } catch (error) {
+      setIsError(true);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -20,25 +75,25 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
           <MocoName>모코</MocoName>
         </MocoProfile>
         <IoCloseOutline
-          style={{ cursor: 'pointer' }}
+          size="20"
+          style={{ cursor: 'pointer', color: '#464646' }}
           onClick={handleMocoChatOpen}
         />
       </Header>
 
-      <MessageList>안녕하세요 모코입니다 :)</MessageList>
-      {/* <MessageList>
+      <MessageList>
         {messages.map((message) => (
-          <Message key={message.id} isMine={message.isMine}>
+          <Message key={message.id} isSent={message.isSent}>
             {message.content}
           </Message>
         ))}
-      </MessageList> */}
+      </MessageList>
 
       <MessageInputForm onSubmit={handleSubmit}>
         <MessageInput
           type="text"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={handleChange}
           placeholder="메시지를 입력하세요"
         />
         <MessageSubmitButton type="submit">전송</MessageSubmitButton>
@@ -54,8 +109,7 @@ const ChatWindowContainer = styled.div`
   bottom: 130px;
   right: 120px;
   background-color: white;
-  border-radius: 10px;
-  border: 1px solid black;
+  border-radius: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
     0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
     0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
@@ -66,8 +120,10 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+  height: 88px;
   padding: 10px;
+  background-color: #feff80;
+  border-radius: 20px 20px 0 0;
 `;
 
 const MocoProfile = styled.div`
@@ -77,18 +133,21 @@ const MocoProfile = styled.div`
 `;
 
 const MocoImg = styled.div`
-  background-color: #6758ff;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 48px;
+  height: 56px;
+  background-image: url(${moco});
+  background-size: cover;
+  margin: 0 10px;
 `;
 
-const MocoName = styled.div``;
+const MocoName = styled.div`
+  font-size: 20px;
+`;
 
-const MessageList = styled.ul`
+const MessageList = styled.div`
   list-style: none;
   padding: 24px;
-  height: 450px;
+  height: 400px;
   overflow-y: scroll;
   /* 스크롤바 숨기기 */
   ::-webkit-scrollbar {
@@ -96,26 +155,30 @@ const MessageList = styled.ul`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #cecece;
 `;
 
-const Message = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
+const Message = styled.div`
+  max-width: 80%;
+  clear: both;
+  float: ${(message) => (message.isSent ? 'right' : 'left')};
   margin: 10px;
+  background-color: ${(message) => (message.isSent ? '#000000' : '#feff80')};
+  color: ${(message) => (message.isSent ? '#ffffff' : '#000000')};
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 8px 12px;
 `;
 
 const MessageInputForm = styled.form`
   display: flex;
-  margin: 10px;
   justify-content: space-between;
   align-items: center;
 `;
 
 const MessageInput = styled.textarea`
   flex: 1;
-  padding: 10px;
+  padding: 15px;
   border: none;
   border-radius: 5px;
   overflow-y: scroll;
@@ -124,18 +187,18 @@ const MessageInput = styled.textarea`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
-  height: 100px;
   outline: none;
   font-size: 15px;
 `;
 
 const MessageSubmitButton = styled.button`
+  width: 56px;
   padding: 10px;
   margin-left: 10px;
-  background-color: #6758ff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  background-color: #e7e7e7;
+  color: #6c6c6c;
+  border: 1px solid #cecece;
+  border-radius: 10px;
   cursor: pointer;
   position: absolute;
   right: 10px;
