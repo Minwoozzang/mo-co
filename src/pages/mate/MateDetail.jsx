@@ -79,7 +79,6 @@ const MateDetail = () => {
         {/* <UserHr /> */}
         <CommentContainHeader>댓글</CommentContainHeader>
         <CommentList id={id} img={profileImg} />
-        <ReplyComment id={id} img={profileImg} />
         <AddComment id={id} />
       </CommentWrap>
       <DetailRecruit />

@@ -118,7 +118,9 @@ export const CommentProfileImage = styled.img`
   background-color: #d9d9d9;
 `;
 export const CommentDate = styled.p`
-  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  color: #858585;
 `;
 
 export const UserHr = styled.hr`
@@ -128,4 +130,11 @@ export const UserHr = styled.hr`
   border-top: 1px solid #3b3b3b;
 `;
 
-export const Replybutton = styled.button``;
+export const Replybutton = styled.button`
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 23px;
+  color: #858585;
+  background: none;
+  border: none;
+`;

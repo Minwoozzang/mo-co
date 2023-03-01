@@ -146,7 +146,7 @@ const Comment = ({ user }) => {
             />
           )}
           <CommentDate>{user.date}</CommentDate>
-          <Replybutton>댓글쓰기</Replybutton>
+          <Replybutton onClick={() => {}}>답글쓰기</Replybutton>
         </ListTextSection>
       </ListContainer>
       <UserHr />

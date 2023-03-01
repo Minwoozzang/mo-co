@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   AddCommentListWrap,
   AddCommentListAll,
-  AddCommentListTwo,
   AddInputContent,
-  AddCommentText,
   AddCommentBtn,
   AddInputDiv,
   AddCommentBtnDiv,

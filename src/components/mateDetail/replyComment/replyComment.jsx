@@ -1,7 +1,5 @@
 import React from 'react';
 
-const ReplyComment = () => {
-  return <div>ReplyComment</div>;
-};
+const ReplyComment = () => {};
 
 export default ReplyComment;
