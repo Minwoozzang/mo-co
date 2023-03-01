@@ -20,7 +20,6 @@ import {
   CommentProfileImage,
   CommentDate,
   UserHr,
-  Replybutton,
 } from './CommentStyle';
 import default_profile from '../../../assets/icon/user.png';
 import ReplyComment from './../replyComment/replyComment';
@@ -76,6 +75,12 @@ const Comment = ({ user }) => {
         return <CustomUi onClose={onClose} id={id} />;
       },
     });
+  };
+
+  // 대댓글 추가
+  const replyHandler = (e) => {
+    e.preventDefault();
+    setEditValue();
   };
 
   return (
@@ -146,7 +151,11 @@ const Comment = ({ user }) => {
             />
           )}
           <CommentDate>{user.date}</CommentDate>
-          <Replybutton onClick={() => {}}>답글쓰기</Replybutton>
+          <ReplyComment
+            onClick={() => {
+              replyHandler(user.id);
+            }}
+          />
         </ListTextSection>
       </ListContainer>
       <UserHr />
