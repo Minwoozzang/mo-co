@@ -77,12 +77,6 @@ const Comment = ({ user }) => {
     });
   };
 
-  // 대댓글 추가
-  const replyHandler = (e) => {
-    e.preventDefault();
-    setEditValue();
-  };
-
   return (
     <CommentContainer>
       {/* 댓글 내용 */}
@@ -151,11 +145,7 @@ const Comment = ({ user }) => {
             />
           )}
           <CommentDate>{user.date}</CommentDate>
-          <ReplyComment
-            onClick={() => {
-              replyHandler(user.id);
-            }}
-          />
+          <ReplyComment key={user.replyId} user={user} />
         </ListTextSection>
       </ListContainer>
       <UserHr />
