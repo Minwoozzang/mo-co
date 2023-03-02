@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   child,
   getDatabase,
+  off,
   onValue,
   push,
   ref,
@@ -10,7 +11,7 @@ import {
 } from 'firebase/database';
 
 const NotiBadge = () => {
-  const [isRead, setIsRead] = useState(false);
+  const [isRead, setIsRead] = useState([]);
   
 
 // onvalue -> 바뀐 데이터 읽기, set -> 데이터 바꾸기(덮어쓰기)
@@ -24,18 +25,23 @@ const onIsRead = () => {
 }
 useEffect(() => {
     
-    const noitref = ref(database, 'list1/uid');
+    const noitref = ref(database, '/'); // 전체 데이터 -> Object
     onValue(noitref, (snapshot) => {
       const data = snapshot.val();
       console.log(data);
       setIsRead(data)
     });
+    // return () => off(noitref)
   },[]);
+
   console.log(isRead); // isRead -> false가 되면 알림 메세지 보여주기?
+  let arrData = Object.keys(isRead).map(item => isRead[item])
+  console.log(arrData)
 
   return (
     <>
     <button onClick={onIsRead}>test</button>
+    
     </>
   )
 };
