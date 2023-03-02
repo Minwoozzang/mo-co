@@ -158,7 +158,7 @@ const Home = () => {
 
   return (
     <FullScreen>
-      {/* <MocoChat /> */}
+      {/* <MocoChat uid = {uid} /> */}
       <HomeBanner />
       <MainBackground>
         {init ? (
