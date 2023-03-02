@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MateList from '../pages/mate/MateList';
 import Header from '../components/header/Header';
@@ -13,11 +13,26 @@ import Search from '../pages/search/Search';
 import TeamPage from '../pages/teampage/TeamPage';
 import MateEdit from '../pages/mate/MateEdit';
 import TeamList from '../pages/teampage/TeamList';
+import MocoChat from '../components/mocoChat/MocoChatIcon';
 // * 테스트 페이지
 import Test from '../pages/Test';
 import Amplitude from './../amplitude';
+import { authService } from '../common/firebase';
 
 const Router = () => {
+  const [uid, setUid] = useState(null);
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      // user 판명을 듣고
+      if (user) {
+        const uid = user.uid;
+        setUid(uid);
+      } else {
+        return;
+      }
+    });
+  }, []);
+
   // path 이름은 보통 소문자로 하니, 저희도 소문자로 통일하겠습니다
   return (
     <BrowserRouter>
@@ -39,6 +54,7 @@ const Router = () => {
         <Route path="/test" element={<Test />} />
         <Route path="/amplitude" element={<Amplitude />} />
       </Routes>
+      {uid === null ? null : <MocoChat uid={uid} />}
     </BrowserRouter>
   );
 };
