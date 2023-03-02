@@ -237,7 +237,6 @@ const Profile = () => {
             <ProfileTechBody>
               <TechBodyTitle>기술 스택</TechBodyTitle>
               <TechBodyImage>
-                {/* ㅗㅗ{' '} */}
                 {techStack.map((item, idx) => (
                   <img
                     key={idx}

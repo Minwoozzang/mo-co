@@ -19,7 +19,6 @@ import {
   NickNameText,
   SignUpNickNameInput,
   WarnigText,
-  WarnigTextBody,
   CheckPasswordBody,
   CheckPasswordText,
   CheckSignUpPasswordInput,

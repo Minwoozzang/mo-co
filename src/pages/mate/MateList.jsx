@@ -14,7 +14,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 const MateList = () => {
   const { data, isLoading, isError, error } = usePosts();
-  console.log('🚀 ~ file: MateList.jsx:17 ~ MateList ~ data:', data);
 
   const [selectedTech, setSelectedTech] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
@@ -131,7 +130,7 @@ const MateList = () => {
               setSelectedSort('byRecommend');
             }}
           >
-            추천순
+            스크랩순
           </SortByRecommend>
           <SortByNew
             onClick={() => {

@@ -52,7 +52,6 @@ export default function OnboardingPage() {
     };
     try {
       await updateDoc(userDoc, newField);
-      console.log('user', user);
     } catch (e) {
       console.log(e);
     } finally {

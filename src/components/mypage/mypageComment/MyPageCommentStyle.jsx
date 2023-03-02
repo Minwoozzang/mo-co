@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const MyCommentBody = styled.div`
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 100px;
 
   display: flex;
@@ -51,4 +51,11 @@ export const MyCommentDate = styled.div`
 
   color: #b6b6b6;
   margin: 4px 0 10px 0;
+`;
+
+export const PageBox = styled.div`
+  text-align: center;
+
+  margin-left: 100px;
+  margin-top: 30px;
 `;
