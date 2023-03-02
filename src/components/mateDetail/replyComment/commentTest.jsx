@@ -41,7 +41,6 @@ const CommentTest = () => {
           <CommentText>asdasdasdasdad</CommentText>
 
           <CommentDate>23.3.02</CommentDate>
-          {/* <ReplyComment /> */}
         </ListTextSection>
       </ListContainer>
       <UserHr />

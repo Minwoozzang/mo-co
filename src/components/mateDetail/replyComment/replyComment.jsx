@@ -1,27 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import { Replybutton } from './../comment/CommentStyle';
-import { ReplyWrap } from './replyCommentStyle';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { db } from './../../../common/firebase';
-import Comment from '../comment/Comment';
-import AddComment from './../addComment/AddComment';
-import CommentTest from './commentTest';
+import React from 'react';
 
-const ReplyComment = (user) => {
-  const [display, setDisplay] = useState(false);
+import default_profile from '../../../assets/icon/user.png';
+import {
+  CommentContainer,
+  CommentDeleteBtn,
+  CommentIconBody,
+  CommentUserName,
+  CommentUserInput,
+  CommentText,
+  CommentTextIcon,
+  CommentUpdateBtn,
+  ListContainer,
+  ListTextSection,
+  NoneDiv,
+  UpdateDeleteBody,
+  CommentProfileImage,
+  CommentDate,
+  UserHr,
+} from './../comment/CommentStyle';
 
+const ReplyComment = () => {
   return (
-    <ReplyWrap>
-      <Replybutton
-        onClick={() => {
-          setDisplay(!display);
-        }}
-      >
-        답글 쓰기
-      </Replybutton>
-      <CommentTest />
-      {display && <AddComment />};
-    </ReplyWrap>
+    <CommentContainer>
+      {/* 댓글 내용 */}
+      <ListContainer>
+        <ListTextSection>
+          <CommentProfileImage src={default_profile}></CommentProfileImage>
+          <CommentUserName>asdasd</CommentUserName>
+          <CommentIconBody>
+            <GrMoreVertical
+              style={{
+                color: '#858585',
+                width: '550px',
+              }}
+            />
+          </CommentIconBody>
+
+          <CommentText>asdasdasdasdad</CommentText>
+
+          <CommentDate>23.3.02</CommentDate>
+        </ListTextSection>
+      </ListContainer>
+      <UserHr />
+    </CommentContainer>
   );
 };
 

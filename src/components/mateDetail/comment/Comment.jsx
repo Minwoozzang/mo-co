@@ -22,7 +22,7 @@ import {
   UserHr,
 } from './CommentStyle';
 import default_profile from '../../../assets/icon/user.png';
-import ReplyComment from './../replyComment/replyComment';
+import ReplyComment from '../replyComment/replyCommentList';
 
 const Comment = ({ user }) => {
   // comment 컬렉션 데이터 저장
