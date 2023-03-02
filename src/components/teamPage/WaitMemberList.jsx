@@ -1,19 +1,17 @@
 import { uuidv4 } from '@firebase/util';
 import React, { useEffect, useState } from 'react';
-import { HiChevronRight } from 'react-icons/hi';
+
 import {
   LeaderInfoProfile,
   MemberInfoProfileImgTwo,
   WaitProfileInfo,
-  LeaderName,
   WaitChangeIcon,
   YellowBox,
   MemberInfoProfile,
-  MemberInfoProfileName,
   MemberInfoProfileNameTwo,
 } from './style';
 import { confirmAlert } from 'react-confirm-alert';
-import CustomConfirmUI from './CustomConfirmUI';
+import CustomConfirmUI from './teamPageConfirm/CustomConfirmUI';
 import { authService } from '../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 

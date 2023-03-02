@@ -44,6 +44,7 @@ import {
   onSnapshot,
   query,
   setDoc,
+  updateDoc,
   where,
 } from '@firebase/firestore';
 import Vector from '../../../src/assets/login/Vector.png';
@@ -53,6 +54,8 @@ import Vector3 from '../../../src/assets/login/Vector-3.png';
 import Vector4 from '../../../src/assets/login/Vector-4.png';
 import Github from '../../../src/assets/login/github.png';
 import Google from '../../../src/assets/login/google.png';
+
+import defaultImg from '../../../src/assets/icon/default_profile.png';
 
 const Login = () => {
   const emailRef = useRef(null);
@@ -66,37 +69,6 @@ const Login = () => {
   const [warningText, setWarningText] = useState('');
 
   const navigate = useNavigate();
-
-  // 이미지, 팀 ID, 북마크 가져오기
-  const [userBookmark, setUserBookmark] = useState([]);
-  const [profileUserInfo, setProfileUserInfo] = useState('');
-  const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
-
-  const getUserInfo = () => {
-    const q = query(
-      collection(db, 'user'),
-      where('uid', '==', authService.currentUser.uid),
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUserBookmark(newInfo[0]?.bookmarks);
-      setProfileUserInfo(newInfo[0]?.profileImg);
-      setTeamIDUserInfo(newInfo[0]?.teamID);
-    });
-
-    return unsubscribe;
-  };
-
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        getUserInfo();
-      }
-    });
-  }, []);
 
   // 유효성 검시
   const validateInputs = () => {
@@ -173,24 +145,58 @@ const Login = () => {
   };
 
   // 구글 로그인
-  // TODO: 이미지 디폴트가 아닌 현재 이미지로 변경
   const gooleLogin = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(authService, provider)
-      .then((res) => {
-        navigate('/');
-        setDoc(doc(db, 'user', res.user.uid), {
-          uid: res.user.uid,
-          email: res.user.email,
-          nickname: res.user.displayName,
-          bookmarks: [...userBookmark],
+      .then(() => {
+        setDoc(doc(db, 'user', authService.currentUser.uid), {
+          uid: authService.currentUser.uid,
+          email: authService.currentUser.email,
+          nickname: authService.currentUser.displayName,
+          bookmarks: [],
           profileImg:
-            profileUserInfo === ''
-              ? authService.currentUser.photoURL
-              : profileUserInfo,
-          teamID: [...teamIDUserInfo],
+            authService.currentUser.photoURL === ''
+              ? defaultImg
+              : authService.currentUser.photoURL,
+          teamID: [],
+          moreInfo: {
+            u_isRemote: '',
+            u_location: '',
+            u_stack: [],
+            u_time: '',
+          },
         });
-        console.log('프로', getRedirectResult(res));
+        onAuthStateChanged(authService, (user) => {
+          if (user) {
+            const q = query(
+              collection(db, 'google'),
+              where('uid', '==', authService.currentUser.uid),
+            );
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+              const newInfo = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+              updateDoc(doc(db, 'user', authService.currentUser.uid), {
+                nickname: authService.currentUser.displayName,
+                bookmarks: [...newInfo[0]?.bookmarks],
+                profileImg:
+                  authService.currentUser.photoURL === ''
+                    ? defaultImg
+                    : newInfo[0]?.profileImg,
+                teamID: [...newInfo[0]?.teamID],
+                moreInfo: {
+                  u_isRemote: newInfo[0]?.moreInfo?.u_isRemote,
+                  u_location: newInfo[0]?.moreInfo?.u_location,
+                  u_time: newInfo[0]?.moreInfo?.u_time,
+                  u_stack: [...newInfo[0]?.moreInfo?.u_stack],
+                },
+              });
+            });
+            return unsubscribe;
+          }
+        });
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);
@@ -201,19 +207,55 @@ const Login = () => {
   const githubLogin = () => {
     const provider = new GithubAuthProvider();
     signInWithPopup(authService, provider)
-      .then((res) => {
-        navigate('/');
-        setDoc(doc(db, 'user', res.user.uid), {
-          uid: res.user.uid,
-          email: res.user.email,
-          nickname: res.user.displayName,
-          bookmarks: [...userBookmark],
+      .then(() => {
+        setDoc(doc(db, 'user', authService.currentUser.uid), {
+          uid: authService.currentUser.uid,
+          email: authService.currentUser.email,
+          nickname: authService.currentUser.displayName,
+          bookmarks: [],
           profileImg:
-            profileUserInfo === ''
-              ? authService.currentUser.photoURL
-              : profileUserInfo,
-          teamID: [...teamIDUserInfo],
+            authService.currentUser.photoURL === ''
+              ? defaultImg
+              : authService.currentUser.photoURL,
+          teamID: [],
+          moreInfo: {
+            u_isRemote: '',
+            u_location: '',
+            u_stack: [],
+            u_time: '',
+          },
         });
+        onAuthStateChanged(authService, (user) => {
+          if (user) {
+            const q = query(
+              collection(db, 'github'),
+              where('uid', '==', authService.currentUser.uid),
+            );
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+              const newInfo = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+              updateDoc(doc(db, 'user', authService.currentUser.uid), {
+                nickname: authService.currentUser.displayName,
+                bookmarks: [...newInfo[0]?.bookmarks],
+                profileImg:
+                  authService.currentUser.photoURL === ''
+                    ? defaultImg
+                    : newInfo[0]?.profileImg,
+                teamID: [...newInfo[0]?.teamID],
+                moreInfo: {
+                  u_isRemote: newInfo[0]?.moreInfo?.u_isRemote,
+                  u_location: newInfo[0]?.moreInfo?.u_location,
+                  u_time: newInfo[0]?.moreInfo?.u_time,
+                  u_stack: [...newInfo[0]?.moreInfo?.u_stack],
+                },
+              });
+            });
+            return unsubscribe;
+          }
+        });
+        navigate('/');
       })
       .catch((err) => {
         console.log(err);

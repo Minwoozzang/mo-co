@@ -19,7 +19,6 @@ import {
   NickNameText,
   SignUpNickNameInput,
   WarnigText,
-  WarnigTextBody,
   CheckPasswordBody,
   CheckPasswordText,
   CheckSignUpPasswordInput,
@@ -134,6 +133,7 @@ const SignUp = () => {
             profileImg: 'https://imhannah.me/common/img/default_profile.png',
             bookmarks: [],
             teamID: [],
+            nickname: nickName,
           });
 
         updateProfile(authService.currentUser, {

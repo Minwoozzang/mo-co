@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 
 export const MyBookmarkBox = styled.div`
+  width: 800px;
+  height: 300px;
+
   display: flex;
 
   margin-top: 70px;
@@ -24,6 +27,13 @@ export const MyBookmarkTitle = styled.div`
 
   margin-right: 70px;
 `;
+export const PageBox = styled.div`
+  text-align: center;
+
+  margin-left: 100px;
+  margin-top: 30px;
+`;
+
 export const MyBookmarkList = styled.div`
   margin-right: 25px;
   margin-bottom: 60px;

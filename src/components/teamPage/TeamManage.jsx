@@ -138,7 +138,6 @@ export default function TeamManage({ teamLocationID, item }) {
     } catch (error) {
       console.log(error);
     }
-    console.log('탈퇴', uid);
     updateDoc(doc(db, 'user', uid), {
       teamID: deleteDoc(),
     });

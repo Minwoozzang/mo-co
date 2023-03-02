@@ -1,5 +1,5 @@
 import { uuidv4 } from '@firebase/util';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MemberInfoProfileImg,
   LeaderPosition,
@@ -9,22 +9,76 @@ import {
   MemberCancel,
 } from './style';
 import cancel from '../../../src/assets/icon/Icon_cancel.png';
-import { authService } from '../../common/firebase';
+import { authService, db } from '../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
-import MemberCancelConfirmUI from './MemberCancelConfirmUI';
+import MemberCancelConfirmUI from './teamPageConfirm/MemberCancelConfirmUI';
+import MyProfileConfirm from './teamPageConfirm/MyProfileConfirm';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
-const SideMemberList = ({ item }) => {
+const SideMemberList = ({ item, teamLocationID }) => {
   // 멤버 리스트
   const memberList = item.teamMember;
+
+  // isWait가 false인 멤버
+  const memberListUid = memberList
+    .filter((t) => t.isWait === false)
+    .map((t) => t.uid);
+
+  // 팀 멤버 유저 정보 가져오기
+  const [profileUserInfo, setProfileUserInfo] = useState([]);
+
+  const getUserStackInfo = () => {
+    const q = query(collection(db, 'user'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProfileUserInfo(newInfo.filter((t) => memberListUid.includes(t.uid)));
+    });
+
+    return unsubscribe;
+  };
+
+  // 리더에게만 아이콘 보이게 하기
+  const [onlyLeaderLook, setOnlyLeaderLook] = useState(false);
+
+  const onlyLeader = () => {
+    const myUid = authService.currentUser.uid;
+
+    if (item.teamLeader.uid === myUid) {
+      setOnlyLeaderLook(true);
+    } else {
+      setOnlyLeaderLook(false);
+    }
+  };
 
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
-        // getUserTeamID();
+        onlyLeader();
+        getUserStackInfo();
       }
     });
   }, []);
+
+  // 멤버 프로필 보기
+  const lookProfile = (data) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <MyProfileConfirm
+            onClose={onClose}
+            data={data}
+            id={item.id}
+            teamLocationID={teamLocationID}
+            item={item.teamMember}
+          />
+        );
+      },
+    });
+  };
 
   // 강퇴
   const memberCancelHandler = (data) => {
@@ -44,29 +98,28 @@ const SideMemberList = ({ item }) => {
 
   return (
     <>
-      {memberList
-        .filter((data) => data.isWait === false)
-        .map((data) => {
-          return (
-            <MemberInfoProfile key={uuidv4()}>
-              <MemberInfoProfileImg
-                src={
-                  data.profileImg
-                    ? data.profileImg
-                    : 'https://imhannah.me/common/img/default_profile.png'
-                }
-              />
-              <MemberInfoProfileInfo>
-                <MemberInfoProfileName>{data.nickName}</MemberInfoProfileName>
-                <LeaderPosition>{data.teamPositon}</LeaderPosition>
-              </MemberInfoProfileInfo>
+      {profileUserInfo.map((data) => {
+        return (
+          <MemberInfoProfile key={uuidv4()}>
+            <MemberInfoProfileImg
+              src={data.profileImg}
+              onClick={() => lookProfile(data)}
+            />
+            <MemberInfoProfileInfo>
+              <MemberInfoProfileName>{data.nickname}</MemberInfoProfileName>
+              <LeaderPosition>멤버</LeaderPosition>
+            </MemberInfoProfileInfo>
+            {onlyLeaderLook ? (
               <MemberCancel
                 src={cancel}
                 onClick={() => memberCancelHandler(data)}
               />
-            </MemberInfoProfile>
-          );
-        })}
+            ) : (
+              ''
+            )}
+          </MemberInfoProfile>
+        );
+      })}
     </>
   );
 };

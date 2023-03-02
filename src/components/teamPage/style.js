@@ -127,6 +127,8 @@ export const MemberInfoProfileImg = styled.img`
   border-radius: 20px;
   border: 1px solid black;
   object-fit: cover;
+
+  cursor: pointer;
 `;
 
 export const MemberInfoProfileImgTwo = styled.img`
