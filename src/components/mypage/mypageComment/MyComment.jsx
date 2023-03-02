@@ -4,7 +4,6 @@ import {
   MyCommentsBox,
   MyCommentOfComment,
   MyCommentDate,
-  MyCommentCommentTitle,
 } from './MyPageCommentStyle';
 
 const MyComment = ({ myItem }) => {

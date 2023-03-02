@@ -81,8 +81,6 @@ const MemberChatingRoom = ({ teamLocationID }) => {
 
   // 메세지 데이터 올리기
   const handleSubmit = async () => {
-    // const beforeChat = chatInfo.filter((t) => t.id === teamLocationID);
-    // const beforeChatMessage = beforeChat[0].message;
     await updateDoc(doc(db, 'teamChat', teamLocationID), {
       message: [
         ...chatInfo,
@@ -104,9 +102,7 @@ const MemberChatingRoom = ({ teamLocationID }) => {
       </ContentTitle>
       <ContentChatAreaBox>
         <ContentChatArea>
-          {AddMessage.map((t) => {
-            return <MessageBox key={v4()} t={t} />;
-          })}
+          <MessageBox key={v4()} t={AddMessage} />
         </ContentChatArea>
         <ChatFormSection>
           <ChatInputBody>

@@ -27,3 +27,37 @@ export const MessageContent = styled.div`
   border-radius: 0px 15px 15px 15px;
   padding: 12px;
 `;
+
+export const MyMessageSection = styled.div`
+  margin-top: 5px;
+
+  display: flex;
+  justify-content: flex-end;
+`;
+export const MyMessageImageBox = styled.div`
+  margin-left: 10px;
+`;
+export const MyMessageImage = styled.img`
+  width: 40px;
+  height: 40px;
+
+  border-radius: 20px;
+`;
+export const MyMessageTextBox = styled.div`
+  padding: 5px;
+`;
+export const MyMessageNickName = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  color: grey;
+`;
+export const MyMessageContent = styled.div`
+  font-size: 1rem;
+  margin-top: 8px;
+  background: #000000;
+  border-radius: 15px 0px 15px 15px;
+  padding: 12px;
+
+  color: #ffffff;
+`;

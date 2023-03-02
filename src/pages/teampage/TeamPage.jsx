@@ -18,17 +18,19 @@ export default function TeamPage() {
   // 경로 id 받아오기
   const location = useLocation();
   const teamLocationID = location.state;
+
   // 팀 정보 가져오기
   const [teamList, setTeamList] = useState([]);
+
   const getTeamInformation = () => {
     const postCollectionRef = collection(db, 'teamPage');
     const q = query(postCollectionRef);
     const getPost = onSnapshot(q, (snapshot) => {
-      const testTeam = snapshot.docs.map((doc) => ({
+      const newInfo = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setTeamList(testTeam);
+      setTeamList(newInfo);
     });
 
     return getPost;
@@ -65,7 +67,7 @@ export default function TeamPage() {
       <JustContainer>
         <WholeContainer>
           <MemberSide teamLocationID={teamLocationID} />
-          {/* TODO: 추후 아이디 변경 */}
+
           <DashBoardContainer>
             {teamList
               .filter((item) => item.id === teamLocationID)

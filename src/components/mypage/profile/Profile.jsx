@@ -117,16 +117,19 @@ const Profile = () => {
   };
 
   // 닉네임 완료 버튼 클릭시
-  const completeNickName = () => {
-    updateProfile(authService.currentUser, {
+  const completeNickName = async () => {
+    await updateProfile(authService.currentUser, {
       displayName: nickNamevalue,
+    });
+    await updateDoc(doc(db, 'user', authService.currentUser.uid), {
+      nickname: nickNamevalue,
     });
     alert('닉네임 수정 완료');
     setClickBtn(true);
-
-    setTimeout(() => {
-      window.location.replace('/mypage');
-    }, 500);
+    setEditNickName(false);
+    // setTimeout(() => {
+    //   window.location.replace('/mypage');
+    // }, 200);
   };
 
   // 이미지 선탣
@@ -171,7 +174,9 @@ const Profile = () => {
                     onChange={(e) => setNickNameValue(e.target.value)}
                   />
                 ) : (
-                  <ProfileNickName>{nickName}님</ProfileNickName>
+                  <ProfileNickName>
+                    {profileUserInfo[0]?.nickname}님
+                  </ProfileNickName>
                 )}
                 {clickEditBtn ? (
                   <ProfileNickNameBtn onClick={edditNickName}>
@@ -237,7 +242,6 @@ const Profile = () => {
             <ProfileTechBody>
               <TechBodyTitle>기술 스택</TechBodyTitle>
               <TechBodyImage>
-                {/* ㅗㅗ{' '} */}
                 {techStack.map((item, idx) => (
                   <img
                     key={idx}
