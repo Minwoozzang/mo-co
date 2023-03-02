@@ -5,7 +5,14 @@ import HomeBanner from '../../components/home/HomeBanner';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
 import { authService, db } from '../../common/firebase';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import MocoChat from '../../components/mocoChat/MocoChatIcon';
 import { Modal } from 'antd';
 import AddInfoModal from '../../components/home/AddInfoModal';
@@ -46,13 +53,13 @@ const Home = () => {
       if (user) {
         // 있으면
         setIsLoggedIn(true); // 로그인 됨
+        getUserBookmark();
       } else {
         setIsLoggedIn(false); // 로그인 안됨
       }
       setInit(true); // user 판명 끝
-      const uid = user.uid;
+      const uid = user?.uid;
       setUid(uid);
-      getUserBookmark();
     });
   }, []);
 
@@ -132,7 +139,6 @@ const Home = () => {
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
-  console.log(customList);
   //postList -> 로그인 안 됐을 시 안보이게
   useEffect(() => {
     const userCollectionRef = collection(db, 'user');
@@ -152,7 +158,7 @@ const Home = () => {
 
   return (
     <FullScreen>
-      <MocoChat />
+      {/* <MocoChat /> */}
       <HomeBanner />
       <MainBackground>
         {init ? (

@@ -8,10 +8,22 @@ import {
   MyBookmarkBody,
   MyBookmarkTitle,
   MyBookmarkList,
+  PageBox,
 } from './MyPageBookmarkStyle';
 import { useNavigate } from 'react-router';
 
+import { Pagination } from 'antd';
+
 const MyPageBookmark = () => {
+  // 페이지네이션
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(2);
+
+  const handleChange = (page) => {
+    setMinValue(page * 2 - 2);
+    setMaxValue(page * 2);
+  };
+
   const navigate = useNavigate();
 
   // 내 정보 가져오기
@@ -57,28 +69,40 @@ const MyPageBookmark = () => {
   }, []);
 
   return (
-    <MyBookmarkBox>
-      <MyBookmarkTitle>
-        스크랩 <br />
-        모임리스트
-      </MyBookmarkTitle>
-      <MyBookmarkBody>
-        {postBookmark
-          .filter((item) => userBookmark?.includes(item.id))
-          .map((item) => {
-            return (
-              <MyBookmarkList key={item.id}>
-                <CardSection
-                  item={item}
-                  onClick={() => {
-                    navigate(`/matedetail/${item.id}`);
-                  }}
-                />
-              </MyBookmarkList>
-            );
-          })}
-      </MyBookmarkBody>
-    </MyBookmarkBox>
+    <>
+      <MyBookmarkBox>
+        <MyBookmarkTitle>
+          스크랩 <br />
+          모임리스트
+        </MyBookmarkTitle>
+        <MyBookmarkBody>
+          {postBookmark
+            .filter((item) => userBookmark?.includes(item.id))
+            .slice(minValue, maxValue)
+            .map((item) => {
+              return (
+                <MyBookmarkList key={item.id}>
+                  <CardSection
+                    item={item}
+                    onClick={() => {
+                      navigate(`/matedetail/${item.id}`);
+                    }}
+                  />
+                </MyBookmarkList>
+              );
+            })}
+        </MyBookmarkBody>
+      </MyBookmarkBox>
+      <PageBox>
+        <Pagination
+          style={{ backgroundColor: '#383838' }}
+          defaultCurrent={1}
+          defaultPageSize={2}
+          onChange={handleChange}
+          total={userBookmark ? userBookmark.length : 0}
+        />
+      </PageBox>
+    </>
   );
 };
 

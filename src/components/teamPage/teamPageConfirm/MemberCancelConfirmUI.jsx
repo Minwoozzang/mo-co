@@ -9,14 +9,13 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { authService, db } from '../../common/firebase';
+import { authService, db } from '../../../common/firebase';
 
 const MemberCancelConfirmUI = (props) => {
   // 본인 아이디
   const myId = props.data.uid;
   // 팀 ID
   const teamID = props.id;
-
   //  팀 멤버
   const member = props.item;
   const otherMember = member.filter((d) => d.uid !== myId);
@@ -59,18 +58,19 @@ const MemberCancelConfirmUI = (props) => {
     <ConfirmBody>
       <ConfirmBox>
         <ImageTitleBox>
-          <ImageBox></ImageBox>
-          <TitleBox></TitleBox>
+          <ImageBox>
+            <MyImage src={props.data.profileImg} />
+          </ImageBox>
         </ImageTitleBox>
         <TextBox>
           <ConfirmText>
-            {props.data.nickName} 님을 퇴장 시키시겠습니까?
+            {props.data.nickName} 님을 <br /> 모임에서 강퇴하시겠습니까?
           </ConfirmText>
         </TextBox>
         <BtnBox>
           <ConfirmCancelBtn onClick={props.onClose}>취소</ConfirmCancelBtn>
           <ConfirmDeleteBtn onClick={() => rejectSuggestion(props.data.uid)}>
-            퇴장
+            강퇴
           </ConfirmDeleteBtn>
         </BtnBox>
       </ConfirmBox>
@@ -88,51 +88,79 @@ const ConfirmBody = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  z-index: 990;
 `;
 
 const ConfirmBox = styled.div`
   width: 400px;
-  height: 480px;
+  height: 285px;
 
   background: #232323;
   border-radius: 20px;
-
-  position: relative;
-  bottom: 80px;
 `;
 
 const ImageTitleBox = styled.div``;
 
-const ImageBox = styled.div``;
-
-const TitleBox = styled.div``;
-
-const TextBox = styled.div`
+const ImageBox = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 45px;
+  margin-top: 35px;
+`;
+
+const MyImage = styled.img`
+  width: 80px;
+  height: 80px;
+
+  border-radius: 40px;
+`;
+
+const TextBox = styled.div`
+  text-align: center;
+  margin-top: 15px;
 `;
 
 const ConfirmText = styled.p`
-  font-size: 20px;
-  font-weight: 550;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.05rem;
+  line-height: 21px;
+
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  color: #ffffff;
 `;
 
 const BtnBox = styled.div`
-  margin-top: 60px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 35px;
+  gap: 10px;
 `;
 const ConfirmCancelBtn = styled.button`
-  font-size: 16px;
-  font-weight: 800;
+  width: 160px;
+  height: 45px;
+  border-radius: 5px;
 
-  background: none;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 19px;
+  letter-spacing: -0.02em;
+
+  background-color: #ffffff;
   border: none;
 
   cursor: pointer;
 `;
 
-const ConfirmDeleteBtn = styled(ConfirmCancelBtn)``;
+const ConfirmDeleteBtn = styled(ConfirmCancelBtn)`
+  background-color: #545454;
+  border: 1px solid #6c6c6c;
+  border-radius: 5px;
+  color: #ffffff;
+`;

@@ -26,7 +26,6 @@ const TeamList = () => {
       }
     });
   });
-  console.log(myAppliedMeeting);
 
   // 참여 신청 수락 후 데이터(진행 중 모임), teamMember isWait=false, nickName=usernickName
   let myApprovedMeeting = [];
@@ -41,7 +40,6 @@ const TeamList = () => {
       }
     });
   });
-  console.log(myApprovedMeeting)
   // 자신이 개설한 팀 데이터(리더)
   const myOnGoingMeeting = teamPage?.filter((item) =>
     item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
@@ -49,13 +47,10 @@ const TeamList = () => {
 
   // 진행 중 모임
   const onGoingMeeting = myApprovedMeeting?.concat(myOnGoingMeeting); //리더 표시해주기
-  console.log('리더표시할 데이터', myOnGoingMeeting);
-  console.log('리더 표시X', myApprovedMeeting);
 
   // 참여 신청 데이터 -> postList에서 불러와야 됨
   // 내 닉네임이 포함된 데이터에서 teamID만 추출
   const myAppliedteamID = myAppliedMeeting?.map((item) => item.teamID);
-  console.log('myAppliedteamID', myAppliedteamID?.toString());
 
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
@@ -64,7 +59,6 @@ const TeamList = () => {
 
   // 카테고리 클릭 시
   const [myTeamIsWait, setMyTeamIsWait] = useState(false);
-  console.log(myTeamIsWait);
 
   const [category, setCategory] = useState([
     { isClicked: true, name: '진행 중 모임' },
@@ -169,14 +163,14 @@ const TeamListContainer = styled.div`
 const GapBox = styled.div`
   height: 90px;
   /* background-color: aliceblue; */
-`
+`;
 const UserMeetingTitle = styled.div`
   /* width: 233px; */
   height: 40px;
   /* margin-top: 90px; */
   font-size: 30px;
   font-weight: 500;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 const MeetingCategory = styled.div`
   /* width: 250px; */
