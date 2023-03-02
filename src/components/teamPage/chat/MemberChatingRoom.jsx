@@ -6,7 +6,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { authService, db } from '../../../common/firebase';
 import MessageHeader from './MessageHeader';
 import { IoMdSend } from 'react-icons/io';
@@ -16,6 +16,9 @@ import { v4 } from 'uuid';
 import styled from '@emotion/styled';
 
 const MemberChatingRoom = ({ teamLocationID }) => {
+  // 스크롤 Ref
+  const scrollRef = useRef();
+
   // 유저 정보 가져오기
   const [chatUserImage, setChatUserImage] = useState('');
 
@@ -62,6 +65,9 @@ const MemberChatingRoom = ({ teamLocationID }) => {
         getUserChatInfo();
         getChatID();
       }
+      if (scrollRef.current) {
+        scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   }, []);
 
@@ -81,17 +87,20 @@ const MemberChatingRoom = ({ teamLocationID }) => {
 
   // 메세지 데이터 올리기
   const handleSubmit = async () => {
-    await updateDoc(doc(db, 'teamChat', teamLocationID), {
-      message: [
-        ...chatInfo,
-        {
-          comment: content,
-          uid: authService.currentUser.uid,
-          profileImg: chatUserImage,
-          nickName: authService.currentUser.displayName,
-        },
-      ],
-    });
+    if (content !== '') {
+      await updateDoc(doc(db, 'teamChat', teamLocationID), {
+        message: [
+          ...chatInfo,
+          {
+            comment: content,
+            uid: authService.currentUser.uid,
+            profileImg: chatUserImage,
+            nickName: authService.currentUser.displayName,
+          },
+        ],
+      });
+    }
+
     setContent('');
   };
 
@@ -103,6 +112,7 @@ const MemberChatingRoom = ({ teamLocationID }) => {
       <ContentChatAreaBox>
         <ContentChatArea>
           <MessageBox key={v4()} t={AddMessage} />
+          <div ref={scrollRef} />
         </ContentChatArea>
         <ChatFormSection>
           <ChatInputBody>
@@ -116,8 +126,6 @@ const MemberChatingRoom = ({ teamLocationID }) => {
               <SendBtn>전송</SendBtn>
             </ChatBtn>
           </ChatInputBody>
-
-          {/* TODO: 텍스트 값이 있는 경우에만 전송 버튼 나오게 */}
         </ChatFormSection>
       </ContentChatAreaBox>
     </ContentChatContainer>
@@ -155,13 +163,8 @@ const ContentChatAreaBox = styled.div`
   background-color: white;
   border-radius: 20px;
   margin-top: 25px;
-  overflow-y: scroll;
-  /* 스크롤바 숨기기 */
-  ::-webkit-scrollbar {
-    display: none;
-  }
   -ms-overflow-style: none;
-  scrollbar-width: none;
+
   padding: 10px;
   height: 85%;
 `;
