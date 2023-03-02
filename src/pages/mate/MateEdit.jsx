@@ -20,8 +20,10 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useQueryClient } from 'react-query';
 
 const MateEdit = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { id } = useParams();
   const [postData, setPostData] = useState([]);
@@ -118,6 +120,7 @@ const MateEdit = () => {
         .catch((error) => {
           console.log('에러남', error);
         });
+      queryClient.invalidateQueries('posts');
       navigate(`/matedetail/${id}`);
       console.log('수정 성공');
     } catch (error) {
@@ -257,7 +260,6 @@ const MateEdit = () => {
               ],
             }}
           />
-          <button onClick={() => setPartyDesc(changedDesc)}>저장</button>
         </EditorBox>
 
         <WriteButtonBox>

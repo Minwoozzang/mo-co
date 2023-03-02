@@ -81,15 +81,7 @@ const CustomConfirmUI = (props) => {
         <ConfirmBox>
           <TitleBox>
             {/* <ConfirmTitle>참여신청</ConfirmTitle> */}
-            {/* <IoMdClose
-              onClick={props.onClose}
-              style={{
-                fontSize: '30px',
-                marginRight: '10px',
-                cursor: 'pointer',
-                color: 'white',
-              }}
-            /> */}
+            <CancelImg onClick={props.onClose} src={cancel} />
           </TitleBox>
           <UserAcceptOrNot>
             <UserImgBox

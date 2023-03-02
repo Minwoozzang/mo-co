@@ -25,6 +25,7 @@ import {
   ToggleEmailBack,
   LogoIcon,
   LogoIconTitle,
+  FullScreen,
 } from './Loginstyle';
 import { useNavigate } from 'react-router';
 import { emailRegex, pwRegex } from '../../common/utils';
@@ -266,78 +267,80 @@ const Login = () => {
     navigate('/signup');
   };
   return (
-    <LoginBody>
-      <LoginForm>
-        <LoginTitleLogo>
-          <img src={Vector} alt="" />
-          <img src={Vector1} alt="" />
-          <img src={Vector2} alt="" />
-          <img src={Vector3} alt="" />
-          <img src={Vector4} alt="" />
-        </LoginTitleLogo>
+    <FullScreen>
+      <LoginBody>
+        <LoginForm>
+          <LoginTitleLogo>
+            <img src={Vector} alt="" />
+            <img src={Vector1} alt="" />
+            <img src={Vector2} alt="" />
+            <img src={Vector3} alt="" />
+            <img src={Vector4} alt="" />
+          </LoginTitleLogo>
 
-        {emailLogin ? (
-          <>
-            <LoginTitle>SNS로 간편하게 로그인하세요 🙌</LoginTitle>
-            <LoginLogo>
-              <GithubLogo onClick={githubLogin}>
-                <LogoIcon src={Github} alt="" />
-                <LogoIconTitle>GitHub</LogoIconTitle>
-              </GithubLogo>
-              <GoogleLogo onClick={gooleLogin}>
-                <LogoIcon src={Google} alt="" />
-                <LogoIconTitle>Google</LogoIconTitle>
-              </GoogleLogo>
-            </LoginLogo>
-          </>
-        ) : (
-          <>
-            <LoginInputBody>
-              <LoginInputSection>
-                <EmailBody>
-                  <EmailText>이메일</EmailText>
-                  <LoginEmailInput
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    ref={emailRef}
-                    onKeyPress={EnterKeyPress}
-                  />
-                </EmailBody>
-                <PasswordBody>
-                  <PasswordText>비밀번호</PasswordText>
-                  <LoginPasswordInput
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    ref={pwRef}
-                    onKeyPress={EnterKeyPress}
-                  />
-                </PasswordBody>
-              </LoginInputSection>
-            </LoginInputBody>
-
-            <WarnigTextBody>
-              <WarnigText>{warningText}</WarnigText>
-            </WarnigTextBody>
-
-            <LoginBtn onClick={LogginBtnHandle}>로그인</LoginBtn>
-            <LoginLouteBody>
-              <LouteSignUpPageBtn onClick={navigateSignUpPage}>
-                회원가입
-              </LouteSignUpPageBtn>
-            </LoginLouteBody>
-          </>
-        )}
-
-        <ToggleSocialBox onClick={ToggleSocial}>
-          {toggleText ? (
-            <ToggleEmailBtn>E-mail로 로그인하기</ToggleEmailBtn>
+          {emailLogin ? (
+            <>
+              <LoginTitle>SNS로 간편하게 로그인하세요 🙌</LoginTitle>
+              <LoginLogo>
+                <GithubLogo onClick={githubLogin}>
+                  <LogoIcon src={Github} alt="" />
+                  <LogoIconTitle>GitHub</LogoIconTitle>
+                </GithubLogo>
+                <GoogleLogo onClick={gooleLogin}>
+                  <LogoIcon src={Google} alt="" />
+                  <LogoIconTitle>Google</LogoIconTitle>
+                </GoogleLogo>
+              </LoginLogo>
+            </>
           ) : (
-            <ToggleEmailBack>SNS 계정으로 로그인하기</ToggleEmailBack>
+            <>
+              <LoginInputBody>
+                <LoginInputSection>
+                  <EmailBody>
+                    <EmailText>이메일</EmailText>
+                    <LoginEmailInput
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      ref={emailRef}
+                      onKeyPress={EnterKeyPress}
+                    />
+                  </EmailBody>
+                  <PasswordBody>
+                    <PasswordText>비밀번호</PasswordText>
+                    <LoginPasswordInput
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      ref={pwRef}
+                      onKeyPress={EnterKeyPress}
+                    />
+                  </PasswordBody>
+                </LoginInputSection>
+              </LoginInputBody>
+
+              <WarnigTextBody>
+                <WarnigText>{warningText}</WarnigText>
+              </WarnigTextBody>
+
+              <LoginBtn onClick={LogginBtnHandle}>로그인</LoginBtn>
+              <LoginLouteBody>
+                <LouteSignUpPageBtn onClick={navigateSignUpPage}>
+                  회원가입
+                </LouteSignUpPageBtn>
+              </LoginLouteBody>
+            </>
           )}
-        </ToggleSocialBox>
-      </LoginForm>
-    </LoginBody>
+
+          <ToggleSocialBox onClick={ToggleSocial}>
+            {toggleText ? (
+              <ToggleEmailBtn>E-mail로 로그인하기</ToggleEmailBtn>
+            ) : (
+              <ToggleEmailBack>SNS 계정으로 로그인하기</ToggleEmailBack>
+            )}
+          </ToggleSocialBox>
+        </LoginForm>
+      </LoginBody>
+    </FullScreen>
   );
 };
 

@@ -23,6 +23,7 @@ import {
   CheckPasswordBody,
   CheckPasswordText,
   CheckSignUpPasswordInput,
+  FullScreen,
   PasswordTextBody,
   PasswordTextInfo,
   LoginFooterText,
@@ -159,91 +160,93 @@ const SignUp = () => {
     navigate('/login');
   };
   return (
-    <SignUpBody>
-      <SignUpForm>
-        <FormBox>
-          <SignUpTitleLogo>회원가입</SignUpTitleLogo>
+    <FullScreen>
+      <SignUpBody>
+        <SignUpForm>
+          <FormBox>
+            <SignUpTitleLogo>회원가입</SignUpTitleLogo>
 
-          <SignUpInputBody>
-            <SignUpInputSection>
-              <EmailBody>
-                <EmailText>이메일</EmailText>
-                <SignUpEmailInput
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  ref={emailRef}
-                  onKeyPress={EnterKeyPress}
-                  placeholder="example@google.com"
-                  style={{ border: emRedColor }}
-                />
-              </EmailBody>
+            <SignUpInputBody>
+              <SignUpInputSection>
+                <EmailBody>
+                  <EmailText>이메일</EmailText>
+                  <SignUpEmailInput
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    ref={emailRef}
+                    onKeyPress={EnterKeyPress}
+                    placeholder="example@google.com"
+                    style={{ border: emRedColor }}
+                  />
+                </EmailBody>
 
-              <WarnigText>{emailWarningText}</WarnigText>
+                <WarnigText>{emailWarningText}</WarnigText>
 
-              <PasswordBody>
-                <PasswordTextBody>
-                  <PasswordText>비밀번호</PasswordText>
-                  <PasswordTextInfo>
-                    영문, 숫자, 특수문자를 포함한 8자 이상의 비밀번호를
-                    입력해주세요
-                  </PasswordTextInfo>
-                </PasswordTextBody>
+                <PasswordBody>
+                  <PasswordTextBody>
+                    <PasswordText>비밀번호</PasswordText>
+                    <PasswordTextInfo>
+                      영문, 숫자, 특수문자를 포함한 8자 이상의 비밀번호를
+                      입력해주세요
+                    </PasswordTextInfo>
+                  </PasswordTextBody>
 
-                <SignUpPasswordInput
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  ref={pwRef}
-                  onKeyPress={EnterKeyPress}
-                  style={{ border: pwRedColor }}
-                />
-              </PasswordBody>
+                  <SignUpPasswordInput
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    ref={pwRef}
+                    onKeyPress={EnterKeyPress}
+                    style={{ border: pwRedColor }}
+                  />
+                </PasswordBody>
 
-              <WarnigText>{pwWarningText}</WarnigText>
+                <WarnigText>{pwWarningText}</WarnigText>
 
-              <CheckPasswordBody>
-                <CheckPasswordText>비밀번호 확인</CheckPasswordText>
-                <CheckSignUpPasswordInput
-                  type="password"
-                  value={checkPassword}
-                  onChange={(e) => setCheckPassword(e.target.value)}
-                  ref={pwCheckRef}
-                  onKeyPress={EnterKeyPress}
-                  style={{ border: checkPwdColor }}
-                />
-              </CheckPasswordBody>
+                <CheckPasswordBody>
+                  <CheckPasswordText>비밀번호 확인</CheckPasswordText>
+                  <CheckSignUpPasswordInput
+                    type="password"
+                    value={checkPassword}
+                    onChange={(e) => setCheckPassword(e.target.value)}
+                    ref={pwCheckRef}
+                    onKeyPress={EnterKeyPress}
+                    style={{ border: checkPwdColor }}
+                  />
+                </CheckPasswordBody>
 
-              <WarnigText>{checkPwWarningText}</WarnigText>
+                <WarnigText>{checkPwWarningText}</WarnigText>
 
-              <NickNameBody>
-                <NickNameText>닉네임</NickNameText>
-                <SignUpNickNameInput
-                  type="text"
-                  value={nickName}
-                  onChange={(e) => setNickName(e.target.value)}
-                  ref={nickNameRef}
-                  onKeyPress={EnterKeyPress}
-                  placeholder="닉네임 2 ~ 6자"
-                  style={{ border: nickNameRedColor }}
-                />
-              </NickNameBody>
+                <NickNameBody>
+                  <NickNameText>닉네임</NickNameText>
+                  <SignUpNickNameInput
+                    type="text"
+                    value={nickName}
+                    onChange={(e) => setNickName(e.target.value)}
+                    ref={nickNameRef}
+                    onKeyPress={EnterKeyPress}
+                    placeholder="닉네임 2 ~ 6자"
+                    style={{ border: nickNameRedColor }}
+                  />
+                </NickNameBody>
 
-              <WarnigText>{nickNameWarningText}</WarnigText>
-            </SignUpInputSection>
-          </SignUpInputBody>
-        </FormBox>
-        <SignUpBtn onClick={handleSignUp} disabled={loding}>
-          회원가입
-        </SignUpBtn>
-        <SignUpLouteBody>
-          <LoginFooterText>이미 아이디가 있으신가요?</LoginFooterText>
-          <LouteSignUpPageBtn onClick={navigationLoginPage}>
-            로그인
-          </LouteSignUpPageBtn>
-        </SignUpLouteBody>
-      </SignUpForm>
-    </SignUpBody>
+                <WarnigText>{nickNameWarningText}</WarnigText>
+              </SignUpInputSection>
+            </SignUpInputBody>
+          </FormBox>
+          <SignUpBtn onClick={handleSignUp} disabled={loding}>
+            회원가입
+          </SignUpBtn>
+          <SignUpLouteBody>
+            <LoginFooterText>이미 아이디가 있으신가요?</LoginFooterText>
+            <LouteSignUpPageBtn onClick={navigationLoginPage}>
+              로그인
+            </LouteSignUpPageBtn>
+          </SignUpLouteBody>
+        </SignUpForm>
+      </SignUpBody>
+    </FullScreen>
   );
 };
 

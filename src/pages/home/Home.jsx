@@ -192,7 +192,7 @@ const Home = () => {
         </CoverBackground>
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
-      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
+      <Modal open={isModalOpen} centered={true} closable={false} footer={false}> 
         <AddInfoModal
           currentUser={currentUser}
           handleModalClose={handleModalClose}
