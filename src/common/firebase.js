@@ -14,14 +14,13 @@ const firebaseConfig = {
   // messagingSenderId: '854864723646',
   // appId: '1:854864723646:web:c0f50ad676b017739ea8ef',
 
-  apiKey: 'AIzaSyBo23LJ8u_muKicP8zK7jYxZ0t35iA5pDo',
-  authDomain: 'mo-co-92f26.firebaseapp.com',
-  databaseURL:
-    'https://mo-co-92f26-default-rtdb.asia-southeast1.firebasedatabase.app',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
   projectId: 'mo-co-92f26',
-  storageBucket: 'mo-co-92f26.appspot.com',
-  messagingSenderId: '839524563156',
-  appId: '1:839524563156:web:e4e5be6d6302cc699ba341',
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 export const app = initializeApp(firebaseConfig);

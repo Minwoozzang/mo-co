@@ -130,7 +130,7 @@ const MateList = () => {
               setSelectedSort('byRecommend');
             }}
           >
-            추천순
+            스크랩순
           </SortByRecommend>
           <SortByNew
             onClick={() => {
