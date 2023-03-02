@@ -102,9 +102,7 @@ const MemberChatingRoom = ({ teamLocationID }) => {
       </ContentTitle>
       <ContentChatAreaBox>
         <ContentChatArea>
-          {AddMessage.map((t) => {
-            return <MessageBox key={v4()} t={t} />;
-          })}
+          <MessageBox key={v4()} t={AddMessage} />
         </ContentChatArea>
         <ChatFormSection>
           <ChatInputBody>
