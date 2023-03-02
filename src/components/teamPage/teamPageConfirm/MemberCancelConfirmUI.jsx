@@ -9,7 +9,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { authService, db } from '../../common/firebase';
+import { authService, db } from '../../../common/firebase';
 
 const MemberCancelConfirmUI = (props) => {
   // 본인 아이디

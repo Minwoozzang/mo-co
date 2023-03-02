@@ -9,8 +9,8 @@ import {
   where,
 } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { authService, db } from '../../common/firebase';
-import cancel from '../../../src/assets/icon/Icon_cancel.png';
+import { authService, db } from '../../../common/firebase';
+import cancel from '../../../../src/assets/icon/Icon_cancel.png';
 
 const CustomConfirmUI = (props) => {
   // 본인 아이디
@@ -55,7 +55,6 @@ const CustomConfirmUI = (props) => {
           joinMessage: myInfo.joinMessage,
           nickName: myInfo.nickName,
           profileImg: myInfo.profileImg,
-          teamPositon: myInfo.teamPositon,
           uid: myInfo.uid,
         },
       ],

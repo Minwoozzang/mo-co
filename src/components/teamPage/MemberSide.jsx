@@ -25,6 +25,8 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { v4 } from 'uuid';
 import SideMemberList from './SideMemberList';
 import WaitMemberList from './WaitMemberList';
+import { confirmAlert } from 'react-confirm-alert';
+import MyProfileConfirm from './teamPageConfirm/MyProfileConfirm';
 
 export default function MemberSide({ teamLocationID }) {
   const [nickName, setNickName] = useState('');
@@ -87,6 +89,43 @@ export default function MemberSide({ teamLocationID }) {
     });
   }, [nickName]);
 
+  // 내 프로필 보기
+  const teamInfo = teamLeaderInfo.filter((t) => t.teamID === teamLocationID);
+
+  const myProfile = (data) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <MyProfileConfirm
+            onClose={onClose}
+            data={data}
+            id={data.id}
+            item={teamInfo}
+            teamLocationID={teamLocationID}
+          />
+        );
+      },
+    });
+  };
+
+  // 리더 프로필 보기
+
+  const LeaderProfile = (data) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <MyProfileConfirm
+            onClose={onClose}
+            data={data}
+            id={data.id}
+            teamLocationID={teamLocationID}
+            item={teamInfo}
+            LeaderText="프로필 동기화"
+          />
+        );
+      },
+    });
+  };
   return (
     <>
       <MemberSidebar>
@@ -102,6 +141,7 @@ export default function MemberSide({ teamLocationID }) {
                         ? item.profileImg
                         : 'https://imhannah.me/common/img/default_profile.png'
                     }
+                    onClick={() => myProfile(item)}
                   />
                   <MemberInfoProfileInfo>
                     <MemberInfoProfileName>
@@ -128,6 +168,7 @@ export default function MemberSide({ teamLocationID }) {
                             ? item.teamLeader.profileImg
                             : 'https://imhannah.me/common/img/default_profile.png'
                         }
+                        onClick={() => LeaderProfile(item.teamLeader)}
                       />
                       <MemberInfoProfileInfo>
                         <MemberInfoProfileName>
@@ -144,7 +185,13 @@ export default function MemberSide({ teamLocationID }) {
               {teamMemberInfo
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
-                  return <SideMemberList item={item} key={v4()} />;
+                  return (
+                    <SideMemberList
+                      item={item}
+                      key={v4()}
+                      teamLocationID={teamLocationID}
+                    />
+                  );
                 })}
             </MemberWrap>
           </SideWrapperTwo>

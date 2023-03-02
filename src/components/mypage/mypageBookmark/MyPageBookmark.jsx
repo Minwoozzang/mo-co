@@ -95,7 +95,7 @@ const MyPageBookmark = () => {
       </MyBookmarkBox>
       <PageBox>
         <Pagination
-          style={{ color: 'red', backgroundColor: 'white' }}
+          style={{ backgroundColor: '#383838' }}
           defaultCurrent={1}
           defaultPageSize={2}
           onChange={handleChange}
