@@ -16,6 +16,7 @@ import TeamList from '../pages/teampage/TeamList';
 // * 테스트 페이지
 import Test from '../pages/Test';
 import Amplitude from './../amplitude';
+import NotiBadge from '../components/header/NotiBadge';
 
 const Router = () => {
   // path 이름은 보통 소문자로 하니, 저희도 소문자로 통일하겠습니다
@@ -38,6 +39,7 @@ const Router = () => {
         {/* 테스트페이지 */}
         <Route path="/test" element={<Test />} />
         <Route path="/amplitude" element={<Amplitude />} />
+        <Route path="/noti" element={<NotiBadge />} />
       </Routes>
     </BrowserRouter>
   );
