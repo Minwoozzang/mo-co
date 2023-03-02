@@ -16,7 +16,6 @@ const MemberCancelConfirmUI = (props) => {
   const myId = props.data.uid;
   // 팀 ID
   const teamID = props.id;
-  console.log(props.data.profileImg);
   //  팀 멤버
   const member = props.item;
   const otherMember = member.filter((d) => d.uid !== myId);

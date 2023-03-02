@@ -19,6 +19,28 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 const SideMemberList = ({ item, teamLocationID }) => {
   // 멤버 리스트
   const memberList = item.teamMember;
+
+  // isWait가 false인 멤버
+  const memberListUid = memberList
+    .filter((t) => t.isWait === false)
+    .map((t) => t.uid);
+
+  // 팀 멤버 유저 정보 가져오기
+  const [profileUserInfo, setProfileUserInfo] = useState([]);
+
+  const getUserStackInfo = () => {
+    const q = query(collection(db, 'user'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProfileUserInfo(newInfo.filter((t) => memberListUid.includes(t.uid)));
+    });
+
+    return unsubscribe;
+  };
+
   // 리더에게만 아이콘 보이게 하기
   const [onlyLeaderLook, setOnlyLeaderLook] = useState(false);
 
@@ -36,6 +58,7 @@ const SideMemberList = ({ item, teamLocationID }) => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         onlyLeader();
+        getUserStackInfo();
       }
     });
   }, []);
@@ -51,7 +74,6 @@ const SideMemberList = ({ item, teamLocationID }) => {
             id={item.id}
             teamLocationID={teamLocationID}
             item={item.teamMember}
-            text="프로필 동기화"
           />
         );
       },
@@ -76,34 +98,28 @@ const SideMemberList = ({ item, teamLocationID }) => {
 
   return (
     <>
-      {memberList
-        .filter((data) => data.isWait === false)
-        .map((data) => {
-          return (
-            <MemberInfoProfile key={uuidv4()}>
-              <MemberInfoProfileImg
-                src={
-                  data.profileImg
-                    ? data.profileImg
-                    : 'https://imhannah.me/common/img/default_profile.png'
-                }
-                onClick={() => lookProfile(data)}
+      {profileUserInfo.map((data) => {
+        return (
+          <MemberInfoProfile key={uuidv4()}>
+            <MemberInfoProfileImg
+              src={data.profileImg}
+              onClick={() => lookProfile(data)}
+            />
+            <MemberInfoProfileInfo>
+              <MemberInfoProfileName>{data.nickname}</MemberInfoProfileName>
+              <LeaderPosition>멤버</LeaderPosition>
+            </MemberInfoProfileInfo>
+            {onlyLeaderLook ? (
+              <MemberCancel
+                src={cancel}
+                onClick={() => memberCancelHandler(data)}
               />
-              <MemberInfoProfileInfo>
-                <MemberInfoProfileName>{data.nickName}</MemberInfoProfileName>
-                <LeaderPosition>{data.teamPositon}</LeaderPosition>
-              </MemberInfoProfileInfo>
-              {onlyLeaderLook ? (
-                <MemberCancel
-                  src={cancel}
-                  onClick={() => memberCancelHandler(data)}
-                />
-              ) : (
-                ''
-              )}
-            </MemberInfoProfile>
-          );
-        })}
+            ) : (
+              ''
+            )}
+          </MemberInfoProfile>
+        );
+      })}
     </>
   );
 };

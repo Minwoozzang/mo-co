@@ -15,14 +15,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 const MyProfileConfirm = (props) => {
   // 해당 UID
   const myId = props.data.uid;
-  const myInfo = props.data;
-
-  // 팀 아이디
-  const temaID = props.teamLocationID;
-
-  // 팀 멤버
-  const member = props.item;
-  const otherMember = member.filter((d) => d.uid !== myId);
 
   // 유저 정보 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
@@ -51,37 +43,6 @@ const MyProfileConfirm = (props) => {
     return unsubscribe;
   };
 
-  // 리더 프로필 동기화
-  const getNewLeaderProfile = async () => {
-    await updateDoc(doc(db, 'teamPage', temaID), {
-      teamLeader: {
-        host: 'https://littledeep.com/wp-content/uploads/2020/03/littledeep_crown_style1.png',
-        isWait: false,
-        nickName: profileUserInfo[0].nickname,
-        profileImg: profileUserInfo[0].profileImg,
-        temaID,
-        teamPosition: '리더',
-        uid: myInfo.uid,
-      },
-    });
-  };
-
-  // 프로필 동기화
-  const getNewProfile = async () => {
-    await updateDoc(doc(db, 'teamPage', temaID), {
-      teamMember: [
-        ...otherMember,
-        {
-          isWait: false,
-          joinMessage: myInfo.joinMessage,
-          profileImg: profileUserInfo[0].profileImg,
-          nickName: profileUserInfo[0].nickname,
-          uid: myInfo.uid,
-        },
-      ],
-    });
-  };
-
   // 유저 확인
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
@@ -95,13 +56,6 @@ const MyProfileConfirm = (props) => {
     <ProfileBody>
       <ProfileBox>
         <CancelImgBox>
-          <div>
-            <NewProfileBtn onClick={getNewProfile}>{props.text}</NewProfileBtn>
-            <NewProfileBtn onClick={getNewLeaderProfile}>
-              {props.LeaderText}
-            </NewProfileBtn>
-          </div>
-
           <CancelImg onClick={props.onClose} src={cancel} />
         </CancelImgBox>
         <ImgNickNameBox>
@@ -179,7 +133,7 @@ const ProfileBox = styled.div`
 
 const CancelImgBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 
   margin-top: 15px;
