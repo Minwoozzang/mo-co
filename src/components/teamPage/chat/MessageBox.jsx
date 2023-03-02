@@ -16,8 +16,10 @@ import {
 } from './messageBoxStyle';
 
 const MessageBox = ({ t }) => {
+  // 나의 채팅
   const myChat = t.filter((a) => a.uid === authService.currentUser.uid);
 
+  // 상대방 채팅
   const otherChat = t.filter((a) => a.uid !== authService.currentUser.uid);
 
   return (
