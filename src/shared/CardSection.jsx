@@ -69,7 +69,7 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
     const userDoc = await getDoc(doc(db, 'teamPage', item.teamID));
     const teamDoc = userDoc.data();
     setPartyNum(
-      userDoc.data().teamMember.filter((item) => item.isWait === false).length,
+      userDoc.data()?.teamMember.filter((item) => item.isWait === false).length,
     );
   };
 

@@ -1,7 +1,6 @@
 import { GuideContainer, GuideText } from '../homestyle/homebanner';
 
 const HomeGuideText = ({ currentUser, isLoggedIn }) => {
-  console.log(currentUser?.displayName);
   return (
     <GuideContainer>
       <GuideText>
