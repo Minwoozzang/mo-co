@@ -1,6 +1,5 @@
 import Router from './shared/router';
 import { init } from '@amplitude/analytics-browser';
-
 import GlobalStyle from './components/GlobalStyle';
 import { useEffect } from 'react';
 
