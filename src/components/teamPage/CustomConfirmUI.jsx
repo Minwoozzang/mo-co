@@ -11,7 +11,6 @@ import {
 import { useEffect, useState } from 'react';
 import { authService, db } from '../../common/firebase';
 import cancel from '../../../src/assets/icon/Icon_cancel.png';
-import { user } from '../../assets/icon/user.png';
 
 const CustomConfirmUI = (props) => {
   // 본인 아이디
