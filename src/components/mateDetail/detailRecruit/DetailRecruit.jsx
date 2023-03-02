@@ -133,7 +133,6 @@ const DetailRecruit = () => {
         ...teamMember,
         {
           uid: authService.currentUser.uid,
-          teamPositon: '멤버',
           joinMessage: joinMessage,
           isWait: true,
           nickName: authService.currentUser.displayName,
@@ -218,13 +217,7 @@ const DetailRecruit = () => {
       <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
         모임 참여 신청
       </RecruitBtn>
-      <Modal
-        open={isModalOpen}
-        centered={true}
-        closable={false}
-        footer={false}
-        
-      >
+      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
         <RecruitModal>
           <RecruitModalTitle>이 모임에 참여하시겠어요?</RecruitModalTitle>
           <RecruitModalContentBox>
@@ -241,9 +234,7 @@ const DetailRecruit = () => {
             <RecruitModalBtnNo onClick={handleModalCancel}>
               아니오
             </RecruitModalBtnNo>
-            <RecruitModalBtnYes onClick={handleModalOk}>
-              예
-            </RecruitModalBtnYes>
+            <RecruitModalBtnYes onClick={handleModalOk}>예</RecruitModalBtnYes>
           </RecruitModalBtnBox>
           <RecruitFooter>
             * 신청하시면, 정보제공 및 유의사항에 동의한 것으로 간주합니다.
@@ -257,4 +248,3 @@ const DetailRecruit = () => {
 };
 
 export default DetailRecruit;
-

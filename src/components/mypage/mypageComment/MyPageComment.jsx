@@ -62,9 +62,7 @@ const MyPageComment = () => {
       <PageBox>
         <Pagination
           style={{
-            opacity: '1',
-            background: 'white',
-            span: 'blue',
+            backgroundColor: '#383838',
           }}
           defaultCurrent={1}
           defaultPageSize={2}
