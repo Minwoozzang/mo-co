@@ -145,7 +145,7 @@ const Comment = ({ user }) => {
             />
           )}
           <CommentDate>{user.date}</CommentDate>
-          <ReplyComment user={user} />
+          {/* <ReplyComment user={user} /> */}
         </ListTextSection>
       </ListContainer>
       <UserHr />
