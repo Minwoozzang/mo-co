@@ -127,9 +127,6 @@ const Profile = () => {
     alert('닉네임 수정 완료');
     setClickBtn(true);
     setEditNickName(false);
-    // setTimeout(() => {
-    //   window.location.replace('/mypage');
-    // }, 200);
   };
 
   // 이미지 선탣
@@ -242,7 +239,7 @@ const Profile = () => {
             <ProfileTechBody>
               <TechBodyTitle>기술 스택</TechBodyTitle>
               <TechBodyImage>
-                {techStack.map((item, idx) => (
+                {techStack?.map((item, idx) => (
                   <img
                     key={idx}
                     src={require(`../../../assets/stack/${item}.png`)}

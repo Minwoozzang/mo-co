@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+/.vscode
+
 # production
 /build
 
@@ -24,3 +26,5 @@ yarn-debug.log*
 yarn-error.log*
 
 package-lock.json
+
+src/common/firebase.js

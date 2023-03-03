@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
+import ReplyComment from '../../components/mateDetail/replyComment/replyCommentList';
 import CommentList from '../../components/mateDetail/commentList/CommentList';
 import { db, authService } from '../../common/firebase';
 import {
