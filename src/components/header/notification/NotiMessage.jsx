@@ -6,7 +6,7 @@ const NotiMessage = ({ item }) => {
 
     return (
         <Box>
-            알림메세지 내역<br/>
+            알림메세지 내역 :<br/>
         {teamMember.filter(team => team.uid === authService?.currentUser?.uid)
             .map((member, idx)=> (
         <div key={idx}>

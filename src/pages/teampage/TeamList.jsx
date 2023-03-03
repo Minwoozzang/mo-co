@@ -100,7 +100,7 @@ const TeamList = () => {
     });
     return getPost;
   }, []);
-
+  
   // teamPage 데이터 불러오기
   useEffect(() => {
     const teamPageCollectionRef = collection(db, 'teamPage');

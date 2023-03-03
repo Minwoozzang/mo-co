@@ -20,15 +20,12 @@ const NotiBadge = () => {
   });
   console.log(myAppliedMeeting);
 
-  // let testArr = [];
-  // const testdata = myAppliedMeeting[0]?.teamMember.forEach((item) => {
-  //   if (item.nickName === authService?.currentUser?.displayName) {
-  //     testArr.push(item);
-  //     return false;
-  //   }
-  // });
-  // console.log(testArr);
+  const teamLeaderList = teamPage.filter((item) =>
+    item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
+  );
+  console.log('팀리더 데이터', teamLeaderList);
 
+  // teamPage 데이터
   useEffect(() => {
     const teamPageCollectionRef = collection(db, 'teamPage');
     const q = query(teamPageCollectionRef);
@@ -45,19 +42,28 @@ const NotiBadge = () => {
 
   return (
     <Container>
-      {/* {testArr[0]?.isWait ? '' : <div>참여신청이 수락되었습니다.</div>} */}
-      {myAppliedMeeting.map((item, idx) => (
-        <NotiMessage 
-          key={idx}
-          item={item}
-        />
-      ))}
+      <Box1>
+        {myAppliedMeeting.map((item, idx) => (
+          <NotiMessage key={idx} item={item} />
+        ))}
+      </Box1>
+      <Box2>
+        {teamLeaderList.map((item, idx) => (
+          <div key={idx}>
+            리더{idx+1} : {item.teamMember.length > 0 
+            ? '알림있음' : ''
+            }
+          </div>
+        ))}
+      </Box2>
     </Container>
   );
 };
 
 export default NotiBadge;
 
-const Container = styled.div`
-  /* width: 500px; */
-`
+const Container = styled.div``;
+const Box1 = styled.div`
+  margin-bottom: 30px;
+`;
+const Box2 = styled.div``;
