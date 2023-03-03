@@ -162,6 +162,11 @@ const MateList = () => {
       {/* 페이지 */}
       <PaginationContainer>
         <Pagination
+          style={{
+            textAlign: 'center',
+            backgroundColor: '#181616',
+            margin: '0 auto',
+          }}
           defaultCurrent={1}
           defaultPageSize={12}
           onChange={handleChange}
@@ -174,9 +179,11 @@ const MateList = () => {
 
 export default MateList;
 
-const FullScreen = styled.html`
+const FullScreen = styled.body`
   background-color: #181616;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
 `;
 
 // 필터 & 정렬
@@ -211,31 +218,31 @@ const SortByNew = styled.div`
 // 카드 리스트
 const CardListContainer = styled.section`
   max-width: 1200px;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
-  background-color: #181616;
 `;
 
 const CardList = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1em;
   row-gap: 5em;
-  > * {
-    flex-grow: 1;
-    flex-shrink: 1;
-  }
 `;
 
 // 페이지네이션
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
+  height: 100%;
   /* margin: 3rem; */
   /* margin-top: 110px; */
   padding: 6rem;
-  color: white;
   background-color: #181616;
 `;
