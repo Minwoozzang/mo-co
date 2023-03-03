@@ -158,7 +158,6 @@ const Home = () => {
 
   return (
     <FullScreen>
-      {/* <MocoChat uid = {uid} /> */}
       <HomeBanner />
       <MainBackground>
         {init ? (
@@ -192,7 +191,7 @@ const Home = () => {
         </CoverBackground>
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
-      <Modal open={isModalOpen} centered={true} closable={false} footer={false}> 
+      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
         <AddInfoModal
           currentUser={currentUser}
           handleModalClose={handleModalClose}
@@ -206,6 +205,7 @@ export default Home;
 
 const FullScreen = styled.div`
   width: 100%;
+  max-width: 100%;
   /* height: 100%; */
   background-size: cover;
   background-color: #111111;
@@ -215,9 +215,11 @@ const FullScreen = styled.div`
 `;
 const MainBackground = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   background: url(${main_background});
   background-size: cover;
+
+  background-position: center;
   /* background-color: white; */
 `;
 const CoverBackground = styled.div`
