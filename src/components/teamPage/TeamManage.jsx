@@ -9,11 +9,13 @@ import {
   collection,
   doc,
   getDoc,
-  updateDoc,
   where,
+  updateDoc,
   deleteDoc,
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { confirmAlert } from 'react-confirm-alert';
+import TeamSettingConfirm from './teamPageConfirm/TeamSettingConfirm';
 
 export default function TeamManage({ teamLocationID, item }) {
   const [showOptions, setShowOptions] = useState(false);
@@ -37,32 +39,52 @@ export default function TeamManage({ teamLocationID, item }) {
     }
   };
 
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        onlyLeader();
-      }
+  // 나의 정보 가져오기
+  const [myInfo, setMyInfo] = useState([]);
+  const getMyUserInfo = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMyInfo(newInfo[0]?.teamID.filter((t) => t !== teamLocationID));
     });
-    if (!currentUser) return;
-    getPostData();
-    getFindTeamID();
-    getFindTeamPostInfo();
-  }, []);
-
-  const [teamPage, setTeamPage] = useState([]);
+    return unsubscribe;
+  };
 
   // teamPage 데이터 불러오기
-  useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
+  const [teamPage, setTeamPage] = useState([]);
+
+  const getTeamPageInfo = () => {
+    const q = query(
+      collection(db, 'teamPage'),
+      where('teamID', '==', teamLocationID),
+    );
     const getTeamPage = onSnapshot(q, (snapshot) => {
       const teamPageData = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setTeamPage(teamPageData);
+      setTeamPage(teamPageData[0]?.teamPartyStack.partyName);
     });
     return getTeamPage;
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        onlyLeader();
+        getMyUserInfo();
+        getTeamPageInfo();
+      }
+    });
+    if (!currentUser) return;
+    getPostData();
+    getFindTeamID();
   }, []);
 
   const getFindTeamID = () => {
@@ -77,6 +99,7 @@ export default function TeamManage({ teamLocationID, item }) {
     return unsubscribe;
   };
 
+  // 모임 수정하기
   const navigateWrite = () => {
     navigate(`/edit/${teamPost}`);
   };
@@ -90,7 +113,6 @@ export default function TeamManage({ teamLocationID, item }) {
 
           setPostIdInfo(doc.data().teamID);
         } else {
-          // doc.data() will be undefined in this case
           console.log('No such document!');
         }
       })
@@ -99,57 +121,82 @@ export default function TeamManage({ teamLocationID, item }) {
       });
   };
 
-  // // 팀 아이디 받아오기
-  // const [teamID, setTeamID] = useState([]);
-  // const teamGetTeamID = () => {
-  //   const q = query(collection(db, 'teamPage'));
-  //   const unsubscribe = onSnapshot(q, (snapshot) => {
-  //     const newInfo = snapshot.docs.map((doc) => ({
-  //       ids: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setTeamID(newInfo);
-  //   });
-  //   return unsubscribe;
-  // };
-
-  const [teamPostInfo, setTeamPostInfo] = useState([]);
-  const getFindTeamPostInfo = () => {
-    const q = query(collection(db, 'teamPage'), where('teamID', '==', id));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newTeam = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPostInfo(newTeam[0]);
-    });
-    return unsubscribe;
-  };
-
+  // 모임 탈퇴하기
   const deactivateAccount = async (uid) => {
-    const otherMember = teamPostInfo.teamMember?.filter(
-      (item) => item.uid !== myUid,
-    );
-    try {
-      await updateDoc(doc(db, 'teamPage', id), {
-        teamMember: otherMember,
+    const memberCancelHandler = async (onClose) => {
+      const otherMember = item.teamMember?.filter((item) => item.uid !== uid);
+      try {
+        await updateDoc(doc(db, 'teamPage', teamLocationID), {
+          teamMember: otherMember,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      await updateDoc(doc(db, 'user', uid), {
+        teamID: myInfo,
       });
+      onClose();
       navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
-    updateDoc(doc(db, 'user', uid), {
-      teamID: deleteDoc(),
+    };
+
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <SettingBody>
+            <SettingBoX>
+              <Title>
+                '{teamPage}' <br /> 모임을 탈퇴하시겠습니까?
+              </Title>
+              <BtnBox>
+                <CloseBtn onClick={() => onClose()}>취소</CloseBtn>
+
+                <CancelBtn onClick={() => memberCancelHandler(onClose)}>
+                  탈퇴하기
+                </CancelBtn>
+              </BtnBox>
+            </SettingBoX>
+          </SettingBody>
+        );
+      },
     });
   };
 
+  // 모임 폭파하기(방장)
   const deactivateRoom = async () => {
-    try {
-      await deleteDoc(doc(db, 'teamPage', teamLocationID));
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
+    const leaderCancelHandler = async (onClose) => {
+      try {
+        await deleteDoc(doc(db, 'teamPage', teamLocationID));
+      } catch (error) {
+        console.log(error);
+      }
+      await deleteDoc(doc(db, 'teamChat', teamLocationID));
+
+      await updateDoc(doc(db, 'user', authService.currentUser.uid), {
+        teamID: myInfo,
+      });
+      onClose();
+      window.location.replace('/');
+    };
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <SettingBody>
+            <SettingBoX>
+              <Title>
+                '{teamPage}' <br /> 모임을 폭파하시겠습니까?
+              </Title>
+              <BtnBox>
+                <CloseBtn onClick={() => onClose()}>취소</CloseBtn>
+
+                <CancelBtn onClick={() => leaderCancelHandler(onClose)}>
+                  폭파하기
+                </CancelBtn>
+              </BtnBox>
+            </SettingBoX>
+          </SettingBody>
+        );
+      },
+    });
   };
 
   return (
@@ -166,7 +213,7 @@ export default function TeamManage({ teamLocationID, item }) {
           <>
             <DropdownOption>
               <SharePh onClick={navigateWrite}>모임 수정하기</SharePh>
-              <SharePh onClick={deactivateRoom}>모임 삭제하기</SharePh>
+              <SharePh onClick={deactivateRoom}>모임 폭파하기</SharePh>
             </DropdownOption>
           </>
         ) : (
@@ -200,13 +247,93 @@ const DropdownOption = styled.div`
   font-weight: 400;
   background-color: #f9f9f9;
   min-width: 150px;
-  border-radius: 8px;
-  padding: 15px;
-  top: 100px;
+  border-radius: 10px;
+
+  top: 80px;
 `;
 
 const SharePh = styled.div`
+  height: 40px;
+
+  border-radius: 10px;
+
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  :hover {
+    background-color: #e4e4e4;
+  }
+`;
+
+// confirm UI
+const SettingBody = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 990;
+`;
+const SettingBoX = styled.div`
+  width: 400px;
+  height: 195px;
+
+  background: #232323;
+  border-radius: 20px;
+`;
+const Title = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 21px;
+
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  color: #ffffff;
+
+  margin-top: 40px;
+`;
+const BtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 32px;
+`;
+const CloseBtn = styled.div`
+  width: 159px;
+  height: 44px;
+
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 550;
+  font-size: 1rem;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.02em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #ffffff;
+  border-radius: 5px;
+
+  cursor: pointer;
+`;
+const CancelBtn = styled(CloseBtn)`
+  color: #ffffff;
+
+  background: #545454;
 `;

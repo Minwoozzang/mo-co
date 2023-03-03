@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { authService, db } from '../../../common/firebase';
 import MessageHeader from './MessageHeader';
-import { IoMdSend } from 'react-icons/io';
 import { onAuthStateChanged } from 'firebase/auth';
 import MessageBox from './MessageBox';
 import { v4 } from 'uuid';
