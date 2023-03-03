@@ -1,29 +1,33 @@
+import React, { useEffect, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
-import { uuidv4 } from '@firebase/util';
+import Select from 'react-select';
 import { Checkbox } from 'antd';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { now } from '../../common/date';
+import { uuidv4 } from '@firebase/util';
+import { locations } from '../../data/locations';
+import { people } from '../../data/people';
+import { stacks } from '../../data/stacks';
+import { times } from '../../data/times';
+import { opens } from '../../data/opens';
+import { db, authService } from '../../common/firebase';
 import {
   addDoc,
   collection,
   doc,
+  getDoc,
   onSnapshot,
   query,
   setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore';
-import React, { useEffect, useRef, useState } from 'react';
-import { useQueryClient } from 'react-query';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
-import Select from 'react-select';
-import { now } from '../../common/date.js';
-import { authService, db } from '../../common/firebase';
-import { locations } from '../../data/locations';
-import { opens } from '../../data/opens';
-import { people } from '../../data/people';
-import { stacks } from '../../data/stacks';
-import { times } from '../../data/times';
+import { useQueryClient } from 'react-query';
+import { withTheme } from '@emotion/react';
+import _, { debounce, throttle } from 'lodash';
 
 const MateWrite = () => {
   const queryClient = useQueryClient();
@@ -99,87 +103,109 @@ const MateWrite = () => {
   };
 
   // 모집글 게시 함수 (동시에 팀페이지 생성)
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (
-      partyStack.length === 0 ||
-      partyTime === '' ||
-      partyNum === '' ||
-      partyLocation === '' ||
-      partyDesc === ''
-    ) {
-      alert('모임 정보를 모두 입력해주세요');
-      return;
-    }
 
-    try {
-      await addDoc(collection(db, 'post'), {
-        partyName,
-        partyStack,
-        partyTime,
-        partyNum,
-        partyLocation,
-        partyIsOpen,
-        isRemote,
-        partyPostTitile,
-        partyDesc,
-        nickName,
-        profileImg: profileUserInfo,
-        createdDate: now(),
-        teamID: teamID,
-        uid: currentUser.uid,
-        isDeleted: false,
-        createdAt: Date.now(),
-        bookmark: 0,
-      })
-        .then(() => {
-          setDoc(doc(db, 'teamPage', teamID), {
+  const handleSubmit = useCallback(
+    debounce(
+      async (e) => {
+        console.log(
+          partyStack.length === 0,
+          partyTime === '',
+          partyNum === '',
+          partyLocation === '',
+          partyDesc === '',
+        );
+        if (
+          partyStack.length === 0 ||
+          partyTime === '' ||
+          partyNum === '' ||
+          partyLocation === '' ||
+          partyDesc === ''
+        ) {
+          alert('모임 정보를 모두 입력해주세요');
+          return;
+        }
+
+        try {
+          await addDoc(collection(db, 'post'), {
+            partyName,
+            partyStack,
+            partyTime,
+            partyNum,
+            partyLocation,
+            partyIsOpen,
+            isRemote,
+            partyPostTitile,
+            partyDesc,
+            nickName,
+            profileImg: profileUserInfo,
+            createdDate: now(),
             teamID: teamID,
-            teamLeader: {
-              teamID: teamID,
-              uid: authService.currentUser?.uid,
-              host: 'https://littledeep.com/wp-content/uploads/2020/03/littledeep_crown_style1.png',
-              profileImg: profileUserInfo,
-              nickName,
-              isWait: false,
-              teamPosition: '리더',
-            },
-            teamMember: [],
-            teamPartyStack: {
-              partyName,
-              partyLocation,
-              partyTime,
-              partyStack,
-            },
-          });
-        })
-        .then(() => {
-          updateDoc(doc(db, 'user', authService.currentUser.uid), {
-            teamID: [...teamIDUserInfo, teamID],
-          });
-        })
-        .then(() => {
-          setDoc(doc(db, 'teamChat', teamID), {
-            teamID: teamID,
-            message: [],
-          });
-        })
-        .catch(() => {
-          console.log('팀페이지 에러');
-        });
-      queryClient.invalidateQueries('posts');
-      console.log('업로드 성공');
-      navigate(`/mate`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+            uid: currentUser.uid,
+            isDeleted: false,
+            createdAt: Date.now(),
+            bookmark: 0,
+          })
+            .then(() => {
+              setDoc(doc(db, 'teamPage', teamID), {
+                teamID: teamID,
+                teamLeader: {
+                  teamID: teamID,
+                  uid: authService.currentUser?.uid,
+                  host: 'https://littledeep.com/wp-content/uploads/2020/03/littledeep_crown_style1.png',
+                  profileImg: profileUserInfo,
+                  nickName,
+                  isWait: false,
+                  teamPosition: '리더',
+                },
+                teamMember: [],
+                teamPartyStack: {
+                  partyName,
+                  partyLocation,
+                  partyTime,
+                },
+              });
+            })
+            .then(() => {
+              updateDoc(doc(db, 'user', authService.currentUser.uid), {
+                teamID: [...teamIDUserInfo, teamID],
+              });
+            })
+            .then(() => {
+              setDoc(doc(db, 'teamChat', teamID), {
+                teamID: teamID,
+                message: [],
+              });
+            })
+            .catch(() => {
+              console.log('팀페이지 에러');
+            });
+          queryClient.invalidateQueries('posts');
+          console.log('업로드 성공');
+          navigate(`/mate`);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+      3000,
+      { leading: true, trailing: false, maxWait: 3000 },
+    ),
+    [partyDesc],
+  );
 
   useEffect(() => {
     if (!currentUser) return;
     getUserInfo();
     getLeaderImg();
   }, [currentUser]);
+
+  const getDebounce = useRef(
+    debounce((e) => {
+      setPartyname(e);
+      console.log('ㅇ??', e);
+    }, 500),
+  ).current;
+
+  const handleChangePartyname = (event) => getDebounce(event.target.value);
 
   return (
     <FullScreen>
@@ -194,7 +220,7 @@ const MateWrite = () => {
         </PageInfo>
       </GuideTextsBox>
       <WritePageContainer>
-        <EditingBox onSubmit={handleSubmit}>
+        <EditingBox>
           <PartyInfoBox>
             <PartyTitleBox>
               <h3>모임명</h3>
@@ -202,8 +228,7 @@ const MateWrite = () => {
                 autoFocus
                 required
                 type="text"
-                value={partyName}
-                onChange={(e) => setPartyname(e.target.value)}
+                onChange={handleChangePartyname}
                 maxLength={12}
                 placeholder="12자 이내로 작성해주세요"
               />
@@ -369,11 +394,11 @@ const MateWrite = () => {
             <WriteButton
               onClick={() => {
                 setIsClicked(!isClicked);
+                handleSubmit();
               }}
               style={{
                 backgroundColor: isClicked ? '#f7f7f7' : '#FEFF80',
               }}
-              type="submit"
             >
               작성 완료
             </WriteButton>
@@ -418,7 +443,7 @@ const WritePageContainer = styled.div`
   border-radius: 20px;
 `;
 
-const EditingBox = styled.form``;
+const EditingBox = styled.div``;
 
 const PartyInfoBox = styled.div`
   margin-bottom: 40px;
