@@ -19,7 +19,7 @@ import {
   CommentProfileImage,
   CommentDate,
   UserHr,
-} from './../comment/CommentStyle';
+} from './replyCommentStyle';
 
 const CommentTest = () => {
   return (

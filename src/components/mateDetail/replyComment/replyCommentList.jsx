@@ -17,7 +17,8 @@ const ReplyCommentList = (user) => {
       >
         답글 쓰기
       </Replybutton>
-      <ReplyComment />
+      <CommentTest />
+      {/* <ReplyComment /> */}
       {display && <ReplyAddComment />};
     </ReplyWrap>
   );
