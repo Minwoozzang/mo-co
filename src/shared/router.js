@@ -17,7 +17,7 @@ import MocoChat from '../components/mocoChat/MocoChatIcon';
 // * 테스트 페이지
 import Test from '../pages/Test';
 import Amplitude from './../amplitude';
-import NotiBadge from '../components/header/NotiBadge';
+import NotiBadge from '../components/header/notification/NotiBadge';
 import { authService } from '../common/firebase';
 
 const Router = () => {

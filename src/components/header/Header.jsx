@@ -214,10 +214,22 @@ const Header = () => {
           >
             팀 개설하기
           </MakeTeam>
-          <img src={Alarm} alt="alarm" 
-            style={{ width: '20px', cursor: 'pointer' }}
-            onClick={() => navigate('/noti')}  
-          />
+          <div>
+            <img
+              src={Alarm}
+              alt="alarm"
+              style={{ width: '20px', cursor: 'pointer' }}
+              onClick={alarmDropDown}
+            />
+            {alarmDrop ? (
+              <HeaderDropDownListBox style={{ position: 'absolute' }}>
+                <HeaderDropDownListSection>hhhaaa</HeaderDropDownListSection>
+              </HeaderDropDownListBox>
+            ) : (
+              ''
+            )}
+          </div>
+
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (
               <>
