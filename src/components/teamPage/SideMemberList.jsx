@@ -2,7 +2,7 @@ import { uuidv4 } from '@firebase/util';
 import React, { useEffect, useState } from 'react';
 import {
   MemberInfoProfileImg,
-  LeaderPosition,
+  MemberPosition,
   MemberInfoProfile,
   MemberInfoProfileInfo,
   MemberInfoProfileName,
@@ -107,7 +107,7 @@ const SideMemberList = ({ item, teamLocationID }) => {
             />
             <MemberInfoProfileInfo>
               <MemberInfoProfileName>{data.nickname}</MemberInfoProfileName>
-              <LeaderPosition>멤버</LeaderPosition>
+              <MemberPosition>멤버</MemberPosition>
             </MemberInfoProfileInfo>
             {onlyLeaderLook ? (
               <MemberCancel
