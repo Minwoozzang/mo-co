@@ -42,8 +42,8 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
 
     setIsLoading(true);
     setIsError(false);
-
-    const API_KEY = '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';
+    // 
+    const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
     const ENDPOINT = `https://api.openai.com/v1/completions`;
 
     const requestData = {

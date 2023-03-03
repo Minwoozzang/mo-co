@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   AddCommentListWrap,
   AddCommentListAll,
-  AddCommentListTwo,
   AddInputContent,
-  AddCommentText,
   AddCommentBtn,
   AddInputDiv,
   AddCommentBtnDiv,
@@ -98,6 +96,9 @@ const AddComment = ({ id }) => {
       mateDetailId: id,
       postId: id,
       userImg: currentUser.photoURL,
+      //updatedoc사용할것 - 배열사용(등록, 수정, 삭제 모두 배열로)
+      //todolist 참고
+      replyComment: [],
     };
 
     // console.log(newComment);

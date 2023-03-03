@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 
+export const ReplyWrap = styled.section`
+  width: 100%;
+`;
+
 export const CommentContainer = styled.div`
-  margin: 80px 800px 0 420px;
+  margin: 80px 800px 0 50px;
 `;
 
 export const ListContainer = styled.div``;
@@ -126,7 +130,7 @@ export const CommentDate = styled.p`
 export const UserHr = styled.hr`
   margin: 35px 40px 0px 0px;
   border: 1;
-  width: 920px;
+  width: 870px;
   border-top: 1px solid #3b3b3b;
 `;
 
