@@ -1,16 +1,21 @@
 import React from 'react';
+
 import {
-  AddCommentListAll,
   AddCommentListWrap,
   AddInputDiv,
   AddInputContent,
   AddCommentBtnDiv,
   AddCommentBtn,
-} from './replyAddCommentstyle';
+  AddCommentListAll,
+} from './replyAddCommentStyle';
 
 const ReplyAddComment = () => {
   const AddCommentTextChange = (e) => {
-    setCommentText(e.target.value);
+    e.preventDefault();
+  };
+
+  const AddCommentButton = async (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -20,7 +25,6 @@ const ReplyAddComment = () => {
           <AddInputDiv>
             <AddInputContent
               onChange={AddCommentTextChange}
-              value={commentText}
               placeholder={'댓글을 남겨주세요.'}
             />
           </AddInputDiv>

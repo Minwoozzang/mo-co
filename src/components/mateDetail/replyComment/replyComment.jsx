@@ -17,7 +17,8 @@ import {
   CommentProfileImage,
   CommentDate,
   UserHr,
-} from './../comment/CommentStyle';
+} from './replyCommentStyle';
+import { GrMoreVertical } from 'react-icons/gr';
 
 const ReplyComment = () => {
   return (

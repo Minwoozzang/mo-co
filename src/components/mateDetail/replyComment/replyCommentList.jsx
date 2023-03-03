@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Replybutton } from '../comment/CommentStyle';
 import { ReplyWrap } from './replyCommentStyle';
 import CommentTest from './commentTest';
+import ReplyAddComment from './../replyAddComment/replyAddComment';
 import ReplyComment from './replyComment';
-import ReplyAddComment from '../replyAddComment/replyAddComment';
-import AddComment from './../addComment/AddComment';
 
 const ReplyCommentList = (user) => {
   const [display, setDisplay] = useState(false);
@@ -19,7 +18,7 @@ const ReplyCommentList = (user) => {
         답글 쓰기
       </Replybutton>
       <ReplyComment />
-      {display && <AddComment />};
+      {display && <ReplyAddComment />};
     </ReplyWrap>
   );
 };
