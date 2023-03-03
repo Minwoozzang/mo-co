@@ -54,6 +54,9 @@ const Header = () => {
   const [isUserDropDown, setIsUserDropDown] = useState(false);
   const [isSearchUserDropDown, setIsSearchUserDropDown] = useState(false);
 
+  // 알람 드랍다운
+  const [alarmDrop, setAlarmDrop] = useState(false);
+
   // 유저 정보 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
 
@@ -181,6 +184,15 @@ const Header = () => {
     }
   };
 
+  // 알람 드랍다운
+  const alarmDropDown = () => {
+    if (alarmDrop === false) {
+      setAlarmDrop(true);
+    } else {
+      setAlarmDrop(false);
+    }
+  };
+
   return (
     <HeaderBody>
       <HeaderInfoBody>
@@ -202,7 +214,22 @@ const Header = () => {
           >
             팀 개설하기
           </MakeTeam>
-          <img src={Alarm} alt="alarm" style={{ width: '20px' }} />
+          <div>
+            <img
+              src={Alarm}
+              alt="alarm"
+              style={{ width: '20px', cursor: 'pointer' }}
+              onClick={alarmDropDown}
+            />
+            {alarmDrop ? (
+              <HeaderDropDownListBox style={{ position: 'absolute' }}>
+                <HeaderDropDownListSection>hhhaaa</HeaderDropDownListSection>
+              </HeaderDropDownListBox>
+            ) : (
+              ''
+            )}
+          </div>
+
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (
               <>

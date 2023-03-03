@@ -14,6 +14,7 @@ import {
   MyMessageNickName,
   MyMessageContent,
 } from './messageBoxStyle';
+import { v4 } from 'uuid';
 
 const MessageBox = ({ t }) => {
   // 나의 채팅
@@ -26,7 +27,7 @@ const MessageBox = ({ t }) => {
     <>
       {otherChat.map((data) => {
         return (
-          <MessageSection>
+          <MessageSection key={v4()}>
             <MessageImageBox>
               <MessageImage src={data.profileImg} alt="" />
             </MessageImageBox>
@@ -39,7 +40,7 @@ const MessageBox = ({ t }) => {
       })}
       {myChat.map((data) => {
         return (
-          <MyMessageSection>
+          <MyMessageSection key={v4()}>
             <MyMessageTextBox>
               <MyMessageNickName>{data.nickName}</MyMessageNickName>
               <MyMessageContent>{data.comment}</MyMessageContent>

@@ -12,6 +12,12 @@ export const MemberSidebar = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   background-color: #232323;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 export const WrapWrap = styled.div`
@@ -148,8 +154,17 @@ export const MemberInfoProfileInfo = styled.div`
 `;
 
 export const MemberInfoProfileName = styled.div`
-  font-size: 14px;
+  font-size: 0.95rem;
   font-weight: 500;
+`;
+
+export const MemberPosition = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 14px;
+  letter-spacing: -0.02em;
 `;
 
 export const MemberInfoProfileNameTwo = styled.div`
@@ -192,7 +207,16 @@ export const LeaderName = styled.div`
   font-size: 16px;
   color: black;
 `;
-export const LeaderPosition = styled.div``;
+export const LeaderPosition = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 14px;
+  letter-spacing: -0.02em;
+
+  color: #ff80bf;
+`;
 export const MemberList = styled.div``;
 
 export const MemberCancel = styled.img`
