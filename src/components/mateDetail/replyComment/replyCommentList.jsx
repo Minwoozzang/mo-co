@@ -5,9 +5,10 @@ import CommentTest from './commentTest';
 import ReplyAddComment from './../replyAddComment/replyAddComment';
 import ReplyComment from './replyComment';
 
-const ReplyCommentList = (user) => {
+const ReplyCommentList = ({ user }) => {
   const [display, setDisplay] = useState(false);
 
+  console.log(user.replyComment);
   return (
     <ReplyWrap>
       <Replybutton
@@ -17,9 +18,13 @@ const ReplyCommentList = (user) => {
       >
         답글 쓰기
       </Replybutton>
-      <CommentTest />
+      {/* user.replycomment map돌리기 */}
       {/* <ReplyComment /> */}
-      {display && <ReplyAddComment />};
+      {display &&
+        display.map((user) => {
+          return <ReplyComment user={user.replyComment} />;
+        })}
+      ;
     </ReplyWrap>
   );
 };
