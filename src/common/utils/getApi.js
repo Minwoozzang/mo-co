@@ -17,7 +17,7 @@ export const getUser = async () => {
     })
     // setTestUserList(userInfo)
     return userInfo; // return 필수
-};
+}; // --> Promise {<pending>} 뜸
 
 export const getPost = async () => {
     const q = query(
