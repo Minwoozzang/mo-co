@@ -174,9 +174,9 @@ const MateList = () => {
 
 export default MateList;
 
-const FullScreen = styled.div`
+const FullScreen = styled.html`
   background-color: #181616;
-  /* height: 100v; */
+  height: 100vh;
 `;
 
 // 필터 & 정렬
@@ -212,6 +212,7 @@ const SortByNew = styled.div`
 const CardListContainer = styled.section`
   max-width: 1200px;
   margin: 0 auto;
+  background-color: #181616;
 `;
 
 const CardList = styled.div`
@@ -233,6 +234,8 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   /* margin: 3rem; */
-  margin-top: 110px;
+  /* margin-top: 110px; */
+  padding: 6rem;
   color: white;
+  background-color: #181616;
 `;
