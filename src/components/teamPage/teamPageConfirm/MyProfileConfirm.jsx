@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import cancel from '../../../../src/assets/icon/Icon_cancel.png';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { authService, db } from '../../../common/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 

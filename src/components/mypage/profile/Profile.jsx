@@ -127,9 +127,6 @@ const Profile = () => {
     alert('닉네임 수정 완료');
     setClickBtn(true);
     setEditNickName(false);
-    // setTimeout(() => {
-    //   window.location.replace('/mypage');
-    // }, 200);
   };
 
   // 이미지 선탣

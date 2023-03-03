@@ -152,6 +152,7 @@ const MateWrite = () => {
               partyName,
               partyLocation,
               partyTime,
+              partyStack,
             },
           });
         })

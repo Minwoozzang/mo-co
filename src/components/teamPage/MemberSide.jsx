@@ -158,7 +158,7 @@ export default function MemberSide({ teamLocationID }) {
             {/* 팅장 */}
             <MemberWrap>
               {teamProfileUserInfo
-                .filter((item) => item.uid === teamLeaderInfo.uid)
+                .filter((item) => item.uid === teamLeaderInfo?.uid)
                 .map((item) => {
                   return (
                     <MemberInfoProfile key={v4()}>

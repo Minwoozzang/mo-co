@@ -54,6 +54,9 @@ const Header = () => {
   const [isUserDropDown, setIsUserDropDown] = useState(false);
   const [isSearchUserDropDown, setIsSearchUserDropDown] = useState(false);
 
+  // 알람 드랍다운
+  const [alarmDrop, setAlarmDrop] = useState(false);
+
   // 유저 정보 가져오기
   const [profileUserInfo, setProfileUserInfo] = useState([]);
 
@@ -178,6 +181,15 @@ const Header = () => {
       setDropDownClick(true);
     } else {
       setDropDownClick(false);
+    }
+  };
+
+  // 알람 드랍다운
+  const alarmDropDown = () => {
+    if (alarmDrop === false) {
+      setAlarmDrop(true);
+    } else {
+      setAlarmDrop(false);
     }
   };
 

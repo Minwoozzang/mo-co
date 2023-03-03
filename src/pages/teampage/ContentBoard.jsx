@@ -144,6 +144,12 @@ const ContentCard = styled.div`
   p {
     padding: 20px;
   }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 
 const ButtonPlaceTitleWrap = styled.div`
