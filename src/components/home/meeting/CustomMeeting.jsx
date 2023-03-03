@@ -8,7 +8,11 @@ const CustomMeeting = ({ isLoggedIn, customList, uid, userBookmark }) => {
       <CustomListCardBox>
         {isLoggedIn ? (
           customList.length === 0 ? (
-            <NonCustomList>맞춤 정보에 해당하는 모임이 없습니다.</NonCustomList>
+            <NonCustomList>
+              모든 조건이 맞는 모임이 아직 없습니다
+              <br />
+              (기술 스택, 지역, 시간대 종합)
+            </NonCustomList>
           ) : (
             customList
               .slice(0, 3)
@@ -48,7 +52,7 @@ const CustomListCardBox = styled.div`
 // customList.length === 0
 const NonCustomList = styled.div`
   width: 900px;
-  height: 265px;
+  height: 100px;
   margin: 0 auto;
   /* margin-top: 140px; */
   display: flex;
@@ -59,7 +63,10 @@ const NonCustomList = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: 400;
+  font-size: 1.2rem;
   box-shadow: 2px 4px 8px #545454;
+  line-height: 1.5;
+  position: absolute;
+  top: 60%;
 `;

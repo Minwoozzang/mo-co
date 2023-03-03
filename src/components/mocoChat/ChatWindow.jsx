@@ -42,7 +42,7 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
 
     setIsLoading(true);
     setIsError(false);
-    // 
+    //
     const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
     const ENDPOINT = `https://api.openai.com/v1/completions`;
 
@@ -271,7 +271,8 @@ const Message = styled.div`
   max-width: 80%;
   clear: both;
   float: ${(message) => (message.isSent ? 'right' : 'left')};
-  white-space: pre-line;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
   margin: 10px;
   background-color: ${(message) => (message.isSent ? '#000000' : '#feff80')};
   color: ${(message) => (message.isSent ? '#ffffff' : '#000000')};

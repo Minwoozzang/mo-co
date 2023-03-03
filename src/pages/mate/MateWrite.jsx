@@ -1,32 +1,29 @@
-import React, { useEffect, useRef } from 'react';
-import { useState } from 'react';
 import styled from '@emotion/styled';
-import Select from 'react-select';
-import { Checkbox } from 'antd';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { now } from '../../common/utils/date';
 import { uuidv4 } from '@firebase/util';
-import { locations } from '../../data/locations';
-import { people } from '../../data/people';
-import { stacks } from '../../data/stacks';
-import { times } from '../../data/times';
-import { opens } from '../../data/opens';
-import { db, authService } from '../../common/firebase';
+import { Checkbox } from 'antd';
 import {
   addDoc,
   collection,
   doc,
-  getDoc,
   onSnapshot,
   query,
   setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { withTheme } from '@emotion/react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import { now } from '../../common/date.js';
+import { authService, db } from '../../common/firebase';
+import { locations } from '../../data/locations';
+import { opens } from '../../data/opens';
+import { people } from '../../data/people';
+import { stacks } from '../../data/stacks';
+import { times } from '../../data/times';
 
 const MateWrite = () => {
   const queryClient = useQueryClient();
