@@ -14,6 +14,7 @@ import TeamPage from '../pages/teampage/TeamPage';
 import MateEdit from '../pages/mate/MateEdit';
 import TeamList from '../pages/teampage/TeamList';
 import MocoChat from '../components/mocoChat/MocoChatIcon';
+
 // * 테스트 페이지
 import Test from '../pages/Test';
 import Amplitude from './../amplitude';

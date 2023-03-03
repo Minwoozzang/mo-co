@@ -4,7 +4,6 @@ import {
   onSnapshot,
   query,
   setDoc,
-  updateDoc,
   where,
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -40,6 +39,10 @@ import { ImCancelCircle } from 'react-icons/im';
 import defaultImg from '../../../src/assets/icon/user.png';
 
 const Header = () => {
+  // 현제 경로
+  const location = useLocation();
+  const path = location.pathname;
+
   // 헤더 로그인 토글
   const [loginToggle, setLoginToggle] = useState(true);
 
@@ -95,10 +98,13 @@ const Header = () => {
   const navigate = useNavigate();
 
   const navigateHome = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate('/');
   };
 
   const navigateMyPage = () => {
+    setSearchdropDownClick(false);
     navigate('/mypage');
   };
 
@@ -111,6 +117,8 @@ const Header = () => {
 
   // 내 코딩모임 페이지로 이동
   const navigateMyCodingMate = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate(`/teamlist/${authService.currentUser.displayName}`);
   };
 
@@ -131,6 +139,7 @@ const Header = () => {
   };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
+      setDropDownClick(false);
       setSearchdropDownClick(true);
     }
   };
@@ -182,6 +191,7 @@ const Header = () => {
     } else {
       setDropDownClick(false);
     }
+    setSearchdropDownClick(false);
   };
 
   // 알람 드랍다운
@@ -208,6 +218,8 @@ const Header = () => {
               if (!authService.currentUser) {
                 alert('로그인이 필요합니다.');
               } else {
+                setDropDownClick(false);
+                setSearchdropDownClick(false);
                 navigate('/write');
               }
             }}

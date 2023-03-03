@@ -46,7 +46,7 @@ const MyProfileConfirm = (props) => {
   }, []);
 
   return (
-    <ProfileBody>
+    <ProfileBody onClick={props.onClose}>
       <ProfileBox>
         <CancelImgBox>
           <CancelImg onClick={props.onClose} src={cancel} />
@@ -103,6 +103,9 @@ const MyProfileConfirm = (props) => {
 export default MyProfileConfirm;
 
 const ProfileBody = styled.div`
+  width: 100%;
+  height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,14 +133,6 @@ const CancelImgBox = styled.div`
   align-items: center;
 
   margin-top: 15px;
-`;
-
-const NewProfileBtn = styled.div`
-  color: #ffffff;
-
-  cursor: pointer;
-
-  margin-left: 10px;
 `;
 
 const CancelImg = styled.img`
