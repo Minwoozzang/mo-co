@@ -25,7 +25,7 @@ import {
 
 const ReplyComment = ({ user }) => {
   const [editBox, setEditBox] = useState(false);
-  const [editValue, setEditValue] = useState(user.comment);
+  const [editValue, setEditValue] = useState(user?.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
 
@@ -80,16 +80,16 @@ const ReplyComment = ({ user }) => {
       <ListContainer>
         <ListTextSection>
           <CommentProfileImage
-            src={!user.userImg ? default_profile : user.userImg}
+            src={!user?.userImg ? default_profile : user?.userImg}
           ></CommentProfileImage>
-          <CommentUserName>{user.userName}</CommentUserName>
+          <CommentUserName>{user?.userName}</CommentUserName>
           <CommentIconBody>
             <GrMoreVertical
               style={{
                 color: '#858585',
                 width: '550px',
               }}
-              onClick={() => ToggleDropDown(user.userId)}
+              onClick={() => ToggleDropDown(user?.userId)}
             />
             <CommentTextIcon>
               {toggleBtn ? (
@@ -99,7 +99,7 @@ const ReplyComment = ({ user }) => {
                       {!editBox ? (
                         <CommentUpdateBtn
                           onClick={() => {
-                            editHandler(user.comment);
+                            editHandler(user?.comment);
                           }}
                         >
                           수정
@@ -116,7 +116,7 @@ const ReplyComment = ({ user }) => {
 
                       <CommentDeleteBtn
                         onClick={() => {
-                          deleteHandler(user.id);
+                          deleteHandler(user?.id);
                         }}
                         user={user}
                       >
@@ -133,7 +133,7 @@ const ReplyComment = ({ user }) => {
             </CommentTextIcon>
           </CommentIconBody>
           {!editBox ? (
-            <CommentText>{user.comment}</CommentText>
+            <CommentText>{user?.comment}</CommentText>
           ) : (
             <CommentUserInput
               type="text"
@@ -141,9 +141,9 @@ const ReplyComment = ({ user }) => {
               onChange={(e) => handleChange(e)}
             />
           )}
-          <CommentDate>{user.date}</CommentDate>
+          <CommentDate>{user?.date}</CommentDate>
 
-          <ReplyComment user={user} />
+          {/* <ReplyComment user={user} /> */}
         </ListTextSection>
       </ListContainer>
       <UserHr />

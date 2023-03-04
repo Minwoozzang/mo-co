@@ -8,7 +8,7 @@ import ReplyComment from './replyComment';
 const ReplyCommentList = ({ user }) => {
   const [display, setDisplay] = useState(false);
 
-  console.log(user.replyComment);
+  console.log(user);
   return (
     <ReplyWrap>
       <Replybutton
@@ -18,11 +18,10 @@ const ReplyCommentList = ({ user }) => {
       >
         답글 쓰기
       </Replybutton>
-      {/* user.replycomment map돌리기 */}
-      {/* <ReplyComment /> */}
+      {display && <ReplyAddComment />}
       {display &&
-        display.replyComment?.map((user) => {
-          return <ReplyComment user={user.replyComment} />;
+        user?.replyComment.map((comment) => {
+          return <ReplyComment user={comment} />;
         })}
       ;
     </ReplyWrap>
@@ -30,3 +29,10 @@ const ReplyCommentList = ({ user }) => {
 };
 
 export default ReplyCommentList;
+
+{
+  /* {display &&
+        user?.replyComment.map((user) => {
+          return <ReplyComment user={user.replyComment} />;
+        })} */
+}
