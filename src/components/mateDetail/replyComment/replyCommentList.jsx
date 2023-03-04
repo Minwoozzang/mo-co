@@ -21,7 +21,7 @@ const ReplyCommentList = ({ user }) => {
       {/* user.replycomment map돌리기 */}
       {/* <ReplyComment /> */}
       {display &&
-        display.map((user) => {
+        display.replyComment?.map((user) => {
           return <ReplyComment user={user.replyComment} />;
         })}
       ;
