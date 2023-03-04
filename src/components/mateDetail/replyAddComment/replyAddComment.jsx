@@ -40,7 +40,6 @@ const ReplyAddComment = ({ user }) => {
       createdAt: new Date(),
       date: NewDate,
       commentId: uuidv4(),
-      //comment adddoc할때 mateDetailId값에 id(userid = :id)가져오기
       userImg: currentUser.photoURL,
       //updatedoc사용할것 - 배열사용(등록, 수정, 삭제 모두 배열로)
     };
