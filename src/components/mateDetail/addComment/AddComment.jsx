@@ -102,7 +102,6 @@ const AddComment = ({ id }) => {
     };
 
     // console.log(newComment);
-
     if (!authService.currentUser) {
       confirmAlert({
         customUI: ({ onClose }) => {

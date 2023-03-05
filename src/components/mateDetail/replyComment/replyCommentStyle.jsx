@@ -5,7 +5,7 @@ export const ReplyWrap = styled.section`
 `;
 
 export const CommentContainer = styled.div`
-  margin: 80px 800px 0 50px;
+  margin: 80px 0px 0 50px;
 `;
 
 export const ListContainer = styled.div``;
@@ -130,7 +130,7 @@ export const CommentDate = styled.p`
 export const UserHr = styled.hr`
   margin: 35px 40px 0px 0px;
   border: 1;
-  width: 870px;
+  width: 750px;
   border-top: 1px solid #3b3b3b;
 `;
 

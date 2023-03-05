@@ -23,9 +23,9 @@ import {
   UserHr,
 } from './replyCommentStyle';
 
-const ReplyComment = ({ user }) => {
+const ReplyComment = ({ comment }) => {
   const [editBox, setEditBox] = useState(false);
-  const [editValue, setEditValue] = useState(user?.comment);
+  const [editValue, setEditValue] = useState(comment?.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
 
@@ -73,23 +73,23 @@ const ReplyComment = ({ user }) => {
       },
     });
   };
-  console.log(user);
+  console.log(comment);
   return (
     <CommentContainer>
       {/* 댓글 내용 */}
       <ListContainer>
         <ListTextSection>
           <CommentProfileImage
-            src={!user?.userImg ? default_profile : user?.userImg}
+            src={!comment?.userImg ? default_profile : comment?.userImg}
           ></CommentProfileImage>
-          <CommentUserName>{user?.userName}</CommentUserName>
+          <CommentUserName>{comment?.userName}</CommentUserName>
           <CommentIconBody>
             <GrMoreVertical
               style={{
                 color: '#858585',
                 width: '550px',
               }}
-              onClick={() => ToggleDropDown(user?.userId)}
+              onClick={() => ToggleDropDown(comment?.userId)}
             />
             <CommentTextIcon>
               {toggleBtn ? (
@@ -99,7 +99,7 @@ const ReplyComment = ({ user }) => {
                       {!editBox ? (
                         <CommentUpdateBtn
                           onClick={() => {
-                            editHandler(user?.comment);
+                            editHandler(comment?.comment);
                           }}
                         >
                           수정
@@ -107,7 +107,7 @@ const ReplyComment = ({ user }) => {
                       ) : (
                         <CommentUpdateBtn
                           onClick={() =>
-                            completeHandler(user, editValue, user.uid)
+                            completeHandler(comment, editValue, comment.uid)
                           }
                         >
                           수정완료
@@ -116,9 +116,9 @@ const ReplyComment = ({ user }) => {
 
                       <CommentDeleteBtn
                         onClick={() => {
-                          deleteHandler(user?.id);
+                          deleteHandler(comment?.id);
                         }}
-                        user={user}
+                        user={comment}
                       >
                         삭제
                       </CommentDeleteBtn>
@@ -133,7 +133,7 @@ const ReplyComment = ({ user }) => {
             </CommentTextIcon>
           </CommentIconBody>
           {!editBox ? (
-            <CommentText>{user?.comment}</CommentText>
+            <CommentText>{comment?.comment}</CommentText>
           ) : (
             <CommentUserInput
               type="text"
@@ -141,7 +141,7 @@ const ReplyComment = ({ user }) => {
               onChange={(e) => handleChange(e)}
             />
           )}
-          <CommentDate>{user?.date}</CommentDate>
+          <CommentDate>{comment?.date}</CommentDate>
 
           {/* <ReplyComment user={user} /> */}
         </ListTextSection>

@@ -11,7 +11,7 @@ import {
   AddCommentListAll,
 } from './replyAddCommentStyle';
 
-const ReplyAddComment = ({ user }) => {
+const ReplyAddComment = ({ comment }) => {
   // 파베 인증
   const currentUser = authService.currentUser;
   // 데이터 올리기
@@ -21,11 +21,10 @@ const ReplyAddComment = ({ user }) => {
   const [currentUserName, setCurrentUserName] = useState('');
   const [currentUserUid, setCurrentUserUid] = useState('');
 
-  console.log(user);
-
   const AddCommentTextChange = (e) => {
     setCommentText(e.target.value);
   };
+  console.log(comment);
 
   const AddCommentButton = async (e) => {
     e.preventDefault();
@@ -44,9 +43,9 @@ const ReplyAddComment = ({ user }) => {
       //updatedoc사용할것 - 배열사용(등록, 수정, 삭제 모두 배열로)
     };
 
-    const replyCommentRef = doc(db, 'comment', user.id);
+    const replyCommentRef = doc(db, 'comment', comment.id);
     await updateDoc(replyCommentRef, {
-      replyComment: [...user.replyComment, newComment],
+      replyComment: [...comment.replyComment, newComment],
     });
   };
 

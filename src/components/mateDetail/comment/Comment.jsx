@@ -24,11 +24,11 @@ import {
 import default_profile from '../../../assets/icon/user.png';
 import ReplyComment from '../replyComment/replyCommentList';
 
-const Comment = ({ user }) => {
+const Comment = ({ comment }) => {
   // comment 컬렉션 데이터 저장
 
   const [editBox, setEditBox] = useState(false);
-  const [editValue, setEditValue] = useState(user.comment);
+  const [editValue, setEditValue] = useState(comment.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
 
@@ -83,16 +83,16 @@ const Comment = ({ user }) => {
       <ListContainer>
         <ListTextSection>
           <CommentProfileImage
-            src={!user.userImg ? default_profile : user.userImg}
+            src={!comment.userImg ? default_profile : comment.userImg}
           ></CommentProfileImage>
-          <CommentUserName>{user.userName}</CommentUserName>
+          <CommentUserName>{comment.userName}</CommentUserName>
           <CommentIconBody>
             <GrMoreVertical
               style={{
                 color: '#858585',
                 width: '550px',
               }}
-              onClick={() => ToggleDropDown(user.userId)}
+              onClick={() => ToggleDropDown(comment.userId)}
             />
             <CommentTextIcon>
               {toggleBtn ? (
@@ -102,7 +102,7 @@ const Comment = ({ user }) => {
                       {!editBox ? (
                         <CommentUpdateBtn
                           onClick={() => {
-                            editHandler(user.comment);
+                            editHandler(comment.comment);
                           }}
                         >
                           수정
@@ -110,7 +110,7 @@ const Comment = ({ user }) => {
                       ) : (
                         <CommentUpdateBtn
                           onClick={() =>
-                            completeHandler(user, editValue, user.uid)
+                            completeHandler(comment, editValue, comment.uid)
                           }
                         >
                           수정완료
@@ -119,9 +119,9 @@ const Comment = ({ user }) => {
 
                       <CommentDeleteBtn
                         onClick={() => {
-                          deleteHandler(user.id);
+                          deleteHandler(comment.id);
                         }}
-                        user={user}
+                        user={comment}
                       >
                         삭제
                       </CommentDeleteBtn>
@@ -136,7 +136,7 @@ const Comment = ({ user }) => {
             </CommentTextIcon>
           </CommentIconBody>
           {!editBox ? (
-            <CommentText>{user.comment}</CommentText>
+            <CommentText>{comment.comment}</CommentText>
           ) : (
             <CommentUserInput
               type="text"
@@ -144,9 +144,9 @@ const Comment = ({ user }) => {
               onChange={(e) => handleChange(e)}
             />
           )}
-          <CommentDate>{user.date}</CommentDate>
+          <CommentDate>{comment.date}</CommentDate>
 
-          <ReplyComment user={user} />
+          <ReplyComment comment={comment} />
         </ListTextSection>
       </ListContainer>
       <UserHr />
