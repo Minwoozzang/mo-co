@@ -15,9 +15,7 @@ import FilterTime from '../../shared/FilterTime';
 
 const MateList = () => {
   const user = useRecoilValue(authState);
-
   const { data, isLoading, isError, error } = usePosts();
-
   const [selectedTech, setSelectedTech] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
@@ -25,13 +23,14 @@ const MateList = () => {
   // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
   const [userBookmark, setUserBookmark] = useState([]);
+  console.log("🚀 ~ file: MateList.jsx:26 ~ MateList ~ userBookmark:", userBookmark)
   //페이지네이션
   // const [currentPage, setCurrentPage] = useState(2);
   // 페이지네이션
   // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(12);
-
+  
   // 내 정보 가져오기
   const getUserBookmark = () => {
     const q = query(collection(db, 'user'), where('uid', '==', user?.uid));
