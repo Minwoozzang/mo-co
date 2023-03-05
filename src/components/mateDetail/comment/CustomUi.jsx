@@ -2,8 +2,8 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import styled from '@emotion/styled';
 import { db } from '../../../common/firebase';
 
-const CustomUi = (user) => {
-  console.log(user);
+const CustomUi = (comment) => {
+  console.log(comment);
   return (
     <ConfirmBody>
       <ConfirmBox>
@@ -14,12 +14,12 @@ const CustomUi = (user) => {
           <ConfirmText>댓글을 완전히 삭제할까요?</ConfirmText>
         </TextBox>
         <BtnBox>
-          <ConfirmCancelBtn onClick={user.onClose}>취소</ConfirmCancelBtn>
+          <ConfirmCancelBtn onClick={comment.onClose}>취소</ConfirmCancelBtn>
           <ConfirmDeleteBtn
             onClick={() => {
-              const userDoc = doc(db, 'comment', user.id);
+              const userDoc = doc(db, 'comment', comment.id);
               deleteDoc(userDoc);
-              user.onClose();
+              comment.onClose();
             }}
           >
             삭제
