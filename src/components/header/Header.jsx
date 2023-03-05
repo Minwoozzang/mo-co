@@ -33,11 +33,14 @@ import {
   HeaderSearchDropDownListSection,
   HeaderSearchXbuttonBox,
   HeaderSearchXbutton,
+  HeaderNotiDropDownList,
+  HeaderNotiDropDownListBox,
 } from './style';
 import Search from '../../assets/icon/Icon_Search.png';
 import Alarm from '../../assets/icon/Icon_Alarm.png';
 import { ImCancelCircle } from 'react-icons/im';
 import defaultImg from '../../../src/assets/icon/user.png';
+import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -222,9 +225,15 @@ const Header = () => {
               onClick={alarmDropDown}
             />
             {alarmDrop ? (
-              <HeaderDropDownListBox style={{ position: 'absolute' }}>
-                <HeaderDropDownListSection>hhhaaa</HeaderDropDownListSection>
-              </HeaderDropDownListBox>
+              <HeaderNotiDropDownListBox 
+                style={{ position: 'absolute' }}
+              >
+                <HeaderDropDownListSection style={{padding: '10px'}}>
+                  <HeaderNotiDropDownList>
+                    <NotiBadge />
+                  </HeaderNotiDropDownList>
+                </HeaderDropDownListSection>
+              </HeaderNotiDropDownListBox>
             ) : (
               ''
             )}

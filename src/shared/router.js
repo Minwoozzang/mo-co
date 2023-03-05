@@ -56,7 +56,7 @@ const Router = () => {
         {/* 테스트페이지 */}
         <Route path="/test" element={<Test />} />
         <Route path="/amplitude" element={<Amplitude />} />
-        <Route path="/noti" element={<NotiBadge />} />
+        {/* <Route path="/noti" element={<NotiBadge />} /> */}
       </Routes>
       {uid === null ? null : <MocoChat uid={uid} />}
     </BrowserRouter>

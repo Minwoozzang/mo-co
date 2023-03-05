@@ -34,9 +34,13 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
         </OngoingMeetingPartyName>
         <OngoingMeetingStackWrapper>
           <StackBox>
-            {/* <StackIcon />
-            <StackIcon />
-            <StackIcon /> */}
+            {item.teamPartyStack?.partyStack?.map((stack, idx) => (
+              <StackIcon 
+                key={idx}
+                src={require(`../../assets/stack/${stack}.png`)}
+                alt={stack}
+              />
+            ))}
           </StackBox>
           {showTeamPageBtn ? (
             <NavigateArrow>
@@ -116,11 +120,9 @@ const StackBox = styled.div`
   display: flex;
   gap: 0 4px;
 `;
-const StackIcon = styled.div`
+const StackIcon = styled.img`
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background-color: #d9d9d9;
 `;
 const NavigateArrow = styled.div`
   width: 53px;
