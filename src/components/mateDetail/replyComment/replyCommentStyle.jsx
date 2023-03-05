@@ -79,6 +79,8 @@ export const CommentTextIcon = styled.div`
 export const CommentIconBody = styled.div`
   width: 25%;
   margin-left: 69%;
+  position: absolute;
+  margin-left: 420px;
 `;
 
 export const UpdateDeleteBody = styled.div`

@@ -1,9 +1,19 @@
-import { deleteDoc, doc } from 'firebase/firestore';
+import { updateDoc, doc } from 'firebase/firestore';
 import styled from '@emotion/styled';
 import { db } from '../../../common/firebase';
 
-const ReplyCustomUi = (comment) => {
-  console.log(comment);
+const ReplyCustomUi = ({ comment, id, onClose }) => {
+  console.log(comment.replyComment.filter((x) => x.commentId !== id));
+  console.log(comment.id);
+
+  const deleteHandler = async () => {
+    const newComment = comment.replyComment.filter((x) => x.commentId !== id);
+    const hideComment = doc(db, 'comment', comment.id);
+    await updateDoc(hideComment, { replyComment: newComment });
+
+    onClose();
+  };
+
   return (
     <ConfirmBody>
       <ConfirmBox>
@@ -14,14 +24,8 @@ const ReplyCustomUi = (comment) => {
           <ConfirmText>댓글을 완전히 삭제할까요?</ConfirmText>
         </TextBox>
         <BtnBox>
-          <ConfirmCancelBtn onClick={comment.onClose}>취소</ConfirmCancelBtn>
-          <ConfirmDeleteBtn
-            onClick={() => {
-              const userDoc = doc(db, 'comment', comment.userId);
-              deleteDoc(userDoc);
-              comment.onClose();
-            }}
-          >
+          <ConfirmCancelBtn onClick={onClose}>취소</ConfirmCancelBtn>
+          <ConfirmDeleteBtn onClick={() => deleteHandler()}>
             삭제
           </ConfirmDeleteBtn>
         </BtnBox>

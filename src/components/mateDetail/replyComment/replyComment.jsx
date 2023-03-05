@@ -23,7 +23,7 @@ import {
   UserHr,
 } from './ReplyCommentStyle';
 
-const ReplyComment = ({ comment, index, replycomment }) => {
+const ReplyComment = ({ comment, index, comments }) => {
   const [editBox, setEditBox] = useState(false);
   const [editValue, setEditValue] = useState(comment?.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
@@ -59,30 +59,39 @@ const ReplyComment = ({ comment, index, replycomment }) => {
   };
 
   // 댓글 수정완료
-  const completeHandler = async (comment) => {
+  const completeHandler = async () => {
     setEditBox(false);
-    const replyEditComment = doc(db, 'comment', comment.commentId);
+    const replyEditComment = doc(db, 'comment', comments.id);
     await updateDoc(replyEditComment, {
-      replyComment: updatedComment(comment),
+      replyComment: updatedComment(),
     });
     setToggleBtn(false);
   };
 
-  const updatedComment = (comment) => {
-    let beforeArray = [...replycomment];
+  const updatedComment = () => {
+    let beforeArray = [...comments.replyComment];
     beforeArray[index].comment = editValue;
     return beforeArray;
   };
 
   // 댓글 삭제
-  const deleteHandler = (comment) => {
+  const deleteHandler = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
-        return <ReplyCustomUi onClose={onClose} comment={comment.userId} />;
+        return (
+          <ReplyCustomUi
+            onClose={onClose}
+            comment={comments}
+            id={comment.commentId}
+          />
+        );
       },
     });
   };
-  console.log(updatedComment(comment));
+
+  console.log(comment.commentId);
+  console.log(comments);
+
   return (
     <CommentContainer>
       {/* 댓글 내용 */}
@@ -114,24 +123,15 @@ const ReplyComment = ({ comment, index, replycomment }) => {
                           수정
                         </CommentUpdateBtn>
                       ) : (
-                        <CommentUpdateBtn
-                          onClick={() =>
-                            completeHandler(
-                              comment,
-                              editValue,
-                              comment.commentId,
-                            )
-                          }
-                        >
+                        <CommentUpdateBtn onClick={() => completeHandler()}>
                           수정완료
                         </CommentUpdateBtn>
                       )}
 
                       <CommentDeleteBtn
                         onClick={() => {
-                          deleteHandler(comment?.userId);
+                          deleteHandler();
                         }}
-                        user={comment}
                       >
                         삭제
                       </CommentDeleteBtn>
