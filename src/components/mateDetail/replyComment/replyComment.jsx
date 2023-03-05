@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, authService } from '../../../common/firebase';
-import CustomUi from './../comment/CustomUi';
 import { GrMoreVertical } from 'react-icons/gr';
 import default_profile from '../../../assets/icon/user.png';
 import { confirmAlert } from 'react-confirm-alert';
+import ReplyCustomUi from './ReplyCustomUi';
 import {
   CommentContainer,
   CommentDeleteBtn,
@@ -21,7 +21,7 @@ import {
   CommentProfileImage,
   CommentDate,
   UserHr,
-} from './replyCommentStyle';
+} from './ReplyCommentStyle';
 
 const ReplyComment = ({ comment }) => {
   const [editBox, setEditBox] = useState(false);
@@ -69,7 +69,7 @@ const ReplyComment = ({ comment }) => {
   const deleteHandler = (id) => {
     confirmAlert({
       customUI: ({ onClose }) => {
-        return <CustomUi onClose={onClose} id={id} />;
+        return <ReplyCustomUi onClose={onClose} id={id} />;
       },
     });
   };
