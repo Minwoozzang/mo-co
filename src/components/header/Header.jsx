@@ -3,41 +3,21 @@ import {
   doc,
   onSnapshot,
   query,
-  setDoc,
-  updateDoc,
-  where,
+  setDoc, where
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { ImCancelCircle } from 'react-icons/im';
 import { useLocation, useNavigate } from 'react-router';
+import defaultImg from '../../../src/assets/icon/user.png';
+import Alarm from '../../assets/icon/Icon_Alarm.png';
+import Search from '../../assets/icon/Icon_Search.png';
 import { authService, db } from '../../common/firebase';
 import {
-  HeaderBody,
-  HeaderInfoBody,
-  HeaderLogo,
-  NavigateMypage,
-  LogoAndMateBox,
-  MyCodingMate,
-  TeamAndLoginBox,
-  MakeTeam,
-  LoginRoute,
-  HeaderImage,
-  HeaderDropDownListBox,
-  HeaderDropDownList,
-  HeaderImageBox,
-  HeaderDropDownListSection,
-  DropDownListBody,
-  HeaderSearchBox,
-  HeaderSearchInput,
-  HeaderSearchDropDownListBox,
-  HeaderSearchDropDownListSection,
-  HeaderSearchXbuttonBox,
-  HeaderSearchXbutton,
+  DropDownListBody, HeaderBody, HeaderDropDownList, HeaderDropDownListBox, HeaderDropDownListSection, HeaderImage, HeaderImageBox, HeaderInfoBody,
+  HeaderLogo, HeaderSearchBox, HeaderSearchDropDownListBox,
+  HeaderSearchDropDownListSection, HeaderSearchInput, HeaderSearchXbutton, HeaderSearchXbuttonBox, LoginRoute, LogoAndMateBox, MakeTeam, MyCodingMate, NavigateMypage, TeamAndLoginBox
 } from './style';
-import Search from '../../assets/icon/Icon_Search.png';
-import Alarm from '../../assets/icon/Icon_Alarm.png';
-import { ImCancelCircle } from 'react-icons/im';
-import defaultImg from '../../../src/assets/icon/user.png';
 
 const Header = () => {
   // 헤더 로그인 토글

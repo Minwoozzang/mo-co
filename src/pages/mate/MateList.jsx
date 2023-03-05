@@ -1,18 +1,21 @@
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import CardSection from '../../shared/CardSection';
-import FilterTech from '../../shared/FilterTech';
-import FilterLocation from '../../shared/FilterLocation';
-import FilterTime from '../../shared/FilterTime';
-import FilterNumOfMember from '../../shared/FilterNumOfMember';
-import { authService, db } from '../../common/firebase';
 import { Pagination } from 'antd';
-import usePosts from '../../hooks/usePost';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useRecoilValue } from 'recoil';
+import { db } from '../../common/firebase';
+import usePosts from '../../hooks/usePost';
+import authState from '../../recoil/authState';
+import CardSection from '../../shared/CardSection';
+import FilterLocation from '../../shared/FilterLocation';
+import FilterNumOfMember from '../../shared/FilterNumOfMember';
+import FilterTech from '../../shared/FilterTech';
+import FilterTime from '../../shared/FilterTime';
 
 const MateList = () => {
+  const user = useRecoilValue(authState);
+
   const { data, isLoading, isError, error } = usePosts();
 
   const [selectedTech, setSelectedTech] = useState([]);
@@ -21,7 +24,6 @@ const MateList = () => {
   const [selectedNumOfMember, setSelectedNumOfMember] = useState('');
   // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
-  const [uid, setUid] = useState('');
   const [userBookmark, setUserBookmark] = useState([]);
   //페이지네이션
   // const [currentPage, setCurrentPage] = useState(2);
@@ -32,10 +34,7 @@ const MateList = () => {
 
   // 내 정보 가져오기
   const getUserBookmark = () => {
-    const q = query(
-      collection(db, 'user'),
-      where('uid', '==', authService.currentUser.uid),
-    );
+    const q = query(collection(db, 'user'), where('uid', '==', user?.uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newInfo = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -102,18 +101,6 @@ const MateList = () => {
     DATA = DATA.sort((a, b) => b.createdAt - a.createdAt);
   }
 
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setUid(uid);
-        getUserBookmark();
-      } else {
-        return;
-      }
-    });
-  }, [uid]);
-
   return (
     <FullScreen>
       {/* 필터 & 정렬 */}
@@ -153,7 +140,6 @@ const MateList = () => {
                 item={item}
                 db={db}
                 userBookmark={userBookmark}
-                uid={uid}
               />
             ))}
         </CardList>

@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import authState from '../../recoil/authState';
 
-const AddInfoModal = ({ handleModalClose, currentUser }) => {
+const AddInfoModal = ({ handleModalClose }) => {
+  const user = useRecoilValue(authState);
   const navigate = useNavigate();
   return (
     <InfoModal>
@@ -22,7 +25,7 @@ const AddInfoModal = ({ handleModalClose, currentUser }) => {
       </InfoModalGuide>
       <InfoModalBtn
         onClick={() => {
-          localStorage.setItem(`${currentUser.uid}`, true);
+          localStorage.setItem(`${user?.uid}`, true);
           navigate('/onboarding');
         }}
       >

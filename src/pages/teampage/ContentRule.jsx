@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import { authService, db } from '../../common/firebase';
-import {
-  doc,
-  updateDoc,
-  query,
-  collection,
-  onSnapshot,
-  where,
-} from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import {
+  collection, doc, onSnapshot, query, updateDoc, where
+} from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { authService, db } from '../../common/firebase';
 
 export default function ContentRule({ teamLocationID }) {
   const [content, setContent] = useState('');
