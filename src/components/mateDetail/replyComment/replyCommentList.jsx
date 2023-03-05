@@ -28,10 +28,3 @@ const ReplyCommentList = ({ comment }) => {
 };
 
 export default ReplyCommentList;
-
-{
-  /* {display &&
-        user?.replyComment.map((user) => {
-          return <ReplyComment user={user.replyComment} />;
-        })} */
-}
