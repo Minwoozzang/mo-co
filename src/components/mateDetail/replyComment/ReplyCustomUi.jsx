@@ -17,7 +17,7 @@ const ReplyCustomUi = (comment) => {
           <ConfirmCancelBtn onClick={comment.onClose}>취소</ConfirmCancelBtn>
           <ConfirmDeleteBtn
             onClick={() => {
-              const userDoc = doc(db, 'comment', comment.id);
+              const userDoc = doc(db, 'comment', comment.userId);
               deleteDoc(userDoc);
               comment.onClose();
             }}

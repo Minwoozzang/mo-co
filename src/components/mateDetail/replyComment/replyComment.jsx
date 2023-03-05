@@ -59,21 +59,24 @@ const ReplyComment = ({ comment }) => {
   };
 
   // 댓글 수정완료
-  const completeHandler = async (user, comment) => {
+  const completeHandler = async (comment) => {
     setEditBox(false);
-    await updateDoc(doc(db, 'comment', user.id), { comment: comment });
+    const replyEditComment = doc(db, 'comment', comment);
+    await updateDoc(replyEditComment, {
+      replyComment: [...comment.replyComment],
+    });
     setToggleBtn(false);
   };
 
   // 댓글 삭제
-  const deleteHandler = (id) => {
+  const deleteHandler = (comment) => {
     confirmAlert({
       customUI: ({ onClose }) => {
-        return <ReplyCustomUi onClose={onClose} id={id} />;
+        return <ReplyCustomUi onClose={onClose} comment={comment.userId} />;
       },
     });
   };
-  console.log(comment);
+  console.log(comment.userId);
   return (
     <CommentContainer>
       {/* 댓글 내용 */}
@@ -116,7 +119,7 @@ const ReplyComment = ({ comment }) => {
 
                       <CommentDeleteBtn
                         onClick={() => {
-                          deleteHandler(comment?.id);
+                          deleteHandler(comment?.userId);
                         }}
                         user={comment}
                       >
