@@ -23,7 +23,7 @@ import {
   UserHr,
 } from './ReplyCommentStyle';
 
-const ReplyComment = ({ comment }) => {
+const ReplyComment = ({ comment, index, replycomment }) => {
   const [editBox, setEditBox] = useState(false);
   const [editValue, setEditValue] = useState(comment?.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
@@ -61,11 +61,17 @@ const ReplyComment = ({ comment }) => {
   // 댓글 수정완료
   const completeHandler = async (comment) => {
     setEditBox(false);
-    const replyEditComment = doc(db, 'comment', comment);
+    const replyEditComment = doc(db, 'comment', comment.commentId);
     await updateDoc(replyEditComment, {
-      replyComment: [...comment.replyComment],
+      replyComment: updatedComment(comment),
     });
     setToggleBtn(false);
+  };
+
+  const updatedComment = (comment) => {
+    let beforeArray = [...replycomment];
+    beforeArray[index].comment = editValue;
+    return beforeArray;
   };
 
   // 댓글 삭제
@@ -76,7 +82,7 @@ const ReplyComment = ({ comment }) => {
       },
     });
   };
-  console.log(comment.userId);
+  console.log(updatedComment(comment));
   return (
     <CommentContainer>
       {/* 댓글 내용 */}
@@ -110,7 +116,11 @@ const ReplyComment = ({ comment }) => {
                       ) : (
                         <CommentUpdateBtn
                           onClick={() =>
-                            completeHandler(comment, editValue, comment.uid)
+                            completeHandler(
+                              comment,
+                              editValue,
+                              comment.commentId,
+                            )
                           }
                         >
                           수정완료

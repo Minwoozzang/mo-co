@@ -8,7 +8,7 @@ import ReplyComment from './ReplyComment';
 const ReplyCommentList = ({ comment }) => {
   const [display, setDisplay] = useState(false);
 
-  console.log(comment);
+  console.log(comment.replyComment);
   return (
     <ReplyWrap>
       <Replybutton
@@ -19,8 +19,14 @@ const ReplyCommentList = ({ comment }) => {
         답글 쓰기
       </Replybutton>
       {display && <ReplyAddComment comment={comment} />}
-      {comment?.replyComment.map((comment) => {
-        return <ReplyComment comment={comment} />;
+      {comment?.replyComment.map((item, index) => {
+        return (
+          <ReplyComment
+            comment={item}
+            index={index}
+            replycomment={comment.replyComment}
+          />
+        );
       })}
       ;
     </ReplyWrap>
