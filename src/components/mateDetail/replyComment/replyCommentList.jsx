@@ -8,7 +8,7 @@ import ReplyComment from './ReplyComment';
 const ReplyCommentList = ({ comment }) => {
   const [display, setDisplay] = useState(false);
 
-  // console.log(comment);
+  console.log(display);
   return (
     <ReplyWrap>
       <Replybutton
@@ -18,7 +18,9 @@ const ReplyCommentList = ({ comment }) => {
       >
         답글 쓰기
       </Replybutton>
-      {display && <ReplyAddComment comment={comment} />}
+      {display ? (
+        <ReplyAddComment comment={comment} setDisplay={setDisplay} />
+      ) : null}
       {comment?.replyComment.map((item, index) => {
         return <ReplyComment comment={item} index={index} comments={comment} />;
       })}

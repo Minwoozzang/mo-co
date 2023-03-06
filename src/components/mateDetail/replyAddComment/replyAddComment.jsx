@@ -11,7 +11,7 @@ import {
   AddCommentListAll,
 } from './replyAddCommentStyle';
 
-const ReplyAddComment = ({ comment }) => {
+const ReplyAddComment = ({ comment, setDisplay }) => {
   // 파베 인증
   const currentUser = authService.currentUser;
   // 데이터 올리기
@@ -48,6 +48,8 @@ const ReplyAddComment = ({ comment }) => {
     await updateDoc(replyCommentRef, {
       replyComment: [...comment.replyComment, newComment],
     });
+
+    setDisplay(false);
   };
 
   return (
