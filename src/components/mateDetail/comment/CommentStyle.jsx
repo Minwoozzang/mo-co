@@ -51,12 +51,14 @@ export const CommentText = styled.p`
 
 export const CommentUserInput = styled.input`
   width: 90%;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid black;
+  box-sizing: border-box;
+  border: 2px solid #525252;
+  border-radius: 10px;
   font-size: 1rem;
+  padding: 20px;
   margin-left: 1%;
+  background-color: transparent;
+  color: #fff;
   :focus {
     outline: none;
   }
