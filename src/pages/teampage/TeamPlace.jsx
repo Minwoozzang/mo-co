@@ -43,21 +43,6 @@ export default function TeamPlace({ teamLocationID }) {
     return unsubscribe;
   };
 
-  // 팀 아이디 받아오기
-  // const [teamID, setTeamID] = useState([]);
-  // const teamGetTeamID = () => {
-  //   const q = query(collection(db, 'teamPage'));
-  //   const unsubscribe = onSnapshot(q, (snapshot) => {
-  //     const newInfo = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setTeamID(newInfo[0]?.id);
-  //     setPlace(newInfo[0]?.contentPlace);
-  //   });
-  //   return unsubscribe;
-  // };
-
   useEffect(() => {
     const teamPageCollectionRef = collection(db, 'teamPage');
     const q = query(teamPageCollectionRef);
