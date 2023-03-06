@@ -42,6 +42,9 @@ import {
 import { useNavigate } from 'react-router';
 import wheel from '../../../../src/assets/login/wheel.png';
 import default_profile from '../../../assets/icon/user.png';
+import { useRecoilValue } from 'recoil';
+import userState from '../../../recoil/userState';
+import userSelector from '../../../recoil/userSelector';
 
 const Profile = () => {
   // 네이게이트
@@ -93,6 +96,14 @@ const Profile = () => {
 
     return unsubscribe;
   };
+
+  // 유저 가져오기 (Recoil)
+  const { userInfo, myInfo } = useRecoilValue(userSelector);
+
+  console.log(
+    'ingo',
+    userInfo.filter((i) => i.uid === authService.currentUser?.uid),
+  );
 
   // 유저 확인
   useEffect(() => {
