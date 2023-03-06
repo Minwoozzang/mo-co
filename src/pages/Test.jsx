@@ -1,11 +1,15 @@
 import { useRecoilValue } from 'recoil';
 import useUserDoc from '../hooks/useUserDoc';
 import authState from '../recoil/authState';
+import useComment from '../hooks/useComment';
+import commentState from '../recoil/commentState';
 
 function Test() {
   const user = useRecoilValue(authState);
   const userDoc = useUserDoc();
+  const comment = useRecoilValue(commentState);
 
+  console.log(comment);
   return (
     <div>
       <h1>Test</h1>
