@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Replybutton } from '../comment/CommentStyle';
-import { ReplyWrap } from './replyCommentStyle';
-import CommentTest from './commentTest';
-import ReplyAddComment from './../replyAddComment/replyAddComment';
-import ReplyComment from './replyComment';
+import { ReplyWrap } from './ReplyCommentStyle';
+import ReplyAddComment from '../replyAddComment/ReplyAddComment';
+import ReplyComment from './ReplyComment';
 
-const ReplyCommentList = (user) => {
+const ReplyCommentList = ({ comment }) => {
   const [display, setDisplay] = useState(false);
 
+  console.log(display);
   return (
     <ReplyWrap>
       <Replybutton
@@ -17,8 +17,13 @@ const ReplyCommentList = (user) => {
       >
         답글 쓰기
       </Replybutton>
-      <ReplyComment />
-      {display && <ReplyAddComment />};
+      {display ? (
+        <ReplyAddComment comment={comment} setDisplay={setDisplay} />
+      ) : null}
+      {comment?.replyComment.map((item, index) => {
+        return <ReplyComment comment={item} index={index} comments={comment} />;
+      })}
+      ;
     </ReplyWrap>
   );
 };

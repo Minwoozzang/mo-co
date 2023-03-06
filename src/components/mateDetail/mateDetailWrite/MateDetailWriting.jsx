@@ -40,7 +40,7 @@ const MateDetailWriting = () => {
 
   useEffect(() => {
     getPost();
-  }, []);
+  }, [id]);
   return (
     <>
       <GroupWrap>
