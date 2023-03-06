@@ -89,9 +89,6 @@ const ReplyComment = ({ comment, index, comments }) => {
     });
   };
 
-  console.log(comment.commentId);
-  console.log(comments);
-
   return (
     <CommentContainer>
       {/* 댓글 내용 */}
