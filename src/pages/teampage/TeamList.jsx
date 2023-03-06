@@ -6,14 +6,16 @@ import { useRecoilValue } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
+import postState from '../../recoil/postState';
 import testteamPageState from '../../recoil/testteamPageState';
 import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
   const params = useParams();
 
-  const [postList, setPostList] = useState([]);
+  // const [postList, setPostList] = useState([]);
   // const [teamPage, setTeamPage] = useState([]);
+  const postList = useRecoilValue(postState);
   const teamPage = useRecoilValue(testteamPageState);
 
   // teamPage로 가는 버튼 팀리스트에서만 보이게하기
@@ -21,7 +23,7 @@ const TeamList = () => {
 
   // teamPage teamMember에서 내 닉네임이 포함된 teamPage 데이터
   let myAppliedMeeting = [];
-  const myApplyMeeting = teamPage.forEach((item) => {
+  const myApplyMeeting = teamPage?.forEach((item) => {
     item.teamMember.forEach((member) => {
       if (member.uid === authService?.currentUser?.uid) {
         myAppliedMeeting.push(item);
@@ -106,18 +108,18 @@ const TeamList = () => {
   };
 
   //post 데이터 불러오기
-  useEffect(() => {
-    const postCollectionRef = collection(db, 'post');
-    const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
-    const getPost = onSnapshot(q, (snapshot) => {
-      const postData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPostList(postData);
-    });
-    return getPost;
-  }, []);
+  // useEffect(() => {
+  //   const postCollectionRef = collection(db, 'post');
+  //   const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
+  //   const getPost = onSnapshot(q, (snapshot) => {
+  //     const postData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setPostList(postData);
+  //   });
+  //   return getPost;
+  // }, []);
   
   // teamPage 데이터 불러오기
   // useEffect(() => {

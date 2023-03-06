@@ -107,9 +107,12 @@ const SearchResultCard = (item) => {
         <PostDesc>{parsedHtml}</PostDesc>
         <TechStackIcon>
           {item.partyStack?.map((item, idx) => (
-            <Tag key={idx} style={{ fontSize: 12 }} color="red">
-              {item}
-            </Tag>
+            <img
+              key={idx}
+              src={require(`../../assets/stack/${item}.png`)}
+              alt={item}
+              style={{ width: 30, height: 30, marginRight: 5 }}
+            />
           ))}
         </TechStackIcon>
       </PostBox>
@@ -332,3 +335,7 @@ const PostComments = styled.div`
   margin-left: 5px;
   font-size: 15px;
 `;
+
+//<Tag key={idx} style={{ fontSize: 12 }} color="red">
+//            {item}
+//        </Tag>

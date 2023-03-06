@@ -64,7 +64,7 @@ const Home = () => {
       setUid(uid);
     });
   }, []);
-  // const postData = useRecoilValue(postState);
+  const postData = useRecoilValue(postState);
   // console.log(postData)
   const { data, isLoading, isError, error } = usePosts();
   const navigate = useNavigate();
@@ -105,8 +105,8 @@ const Home = () => {
     (item) => item.uid === currentUser?.uid,
   );
 
-  const recommendTechList = data
-    ? data.filter(
+  const recommendTechList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyStack.includes(
@@ -115,24 +115,24 @@ const Home = () => {
       )
     : [];
 
-  const recommendTimeList = data
-    ? data.filter(
+  const recommendTimeList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
       )
     : [];
 
-  const recommendLocationList = data
-    ? data.filter(
+  const recommendLocationList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
 
-  const customList = data
-    ? data.filter(
+  const customList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyStack.includes(

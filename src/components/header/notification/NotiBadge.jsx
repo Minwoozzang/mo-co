@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { authService, db } from '../../../common/firebase';
 import NotiMessage from './NotiMessage';
 import styled from '@emotion/styled';
 import LeaderGotMessage from './LeaderGotMessage';
 import NotiCategoryList from './NotiCategoryList';
 import { useRecoilValue } from 'recoil';
-import postState from '../../../recoil/postState';
+import testteamPageState from '../../../recoil/testteamPageState';
 
 const NotiBadge = () => {
-  const [teamPage, setTeamPage] = useState([]);
-  // const testData = useRecoilValue(postState)
-  // console.log(testData)
+  // const [teamPage, setTeamPage] = useState([]);
+  const teamPage = useRecoilValue(testteamPageState);
+  console.log(teamPage)
+
+  // 팀페이지 팀멤버에서 isRead가 false인 데이터
+  
   // 팀페이지 팀멤버에서 유저가 포함된 팀페이지 데이터
   let myAppliedMeeting = [];
   const myApplyMeeting = teamPage.forEach((item) => {
@@ -28,8 +30,7 @@ const NotiBadge = () => {
   const teamLeaderList = teamPage.filter((item) =>
     item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
   );
-  // console.log('팀리더 데이터', teamLeaderList);
-  console.log('팀리더 멤버데이터', teamLeaderList[1]?.teamMember);
+  console.log('팀리더 데이터', teamLeaderList);
 
   // 카테고리 클릭 시
   const [myNoti, setMyNoti] = useState(false);
@@ -56,18 +57,18 @@ const NotiBadge = () => {
   };
 
   // teamPage 데이터
-  useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
-    return getTeamPage;
-  }, []);
+  // useEffect(() => {
+  //   const teamPageCollectionRef = collection(db, 'teamPage');
+  //   const q = query(teamPageCollectionRef);
+  //   const getTeamPage = onSnapshot(q, (snapshot) => {
+  //     const teamPageData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamPage(teamPageData);
+  //   });
+  //   return getTeamPage;
+  // }, []);
   // console.log(teamPage);
 
   return (

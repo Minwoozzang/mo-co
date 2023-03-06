@@ -34,7 +34,7 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
         </OngoingMeetingPartyName>
         <OngoingMeetingStackWrapper>
           <StackBox>
-            {item.teamPartyStack?.partyStack?.map((stack, idx) => (
+            {item?.teamPartyStack?.partyStack?.map((stack, idx) => (
               <StackIcon 
                 key={idx}
                 src={require(`../../assets/stack/${stack}.png`)}

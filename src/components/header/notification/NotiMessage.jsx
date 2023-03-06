@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { authService } from '../../../common/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import { authService, db } from '../../../common/firebase';
 
 const NotiMessage = ({ item }) => {
   const { teamMember, teamLeader, teamPartyStack } = item;
@@ -18,7 +19,12 @@ const NotiMessage = ({ item }) => {
               ''
             ) : (
               <ContentBox>
-                <StackPartyName>{teamPartyStack.partyName}</StackPartyName>
+                <StackPartyName>
+                  {teamPartyStack.partyName}
+                  <IsReadBtn>
+                    읽음
+                  </IsReadBtn>
+                </StackPartyName>
                 {teamLeader.nickName}님의 모임에 참여되었습니다.
               </ContentBox>
             )}
@@ -40,3 +46,13 @@ const StackPartyName = styled.div`
   font-weight: 500;
   color: #FEFF80;
 `;
+const IsReadBtn = styled.button`
+  cursor: pointer;
+  margin-left: 10px;
+  background-color: #3b3b3b;
+  border: none;
+  color: #ffffff;
+  :hover {
+    background-color: #b6b6b6;
+  }
+`
