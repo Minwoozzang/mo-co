@@ -36,6 +36,13 @@ const MateDetail = () => {
     }
   };
 
+  // usequery문제가 있음! 따라서 데이터가 없어 undefined가 뜬 부분이 있어서 ~thispost 부분을 내려 작성
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
+  const thisPost = data?.filter((item) => item.id === id);
+  let isMyPost = thisPost[0]?.uid === currentUser?.uid;
+
   return (
     <MateDetailWrap>
       <MateDetailContainer>

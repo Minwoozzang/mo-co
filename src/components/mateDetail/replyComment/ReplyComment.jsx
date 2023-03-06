@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db, authService } from '../../../common/firebase';
-import CustomUi from './CustomUi';
 import { GrMoreVertical } from 'react-icons/gr';
+import default_profile from '../../../assets/icon/user.png';
+import { confirmAlert } from 'react-confirm-alert';
+import ReplyCustomUi from './ReplyCustomUi';
 import {
   CommentContainer,
   CommentDeleteBtn,
@@ -20,15 +21,11 @@ import {
   CommentProfileImage,
   CommentDate,
   UserHr,
-} from './CommentStyle';
-import default_profile from '../../../assets/icon/user.png';
-import ReplyCommentList from './../replyComment/ReplyCommentList';
+} from './ReplyCommentStyle';
 
-const Comment = ({ comment }) => {
-  // comment 컬렉션 데이터 저장
-
+const ReplyComment = ({ comment, index, comments }) => {
   const [editBox, setEditBox] = useState(false);
-  const [editValue, setEditValue] = useState(comment.comment);
+  const [editValue, setEditValue] = useState(comment?.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
 
@@ -62,17 +59,32 @@ const Comment = ({ comment }) => {
   };
 
   // 댓글 수정완료
-  const completeHandler = async (user, comment) => {
+  const completeHandler = async () => {
     setEditBox(false);
-    await updateDoc(doc(db, 'comment', user.id), { comment: comment });
+    const replyEditComment = doc(db, 'comment', comments.id);
+    await updateDoc(replyEditComment, {
+      replyComment: updatedComment(),
+    });
     setToggleBtn(false);
   };
 
+  const updatedComment = () => {
+    let beforeArray = [...comments.replyComment];
+    beforeArray[index].comment = editValue;
+    return beforeArray;
+  };
+
   // 댓글 삭제
-  const deleteHandler = (id) => {
+  const deleteHandler = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
-        return <CustomUi onClose={onClose} id={id} />;
+        return (
+          <ReplyCustomUi
+            onClose={onClose}
+            comment={comments}
+            id={comment.commentId}
+          />
+        );
       },
     });
   };
@@ -83,16 +95,16 @@ const Comment = ({ comment }) => {
       <ListContainer>
         <ListTextSection>
           <CommentProfileImage
-            src={!comment.userImg ? default_profile : comment.userImg}
+            src={!comment?.userImg ? default_profile : comment?.userImg}
           ></CommentProfileImage>
-          <CommentUserName>{comment.userName}</CommentUserName>
+          <CommentUserName>{comment?.userName}</CommentUserName>
           <CommentIconBody>
             <GrMoreVertical
               style={{
                 color: '#858585',
                 width: '550px',
               }}
-              onClick={() => ToggleDropDown(comment.userId)}
+              onClick={() => ToggleDropDown(comment?.userId)}
             />
             <CommentTextIcon>
               {toggleBtn ? (
@@ -102,26 +114,21 @@ const Comment = ({ comment }) => {
                       {!editBox ? (
                         <CommentUpdateBtn
                           onClick={() => {
-                            editHandler(comment.comment);
+                            editHandler(comment?.comment);
                           }}
                         >
                           수정
                         </CommentUpdateBtn>
                       ) : (
-                        <CommentUpdateBtn
-                          onClick={() =>
-                            completeHandler(comment, editValue, comment.uid)
-                          }
-                        >
+                        <CommentUpdateBtn onClick={() => completeHandler()}>
                           수정완료
                         </CommentUpdateBtn>
                       )}
 
                       <CommentDeleteBtn
                         onClick={() => {
-                          deleteHandler(comment.id);
+                          deleteHandler();
                         }}
-                        user={comment}
                       >
                         삭제
                       </CommentDeleteBtn>
@@ -136,7 +143,7 @@ const Comment = ({ comment }) => {
             </CommentTextIcon>
           </CommentIconBody>
           {!editBox ? (
-            <CommentText>{comment.comment}</CommentText>
+            <CommentText>{comment?.comment}</CommentText>
           ) : (
             <CommentUserInput
               type="text"
@@ -144,9 +151,9 @@ const Comment = ({ comment }) => {
               onChange={(e) => handleChange(e)}
             />
           )}
-          <CommentDate>{comment.date}</CommentDate>
+          <CommentDate>{comment?.date}</CommentDate>
 
-          <ReplyCommentList comment={comment} />
+          {/* <ReplyComment user={user} /> */}
         </ListTextSection>
       </ListContainer>
       <UserHr />
@@ -154,4 +161,4 @@ const Comment = ({ comment }) => {
   );
 };
 
-export default Comment;
+export default ReplyComment;
