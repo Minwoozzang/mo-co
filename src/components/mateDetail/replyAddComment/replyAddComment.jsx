@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { uuidv4 } from '@firebase/util';
-import { authService, db } from './../../../common/firebase';
+import { authService, db } from '../../../common/firebase';
 import {
   AddCommentListWrap,
   AddInputDiv,
@@ -9,7 +9,7 @@ import {
   AddCommentBtnDiv,
   AddCommentBtn,
   AddCommentListAll,
-} from './replyAddCommentStyle';
+} from './ReplyAddCommentStyle';
 
 const ReplyAddComment = ({ comment, setDisplay }) => {
   // 파베 인증
@@ -17,14 +17,10 @@ const ReplyAddComment = ({ comment, setDisplay }) => {
   // 데이터 올리기
   const NewDate = new Date().toLocaleDateString('kr');
   const [commentText, setCommentText] = useState('');
-  // 유저 값 가져오기
-  const [currentUserName, setCurrentUserName] = useState('');
-  const [currentUserUid, setCurrentUserUid] = useState('');
 
   const AddCommentTextChange = (e) => {
     setCommentText(e.target.value);
   };
-  console.log(comment);
 
   const AddCommentButton = async (e) => {
     e.preventDefault();
@@ -40,8 +36,6 @@ const ReplyAddComment = ({ comment, setDisplay }) => {
       date: NewDate,
       commentId: uuidv4(),
       userImg: currentUser.photoURL,
-
-      //updatedoc사용할것 - 배열사용(등록, 수정, 삭제 모두 배열로)
     };
 
     const replyCommentRef = doc(db, 'comment', comment.id);
