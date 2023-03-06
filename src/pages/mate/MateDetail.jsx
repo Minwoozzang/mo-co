@@ -15,9 +15,7 @@ const MateDetail = () => {
   const user = useRecoilValue(authState);
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data } = usePosts();
-  const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === user?.uid;
+  const { data, isLoading } = usePosts();
 
   const handleMoveToEdit = () => {
     navigate(`/edit/${id}`);
@@ -41,7 +39,7 @@ const MateDetail = () => {
     return <div>로딩중</div>;
   }
   const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === currentUser?.uid;
+  let isMyPost = thisPost[0]?.uid === user?.uid;
 
   return (
     <MateDetailWrap>
