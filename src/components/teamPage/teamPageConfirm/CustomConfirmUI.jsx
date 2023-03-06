@@ -51,6 +51,7 @@ const CustomConfirmUI = (props) => {
       teamMember: [
         ...otherMember,
         {
+          isRead: myInfo.isRead,
           isWait: false,
           joinMessage: myInfo.joinMessage,
           nickName: myInfo.nickName,

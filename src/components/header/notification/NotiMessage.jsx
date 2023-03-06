@@ -3,11 +3,15 @@ import { authService } from '../../../common/firebase';
 
 const NotiMessage = ({ item }) => {
   const { teamMember, teamLeader, teamPartyStack } = item;
+  // console.log(teamMember.isRead)
+  
 
   return (
     <Container>
       {teamMember
-        .filter((team) => team.uid === authService?.currentUser?.uid)
+        .filter((team) => team.uid === authService?.currentUser?.uid &&
+          team.isRead === false
+        )
         .map((member, idx) => (
           <div key={idx}>
             {member.isWait ? (

@@ -132,6 +132,7 @@ const DetailRecruit = () => {
       teamMember: [
         ...teamMember,
         {
+          isRead: false,
           uid: authService.currentUser.uid,
           joinMessage: joinMessage,
           isWait: true,

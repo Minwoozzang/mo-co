@@ -186,7 +186,7 @@ const Header = () => {
       setDropDownClick(false);
     }
   };
-
+  
   // 알람 드랍다운
   const alarmDropDown = () => {
     if (alarmDrop === false) {

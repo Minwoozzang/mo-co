@@ -19,14 +19,14 @@ const NotiBadge = () => {
       }
     });
   });
-  // console.log(myAppliedMeeting);
+  console.log('참여된 모임 데이터', myAppliedMeeting);
 
   // teamPage.teamLeader에서 currentUser가 포함된 teamPage 데이터
   const teamLeaderList = teamPage.filter((item) =>
     item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
   );
   // console.log('팀리더 데이터', teamLeaderList);
-  // console.log('팀리더 멤버데이터', teamLeaderList[1]?.teamMember);
+  console.log('팀리더 멤버데이터', teamLeaderList[1]?.teamMember);
 
   // 카테고리 클릭 시
   const [myNoti, setMyNoti] = useState(false);
@@ -82,13 +82,17 @@ const NotiBadge = () => {
       {myNoti ? (
         <Box2>
           {teamLeaderList.map((item, idx) => (
-            <LeaderGotMessage key={idx} item={item} />
+            <LeaderGotMessage 
+              key={idx} item={item}
+            />
           ))}
         </Box2>
       ) : (
         <Box1>
           {myAppliedMeeting.map((item, idx) => (
-            <NotiMessage key={idx} item={item} />
+            <NotiMessage 
+              key={idx} item={item}
+            />
           ))}
         </Box1>
       )}
