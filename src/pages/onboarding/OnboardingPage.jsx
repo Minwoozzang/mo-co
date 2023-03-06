@@ -1,16 +1,14 @@
-import React, { useRef } from 'react';
 import styled from '@emotion/styled';
-import Select from 'react-select';
-import { useEffect } from 'react';
-import { times } from '../../data/times';
-import { locations } from '../../data/locations';
-import { useState } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
-import { authService, db } from '../../common/firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { Checkbox } from 'antd';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import { authService, db } from '../../common/firebase';
+import { locations } from '../../data/locations';
 import { stacks } from '../../data/stacks';
+import { times } from '../../data/times';
 
 export default function OnboardingPage() {
   const [isRemote, setIsRemote] = useState(false);

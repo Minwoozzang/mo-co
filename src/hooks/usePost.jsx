@@ -6,11 +6,7 @@ export default function usePosts() {
   return useQuery(
     'posts',
     async () => {
-      // const q = collection(db, 'post');
-      const q = query(
-        collection(db, 'post'),
-        orderBy('createdAt', 'desc')
-      );
+      const q = query(collection(db, 'post'), orderBy('createdAt', 'desc'));
       const querySnapshot = await getDocs(q);
       const posts = querySnapshot.docs.map((doc) => ({
         id: doc.id,

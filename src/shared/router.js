@@ -1,39 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import MateList from '../pages/mate/MateList';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from '../components/header/Header';
+import MocoChat from '../components/mocoChat/MocoChatIcon';
 import Login from '../pages/joinLogin/Login';
 import SignUp from '../pages/joinLogin/SignUp';
-import MyPage from '../pages/mypage/MyPage';
-import Home from './../pages/home/Home';
-import MateDetail from './../pages/mate/MateDetail';
+import MateEdit from '../pages/mate/MateEdit';
+import MateList from '../pages/mate/MateList';
 import MateWrite from '../pages/mate/MateWrite';
+import MyPage from '../pages/mypage/MyPage';
 import OnboardingPage from '../pages/onboarding/OnboardingPage';
 import Search from '../pages/search/Search';
-import TeamPage from '../pages/teampage/TeamPage';
-import MateEdit from '../pages/mate/MateEdit';
 import TeamList from '../pages/teampage/TeamList';
-import MocoChat from '../components/mocoChat/MocoChatIcon';
+import TeamPage from '../pages/teampage/TeamPage';
+import Home from './../pages/home/Home';
+import MateDetail from './../pages/mate/MateDetail';
 // * 테스트 페이지
-import Test from '../pages/Test';
-import Amplitude from './../amplitude';
-import { authService } from '../common/firebase';
+import { useRecoilValue } from 'recoil';
 import ScrollTop from '../common/scrollTop';
+import Test from '../pages/Test';
+import authState from '../recoil/authState';
+import Amplitude from './../amplitude';
 
 const Router = () => {
-  const [uid, setUid] = useState(null);
-  useEffect(() => {
-    authService.onAuthStateChanged((user) => {
-      // user 판명을 듣고
-      if (user) {
-        const uid = user.uid;
-        setUid(uid);
-      } else {
-        return;
-      }
-    });
-  }, []);
-
+  const user = useRecoilValue(authState);
   // path 이름은 보통 소문자로 하니, 저희도 소문자로 통일하겠습니다
   return (
     <BrowserRouter>
@@ -56,7 +45,7 @@ const Router = () => {
         <Route path="/test" element={<Test />} />
         <Route path="/amplitude" element={<Amplitude />} />
       </Routes>
-      {uid === null ? null : <MocoChat uid={uid} />}
+      {user?.uid === null ? null : <MocoChat />}
     </BrowserRouter>
   );
 };

@@ -1,47 +1,22 @@
-import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
-import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
+import { doc, updateDoc } from 'firebase/firestore';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { db } from '../../common/firebase';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
 import CommentList from '../../components/mateDetail/commentList/CommentList';
-import { db, authService } from '../../common/firebase';
-import {
-  doc,
-  updateDoc,
-  query,
-  collection,
-  onSnapshot,
-  where,
-} from 'firebase/firestore';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import usePosts from '../../hooks/usePost';
-import defaultImg from '../../assets/icon/user.png';
+import authState from '../../recoil/authState';
+import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 
 const MateDetail = () => {
+  const user = useRecoilValue(authState);
   const { id } = useParams();
   const navigate = useNavigate();
-  // 파베 인증
-  const currentUser = authService.currentUser;
-  // 유저 닉네임 - 프로필 가져오기 상태
-  const [nickName, setNickName] = useState('');
-  const [profileImg, setGetProfileImg] = useState('');
   const { data, isLoading } = usePosts();
 
-  // 유저 닉네임 - 프로필 가져오기 함수
-  const getUserInfo = () => {
-    if (currentUser !== null) {
-      const displayName = currentUser.displayName;
-      const photoURL = currentUser.photoURL;
-      setNickName(displayName);
-      setGetProfileImg(photoURL);
-    }
-  };
-  useEffect(() => {
-    if (!currentUser) return;
-    getUserInfo();
-  }, [currentUser]);
-
-  // 작성자만 수정가능하게
   const handleMoveToEdit = () => {
     navigate(`/edit/${id}`);
   };
@@ -64,7 +39,7 @@ const MateDetail = () => {
     return <div>로딩중</div>;
   }
   const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === currentUser?.uid;
+  let isMyPost = thisPost[0]?.uid === user?.uid;
 
   return (
     <MateDetailWrap>
@@ -82,7 +57,7 @@ const MateDetail = () => {
       <CommentWrap>
         {/* <UserHr /> */}
         <CommentContainHeader>댓글</CommentContainHeader>
-        <CommentList id={id} img={profileImg} />
+        <CommentList id={id} img={user?.photoURL} />
         <AddComment id={id} />
       </CommentWrap>
       <DetailRecruit />
