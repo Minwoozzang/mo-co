@@ -16,7 +16,8 @@ function App() {
   // post 컬렉션
   const setPostState = useSetRecoilState(postState);
   const post = usePosts();
-  // console.log(post.data)
+  console.log(post.data)
+
   // teamPage 컬렉션
   const setTeamPageState = useSetRecoilState(testteamPageState);
   const teamPage = useTestTeam();
@@ -36,7 +37,7 @@ function App() {
     });
     setPostState(post.data);
     setTeamPageState(teamPage.data);
-  }, [authService.currentUser]);
+  }, [post.data, teamPage.data]);
   
   return (
     <>

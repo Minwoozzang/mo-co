@@ -64,7 +64,8 @@ const Home = () => {
       setUid(uid);
     });
   }, []);
-  const postData = useRecoilValue(postState);
+  // const postData = useRecoilValue(postState);
+  // console.log(postData)
   const { data, isLoading, isError, error } = usePosts();
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
@@ -185,7 +186,7 @@ const Home = () => {
         )}
         <CoverBackground>
           <HomeNewMeetingList
-            data={postData}
+            data={data}
             uid={uid}
             userBookmark={userBookmark}
           />
