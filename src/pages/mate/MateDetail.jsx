@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
-import ReplyComment from '../../components/mateDetail/replyComment/replyCommentList';
+import ReplyComment from '../../components/mateDetail/replyComment/ReplyCommentList';
 import CommentList from '../../components/mateDetail/commentList/CommentList';
 import { db, authService } from '../../common/firebase';
 import {
@@ -26,9 +26,7 @@ const MateDetail = () => {
   // 유저 닉네임 - 프로필 가져오기 상태
   const [nickName, setNickName] = useState('');
   const [profileImg, setGetProfileImg] = useState('');
-  const { data } = usePosts();
-  const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === currentUser?.uid;
+  const { data, isLoading } = usePosts();
 
   // 유저 닉네임 - 프로필 가져오기 함수
   const getUserInfo = () => {
@@ -61,6 +59,13 @@ const MateDetail = () => {
       console.log(error);
     }
   };
+
+  // usequery문제가 있음! 따라서 데이터가 없어 undefined가 뜬 부분이 있어서 ~thispost 부분을 내려 작성
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
+  const thisPost = data?.filter((item) => item.id === id);
+  let isMyPost = thisPost[0]?.uid === currentUser?.uid;
 
   return (
     <MateDetailWrap>

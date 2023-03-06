@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import MateList from '../pages/mate/MateList';
 import Header from '../components/header/Header';
 import Login from '../pages/joinLogin/Login';
@@ -19,6 +19,7 @@ import MocoChat from '../components/mocoChat/MocoChatIcon';
 import Test from '../pages/Test';
 import Amplitude from './../amplitude';
 import { authService } from '../common/firebase';
+import ScrollTop from '../common/scrollTop';
 
 const Router = () => {
   const [uid, setUid] = useState(null);
@@ -37,6 +38,7 @@ const Router = () => {
   // path 이름은 보통 소문자로 하니, 저희도 소문자로 통일하겠습니다
   return (
     <BrowserRouter>
+      <ScrollTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

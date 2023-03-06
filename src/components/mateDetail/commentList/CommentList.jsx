@@ -23,8 +23,8 @@ const CommentList = ({ id }) => {
 
   return (
     <>
-      {comments.map((user) => {
-        return <Comment key={user.commentId} user={user} />;
+      {comments.map((comment) => {
+        return <Comment key={comment.commentId} comment={comment} />;
       })}
     </>
   );

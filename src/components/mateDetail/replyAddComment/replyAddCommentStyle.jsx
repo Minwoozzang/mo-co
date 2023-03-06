@@ -16,7 +16,7 @@ export const AddCommentListWrap = styled.div`
   width: 100%;
   height: 130px;
   padding: 20px 25px 25px 40px;
-  max-width: 527px;
+  max-width: 530px;
   margin: 50px 0px 0 0px;
   box-sizing: border-box;
   border-radius: 10px;

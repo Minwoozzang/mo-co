@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 
 /* HomeBanner */
 const BannerContainer = styled.img`
-  background-color: #d9d9d9;
+  background-color: #111111;
   height: 318px;
   /* width: 100%; */
 `;

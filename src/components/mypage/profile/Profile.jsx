@@ -239,7 +239,7 @@ const Profile = () => {
             <ProfileTechBody>
               <TechBodyTitle>기술 스택</TechBodyTitle>
               <TechBodyImage>
-                {techStack.map((item, idx) => (
+                {techStack?.map((item, idx) => (
                   <img
                     key={idx}
                     src={require(`../../../assets/stack/${item}.png`)}
