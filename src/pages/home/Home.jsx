@@ -22,6 +22,8 @@ import styled from '@emotion/styled';
 import main_background from '../../assets/background/main_background.png';
 import CardSection from '../../shared/CardSection';
 import CustomMeeting from '../../components/home/meeting/CustomMeeting';
+import { useRecoilValue } from 'recoil';
+import postState from '../../recoil/postState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
@@ -62,7 +64,7 @@ const Home = () => {
       setUid(uid);
     });
   }, []);
-
+  const postData = useRecoilValue(postState);
   const { data, isLoading, isError, error } = usePosts();
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
@@ -183,7 +185,7 @@ const Home = () => {
         )}
         <CoverBackground>
           <HomeNewMeetingList
-            data={data}
+            data={postData}
             uid={uid}
             userBookmark={userBookmark}
           />

@@ -2,16 +2,19 @@ import styled from '@emotion/styled';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
+import testteamPageState from '../../recoil/testteamPageState';
 import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
   const params = useParams();
 
   const [postList, setPostList] = useState([]);
-  const [teamPage, setTeamPage] = useState([]);
+  // const [teamPage, setTeamPage] = useState([]);
+  const teamPage = useRecoilValue(testteamPageState);
 
   // teamPage로 가는 버튼 팀리스트에서만 보이게하기
   const [show, setShow] = useState(true);
@@ -117,18 +120,18 @@ const TeamList = () => {
   }, []);
   
   // teamPage 데이터 불러오기
-  useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
-    return getTeamPage;
-  }, []);
+  // useEffect(() => {
+  //   const teamPageCollectionRef = collection(db, 'teamPage');
+  //   const q = query(teamPageCollectionRef);
+  //   const getTeamPage = onSnapshot(q, (snapshot) => {
+  //     const teamPageData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamPage(teamPageData);
+  //   });
+  //   return getTeamPage;
+  // }, []);
 
   return (
     <TeamListFullScreen>

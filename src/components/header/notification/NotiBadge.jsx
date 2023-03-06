@@ -5,10 +5,13 @@ import NotiMessage from './NotiMessage';
 import styled from '@emotion/styled';
 import LeaderGotMessage from './LeaderGotMessage';
 import NotiCategoryList from './NotiCategoryList';
+import { useRecoilValue } from 'recoil';
+import postState from '../../../recoil/postState';
 
 const NotiBadge = () => {
   const [teamPage, setTeamPage] = useState([]);
-  
+  // const testData = useRecoilValue(postState)
+  // console.log(testData)
   // 팀페이지 팀멤버에서 유저가 포함된 팀페이지 데이터
   let myAppliedMeeting = [];
   const myApplyMeeting = teamPage.forEach((item) => {
