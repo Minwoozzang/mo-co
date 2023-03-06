@@ -9,7 +9,7 @@ import {
   AddCommentBtnDiv,
   AddCommentBtn,
   AddCommentListAll,
-} from './ReplyAddCommentStyle';
+} from './replyAddCommentStyle';
 
 const ReplyAddComment = ({ comment, setDisplay }) => {
   // 파베 인증

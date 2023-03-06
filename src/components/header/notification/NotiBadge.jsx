@@ -8,7 +8,7 @@ import NotiCategoryList from './NotiCategoryList';
 
 const NotiBadge = () => {
   const [teamPage, setTeamPage] = useState([]);
-
+  
   // 팀페이지 팀멤버에서 유저가 포함된 팀페이지 데이터
   let myAppliedMeeting = [];
   const myApplyMeeting = teamPage.forEach((item) => {

@@ -21,7 +21,7 @@ import {
   CommentProfileImage,
   CommentDate,
   UserHr,
-} from './ReplyCommentStyle';
+} from './replyCommentStyle';
 
 const ReplyComment = ({ comment, index, comments }) => {
   const [editBox, setEditBox] = useState(false);

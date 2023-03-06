@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Replybutton } from '../comment/CommentStyle';
-import { ReplyWrap } from './ReplyCommentStyle';
-import ReplyAddComment from '../replyAddComment/ReplyAddComment';
-import ReplyComment from './ReplyComment';
+import { ReplyWrap } from './replyCommentStyle';
+import ReplyAddComment from '../replyAddComment/replyAddComment';
+import ReplyComment from './replyComment';
 
 const ReplyCommentList = ({ comment }) => {
   const [display, setDisplay] = useState(false);
