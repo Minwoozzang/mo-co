@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { Modal } from 'antd';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import main_background from '../../assets/background/main_background.png';
 import { authService, db } from '../../common/firebase';
 import AddInfoModal from '../../components/home/AddInfoModal';
@@ -12,34 +12,20 @@ import HomeGuideText from '../../components/home/HomeGuideText';
 import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
-import usePosts from '../../hooks/usePost';
-import { useRecoilValue } from 'recoil';
+import useUserQuery from '../../hooks/useUserQuery';
 import postState from '../../recoil/postState';
-import authState from '../../recoil/authState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
   // 처음에는 false이고 나중에 사용자 존재 판명이 모두 끝났을 때 true를 통해 해당 화면을 render
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [uid, setUid] = useState('');
-  const [userBookmark, setUserBookmark] = useState([]);
-
-  // 내 정보 가져오기
-  const getUserBookmark = () => {
-    const q = query(
-      collection(db, 'user'),
-      where('uid', '==', authService.currentUser.uid),
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUserBookmark(newInfo[0]?.bookmarks);
-    });
-
-    return unsubscribe;
-  };
+  // post 데이터
+  const postData = useRecoilValue(postState);
+  const currentUser = authService.currentUser;
+  //* 모달 오픈 여부 상태
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  //* 신규 유저 여부 상태
+  const [isClosed, SetIsClosed] = useState(false);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -47,26 +33,12 @@ const Home = () => {
       if (user) {
         // 있으면
         setIsLoggedIn(true); // 로그인 됨
-        getUserBookmark();
       } else {
         setIsLoggedIn(false); // 로그인 안됨
       }
       setInit(true); // user 판명 끝
-      const uid = user?.uid;
-      setUid(uid);
     });
   }, []);
-
-  // post 데이터
-  const postData = useRecoilValue(postState);
-
-  const currentUser = authService.currentUser;
-  //* 모달 오픈 여부 상태
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  //* 신규 유저 여부 상태
-  const [isClosed, SetIsClosed] = useState(false);
-  //* 유저 콜렉션 데이터
-  const [userList, setUserList] = useState([]);
 
   // 추가 정보 등록 모달 핸들러
   const handleModalOpen = () => {
@@ -93,38 +65,8 @@ const Home = () => {
   };
 
   // 사용자 맞춤 리스트
-  // const currentUserData = useRecoilValue(userState)
-
-  const currentUserData = userList.filter(
-    (item) => item.uid === currentUser?.uid,
-  );
-
-  // const recommendTechList = postData
-  //   ? postData.filter(
-  //       (item) =>
-  //         !item.isDeleted &&
-  //         item.partyStack.includes(
-  //           currentUserData[0]?.moreInfo?.u_stack.toString(),
-  //         ),
-  //     )
-  //   : [];
-
-  // const recommendTimeList = postData
-  //   ? postData.filter(
-  //       (item) =>
-  //         !item.isDeleted &&
-  //         item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
-  //     )
-  //   : [];
-
-  // const recommendLocationList = postData
-  //   ? postData.filter(
-  //       (item) =>
-  //         !item.isDeleted &&
-  //         item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
-  //     )
-  //   : [];
-
+  const currentUserData = useUserQuery();
+  
   const customList = postData
     ? postData.filter(
         (item) =>
@@ -136,22 +78,6 @@ const Home = () => {
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
-  //postList -> 로그인 안 됐을 시 안보이게 / where 쓸 때 uid -> null error
-  useEffect(() => {
-    const userCollectionRef = collection(db, 'user');
-    const q = query(userCollectionRef);
-    const getUser = onSnapshot(q, (snapshot) => {
-      const userData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUserList(userData);
-    });
-    if (currentUser) {
-      handleModalOpen();
-    }
-    return getUser;
-  }, []);
   
   return (
     <FullScreen>
@@ -161,20 +87,10 @@ const Home = () => {
           <>
             <CustomListContainer>
             <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
-            <CustomMeeting
-              isLoggedIn={isLoggedIn}
-              customList={customList}
-              uid={uid}
-              userBookmark={userBookmark}
-            />
+            <CustomMeeting isLoggedIn={isLoggedIn} customList={customList} />
             </CustomListContainer>
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
-              // recommendTechList={recommendTechList}
-              // recommendTimeList={recommendTimeList}
-              // recommendLocationList={recommendLocationList}
-              uid={uid}
-              userBookmark={userBookmark}
               currentUserData={currentUserData}
             />
           </>
@@ -182,11 +98,7 @@ const Home = () => {
           <>...</>
         )}
         <CoverBackground>
-          <HomeNewMeetingList
-            data={postData}
-            uid={uid}
-            userBookmark={userBookmark}
-          />
+          <HomeNewMeetingList data={postData} />
           <HomeAllBtn />
         </CoverBackground>
       </MainBackground>

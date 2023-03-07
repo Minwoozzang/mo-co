@@ -16,7 +16,7 @@ import { db } from '../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
 
-const LocationMeeting = ({ uid, userBookmark, currentUserData }) => {
+const LocationMeeting = ({ currentUserData }) => {
   const titlestring1 = '{=';
   const titlestring2 = ';';
   const titlestring3 = '} * --- />';
@@ -26,7 +26,7 @@ const LocationMeeting = ({ uid, userBookmark, currentUserData }) => {
     ? postData.filter(
         (item) =>
           !item.isDeleted &&
-          item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
+          item.partyLocation.includes(currentUserData?.moreInfo?.u_location),
       )
     : [];
 
@@ -58,8 +58,6 @@ const LocationMeeting = ({ uid, userBookmark, currentUserData }) => {
                     key={`지역이 맞는 모임 ${idx}`}
                     item={item}
                     db={db}
-                    uid={uid}
-                    userBookmark={userBookmark}
                   />
                 ))
             )}

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import CardSection from '../../../shared/CardSection';
 import CustomBlurList from '../../nonLogin/CustomBlurList';
 
-const CustomMeeting = ({ isLoggedIn, customList, uid, userBookmark }) => {
+const CustomMeeting = ({ isLoggedIn, customList }) => {
   return (
     <CustomListContainer>
       <CustomListCardBox>
@@ -16,14 +16,7 @@ const CustomMeeting = ({ isLoggedIn, customList, uid, userBookmark }) => {
           ) : (
             customList
               .slice(0, 3)
-              .map((item, idx) => (
-                <CardSection
-                  key={idx}
-                  item={item}
-                  uid={uid}
-                  userBookmark={userBookmark}
-                />
-              ))
+              .map((item, idx) => <CardSection key={idx} item={item} />)
           )
         ) : (
           <CustomBlurList />
