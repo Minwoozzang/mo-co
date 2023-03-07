@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 const teamPageState = atom({
   key: 'teamPageState',
