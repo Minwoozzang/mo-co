@@ -54,19 +54,19 @@ const CardSection = ({ item, db }) => {
             bookmark: bookmark + 1,
           });
 
-        queryClient.setQueryData('posts', (oldData) => {
-          // 해당 게시물의 정보를 찾아서 북마크 수를 1 증가시킵니다.
-          const updatedData = oldData.map((post) => {
-            if (post.id === item.id) {
-              return { ...post, bookmark: post.bookmark + 1 };
-            }
-            return post;
+          queryClient.setQueryData('posts', (oldData) => {
+            // 해당 게시물의 정보를 찾아서 북마크 수를 1 증가시킵니다.
+            const updatedData = oldData.map((post) => {
+              if (post.id === item.id) {
+                return { ...post, bookmark: post.bookmark + 1 };
+              }
+              return post;
+            });
+            const endTime = performance.now(); // 완료 시간 측정
+            console.log(`Optimistic Update + 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+            queryClient.invalidateQueries(['user', user?.uid]);
+            return updatedData;
           });
-          const endTime = performance.now(); // 완료 시간 측정
-          console.log(`Optimistic Update + 1: ${endTime - startTime}ms`); // 걸린 시간 출력
-          queryClient.invalidateQueries(['user', user?.uid]);
-          return updatedData;
-        });
 
           // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 추가
           await updateDoc(doc(db, 'user', user?.uid), {
@@ -92,21 +92,21 @@ const CardSection = ({ item, db }) => {
             bookmark: bookmark - 1,
           });
 
-        queryClient.setQueryData('posts', (oldData) => {
-          // 해당 게시물의 정보를 찾아서 북마크 수를 1 감소시킵니다.
-          const updatedData = oldData.map((post) => {
-            if (post.id === item.id) {
-              return { ...post, bookmark: post.bookmark - 1 };
-            }
-            return post;
-          });
-          console.log('낙관적 -1');
-          const endTime = performance.now(); // 완료 시간 측정
-          console.log(`Optimistic Update - 1: ${endTime - startTime}ms`); // 걸린 시간 출력
-          queryClient.invalidateQueries(['user', user?.uid]);
+          queryClient.setQueryData('posts', (oldData) => {
+            // 해당 게시물의 정보를 찾아서 북마크 수를 1 감소시킵니다.
+            const updatedData = oldData.map((post) => {
+              if (post.id === item.id) {
+                return { ...post, bookmark: post.bookmark - 1 };
+              }
+              return post;
+            });
+            console.log('낙관적 -1');
+            const endTime = performance.now(); // 완료 시간 측정
+            console.log(`Optimistic Update - 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+            queryClient.invalidateQueries(['user', user?.uid]);
 
-          return updatedData;
-        });
+            return updatedData;
+          });
 
           // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 삭제
           await updateDoc(doc(db, 'user', user?.uid), {
@@ -271,6 +271,9 @@ const BookmarkIcon = styled.div`
   width: 20px;
   height: 20px;
   cursor: pointer;
+  &:active {
+    transform: scale(0.7);
+  }
 `;
 
 const PostBox = styled.div`
