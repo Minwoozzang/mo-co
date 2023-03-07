@@ -7,16 +7,16 @@ import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
 import postState from '../../recoil/postState';
-import testteamPageState from '../../recoil/testteamPageState';
+import teamPageState from '../../recoil/teamPageState';
 import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
   const params = useParams();
 
-  const [postList, setPostList] = useState([]);
-  const [teamPage, setTeamPage] = useState([]);
-  // const postList = useRecoilValue(postState);
-  // const teamPage = useRecoilValue(testteamPageState);
+  // const [postList, setPostList] = useState([]);
+  // const [teamPage, setTeamPage] = useState([]);
+  const postList = useRecoilValue(postState);
+  const teamPage = useRecoilValue(teamPageState);
 
   // teamPage로 가는 버튼 팀리스트에서만 보이게하기
   const [show, setShow] = useState(true);
@@ -108,32 +108,32 @@ const TeamList = () => {
   };
 
   //post 데이터 불러오기
-  useEffect(() => {
-    const postCollectionRef = collection(db, 'post');
-    const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
-    const getPost = onSnapshot(q, (snapshot) => {
-      const postData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPostList(postData);
-    });
-    return getPost;
-  }, []);
+  // useEffect(() => {
+  //   const postCollectionRef = collection(db, 'post');
+  //   const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
+  //   const getPost = onSnapshot(q, (snapshot) => {
+  //     const postData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setPostList(postData);
+  //   });
+  //   return getPost;
+  // }, []);
   
   // teamPage 데이터 불러오기
-  useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
-    return getTeamPage;
-  }, []);
+  // useEffect(() => {
+  //   const teamPageCollectionRef = collection(db, 'teamPage');
+  //   const q = query(teamPageCollectionRef);
+  //   const getTeamPage = onSnapshot(q, (snapshot) => {
+  //     const teamPageData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamPage(teamPageData);
+  //   });
+  //   return getTeamPage;
+  // }, []);
 
   return (
     <TeamListFullScreen>

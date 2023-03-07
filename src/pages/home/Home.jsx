@@ -13,7 +13,6 @@ import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
 import usePosts from '../../hooks/usePost';
-import CardSection from '../../shared/CardSection';
 import { useRecoilValue } from 'recoil';
 import postState from '../../recoil/postState';
 
@@ -58,7 +57,7 @@ const Home = () => {
   }, []);
   const postData = useRecoilValue(postState);
   // console.log(postData)
-  const { data, isLoading, isError, error } = usePosts();
+  // const { data, isLoading, isError, error } = usePosts();
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
   //* 모달 오픈 여부 상태
@@ -178,7 +177,7 @@ const Home = () => {
         )}
         <CoverBackground>
           <HomeNewMeetingList
-            data={data}
+            data={postData}
             uid={uid}
             userBookmark={userBookmark}
           />
