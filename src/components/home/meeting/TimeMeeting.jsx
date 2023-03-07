@@ -19,7 +19,7 @@ import { db } from '../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
 
-const TimeMeeting = ({ uid, userBookmark, currentUserData }) => {
+const TimeMeeting = ({ currentUserData }) => {
   const titlestring = '</---*';
   const titlestring1 = '{=';
   const titlestring2 = '{';
@@ -46,27 +46,25 @@ const TimeMeeting = ({ uid, userBookmark, currentUserData }) => {
       </TimeMeetingInnerSection1>
       <TimeMeetingInnerSection2>
         <TimeMeetingInnerBox />
-          <TimeMeetingCardBox>
-            {recommendTimeList.length === 0 ? (
+        <TimeMeetingCardBox>
+          {recommendTimeList.length === 0 ? (
             <NonRecommendText2>
               추천 모임이 없습니다.
               <br />
               추가 정보를 등록 or 수정해주세요!
             </NonRecommendText2>
           ) : (
-              recommendTimeList
-                .slice(0, 3)
-                .map((item, idx) => (
-                  <CardSection
-                    key={`시간대가 맞는 모임 ${idx}`}
-                    item={item}
-                    db={db}
-                  uid={uid}
-                  userBookmark={userBookmark}
-                  />
-                ))
+            recommendTimeList
+              .slice(0, 3)
+              .map((item, idx) => (
+                <CardSection
+                  key={`시간대가 맞는 모임 ${idx}`}
+                  item={item}
+                  db={db}
+                />
+              ))
           )}
-          </TimeMeetingCardBox>
+        </TimeMeetingCardBox>
       </TimeMeetingInnerSection2>
     </TimeMeetingArea>
   );

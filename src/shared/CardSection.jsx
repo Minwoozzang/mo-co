@@ -7,14 +7,17 @@ import { useRecoilValue } from 'recoil';
 import BookmarkImg from '../assets/icon/Icon_Scrap.png';
 import BookmarkedImg from '../assets/icon/Icon_Scrap_active.png';
 import defaultImg from '../assets/icon/user.png';
+import useUserQuery from '../hooks/useUserQuery';
 import authState from '../recoil/authState';
 
-const CardSection = ({ item, db, userBookmark }) => {
+const CardSection = ({ item, db }) => {
   const user = useRecoilValue(authState);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const bookmark = item.bookmark;
   const [partyNum, setPartyNum] = useState(0);
+  const userDoc = useUserQuery();
+  const bookmarks = userDoc?.bookmarks;
 
   function debounce(func, wait) {
     let inDebounce;
@@ -32,7 +35,7 @@ const CardSection = ({ item, db, userBookmark }) => {
   // 북마크 핸들링 함수
   const handleBookmark = useCallback(
     debounce(async () => {
-      if (user?.uid === null) {
+      if (user === null) {
         alert('로그인 후 이용해 주세요.');
         return;
       }
@@ -61,6 +64,7 @@ const CardSection = ({ item, db, userBookmark }) => {
             });
             const endTime = performance.now(); // 완료 시간 측정
             console.log(`Optimistic Update + 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+            queryClient.invalidateQueries(['user', user?.uid]);
             return updatedData;
           });
 
@@ -99,6 +103,8 @@ const CardSection = ({ item, db, userBookmark }) => {
             console.log('낙관적 -1');
             const endTime = performance.now(); // 완료 시간 측정
             console.log(`Optimistic Update - 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+            queryClient.invalidateQueries(['user', user?.uid]);
+
             return updatedData;
           });
 
@@ -141,7 +147,7 @@ const CardSection = ({ item, db, userBookmark }) => {
         <Bookmark>
           <span>{item.bookmark}</span>
           <BookmarkIcon onClick={handleBookmark}>
-            {userBookmark?.includes(item.id) ? (
+            {userDoc?.bookmarks?.includes(item.id) ? (
               <img src={BookmarkedImg} alt="bookmarked" width="20px" />
             ) : (
               <img src={BookmarkImg} alt="bookmark" width="20px" />
@@ -265,6 +271,9 @@ const BookmarkIcon = styled.div`
   width: 20px;
   height: 20px;
   cursor: pointer;
+  &:active {
+    transform: scale(0.7);
+  }
 `;
 
 const PostBox = styled.div`
