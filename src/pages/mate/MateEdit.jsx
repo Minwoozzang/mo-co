@@ -1,26 +1,18 @@
-import React, { useEffect, useRef } from 'react';
-import { useState } from 'react';
 import styled from '@emotion/styled';
-import Select from 'react-select';
 import { Checkbox } from 'antd';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import React, { useEffect, useRef, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import Select from 'react-select';
+import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
+import { opens } from '../../data/opens';
 import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
-import { opens } from '../../data/opens';
-import { db, authService } from '../../common/firebase';
-import {
-  query,
-  onSnapshot,
-  collection,
-  doc,
-  getDoc,
-  updateDoc,
-} from 'firebase/firestore';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useQueryClient } from 'react-query';
 
 const MateEdit = () => {
   const queryClient = useQueryClient();

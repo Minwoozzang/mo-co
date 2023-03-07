@@ -1,27 +1,21 @@
+import styled from '@emotion/styled';
+import { Modal } from 'antd';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import main_background from '../../assets/background/main_background.png';
+import { authService, db } from '../../common/firebase';
+import AddInfoModal from '../../components/home/AddInfoModal';
 import HomeAllBtn from '../../components/home/HomeAllBtn';
-import HomeGuideText from '../../components/home/HomeGuideText';
 import HomeBanner from '../../components/home/HomeBanner';
+import HomeGuideText from '../../components/home/HomeGuideText';
+import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
-import { authService, db } from '../../common/firebase';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import MocoChat from '../../components/mocoChat/MocoChatIcon';
-import { Modal } from 'antd';
-import AddInfoModal from '../../components/home/AddInfoModal';
-import { useNavigate } from 'react-router-dom';
 import usePosts from '../../hooks/usePost';
-import styled from '@emotion/styled';
-import main_background from '../../assets/background/main_background.png';
-import CardSection from '../../shared/CardSection';
-import CustomMeeting from '../../components/home/meeting/CustomMeeting';
+import { useRecoilValue } from 'recoil';
+import postState from '../../recoil/postState';
+import authState from '../../recoil/authState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
@@ -63,8 +57,9 @@ const Home = () => {
     });
   }, []);
 
-  const { data, isLoading, isError, error } = usePosts();
-  const navigate = useNavigate();
+  // post 데이터
+  const postData = useRecoilValue(postState);
+
   const currentUser = authService.currentUser;
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -102,8 +97,8 @@ const Home = () => {
     (item) => item.uid === currentUser?.uid,
   );
 
-  const recommendTechList = data
-    ? data.filter(
+  const recommendTechList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyStack.includes(
@@ -112,24 +107,24 @@ const Home = () => {
       )
     : [];
 
-  const recommendTimeList = data
-    ? data.filter(
+  const recommendTimeList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
       )
     : [];
 
-  const recommendLocationList = data
-    ? data.filter(
+  const recommendLocationList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
 
-  const customList = data
-    ? data.filter(
+  const customList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyStack.includes(
@@ -139,7 +134,7 @@ const Home = () => {
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
-  //postList -> 로그인 안 됐을 시 안보이게
+  //postList -> 로그인 안 됐을 시 안보이게 / where 쓸 때 uid -> null error
   useEffect(() => {
     const userCollectionRef = collection(db, 'user');
     const q = query(userCollectionRef);
@@ -155,7 +150,7 @@ const Home = () => {
     }
     return getUser;
   }, []);
-
+  
   return (
     <FullScreen>
       <HomeBanner />
@@ -183,7 +178,7 @@ const Home = () => {
         )}
         <CoverBackground>
           <HomeNewMeetingList
-            data={data}
+            data={postData}
             uid={uid}
             userBookmark={userBookmark}
           />
@@ -192,10 +187,7 @@ const Home = () => {
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
-        <AddInfoModal
-          currentUser={currentUser}
-          handleModalClose={handleModalClose}
-        />
+        <AddInfoModal handleModalClose={handleModalClose} />
       </Modal>
     </FullScreen>
   );

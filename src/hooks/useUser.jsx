@@ -1,28 +1,8 @@
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { authService, db } from '../common/firebase';
-import { useCallback, useState } from 'react';
 import { useQuery } from 'react-query';
 
-export default function useUser() {
-  // const [user, setUser] = useState([]);
-  // const userData = useCallback(() => {
-  //   const q = query(collection(db, 'user'));
-  //   const AllInfo = onSnapshot(q, (snapshot) => {
-  //     const newInfo = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setUser(newInfo);
-  //   });
-  //   return AllInfo;
-  // }, []);
-  // return { user, userData };
+const useUser = () => {
   return useQuery(
     'users',
     async () => {
@@ -42,4 +22,6 @@ export default function useUser() {
       staleTime: 2 * 60 * 1000,
     },
   );
-}
+};
+
+export default useUser;

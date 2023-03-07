@@ -1,14 +1,16 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
-import { authService } from '../common/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import defaultImg from '../assets/icon/user.png';
+import { useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import BookmarkImg from '../assets/icon/Icon_Scrap.png';
 import BookmarkedImg from '../assets/icon/Icon_Scrap_active.png';
-import { useEffect, useState } from 'react';
+import defaultImg from '../assets/icon/user.png';
+import authState from '../recoil/authState';
 
-const CardSection = ({ item, db, userBookmark, uid }) => {
+const CardSection = ({ item, db, userBookmark }) => {
+  const user = useRecoilValue(authState);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const bookmark = item.bookmark;
@@ -19,12 +21,12 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
 
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
-    if (!authService.currentUser) {
+    if (user?.uid === null) {
       alert('로그인 후 이용해 주세요.');
       return;
     }
     // 현재 유저 문서 가져오기
-    const userDoc = await getDoc(doc(db, 'user', uid));
+    const userDoc = await getDoc(doc(db, 'user', user?.uid));
     const userData = userDoc.data();
     const bookmarks = await userData.bookmarks;
 
@@ -36,7 +38,7 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
           bookmark: bookmark + 1,
         });
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 추가
-        await updateDoc(doc(db, 'user', uid), {
+        await updateDoc(doc(db, 'user', user?.uid), {
           bookmarks: [...bookmarks, item.id],
         });
         queryClient.invalidateQueries('posts');
@@ -54,7 +56,7 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
           bookmark: bookmark - 1,
         });
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 삭제
-        await updateDoc(doc(db, 'user', uid), {
+        await updateDoc(doc(db, 'user', user?.uid), {
           bookmarks: bookmarks.filter((bookmark) => bookmark !== item.id),
         });
         queryClient.invalidateQueries('posts');

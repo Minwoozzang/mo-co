@@ -8,7 +8,11 @@ import {
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { ImCancelCircle } from 'react-icons/im';
 import { useLocation, useNavigate } from 'react-router';
+import defaultImg from '../../../src/assets/icon/user.png';
+import Alarm from '../../assets/icon/Icon_Alarm.png';
+import Search from '../../assets/icon/Icon_Search.png';
 import { authService, db } from '../../common/firebase';
 import {
   HeaderBody,
@@ -32,11 +36,10 @@ import {
   HeaderSearchDropDownListSection,
   HeaderSearchXbuttonBox,
   HeaderSearchXbutton,
+  HeaderNotiDropDownList,
+  HeaderNotiDropDownListBox,
 } from './style';
-import Search from '../../assets/icon/Icon_Search.png';
-import Alarm from '../../assets/icon/Icon_Alarm.png';
-import { ImCancelCircle } from 'react-icons/im';
-import defaultImg from '../../../src/assets/icon/user.png';
+// import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
   // 현제 경로
@@ -226,7 +229,7 @@ const Header = () => {
           >
             팀 개설하기
           </MakeTeam>
-          <div>
+          {/* <div>
             <img
               src={Alarm}
               alt="alarm"
@@ -234,13 +237,19 @@ const Header = () => {
               onClick={alarmDropDown}
             />
             {alarmDrop ? (
-              <HeaderDropDownListBox style={{ position: 'absolute' }}>
-                <HeaderDropDownListSection>hhhaaa</HeaderDropDownListSection>
-              </HeaderDropDownListBox>
+              <HeaderNotiDropDownListBox 
+                style={{ position: 'absolute' }}
+              >
+                <HeaderDropDownListSection style={{padding: '10px'}}>
+                  <HeaderNotiDropDownList>
+                    <NotiBadge />
+                  </HeaderNotiDropDownList>
+                </HeaderDropDownListSection>
+              </HeaderNotiDropDownListBox>
             ) : (
               ''
             )}
-          </div>
+          </div> */}
 
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (
