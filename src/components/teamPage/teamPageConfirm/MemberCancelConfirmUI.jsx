@@ -55,7 +55,7 @@ const MemberCancelConfirmUI = (props) => {
   }
 
   return (
-    <ConfirmBody>
+    <ConfirmBody onClick={props.onClose}>
       <ConfirmBox>
         <ImageTitleBox>
           <ImageBox>
@@ -81,6 +81,9 @@ const MemberCancelConfirmUI = (props) => {
 export default MemberCancelConfirmUI;
 
 const ConfirmBody = styled.div`
+  width: 100%;
+  height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;

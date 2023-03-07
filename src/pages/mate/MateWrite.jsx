@@ -27,8 +27,11 @@ import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import authState from '../../recoil/authState';
+import { memo } from 'react';
 
 const MateWrite = () => {
+
+
   const user = useRecoilValue(authState);
 
   const queryClient = useQueryClient();
@@ -39,10 +42,6 @@ const MateWrite = () => {
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
   const [partyTime, setPartyTime] = useState('');
-  console.log(
-    '🚀 ~ file: MateWrite.jsx:43 ~ MateWrite ~ partyTime:',
-    partyTime,
-  );
   const [partyNum, setPartyNum] = useState('');
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
@@ -397,7 +396,7 @@ const MateWrite = () => {
   );
 };
 
-export default MateWrite;
+export default memo(MateWrite);
 
 const FullScreen = styled.body`
   background-color: black;

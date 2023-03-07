@@ -1,5 +1,4 @@
 import React from 'react';
-import { BsChatDots } from 'react-icons/bs';
 
 const MessageHeader = () => {
   return (
