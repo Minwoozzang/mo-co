@@ -1,27 +1,19 @@
+import styled from '@emotion/styled';
+import { Modal } from 'antd';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import main_background from '../../assets/background/main_background.png';
+import { authService, db } from '../../common/firebase';
+import AddInfoModal from '../../components/home/AddInfoModal';
 import HomeAllBtn from '../../components/home/HomeAllBtn';
-import HomeGuideText from '../../components/home/HomeGuideText';
 import HomeBanner from '../../components/home/HomeBanner';
+import HomeGuideText from '../../components/home/HomeGuideText';
+import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
-import { authService, db } from '../../common/firebase';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
-import MocoChat from '../../components/mocoChat/MocoChatIcon';
-import { Modal } from 'antd';
-import AddInfoModal from '../../components/home/AddInfoModal';
-import { useNavigate } from 'react-router-dom';
 import usePosts from '../../hooks/usePost';
-import styled from '@emotion/styled';
-import main_background from '../../assets/background/main_background.png';
 import CardSection from '../../shared/CardSection';
-import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import { useRecoilValue } from 'recoil';
 import postState from '../../recoil/postState';
 
@@ -195,10 +187,7 @@ const Home = () => {
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
-        <AddInfoModal
-          currentUser={currentUser}
-          handleModalClose={handleModalClose}
-        />
+        <AddInfoModal handleModalClose={handleModalClose} />
       </Modal>
     </FullScreen>
   );

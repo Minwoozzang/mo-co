@@ -3,13 +3,15 @@ import {
   doc,
   onSnapshot,
   query,
-  setDoc,
-  updateDoc,
-  where,
+  setDoc, where
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { ImCancelCircle } from 'react-icons/im';
 import { useLocation, useNavigate } from 'react-router';
+import defaultImg from '../../../src/assets/icon/user.png';
+import Alarm from '../../assets/icon/Icon_Alarm.png';
+import Search from '../../assets/icon/Icon_Search.png';
 import { authService, db } from '../../common/firebase';
 import {
   HeaderBody,
@@ -36,10 +38,6 @@ import {
   HeaderNotiDropDownList,
   HeaderNotiDropDownListBox,
 } from './style';
-import Search from '../../assets/icon/Icon_Search.png';
-import Alarm from '../../assets/icon/Icon_Alarm.png';
-import { ImCancelCircle } from 'react-icons/im';
-import defaultImg from '../../../src/assets/icon/user.png';
 // import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {

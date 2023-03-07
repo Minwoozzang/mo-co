@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import ChatWindow from './ChatWindow';
 
-const MocoChat = ({ uid }) => {
+const MocoChat = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleMocoChatOpen = () => {
@@ -11,7 +11,6 @@ const MocoChat = ({ uid }) => {
 
   return (
     <>
-      {/* <MocoChatIcon onClick={handleMocoChatOpen} /> */}
       <img
         src="images/moco.png"
         alt="chat"
@@ -24,9 +23,7 @@ const MocoChat = ({ uid }) => {
         }}
         onClick={handleMocoChatOpen}
       />
-      {isChatOpen && (
-        <ChatWindow uid={uid} handleMocoChatOpen={handleMocoChatOpen} />
-      )}
+      {isChatOpen && <ChatWindow handleMocoChatOpen={handleMocoChatOpen} />}
     </>
   );
 };
