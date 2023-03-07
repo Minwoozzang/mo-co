@@ -44,15 +44,14 @@ import useUser from '../../../hooks/useUser';
 const Profile = () => {
   // 유저 가져오기 (Recoil)
   const userInfo = useRecoilValue(userState);
-  const myInfo = userInfo?.filter(
-    (t) => t.uid === authService.currentUser?.uid,
-  );
-  const queryClient = useQueryClient();
+
   const { myInfor } = useRecoilValue(userSelector);
 
   // TODO: 이거부터 해보자
-  const { isLoading } = useUser();
-  console.log('miiii', isLoading);
+  const { data, isLoading, isLoadingError } = useUser();
+
+  console.log('resss', userInfo);
+  const queryClient = useQueryClient();
 
   const [getUser, setGetUser] = useState(userInfo);
 
@@ -83,7 +82,7 @@ const Profile = () => {
         setNickName(authService.currentUser.displayName);
       }
     });
-  }, [currentUser, nickName, myInfor, userInfo]);
+  }, [currentUser, nickName, data]);
 
   // 수정, 완료 토글
   const [clickEditBtn, setClickBtn] = useState(true);
@@ -136,107 +135,111 @@ const Profile = () => {
   };
 
   return (
-    <MyProfileBody>
-      {/* <ProfileSection>
-        <ProfileSectionGap />
-        <ProfileMocoText>마이 모코</ProfileMocoText>
-        <NicknameImageBox>
-          <NicknameTextBox>
-            <NicaknameHello>안녕하세요</NicaknameHello>
-            <ProfileEditBody>
-              <ProfileNickNameBody>
-                {editNickNameBtn ? (
-                  <EditNickNameInput
-                    value={nickNamevalue ? nickNamevalue : ''}
-                    onChange={(e) => setNickNameValue(e.target.value)}
-                  />
-                ) : (
-                  <ProfileNickName>{myInfo[0]?.nickname}님</ProfileNickName>
-                )}
-                {clickEditBtn ? (
-                  <ProfileNickNameBtn onClick={edditNickName}>
-                    수정
-                  </ProfileNickNameBtn>
-                ) : (
-                  <NickNameCompleteBtn onClick={completeNickName}>
-                    완료
-                  </NickNameCompleteBtn>
-                )}
-              </ProfileNickNameBody>
-            </ProfileEditBody>
-          </NicknameTextBox>
+    <>
+      {isLoading && (
+        <p style={{ backgroundColor: 'white', fontSize: '40px' }}>로딩중</p>
+      )}
 
-          <ProfileImageBody>
-            <ProfileImage
-              src={
-                myInfo[0]?.profileImg ? myInfo[0].profileImg : default_profile
-              }
-              width="90"
-              height="90"
-              alt=""
-            />
-          </ProfileImageBody>
-          <ProfileHeaderIcon>
-            <img
-              src={wheel}
-              alt=""
-              style={{ fontSize: '25px' }}
-              onClick={profileHandler}
-            />
-          </ProfileHeaderIcon>
-        </NicknameImageBox>
+      {/* <MyProfileBody>
+        <ProfileSection>
+          <ProfileSectionGap />
+          <ProfileMocoText>마이 모코</ProfileMocoText>
+          <NicknameImageBox>
+            <NicknameTextBox>
+              <NicaknameHello>안녕하세요</NicaknameHello>
+              <ProfileEditBody>
+                <ProfileNickNameBody>
+                  {editNickNameBtn ? (
+                    <EditNickNameInput
+                      value={nickNamevalue ? nickNamevalue : ''}
+                      onChange={(e) => setNickNameValue(e.target.value)}
+                    />
+                  ) : (
+                    <ProfileNickName>{data[0]?.nickname}님</ProfileNickName>
+                  )}
+                  {clickEditBtn ? (
+                    <ProfileNickNameBtn onClick={edditNickName}>
+                      수정
+                    </ProfileNickNameBtn>
+                  ) : (
+                    <NickNameCompleteBtn onClick={completeNickName}>
+                      완료
+                    </NickNameCompleteBtn>
+                  )}
+                </ProfileNickNameBody>
+              </ProfileEditBody>
+            </NicknameTextBox>
 
-        <input
-          type="file"
-          onChange={onFileChange}
-          ref={inputImageRef}
-          style={{ display: 'none' }}
-          accept="image/*"
-        />
+            <ProfileImageBody>
+              <ProfileImage
+                src={data[0]?.profileImg ? data[0].profileImg : default_profile}
+                width="90"
+                height="90"
+                alt=""
+              />
+            </ProfileImageBody>
+            <ProfileHeaderIcon>
+              <img
+                src={wheel}
+                alt=""
+                style={{ fontSize: '25px' }}
+                onClick={profileHandler}
+              />
+            </ProfileHeaderIcon>
+          </NicknameImageBox>
 
-        <hr style={{ width: '305px' }} />
+          <input
+            type="file"
+            onChange={onFileChange}
+            ref={inputImageRef}
+            style={{ display: 'none' }}
+            accept="image/*"
+          />
 
-        <ProfileMiddleSection>
-          <MiddleBody>
-            <ProfileStackBody>
-              <StackbodyTitle>온/오프라인</StackbodyTitle>
-              <StackbodyText>
-                {myInfo[0]?.moreInfo.u_isRemote ? '온라인' : '오프라인'}
-              </StackbodyText>
-            </ProfileStackBody>
-            <ProfileStackBody>
-              <StackbodyTitle>모임 장소</StackbodyTitle>
-              <StackbodyText>
-                서울시 {myInfo[0]?.moreInfo.u_location}
-              </StackbodyText>
-            </ProfileStackBody>
-            <ProfileStackBody>
-              <StackbodyTitle>모임 시간</StackbodyTitle>
-              <StackbodyText>{myInfo[0]?.moreInfo.u_time}</StackbodyText>
-            </ProfileStackBody>
-            <ProfileTechBody>
-              <TechBodyTitle>기술 스택</TechBodyTitle>
-              <TechBodyImage>
-                {myInfo[0]?.moreInfo?.u_stack?.map((item, idx) => (
-                  <img
-                    key={idx}
-                    src={require(`../../../assets/stack/${item}.png`)}
-                    alt={item}
-                    style={{ width: 30, height: 30, marginRight: 10 }}
-                  />
-                ))}
-              </TechBodyImage>
-            </ProfileTechBody>
-          </MiddleBody>
-        </ProfileMiddleSection>
+          <hr style={{ width: '305px' }} />
 
-        <ProfileFooterBody>
-          <ProfileStackBtn onClick={EditStackBtn}>
-            맞춤정보 수정
-          </ProfileStackBtn>
-        </ProfileFooterBody>
-      </ProfileSection> */}
-    </MyProfileBody>
+          <ProfileMiddleSection>
+            <MiddleBody>
+              <ProfileStackBody>
+                <StackbodyTitle>온/오프라인</StackbodyTitle>
+                <StackbodyText>
+                  {data[0]?.moreInfo?.u_isRemote ? '온라인' : '오프라인'}
+                </StackbodyText>
+              </ProfileStackBody>
+              <ProfileStackBody>
+                <StackbodyTitle>모임 장소</StackbodyTitle>
+                <StackbodyText>
+                  서울시 {data[0]?.moreInfo?.u_location}
+                </StackbodyText>
+              </ProfileStackBody>
+              <ProfileStackBody>
+                <StackbodyTitle>모임 시간</StackbodyTitle>
+                <StackbodyText>{data[0]?.moreInfo?.u_time}</StackbodyText>
+              </ProfileStackBody>
+              <ProfileTechBody>
+                <TechBodyTitle>기술 스택</TechBodyTitle>
+                <TechBodyImage>
+                  {data[0]?.moreInfo?.u_stack?.map((item, idx) => (
+                    <img
+                      key={idx}
+                      src={require(`../../../assets/stack/${item}.png`)}
+                      alt={item}
+                      style={{ width: 30, height: 30, marginRight: 10 }}
+                    />
+                  ))}
+                </TechBodyImage>
+              </ProfileTechBody>
+            </MiddleBody>
+          </ProfileMiddleSection>
+
+          <ProfileFooterBody>
+            <ProfileStackBtn onClick={EditStackBtn}>
+              맞춤정보 수정
+            </ProfileStackBtn>
+          </ProfileFooterBody>
+        </ProfileSection>
+      </MyProfileBody> */}
+    </>
   );
 };
 

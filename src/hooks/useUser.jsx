@@ -1,5 +1,11 @@
-import { collection, getDocs, onSnapshot, query } from 'firebase/firestore';
-import { db } from '../common/firebase';
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from 'firebase/firestore';
+import { authService, db } from '../common/firebase';
 import { useCallback, useState } from 'react';
 import { useQuery } from 'react-query';
 
@@ -20,7 +26,10 @@ export default function useUser() {
   return useQuery(
     'users',
     async () => {
-      const q = query(collection(db, 'user'));
+      const q = query(
+        collection(db, 'user'),
+        where('uid', '==', authService.currentUser.uid),
+      );
       const querySnapshot = await getDocs(q);
       const posts = querySnapshot.docs.map((doc) => ({
         id: doc.id,
