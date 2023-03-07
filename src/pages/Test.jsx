@@ -1,13 +1,15 @@
 import { useRecoilValue } from 'recoil';
 import useUserDoc from '../hooks/useUserDoc';
 import authState from '../recoil/authState';
+import useComment from '../hooks/useComment';
+import commentState from '../recoil/commentState';
 
 function Test() {
-  let b = 0;
   const user = useRecoilValue(authState);
   const userDoc = useUserDoc();
-  // postState에 있는 전역 상태를 postCollection에 저장
+  const comment = useRecoilValue(commentState);
 
+  console.log(comment);
   return (
     <div>
       <h1>Test</h1>
@@ -18,8 +20,6 @@ function Test() {
       <p>email : {userDoc?.email}</p>
       <br />
       <h1>post 컬렉션 TEST</h1>
-      <br />
-
       <br />
     </div>
   );
