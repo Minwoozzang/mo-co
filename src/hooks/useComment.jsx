@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { db } from '../common/firebase';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import { authService, db } from '../common/firebase';
 
 export default function useComment() {
   return useQuery(

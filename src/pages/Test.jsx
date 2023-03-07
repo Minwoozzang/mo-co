@@ -8,8 +8,8 @@ function Test() {
   const user = useRecoilValue(authState);
   const userDoc = useUserDoc();
   const comment = useRecoilValue(commentState);
+  const commentDoc = useComment();
 
-  console.log(comment);
   return (
     <div>
       <h1>Test</h1>

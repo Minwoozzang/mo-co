@@ -35,7 +35,7 @@ function App() {
     setCommentState(comment.data);
     setPostState(post.data);
     setTeamPageState(teamPage.data);
-  }, [post.data, teamPage.data]);
+  }, [post.data, teamPage.data, comment.data]);
 
   return (
     <>
