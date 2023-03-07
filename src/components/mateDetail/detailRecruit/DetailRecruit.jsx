@@ -34,8 +34,11 @@ import {
   RecruitGuide,
   UserHr,
 } from './DetailRecruitStyle';
+import { useQueryClient } from 'react-query';
 
 const DetailRecruit = () => {
+  const queryClient = useQueryClient();
+
   const { id } = useParams();
   const [post, setpost] = useState([]);
   console.log('🚀 ~ file: DetailRecruit.jsx:41 ~ DetailRecruit ~ post:', post);
@@ -149,6 +152,7 @@ const DetailRecruit = () => {
       .catch(() => {
         console.log('참여 신청 에러');
       });
+    queryClient.invalidateQueries('teamPage');
     console.log('참여 완료');
     setIsModalOpen(false);
   };
