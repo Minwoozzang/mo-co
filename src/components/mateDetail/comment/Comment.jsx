@@ -22,7 +22,7 @@ import {
   UserHr,
 } from './CommentStyle';
 import default_profile from '../../../assets/icon/user.png';
-import ReplyComment from '../replyComment/ReplyCommentList';
+import ReplyCommentList from './../replyComment/ReplyCommentList';
 
 const Comment = ({ comment }) => {
   // comment 컬렉션 데이터 저장
@@ -146,7 +146,7 @@ const Comment = ({ comment }) => {
           )}
           <CommentDate>{comment.date}</CommentDate>
 
-          <ReplyComment comment={comment} />
+          <ReplyCommentList comment={comment} />
         </ListTextSection>
       </ListContainer>
       <UserHr />
