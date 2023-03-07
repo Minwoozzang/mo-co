@@ -3,7 +3,8 @@ import {
   doc,
   onSnapshot,
   query,
-  setDoc, where
+  setDoc,
+  where,
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
@@ -41,6 +42,10 @@ import {
 // import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
+  // 현제 경로
+  const location = useLocation();
+  const path = location.pathname;
+
   // 헤더 로그인 토글
   const [loginToggle, setLoginToggle] = useState(true);
 
@@ -96,10 +101,13 @@ const Header = () => {
   const navigate = useNavigate();
 
   const navigateHome = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate('/');
   };
 
   const navigateMyPage = () => {
+    setSearchdropDownClick(false);
     navigate('/mypage');
   };
 
@@ -112,6 +120,8 @@ const Header = () => {
 
   // 내 코딩모임 페이지로 이동
   const navigateMyCodingMate = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate(`/teamlist/${authService.currentUser.displayName}`);
   };
 
@@ -132,6 +142,7 @@ const Header = () => {
   };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
+      setDropDownClick(false);
       setSearchdropDownClick(true);
     }
   };
@@ -183,8 +194,9 @@ const Header = () => {
     } else {
       setDropDownClick(false);
     }
+    setSearchdropDownClick(false);
   };
-  
+
   // 알람 드랍다운
   const alarmDropDown = () => {
     if (alarmDrop === false) {
@@ -209,6 +221,8 @@ const Header = () => {
               if (!authService.currentUser) {
                 alert('로그인이 필요합니다.');
               } else {
+                setDropDownClick(false);
+                setSearchdropDownClick(false);
                 navigate('/write');
               }
             }}

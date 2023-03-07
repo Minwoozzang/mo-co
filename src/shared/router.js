@@ -11,6 +11,7 @@ import MyPage from '../pages/mypage/MyPage';
 import OnboardingPage from '../pages/onboarding/OnboardingPage';
 import Search from '../pages/search/Search';
 import TeamList from '../pages/teampage/TeamList';
+
 import TeamPage from '../pages/teampage/TeamPage';
 import Home from './../pages/home/Home';
 import MateDetail from './../pages/mate/MateDetail';
@@ -21,7 +22,6 @@ import { authService } from '../common/firebase';
 import { useRecoilValue } from 'recoil';
 import ScrollTop from '../common/scrollTop';
 import authState from '../recoil/authState';
-
 
 const Router = () => {
   const user = useRecoilValue(authState);
