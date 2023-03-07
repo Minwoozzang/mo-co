@@ -2,16 +2,16 @@ import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { authService } from './common/firebase';
 import GlobalStyle from './components/GlobalStyle';
-import usePosts from './hooks/usePost';
+import useTeamPage from './hooks/useTeamPage';
 import authState from './recoil/authState';
-import postState from './recoil/postState';
 import Router from './shared/router';
+import teamPageState from './recoil/teamPageState';
 
 function App() {
   const setAuthState = useSetRecoilState(authState);
-  // post 컬렉션
-  const setPostState = useSetRecoilState(postState);
-  const { data } = usePosts();
+
+  const setTeamPageState = useSetRecoilState(teamPageState);
+  const teamPage = useTeamPage();
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -25,8 +25,9 @@ function App() {
         return;
       }
     });
-    setPostState(data);
-  }, [authService.currentUser]);
+
+    setTeamPageState(teamPage.data);
+  }, [authService.currentUser, teamPage]);
 
   return (
     <>

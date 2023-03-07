@@ -1,12 +1,21 @@
 import styled from '@emotion/styled';
 import { onAuthStateChanged } from 'firebase/auth';
 import {
-  collection, doc, onSnapshot, query, updateDoc, where
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
 } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { authService, db } from '../../common/firebase';
+import { useRecoilState } from 'recoil';
+import teamPageState from '../../recoil/teamPageState';
 
 export default function ContentRule({ teamLocationID }) {
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
+
   const [content, setContent] = useState('');
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
