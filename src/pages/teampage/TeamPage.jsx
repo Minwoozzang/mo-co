@@ -11,8 +11,13 @@ import TeamManage from '../../components/teamPage/TeamManage';
 import TeamPlace from './TeamPlace';
 import { onAuthStateChanged } from '@firebase/auth';
 import MemberChatingRoom from '../../components/teamPage/chat/MemberChatingRoom';
+import { useRecoilState } from 'recoil';
+import teamPageState from '../../recoil/teamPageState';
+import { useQueryClient } from 'react-query';
 
 export default function TeamPage() {
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
+
   const navigate = useNavigate();
 
   // 경로 id 받아오기
@@ -20,28 +25,27 @@ export default function TeamPage() {
   const teamLocationID = location.state;
 
   // 팀 정보 가져오기
-  const [teamList, setTeamList] = useState([]);
+  // const [teamList, setTeamList] = useState([]);
 
-  const getTeamInformation = () => {
-    const postCollectionRef = collection(db, 'teamPage');
-    const q = query(postCollectionRef);
-    const getPost = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamList(newInfo);
-    });
-
-    return getPost;
-  };
+  // const getTeamInformation = () => {
+  //   const postCollectionRef = collection(db, 'teamPage');
+  //   const q = query(postCollectionRef);
+  //   const getPost = onSnapshot(q, (snapshot) => {
+  //     const newInfo = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamList(newInfo);
+  //   });
+  //   return getPost;
+  // };
 
   // 유저에서 팀 ID 랑 팀페이지 침 ID가 다를 경우 navigate
 
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
-        getTeamInformation();
+        // getTeamInformation();
 
         const q = query(
           collection(db, 'user'),
@@ -69,8 +73,8 @@ export default function TeamPage() {
           <MemberSide teamLocationID={teamLocationID} />
 
           <DashBoardContainer>
-            {teamList
-              .filter((item) => item.id === teamLocationID)
+            {teamPage
+              ?.filter((item) => item.id === teamLocationID)
               .map((item) => {
                 return (
                   <DashboardHeaderWrap key={item.id}>

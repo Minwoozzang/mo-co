@@ -164,18 +164,18 @@ const DetailRecruit = () => {
     setpost(postData.data());
   };
 
-  useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
-    return getTeamPage;
-  }, []);
+  // useEffect(() => {
+  //   const teamPageCollectionRef = collection(db, 'teamPage');
+  //   const q = query(teamPageCollectionRef);
+  //   const getTeamPage = onSnapshot(q, (snapshot) => {
+  //     const teamPageData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamPage(teamPageData);
+  //   });
+  //   return getTeamPage;
+  // }, []);
 
   useEffect(() => {
     getPost();
