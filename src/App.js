@@ -31,11 +31,11 @@ function App() {
           displayName: user.displayName,
           photoURL: user.photoURL,
         });
-        setCommentState(comment.data);
       } else {
         return;
       }
     });
+    setCommentState(comment.data);
     setPostState(post.data);
     setTeamPageState(teamPage.data);
   }, [post.data, teamPage.data]);
