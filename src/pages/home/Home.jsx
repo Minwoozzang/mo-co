@@ -93,6 +93,8 @@ const Home = () => {
   };
 
   // 사용자 맞춤 리스트
+  // const currentUserData = useRecoilValue(userState)
+
   const currentUserData = userList.filter(
     (item) => item.uid === currentUser?.uid,
   );

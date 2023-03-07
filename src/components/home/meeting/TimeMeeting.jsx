@@ -18,6 +18,7 @@ import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
+import userState from '../../../recoil/userState';
 
 const TimeMeeting = ({ uid, userBookmark, currentUserData }) => {
   const titlestring = '</---*';
