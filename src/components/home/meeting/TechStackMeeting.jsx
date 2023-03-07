@@ -7,14 +7,26 @@ import {
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
+import { useRecoilValue } from 'recoil';
+import postState from '../../../recoil/postState';
 
 const TechStackMeeting = ({
   isLoggedIn,
-  recommendTechList,
+  // recommendTechList,
   uid,
   userBookmark,
+  currentUserData,
 }) => {
-  // console.log('recommendTechList', recommendTechList);
+  const postData = useRecoilValue(postState);
+  const recommendTechList = postData
+    ? postData.filter(
+        (item) =>
+          !item.isDeleted &&
+          item.partyStack.includes(
+            currentUserData[0]?.moreInfo?.u_stack.toString(),
+          ),
+      )
+    : [];
 
   return (
     <TechStackMeetingArea>

@@ -9,19 +9,25 @@ import {
   LocationMeetingTitleBox1,
   LocationMeetingTitleBox2,
   LocationMeetingTitleBox3,
-  NonRecommendText2,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
-import { MdExpandMore } from 'react-icons/md';
-import { useQueries } from 'react-query';
-import { getPost, getUser } from '../../../common/utils/getApi';
-import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import postState from '../../../recoil/postState';
 
-const LocationMeeting = ({ recommendLocationList, uid, userBookmark }) => {
+const LocationMeeting = ({ uid, userBookmark, currentUserData }) => {
   const titlestring1 = '{=';
   const titlestring2 = ';';
   const titlestring3 = '} * --- />';
+
+  const postData = useRecoilValue(postState);
+  const recommendLocationList = postData
+    ? postData.filter(
+        (item) =>
+          !item.isDeleted &&
+          item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
+      )
+    : [];
 
   return (
     <>

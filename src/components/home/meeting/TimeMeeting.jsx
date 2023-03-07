@@ -3,7 +3,6 @@ import {
   MeetingTitleBox,
   MeetingCardBox,
   TimeMeetingTitle,
-  MeetingMoreBox,
   TimeMeetingInnerSection1,
   TimeMeetingCardBox,
   TimeMeetingInnerSection2,
@@ -17,15 +16,22 @@ import {
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
-import { MdExpandMore } from 'react-icons/md';
-import { useQueries, useQuery } from 'react-query';
-import { getPost, getUser } from '../../../common/utils/getApi';
-import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import postState from '../../../recoil/postState';
 
-const TimeMeeting = ({ recommendTimeList, uid, userBookmark }) => {
+const TimeMeeting = ({ uid, userBookmark, currentUserData }) => {
   const titlestring = '</---*';
   const titlestring1 = '{=';
   const titlestring2 = '{';
+
+  const postData = useRecoilValue(postState);
+  const recommendTimeList = postData
+    ? postData.filter(
+        (item) =>
+          !item.isDeleted &&
+          item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
+      )
+    : [];
 
   return (
     <TimeMeetingArea>
