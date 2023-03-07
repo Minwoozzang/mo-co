@@ -7,7 +7,7 @@ const CommentList = ({ id }) => {
   // 데이터 실시간 변경 확인
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    const postCollectionRef = collection();
+    const postCollectionRef = collection(db, 'comment');
     // where을 쓰면 filter의 역할을 대신 해줄 수 있다
     // 파이어베이스의 고유기능
     const q = query(postCollectionRef, where('postId', '==', id));
