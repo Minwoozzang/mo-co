@@ -7,7 +7,6 @@ import ReplyComment from './ReplyComment';
 const ReplyCommentList = ({ comment }) => {
   const [display, setDisplay] = useState(false);
 
-  console.log(display);
   return (
     <ReplyWrap>
       <Replybutton

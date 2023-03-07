@@ -3,14 +3,14 @@ import { authService } from '../common/firebase';
 import userState from './userState';
 
 const userSelector = selector({
-  key: 'userSelector',
+  key: 'userSelector1234',
   get: ({ get }) => {
-    const userInfo = get(userState);
-    const myInfo = userInfo.filter(
-      (i) => i.uid === authService.currentUser?.uid,
+    const userInfor = get(userState);
+    const myInfor = userInfor?.filter(
+      (t) => t.uid === authService.currentUser.uid,
     );
 
-    return { userInfo, myInfo };
+    return { userInfor, myInfor };
   },
 });
 

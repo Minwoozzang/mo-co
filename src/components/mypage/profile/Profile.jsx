@@ -31,22 +31,31 @@ import {
   NicaknameHello,
   ProfileSectionGap,
 } from './ProfileStyle';
-import {
-  collection,
-  doc,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from '@firebase/firestore';
+import { doc, updateDoc } from '@firebase/firestore';
 import { useNavigate } from 'react-router';
 import wheel from '../../../../src/assets/login/wheel.png';
 import default_profile from '../../../assets/icon/user.png';
 import { useRecoilValue } from 'recoil';
 import userState from '../../../recoil/userState';
+import { useQueryClient } from 'react-query';
 import userSelector from '../../../recoil/userSelector';
+import useUser from '../../../hooks/useUser';
 
 const Profile = () => {
+  // 유저 가져오기 (Recoil)
+  const userInfo = useRecoilValue(userState);
+  const myInfo = userInfo?.filter(
+    (t) => t.uid === authService.currentUser?.uid,
+  );
+  const queryClient = useQueryClient();
+  const { myInfor } = useRecoilValue(userSelector);
+
+  // TODO: 이거부터 해보자
+  const { isLoading } = useUser();
+  console.log('miiii', isLoading);
+
+  const [getUser, setGetUser] = useState(userInfo);
+
   // 네이게이트
   const navigate = useNavigate();
 
@@ -66,56 +75,15 @@ const Profile = () => {
   // 이미지 선택
   const inputImageRef = useRef();
 
-  // 유저 정보 가져오기
-  const [profileUserInfo, setProfileUserInfo] = useState([]);
-
-  // 스택 정보 기져오기
-  const [stackIsRemote, setStaclIsRemote] = useState('');
-  const [stackPlace, setStackPlace] = useState('');
-  const [stackTime, setStackTime] = useState('');
-  const [techStack, setTechStack] = useState([]);
-
-  // 유저 정보 불러오기
-  const getUserStackInfo = () => {
-    const q = query(
-      collection(db, 'user'),
-      where('uid', '==', authService.currentUser.uid),
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setProfileUserInfo(newInfo);
-
-      setStaclIsRemote(newInfo[0]?.moreInfo.u_isRemote);
-      setStackPlace(newInfo[0]?.moreInfo.u_location);
-      setStackTime(newInfo[0]?.moreInfo.u_time);
-      setTechStack(newInfo[0]?.moreInfo.u_stack);
-    });
-
-    return unsubscribe;
-  };
-
-  // 유저 가져오기 (Recoil)
-  const { userInfo, myInfo } = useRecoilValue(userSelector);
-
-  console.log(
-    'ingo',
-    userInfo.filter((i) => i.uid === authService.currentUser?.uid),
-  );
-
   // 유저 확인
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setCurrentUser(authService.currentUser.uid);
         setNickName(authService.currentUser.displayName);
-        // setPhotoURL(authService.currentUser.photoURL);
-        getUserStackInfo();
       }
     });
-  }, [currentUser, nickName]);
+  }, [currentUser, nickName, myInfor, userInfo]);
 
   // 수정, 완료 토글
   const [clickEditBtn, setClickBtn] = useState(true);
@@ -135,6 +103,7 @@ const Profile = () => {
     await updateDoc(doc(db, 'user', authService.currentUser.uid), {
       nickname: nickNamevalue,
     });
+    queryClient.invalidateQueries('user');
     alert('닉네임 수정 완료');
     setClickBtn(true);
     setEditNickName(false);
@@ -168,7 +137,7 @@ const Profile = () => {
 
   return (
     <MyProfileBody>
-      <ProfileSection>
+      {/* <ProfileSection>
         <ProfileSectionGap />
         <ProfileMocoText>마이 모코</ProfileMocoText>
         <NicknameImageBox>
@@ -182,9 +151,7 @@ const Profile = () => {
                     onChange={(e) => setNickNameValue(e.target.value)}
                   />
                 ) : (
-                  <ProfileNickName>
-                    {profileUserInfo[0]?.nickname}님
-                  </ProfileNickName>
+                  <ProfileNickName>{myInfo[0]?.nickname}님</ProfileNickName>
                 )}
                 {clickEditBtn ? (
                   <ProfileNickNameBtn onClick={edditNickName}>
@@ -202,9 +169,7 @@ const Profile = () => {
           <ProfileImageBody>
             <ProfileImage
               src={
-                profileUserInfo[0]?.profileImg
-                  ? profileUserInfo[0].profileImg
-                  : default_profile
+                myInfo[0]?.profileImg ? myInfo[0].profileImg : default_profile
               }
               width="90"
               height="90"
@@ -236,21 +201,23 @@ const Profile = () => {
             <ProfileStackBody>
               <StackbodyTitle>온/오프라인</StackbodyTitle>
               <StackbodyText>
-                {stackIsRemote ? '온라인' : '오프라인'}
+                {myInfo[0]?.moreInfo.u_isRemote ? '온라인' : '오프라인'}
               </StackbodyText>
             </ProfileStackBody>
             <ProfileStackBody>
               <StackbodyTitle>모임 장소</StackbodyTitle>
-              <StackbodyText>서울시 {stackPlace}</StackbodyText>
+              <StackbodyText>
+                서울시 {myInfo[0]?.moreInfo.u_location}
+              </StackbodyText>
             </ProfileStackBody>
             <ProfileStackBody>
               <StackbodyTitle>모임 시간</StackbodyTitle>
-              <StackbodyText>{stackTime}</StackbodyText>
+              <StackbodyText>{myInfo[0]?.moreInfo.u_time}</StackbodyText>
             </ProfileStackBody>
             <ProfileTechBody>
               <TechBodyTitle>기술 스택</TechBodyTitle>
               <TechBodyImage>
-                {techStack?.map((item, idx) => (
+                {myInfo[0]?.moreInfo?.u_stack?.map((item, idx) => (
                   <img
                     key={idx}
                     src={require(`../../../assets/stack/${item}.png`)}
@@ -268,7 +235,7 @@ const Profile = () => {
             맞춤정보 수정
           </ProfileStackBtn>
         </ProfileFooterBody>
-      </ProfileSection>
+      </ProfileSection> */}
     </MyProfileBody>
   );
 };

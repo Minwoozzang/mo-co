@@ -12,19 +12,18 @@ function App() {
   const API_KEY = process.env.REACT_APP_REACT_APP_API_KEY;
 
   const setUserState = useSetRecoilState(userState);
-  const { data } = useUser();
+  const user = useUser();
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
-        setUserState(data);
       } else {
         return;
       }
     });
-
+    setUserState(user.data);
     init(API_KEY);
-  }, []);
+  }, [user.data]);
   return (
     <>
       <GlobalStyle />
