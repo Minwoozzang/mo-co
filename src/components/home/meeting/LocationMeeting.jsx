@@ -15,7 +15,7 @@ import { db } from '../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
 
-const LocationMeeting = ({ uid, userBookmark, currentUserData }) => {
+const LocationMeeting = ({ currentUserData }) => {
   const titlestring1 = '{=';
   const titlestring2 = ';';
   const titlestring3 = '} * --- />';
@@ -51,8 +51,6 @@ const LocationMeeting = ({ uid, userBookmark, currentUserData }) => {
                     key={`지역이 맞는 모임 ${idx}`}
                     item={item}
                     db={db}
-                    uid={uid}
-                    userBookmark={userBookmark}
                   />
                 ))}
           </LocationMeetingCardBox>

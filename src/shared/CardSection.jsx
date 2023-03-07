@@ -7,28 +7,27 @@ import { useRecoilValue } from 'recoil';
 import BookmarkImg from '../assets/icon/Icon_Scrap.png';
 import BookmarkedImg from '../assets/icon/Icon_Scrap_active.png';
 import defaultImg from '../assets/icon/user.png';
+import useUserQuery from '../hooks/useUserQuery';
 import authState from '../recoil/authState';
 
-const CardSection = ({ item, db, userBookmark }) => {
+const CardSection = ({ item, db }) => {
   const user = useRecoilValue(authState);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const bookmark = item.bookmark;
   const [partyNum, setPartyNum] = useState(0);
+  const userDoc = useUserQuery();
+  const bookmarks = userDoc?.bookmarks;
 
   // HTML을 plain text로 변환
   const parsedHtml = item.partyDesc?.replace(/(<([^>]+)>)/gi, '');
 
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
-    if (user?.uid === null) {
+    if (user === null) {
       alert('로그인 후 이용해 주세요.');
       return;
     }
-    // 현재 유저 문서 가져오기
-    const userDoc = await getDoc(doc(db, 'user', user?.uid));
-    const userData = userDoc.data();
-    const bookmarks = await userData.bookmarks;
 
     // 현재 유저의 bookmarks에 해당 게시물이 없을 때
     if (!bookmarks.includes(item.id)) {
@@ -50,6 +49,7 @@ const CardSection = ({ item, db, userBookmark }) => {
           });
           const endTime = performance.now(); // 완료 시간 측정
           console.log(`Optimistic Update + 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+          queryClient.invalidateQueries(['user', user?.uid]);
           return updatedData;
         });
 
@@ -88,6 +88,8 @@ const CardSection = ({ item, db, userBookmark }) => {
           console.log('낙관적 -1');
           const endTime = performance.now(); // 완료 시간 측정
           console.log(`Optimistic Update - 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+          queryClient.invalidateQueries(['user', user?.uid]);
+
           return updatedData;
         });
 
@@ -128,7 +130,7 @@ const CardSection = ({ item, db, userBookmark }) => {
         <Bookmark>
           <span>{item.bookmark}</span>
           <BookmarkIcon onClick={handleBookmark}>
-            {userBookmark?.includes(item.id) ? (
+            {userDoc?.bookmarks?.includes(item.id) ? (
               <img src={BookmarkedImg} alt="bookmarked" width="20px" />
             ) : (
               <img src={BookmarkImg} alt="bookmark" width="20px" />

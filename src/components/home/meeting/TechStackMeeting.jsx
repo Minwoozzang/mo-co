@@ -13,8 +13,6 @@ import postState from '../../../recoil/postState';
 const TechStackMeeting = ({
   isLoggedIn,
   // recommendTechList,
-  uid,
-  userBookmark,
   currentUserData,
 }) => {
   const postData = useRecoilValue(postState);
@@ -43,15 +41,7 @@ const TechStackMeeting = ({
         ) : (
           recommendTechList
             .slice(0, 4)
-            .map((item, idx) => (
-              <CardSection
-                key={idx}
-                item={item}
-                db={db}
-                uid={uid}
-                userBookmark={userBookmark}
-              />
-            ))
+            .map((item, idx) => <CardSection key={idx} item={item} db={db} />)
         )}
       </MeetingCardBox>
     </TechStackMeetingArea>

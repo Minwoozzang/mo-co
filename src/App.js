@@ -32,6 +32,7 @@ function App() {
           uid: user.uid,
           displayName: user.displayName,
           photoURL: user.photoURL,
+          isLogin: true,
         });
       } else {
         return;
