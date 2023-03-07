@@ -45,7 +45,7 @@ const CustomListCardBox = styled.div`
   width: 900px;
   height: 320px;
   margin: 0 auto;
-  margin-top: 140px;
+  /* margin-top: 140px; */
   display: flex;
   gap: 0 30px;
 `;

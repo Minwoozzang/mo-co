@@ -157,6 +157,7 @@ const Home = () => {
       <MainBackground>
         {init ? (
           <>
+            <CustomListContainer>
             <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
             <CustomMeeting
               isLoggedIn={isLoggedIn}
@@ -164,6 +165,7 @@ const Home = () => {
               uid={uid}
               userBookmark={userBookmark}
             />
+            </CustomListContainer>
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
               // recommendTechList={recommendTechList}
@@ -199,7 +201,7 @@ export default Home;
 const FullScreen = styled.div`
   width: 100%;
   max-width: 100%;
-  /* height: 100%; */
+  height: 100vh;
   background-size: cover;
   background-color: #111111;
   display: flex;
@@ -215,6 +217,11 @@ const MainBackground = styled.div`
   background-position: center;
   /* background-color: white; */
 `;
+const CustomListContainer = styled.div`
+  border: 0.1px solid gray;
+  width: 100%;
+  height: 585px;
+`
 const CoverBackground = styled.div`
   width: 100%;
   background-color: #111111;
