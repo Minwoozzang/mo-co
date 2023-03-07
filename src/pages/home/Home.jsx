@@ -97,31 +97,31 @@ const Home = () => {
     (item) => item.uid === currentUser?.uid,
   );
 
-  const recommendTechList = postData
-    ? postData.filter(
-        (item) =>
-          !item.isDeleted &&
-          item.partyStack.includes(
-            currentUserData[0]?.moreInfo?.u_stack.toString(),
-          ),
-      )
-    : [];
+  // const recommendTechList = postData
+  //   ? postData.filter(
+  //       (item) =>
+  //         !item.isDeleted &&
+  //         item.partyStack.includes(
+  //           currentUserData[0]?.moreInfo?.u_stack.toString(),
+  //         ),
+  //     )
+  //   : [];
 
-  const recommendTimeList = postData
-    ? postData.filter(
-        (item) =>
-          !item.isDeleted &&
-          item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
-      )
-    : [];
+  // const recommendTimeList = postData
+  //   ? postData.filter(
+  //       (item) =>
+  //         !item.isDeleted &&
+  //         item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
+  //     )
+  //   : [];
 
-  const recommendLocationList = postData
-    ? postData.filter(
-        (item) =>
-          !item.isDeleted &&
-          item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
-      )
-    : [];
+  // const recommendLocationList = postData
+  //   ? postData.filter(
+  //       (item) =>
+  //         !item.isDeleted &&
+  //         item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
+  //     )
+  //   : [];
 
   const customList = postData
     ? postData.filter(
@@ -166,11 +166,12 @@ const Home = () => {
             />
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
-              recommendTechList={recommendTechList}
-              recommendTimeList={recommendTimeList}
-              recommendLocationList={recommendLocationList}
+              // recommendTechList={recommendTechList}
+              // recommendTimeList={recommendTimeList}
+              // recommendLocationList={recommendLocationList}
               uid={uid}
               userBookmark={userBookmark}
+              currentUserData={currentUserData}
             />
           </>
         ) : (

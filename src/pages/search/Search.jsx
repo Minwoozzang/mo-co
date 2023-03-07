@@ -10,7 +10,7 @@ const Search = () => {
   const params = useParams();
   const [searchData, setSearchData] = useState([]);
   
-  // firestore에서 post 문서 받아오기
+  // firestore에서 post 문서 받아와서 검색한 내용이 포함 된 데이터만 추출
   useEffect(() => {
     const postCollectionRef = collection(db, 'post');
     const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
@@ -42,12 +42,12 @@ const Search = () => {
     });
     return getPost;
   }, [params.word]);
-  console.log(searchData);
+  // console.log(searchData);
 
   return (
     <SearchResultFullScreen>
       <SearchResultContainer>
-      <SearchTitle>검색어 : {params.word.toLowerCase()}</SearchTitle>
+      <SearchTitle>검색 건수 : {searchData.length}</SearchTitle>
       <CardWrapper>
         {searchData.map((item, idx) => (
           <CardSection 
@@ -82,7 +82,7 @@ const SearchResultContainer = styled.div`
 const SearchTitle = styled.div`
   height: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   color: white;
 `;

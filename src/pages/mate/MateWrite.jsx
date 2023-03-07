@@ -148,6 +148,7 @@ const MateWrite = () => {
                   partyName,
                   partyLocation,
                   partyTime,
+                  partyStack,
                 },
               });
             })
@@ -166,6 +167,7 @@ const MateWrite = () => {
               console.log('팀페이지 에러');
             });
           queryClient.invalidateQueries('posts');
+          queryClient.invalidateQueries('teamPage'); // 진행 중 모임에 바로 반영
           console.log('업로드 성공');
           navigate(`/mate`);
         } catch (error) {
