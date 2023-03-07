@@ -40,7 +40,7 @@ import Search from '../../assets/icon/Icon_Search.png';
 import Alarm from '../../assets/icon/Icon_Alarm.png';
 import { ImCancelCircle } from 'react-icons/im';
 import defaultImg from '../../../src/assets/icon/user.png';
-import NotiBadge from './notification/NotiBadge';
+// import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -217,7 +217,7 @@ const Header = () => {
           >
             팀 개설하기
           </MakeTeam>
-          <div>
+          {/* <div>
             <img
               src={Alarm}
               alt="alarm"
@@ -237,7 +237,7 @@ const Header = () => {
             ) : (
               ''
             )}
-          </div>
+          </div> */}
 
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (

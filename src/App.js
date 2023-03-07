@@ -7,8 +7,6 @@ import postState from './recoil/postState';
 import usePosts from './hooks/usePost';
 import authState from './recoil/authState';
 import { authService } from './common/firebase';
-import testteamPageState from './recoil/testteamPageState';
-import useTestTeam from './hooks/useTestTeam';
 
 // init = apikey, userId 를 받으며 비회원이어도 트레킹할 수 있도록 'user@amplitude.com' 생략
 function App() {
@@ -17,11 +15,6 @@ function App() {
   const setPostState = useSetRecoilState(postState);
   const post = usePosts();
   // console.log(post.data)
-
-  // teamPage 컬렉션
-  const setTeamPageState = useSetRecoilState(testteamPageState);
-  const teamPage = useTestTeam();
-  // console.log(teamPage.data)
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
@@ -36,8 +29,7 @@ function App() {
       }
     });
     setPostState(post.data);
-    setTeamPageState(teamPage.data);
-  }, [post.data, teamPage.data]);
+  }, [post.data]);
   
   return (
     <>
