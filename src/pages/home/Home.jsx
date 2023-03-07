@@ -15,6 +15,7 @@ import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNew
 import usePosts from '../../hooks/usePost';
 import { useRecoilValue } from 'recoil';
 import postState from '../../recoil/postState';
+import authState from '../../recoil/authState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
@@ -55,10 +56,10 @@ const Home = () => {
       setUid(uid);
     });
   }, []);
+
+  // post 데이터
   const postData = useRecoilValue(postState);
-  // console.log(postData)
-  // const { data, isLoading, isError, error } = usePosts();
-  const navigate = useNavigate();
+
   const currentUser = authService.currentUser;
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -133,7 +134,7 @@ const Home = () => {
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
-  //postList -> 로그인 안 됐을 시 안보이게
+  //postList -> 로그인 안 됐을 시 안보이게 / where 쓸 때 uid -> null error
   useEffect(() => {
     const userCollectionRef = collection(db, 'user');
     const q = query(userCollectionRef);
@@ -149,7 +150,7 @@ const Home = () => {
     }
     return getUser;
   }, []);
-
+  
   return (
     <FullScreen>
       <HomeBanner />

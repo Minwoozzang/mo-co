@@ -3,7 +3,8 @@ import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../../common/firebase';
-import SearchResultCard from './SearchResultCard';
+import CardSection from '../../shared/CardSection';
+// import SearchResultCard from './SearchResultCard';
 
 const Search = () => {
   const params = useParams();
@@ -37,7 +38,6 @@ const Search = () => {
           filterList.push(item);
         }
       });
-      console.log(filterList);
       setSearchData(filterList);
     });
     return getPost;
@@ -50,7 +50,11 @@ const Search = () => {
       <SearchTitle>검색어 : {params.word.toLowerCase()}</SearchTitle>
       <CardWrapper>
         {searchData.map((item, idx) => (
-          <SearchResultCard key={idx} {...item} />
+          <CardSection 
+            key={idx} 
+            item={item}
+            db={db} 
+          />
         ))}
       </CardWrapper>
     </SearchResultContainer>
@@ -88,3 +92,4 @@ const CardWrapper = styled.div`
   /* background-color: #c8f1e8; */
   gap: 100px 20px;
 `;
+// <SearchResultCard key={idx} {...item} />

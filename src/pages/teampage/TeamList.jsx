@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { authService, db } from '../../common/firebase';
@@ -13,8 +12,6 @@ import CardSection from '../../shared/CardSection';
 const TeamList = () => {
   const params = useParams();
 
-  // const [postList, setPostList] = useState([]);
-  // const [teamPage, setTeamPage] = useState([]);
   const postList = useRecoilValue(postState);
   const teamPage = useRecoilValue(teamPageState);
 
@@ -107,34 +104,6 @@ const TeamList = () => {
     navigate(`/teamPage/${id}`, { state: id });
   };
 
-  //post 데이터 불러오기
-  // useEffect(() => {
-  //   const postCollectionRef = collection(db, 'post');
-  //   const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
-  //   const getPost = onSnapshot(q, (snapshot) => {
-  //     const postData = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setPostList(postData);
-  //   });
-  //   return getPost;
-  // }, []);
-  
-  // teamPage 데이터 불러오기
-  // useEffect(() => {
-  //   const teamPageCollectionRef = collection(db, 'teamPage');
-  //   const q = query(teamPageCollectionRef);
-  //   const getTeamPage = onSnapshot(q, (snapshot) => {
-  //     const teamPageData = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setTeamPage(teamPageData);
-  //   });
-  //   return getTeamPage;
-  // }, []);
-
   return (
     <TeamListFullScreen>
       <TeamListContainer>
@@ -154,7 +123,11 @@ const TeamList = () => {
             ? <CardContainer1>
             {
               appliedMeeting?.map((item, idx) => (
-                <CardSection key={idx} item={item} />
+                <CardSection 
+                  key={idx} 
+                  item={item}
+                  db={db}
+                />
               ))
             }</CardContainer1>
             : <CardContainer2>{
