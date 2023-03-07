@@ -15,11 +15,13 @@ import TeamPage from '../pages/teampage/TeamPage';
 import Home from './../pages/home/Home';
 import MateDetail from './../pages/mate/MateDetail';
 // * 테스트 페이지
+import Test from '../pages/Test';
+import Amplitude from './../amplitude';
+import { authService } from '../common/firebase';
 import { useRecoilValue } from 'recoil';
 import ScrollTop from '../common/scrollTop';
-import Test from '../pages/Test';
 import authState from '../recoil/authState';
-import Amplitude from './../amplitude';
+
 
 const Router = () => {
   const user = useRecoilValue(authState);

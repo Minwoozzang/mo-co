@@ -14,10 +14,31 @@ import Alarm from '../../assets/icon/Icon_Alarm.png';
 import Search from '../../assets/icon/Icon_Search.png';
 import { authService, db } from '../../common/firebase';
 import {
-  DropDownListBody, HeaderBody, HeaderDropDownList, HeaderDropDownListBox, HeaderDropDownListSection, HeaderImage, HeaderImageBox, HeaderInfoBody,
-  HeaderLogo, HeaderSearchBox, HeaderSearchDropDownListBox,
-  HeaderSearchDropDownListSection, HeaderSearchInput, HeaderSearchXbutton, HeaderSearchXbuttonBox, LoginRoute, LogoAndMateBox, MakeTeam, MyCodingMate, NavigateMypage, TeamAndLoginBox
+  HeaderBody,
+  HeaderInfoBody,
+  HeaderLogo,
+  NavigateMypage,
+  LogoAndMateBox,
+  MyCodingMate,
+  TeamAndLoginBox,
+  MakeTeam,
+  LoginRoute,
+  HeaderImage,
+  HeaderDropDownListBox,
+  HeaderDropDownList,
+  HeaderImageBox,
+  HeaderDropDownListSection,
+  DropDownListBody,
+  HeaderSearchBox,
+  HeaderSearchInput,
+  HeaderSearchDropDownListBox,
+  HeaderSearchDropDownListSection,
+  HeaderSearchXbuttonBox,
+  HeaderSearchXbutton,
+  HeaderNotiDropDownList,
+  HeaderNotiDropDownListBox,
 } from './style';
+// import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
   // 헤더 로그인 토글
@@ -163,7 +184,7 @@ const Header = () => {
       setDropDownClick(false);
     }
   };
-
+  
   // 알람 드랍다운
   const alarmDropDown = () => {
     if (alarmDrop === false) {
@@ -194,7 +215,7 @@ const Header = () => {
           >
             팀 개설하기
           </MakeTeam>
-          <div>
+          {/* <div>
             <img
               src={Alarm}
               alt="alarm"
@@ -202,13 +223,19 @@ const Header = () => {
               onClick={alarmDropDown}
             />
             {alarmDrop ? (
-              <HeaderDropDownListBox style={{ position: 'absolute' }}>
-                <HeaderDropDownListSection>hhhaaa</HeaderDropDownListSection>
-              </HeaderDropDownListBox>
+              <HeaderNotiDropDownListBox 
+                style={{ position: 'absolute' }}
+              >
+                <HeaderDropDownListSection style={{padding: '10px'}}>
+                  <HeaderNotiDropDownList>
+                    <NotiBadge />
+                  </HeaderNotiDropDownList>
+                </HeaderDropDownListSection>
+              </HeaderNotiDropDownListBox>
             ) : (
               ''
             )}
-          </div>
+          </div> */}
 
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (

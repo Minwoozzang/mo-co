@@ -13,6 +13,8 @@ import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
 import usePosts from '../../hooks/usePost';
+import { useRecoilValue } from 'recoil';
+import postState from '../../recoil/postState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
@@ -53,8 +55,9 @@ const Home = () => {
       setUid(uid);
     });
   }, []);
-
-  const { data, isLoading, isError, error } = usePosts();
+  const postData = useRecoilValue(postState);
+  // console.log(postData)
+  // const { data, isLoading, isError, error } = usePosts();
   const navigate = useNavigate();
   const currentUser = authService.currentUser;
   //* 모달 오픈 여부 상태
@@ -93,8 +96,8 @@ const Home = () => {
     (item) => item.uid === currentUser?.uid,
   );
 
-  const recommendTechList = data
-    ? data.filter(
+  const recommendTechList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyStack.includes(
@@ -103,24 +106,24 @@ const Home = () => {
       )
     : [];
 
-  const recommendTimeList = data
-    ? data.filter(
+  const recommendTimeList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time),
       )
     : [];
 
-  const recommendLocationList = data
-    ? data.filter(
+  const recommendLocationList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
       )
     : [];
 
-  const customList = data
-    ? data.filter(
+  const customList = postData
+    ? postData.filter(
         (item) =>
           !item.isDeleted &&
           item.partyStack.includes(
@@ -174,7 +177,7 @@ const Home = () => {
         )}
         <CoverBackground>
           <HomeNewMeetingList
-            data={data}
+            data={postData}
             uid={uid}
             userBookmark={userBookmark}
           />

@@ -8,9 +8,16 @@ import commentState from './recoil/commentState';
 import Router from './shared/router';
 import useComment from './hooks/useComment';
 import teamPageState from './recoil/teamPageState';
+import postState from './recoil/postState';
+import usePosts from './hooks/usePost';
 
 function App() {
   const setAuthState = useSetRecoilState(authState);
+
+  // post 컬렉션
+  const setPostState = useSetRecoilState(postState);
+  const post = usePosts();
+  // console.log(post.data)
   const setCommentState = useSetRecoilState(commentState);
   const setTeamPageState = useSetRecoilState(teamPageState);
   const teamPage = useTeamPage();
@@ -29,10 +36,10 @@ function App() {
         return;
       }
     });
-
+    setPostState(post.data);
     setTeamPageState(teamPage.data);
-  }, [authService.currentUser, teamPage]);
-
+  }, [post.data, teamPage.data]);
+  
   return (
     <>
       <GlobalStyle />

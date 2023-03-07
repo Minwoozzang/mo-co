@@ -2,23 +2,28 @@ import styled from '@emotion/styled';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
+import postState from '../../recoil/postState';
+import teamPageState from '../../recoil/teamPageState';
 import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
   const params = useParams();
 
-  const [postList, setPostList] = useState([]);
-  const [teamPage, setTeamPage] = useState([]);
+  // const [postList, setPostList] = useState([]);
+  // const [teamPage, setTeamPage] = useState([]);
+  const postList = useRecoilValue(postState);
+  const teamPage = useRecoilValue(teamPageState);
 
   // teamPage로 가는 버튼 팀리스트에서만 보이게하기
   const [show, setShow] = useState(true);
 
   // teamPage teamMember에서 내 닉네임이 포함된 teamPage 데이터
   let myAppliedMeeting = [];
-  const myApplyMeeting = teamPage.forEach((item) => {
+  const myApplyMeeting = teamPage?.forEach((item) => {
     item.teamMember.forEach((member) => {
       if (member.uid === authService?.currentUser?.uid) {
         myAppliedMeeting.push(item);
@@ -27,7 +32,7 @@ const TeamList = () => {
     });
   });
 
-  // 참여 신청 수락 후 데이터(진행 중 모임), teamMember isWait=false, nickName=usernickName
+  // 참여 신청 수락 후 데이터(진행 중 모임), teamMember isWait=false, uid = useruid
   let myApprovedMeeting = [];
   const approvedMeeting = myAppliedMeeting.forEach((item) => {
     item.teamMember.forEach((member) => {
@@ -40,6 +45,7 @@ const TeamList = () => {
       }
     });
   });
+
   // 자신이 개설한 팀 데이터(리더)
   const myOnGoingMeeting = teamPage?.filter((item) =>
     item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
@@ -49,14 +55,28 @@ const TeamList = () => {
   const onGoingMeeting = myApprovedMeeting?.concat(myOnGoingMeeting); //리더 표시해주기
 
   // 참여 신청 데이터 -> postList에서 불러와야 됨
-  // 내 닉네임이 포함된 데이터에서 teamID만 추출
-  const myAppliedteamID = myAppliedMeeting?.map((item) => item.teamID);
-
+  // 참여 신청 수락되면 참여 신청 모임 쪽에는 안 보이게(참여신청모임), teamMember isWait=true
+  let myApprovedMeetingAfter = [];
+  const approvedMeetingAfter = myAppliedMeeting.forEach((item) => {
+    item.teamMember.forEach((member) => {
+      if (
+        member.isWait === true &&
+        member.uid === authService?.currentUser?.uid
+      ) {
+        myApprovedMeetingAfter.push(item);
+        return false;
+      }
+    });
+  })
+  
+  // 팀 멤버에 내 닉네임이 포함된 데이터에서 teamID만 추출
+  const myAppliedteamID = myApprovedMeetingAfter?.map((item) => item.teamID);
+  
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
     myAppliedteamID?.includes(item.teamID),
   );
-
+  
   // 카테고리 클릭 시
   const [myTeamIsWait, setMyTeamIsWait] = useState(false);
 
@@ -88,32 +108,32 @@ const TeamList = () => {
   };
 
   //post 데이터 불러오기
-  useEffect(() => {
-    const postCollectionRef = collection(db, 'post');
-    const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
-    const getPost = onSnapshot(q, (snapshot) => {
-      const postData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPostList(postData);
-    });
-    return getPost;
-  }, []);
-
+  // useEffect(() => {
+  //   const postCollectionRef = collection(db, 'post');
+  //   const q = query(postCollectionRef, orderBy('createdAt', 'desc'));
+  //   const getPost = onSnapshot(q, (snapshot) => {
+  //     const postData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setPostList(postData);
+  //   });
+  //   return getPost;
+  // }, []);
+  
   // teamPage 데이터 불러오기
-  useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
-    return getTeamPage;
-  }, []);
+  // useEffect(() => {
+  //   const teamPageCollectionRef = collection(db, 'teamPage');
+  //   const q = query(teamPageCollectionRef);
+  //   const getTeamPage = onSnapshot(q, (snapshot) => {
+  //     const teamPageData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamPage(teamPageData);
+  //   });
+  //   return getTeamPage;
+  // }, []);
 
   return (
     <TeamListFullScreen>
@@ -129,20 +149,25 @@ const TeamList = () => {
             />
           ))}
         </MeetingCategory>
-        <CardContainer>
+        
           {myTeamIsWait
-            ? appliedMeeting?.map((item, idx) => (
+            ? <CardContainer1>
+            {
+              appliedMeeting?.map((item, idx) => (
                 <CardSection key={idx} item={item} />
               ))
-            : onGoingMeeting?.map((item, idx) => (
+            }</CardContainer1>
+            : <CardContainer2>{
+              onGoingMeeting?.map((item, idx) => (
                 <OngoingCardSection
                   key={idx}
                   item={item}
                   goToTeamPage={goToTeamPage}
                   showTeamPageBtn={show}
                 />
-              ))}
-        </CardContainer>
+              ))
+            }</CardContainer2>}
+        
       </TeamListContainer>
     </TeamListFullScreen>
   );
@@ -180,7 +205,15 @@ const MeetingCategory = styled.div`
   margin-top: 50px;
   /* background-color: #83c0f1; */
 `;
-const CardContainer = styled.div`
+const CardContainer1 = styled.div`
+  width: 1178px;
+  margin-top: 40px;
+  display: flex;
+  gap: 90px 20px;
+  flex-wrap: wrap;
+  /* background-color: #c9dff3; */
+`;
+const CardContainer2 = styled.div`
   width: 1178px;
   margin-top: 40px;
   display: flex;
