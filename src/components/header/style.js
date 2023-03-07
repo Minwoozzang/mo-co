@@ -170,6 +170,43 @@ export const HeaderDropDownList = styled.li`
   list-style: none;
 `;
 
+export const HeaderNotiDropDownList = styled.li`
+  font-size: 1.0rem;
+  color: #ffffff;
+  list-style: none;
+`;
+
+export const HeaderNotiDropDownListBox = styled.div`
+  width: 280px;
+  height: 300px;
+
+  margin-top: 10px;
+
+  border-radius: 5px;
+  background-color: #3b3b3b;
+  box-shadow: 2px 2px 10px 10px #0001;
+
+  overflow-y: auto;
+
+  z-index: 999;
+
+  ::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: #3b3b3b;
+    border-top: 0;
+    margin-left: -22px;
+    margin-top: -13px;
+
+    z-index: 5;
+  }
+`;
+
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;
   height: 100px; //200px

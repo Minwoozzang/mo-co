@@ -27,8 +27,13 @@ import SideMemberList from './SideMemberList';
 import WaitMemberList from './WaitMemberList';
 import { confirmAlert } from 'react-confirm-alert';
 import MyProfileConfirm from './teamPageConfirm/MyProfileConfirm';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import userState from '../../recoil/userState';
 
 export default function MemberSide({ teamLocationID }) {
+  const getMyinfo = useRecoilValue(userState);
+  // console.log('get', getMyinfo);
+
   const [nickName, setNickName] = useState('');
 
   // 팀 리더 정보
@@ -87,7 +92,7 @@ export default function MemberSide({ teamLocationID }) {
         return;
       }
     });
-  }, [nickName]);
+  }, [nickName, getMyinfo]);
 
   // 내 프로필 보기
   const teamInfo = teamMemberInfo.filter((t) => t.teamID === teamLocationID);

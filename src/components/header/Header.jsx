@@ -4,12 +4,15 @@ import {
   onSnapshot,
   query,
   setDoc,
-  updateDoc,
   where,
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { ImCancelCircle } from 'react-icons/im';
 import { useLocation, useNavigate } from 'react-router';
+import defaultImg from '../../../src/assets/icon/user.png';
+import Alarm from '../../assets/icon/Icon_Alarm.png';
+import Search from '../../assets/icon/Icon_Search.png';
 import { authService, db } from '../../common/firebase';
 import {
   HeaderBody,
@@ -33,13 +36,16 @@ import {
   HeaderSearchDropDownListSection,
   HeaderSearchXbuttonBox,
   HeaderSearchXbutton,
+  HeaderNotiDropDownList,
+  HeaderNotiDropDownListBox,
 } from './style';
-import Search from '../../assets/icon/Icon_Search.png';
-import Alarm from '../../assets/icon/Icon_Alarm.png';
-import { ImCancelCircle } from 'react-icons/im';
-import defaultImg from '../../../src/assets/icon/user.png';
+// import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
+  // 현제 경로
+  const location = useLocation();
+  const path = location.pathname;
+
   // 헤더 로그인 토글
   const [loginToggle, setLoginToggle] = useState(true);
 
@@ -95,10 +101,13 @@ const Header = () => {
   const navigate = useNavigate();
 
   const navigateHome = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate('/');
   };
 
   const navigateMyPage = () => {
+    setSearchdropDownClick(false);
     navigate('/mypage');
   };
 
@@ -111,6 +120,8 @@ const Header = () => {
 
   // 내 코딩모임 페이지로 이동
   const navigateMyCodingMate = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate(`/teamlist/${authService.currentUser.displayName}`);
   };
 
@@ -131,6 +142,7 @@ const Header = () => {
   };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
+      setDropDownClick(false);
       setSearchdropDownClick(true);
     }
   };
@@ -182,6 +194,7 @@ const Header = () => {
     } else {
       setDropDownClick(false);
     }
+    setSearchdropDownClick(false);
   };
 
   // 알람 드랍다운
@@ -208,13 +221,15 @@ const Header = () => {
               if (!authService.currentUser) {
                 alert('로그인이 필요합니다.');
               } else {
+                setDropDownClick(false);
+                setSearchdropDownClick(false);
                 navigate('/write');
               }
             }}
           >
             팀 개설하기
           </MakeTeam>
-          <div>
+          {/* <div>
             <img
               src={Alarm}
               alt="alarm"
@@ -222,13 +237,19 @@ const Header = () => {
               onClick={alarmDropDown}
             />
             {alarmDrop ? (
-              <HeaderDropDownListBox style={{ position: 'absolute' }}>
-                <HeaderDropDownListSection>hhhaaa</HeaderDropDownListSection>
-              </HeaderDropDownListBox>
+              <HeaderNotiDropDownListBox 
+                style={{ position: 'absolute' }}
+              >
+                <HeaderDropDownListSection style={{padding: '10px'}}>
+                  <HeaderNotiDropDownList>
+                    <NotiBadge />
+                  </HeaderNotiDropDownList>
+                </HeaderDropDownListSection>
+              </HeaderNotiDropDownListBox>
             ) : (
               ''
             )}
-          </div>
+          </div> */}
 
           <div onClick={searchdropDownHandler}>
             {searchdropDownClick ? (

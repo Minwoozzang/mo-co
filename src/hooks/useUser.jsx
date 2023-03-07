@@ -1,12 +1,15 @@
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { authService, db } from '../common/firebase';
 import { useQuery } from 'react-query';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { db } from '../common/firebase';
 
-export default function usePosts() {
+const useUser = () => {
   return useQuery(
-    'posts',
+    'users',
     async () => {
-      const q = query(collection(db, 'post'), orderBy('createdAt', 'desc'));
+      const q = query(
+        collection(db, 'user'),
+        where('uid', '==', authService.currentUser.uid),
+      );
       const querySnapshot = await getDocs(q);
       const posts = querySnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -19,4 +22,6 @@ export default function usePosts() {
       staleTime: 2 * 60 * 1000,
     },
   );
-}
+};
+
+export default useUser;

@@ -34,8 +34,11 @@ import {
   RecruitGuide,
   UserHr,
 } from './DetailRecruitStyle';
+import { useQueryClient } from 'react-query';
 
 const DetailRecruit = () => {
+  const queryClient = useQueryClient();
+
   const { id } = useParams();
   const [post, setpost] = useState([]);
   console.log('🚀 ~ file: DetailRecruit.jsx:41 ~ DetailRecruit ~ post:', post);
@@ -132,6 +135,7 @@ const DetailRecruit = () => {
       teamMember: [
         ...teamMember,
         {
+          isRead: false,
           uid: authService.currentUser.uid,
           joinMessage: joinMessage,
           isWait: true,
@@ -148,6 +152,7 @@ const DetailRecruit = () => {
       .catch(() => {
         console.log('참여 신청 에러');
       });
+    queryClient.invalidateQueries('teamPage');
     console.log('참여 완료');
     setIsModalOpen(false);
   };
@@ -163,18 +168,18 @@ const DetailRecruit = () => {
     setpost(postData.data());
   };
 
-  useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
-    return getTeamPage;
-  }, []);
+  // useEffect(() => {
+  //   const teamPageCollectionRef = collection(db, 'teamPage');
+  //   const q = query(teamPageCollectionRef);
+  //   const getTeamPage = onSnapshot(q, (snapshot) => {
+  //     const teamPageData = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setTeamPage(teamPageData);
+  //   });
+  //   return getTeamPage;
+  // }, []);
 
   useEffect(() => {
     getPost();

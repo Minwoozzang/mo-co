@@ -9,31 +9,37 @@ import {
   onSnapshot,
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useRecoilState } from 'recoil';
+import teamPageState from '../../recoil/teamPageState';
+import { useQueryClient } from 'react-query';
 
 export default function ContentBoard({ teamLocationID }) {
+  const queryClient = useQueryClient();
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
+
   // 보드 내용
   const [boardContent, setBoardContent] = useState('');
 
-  // 팀 아이디 받아오기
-  const [boardContentInfo, setBoardContentInfo] = useState([]);
-  const teamGetTeamID = () => {
-    const q = query(collection(db, 'teamPage'));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setBoardContentInfo(newInfo);
-    });
-    return unsubscribe;
-  };
+  // // 팀 아이디 받아오기
+  // const [boardContentInfo, setBoardContentInfo] = useState([]);
+  // const teamGetTeamID = () => {
+  //   const q = query(collection(db, 'teamPage'));
+  //   const unsubscribe = onSnapshot(q, (snapshot) => {
+  //     const newInfo = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setBoardContentInfo(newInfo);
+  //   });
+  //   return unsubscribe;
+  // };
 
   const [convert, setConvert] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
-        teamGetTeamID();
+        // teamGetTeamID();
       }
     });
   }, []);
@@ -48,6 +54,8 @@ export default function ContentBoard({ teamLocationID }) {
       };
       try {
         await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
+        queryClient.invalidateQueries('teamPage');
+        console.log('dkdkdkdkdkdkkd2q2', queryClient);
       } catch (e) {
         console.log(e);
       } finally {
@@ -78,8 +86,8 @@ export default function ContentBoard({ teamLocationID }) {
             />
           ) : (
             <>
-              {boardContentInfo
-                .filter((item) => item.id === teamLocationID)
+              {teamPage
+                ?.filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
                     <div key={item.id}>

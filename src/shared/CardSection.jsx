@@ -1,14 +1,16 @@
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
-import { authService } from '../common/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import defaultImg from '../assets/icon/user.png';
+import { useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import BookmarkImg from '../assets/icon/Icon_Scrap.png';
 import BookmarkedImg from '../assets/icon/Icon_Scrap_active.png';
-import { useEffect, useState } from 'react';
+import defaultImg from '../assets/icon/user.png';
+import authState from '../recoil/authState';
 
-const CardSection = ({ item, db, userBookmark, uid }) => {
+const CardSection = ({ item, db, userBookmark }) => {
+  const user = useRecoilValue(authState);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const bookmark = item.bookmark;
@@ -19,28 +21,46 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
 
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
-    if (!authService.currentUser) {
+    if (user?.uid === null) {
       alert('로그인 후 이용해 주세요.');
       return;
     }
     // 현재 유저 문서 가져오기
-    const userDoc = await getDoc(doc(db, 'user', uid));
+    const userDoc = await getDoc(doc(db, 'user', user?.uid));
     const userData = userDoc.data();
     const bookmarks = await userData.bookmarks;
 
     // 현재 유저의 bookmarks에 해당 게시물이 없을 때
     if (!bookmarks.includes(item.id)) {
       try {
+        console.log('🔥 북마크 추가 시작');
+        const startTime = performance.now(); // 시작 시간 측정
         // post 컬렉션의 해당 게시물의 bookmark 필드 +1
         await updateDoc(doc(db, 'post', item.id), {
           bookmark: bookmark + 1,
         });
+
+        queryClient.setQueryData('posts', (oldData) => {
+          // 해당 게시물의 정보를 찾아서 북마크 수를 1 증가시킵니다.
+          const updatedData = oldData.map((post) => {
+            if (post.id === item.id) {
+              return { ...post, bookmark: post.bookmark + 1 };
+            }
+            return post;
+          });
+          const endTime = performance.now(); // 완료 시간 측정
+          console.log(`Optimistic Update + 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+          return updatedData;
+        });
+
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 추가
-        await updateDoc(doc(db, 'user', uid), {
+        await updateDoc(doc(db, 'user', user?.uid), {
           bookmarks: [...bookmarks, item.id],
         });
         queryClient.invalidateQueries('posts');
-        console.log('북마크 추가 성공');
+        const endTime2 = performance.now(); // 완료 시간 측정
+        console.log(`Server Update + 1: ${endTime2 - startTime}ms`); // 걸린 시간 출력
+        console.log('북마크 추가 완료');
       } catch {
         console.log('북마크 추가 실패');
       }
@@ -49,16 +69,36 @@ const CardSection = ({ item, db, userBookmark, uid }) => {
     // 현재 유저의 bookmarks에 해당 게시물이 있을 때
     if (bookmarks.includes(item.id)) {
       try {
+        console.log('🔥 북마크 삭제 시작');
+        const startTime = performance.now(); // 시작 시간 측정
+
         // post 컬렉션의 해당 게시물의 bookmark 필드 -1
         await updateDoc(doc(db, 'post', item.id), {
           bookmark: bookmark - 1,
         });
+
+        queryClient.setQueryData('posts', (oldData) => {
+          // 해당 게시물의 정보를 찾아서 북마크 수를 1 감소시킵니다.
+          const updatedData = oldData.map((post) => {
+            if (post.id === item.id) {
+              return { ...post, bookmark: post.bookmark - 1 };
+            }
+            return post;
+          });
+          console.log('낙관적 -1');
+          const endTime = performance.now(); // 완료 시간 측정
+          console.log(`Optimistic Update - 1: ${endTime - startTime}ms`); // 걸린 시간 출력
+          return updatedData;
+        });
+
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 삭제
-        await updateDoc(doc(db, 'user', uid), {
+        await updateDoc(doc(db, 'user', user?.uid), {
           bookmarks: bookmarks.filter((bookmark) => bookmark !== item.id),
         });
         queryClient.invalidateQueries('posts');
-        console.log('북마크 삭제 성공');
+        const endTime2 = performance.now(); // 완료 시간 측정
+        console.log(`Server Update - 1: ${endTime2 - startTime}ms`); // 걸린 시간 출력
+        console.log('북마크 삭제 완료');
       } catch {
         console.log('북마크 삭제 실패');
       }
