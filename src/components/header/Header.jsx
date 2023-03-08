@@ -231,7 +231,7 @@ const Header = () => {
             내 코딩모임 보기
           </MyCodingMate>
         </LogoAndMateBox>
-        <TeamAndLoginBox>
+        <TeamAndLoginBox style={{position: 'relative'}}>
           <MakeTeam
             onClick={() => {
               if (!authService.currentUser) {
