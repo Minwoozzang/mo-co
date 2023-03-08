@@ -270,23 +270,24 @@ const Header = () => {
           {searchIcon ? (
             <div onClick={searchdropDownHandler}>
               {searchdropDownClick ? (
-                <SearchLayer
-                  ref={searchRef}
-                  onClick={(e) => searchModalOutSideClick(e)}
-                >
-                  <SearchModalLayer>
+                
+                    <>
+                    <>
                     {isSearchUserDropDown ? (
                       <NavigateMypage>
                         <img
                           src={Search}
                           alt="search"
                           style={{ width: '20px' }}
-                          onClick={() => setSearchdropDownClick(false)}
+                          // onClick={() => setSearchdropDownClick(false)}
                         />
                       </NavigateMypage>
                     ) : (
                       ''
                     )}
+                    </>
+                    <SearchLayer ref={searchRef} onClick={(e)=>searchModalOutSideClick(e)}>
+                    <SearchModalLayer>
                     <HeaderSearchDropDownListBox
                       style={{ position: 'absolute' }}
                     >
@@ -318,8 +319,11 @@ const Header = () => {
                       </HeaderSearchDropDownListSection>
                       {/* <HeaderSearchDropDownHr /> */}
                     </HeaderSearchDropDownListBox>
-                  </SearchModalLayer>
-                </SearchLayer>
+                    </SearchModalLayer>
+                    </SearchLayer>
+                    </>
+                  
+                
               ) : (
                 <NavigateMypage>
                   <img src={Search} alt="search" style={{ width: '20px' }} />

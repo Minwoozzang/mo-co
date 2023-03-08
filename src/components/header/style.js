@@ -18,6 +18,7 @@ export const HeaderBody = styled.div`
 
 export const HeaderInfoBody = styled.div`
   width: 1180px;
+  /* width: 61.456%; */
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -26,6 +27,7 @@ export const HeaderInfoBody = styled.div`
 
 export const LogoAndMateBox = styled.div`
   width: 20rem;
+  /* width: 27.12%; */
   height: 50px;
   display: flex;
   align-items: center;
@@ -40,6 +42,7 @@ export const HeaderLogo = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   width: 130px;
+  /* width: 40.625%; */
   height: 50px;
 `;
 
@@ -56,6 +59,7 @@ export const MyCodingMate = styled.div`
 
 export const TeamAndLoginBox = styled.div`
   width: 330px;
+  /* width: 27.97%; */
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -64,6 +68,7 @@ export const TeamAndLoginBox = styled.div`
 
 export const MakeTeam = styled.button`
   width: 114px;
+  /* width: 34.55%; */
   height: 40px;
   border-radius: 20px;
   border: none;
@@ -229,8 +234,11 @@ export const SearchLayer = styled.div`
 `;
 export const SearchModalLayer = styled.div`
   position: fixed;
-  top: 3.1%;
-  left: 72.4%;
+  /* top: 31.005px; */
+  top: 60px;
+  left: 72%;
+  /* right: 20%; */
+  /* background-color: aliceblue; */
 `;
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;

@@ -110,7 +110,7 @@ const FullScreen = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
+  /* margin-top: 80px; */
 `;
 const MainBackground = styled.div`
   width: 100%;
