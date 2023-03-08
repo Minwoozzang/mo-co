@@ -6,12 +6,12 @@ export const GroupWrap = styled.div`
 `;
 export const GroupHeader = styled.h4`
   width: 100%;
-  height: 20px;
-  margin-top: 90px;
-  font-size: 24px;
+  height: 1.25rem;
+  margin-top: 5.625rem;
+  font-size: 1.5rem;
   font-weight: 500;
   color: #fff;
-  padding-left: 420px;
+  padding-left: 22.5rem;
 `;
 export const GroupUserInfo = styled.div`
   display: flex;
@@ -24,14 +24,14 @@ export const UserInfoWrap = styled.div`
 `;
 
 export const GroupImg = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.25rem;
   margin-top: auto;
-  margin-left: 420px;
+  margin-left: 360px;
 `;
 export const GroupUserId = styled.p`
-  margin: 43px 8px 8px;
+  margin: 2.6875rem 0.5rem 0.5rem;
   text-align: center;
   color: #fff;
 `;
@@ -42,36 +42,36 @@ export const Social = styled.div`
 `;
 
 export const DropdownOptions = styled(FiShare2)`
-  font-size: 25px;
-  margin-top: 43px;
+  font-size: 1.5625rem;
+  margin-top: 2.6875rem;
   color: white;
   cursor: pointer;
 `;
 
 export const GroupBox = styled.div`
-  width: 750px;
+  width: 47.5rem;
   height: 100%;
-  min-height: 1100px;
-  margin: 0 22rem 0 22rem;
+  min-height: 68.75rem;
+  margin: 0 352px 0 352px;
   background-color: #232323;
-  border-radius: 20px;
+  border-radius: 1.25rem;
   color: #fff;
 `;
 export const GroupPerson = styled.div`
   width: 100%;
-  padding: 90px 150px 0 50px;
-  margin: 30px 0 30px 0;
+  padding: 5.625rem 9.375rem 0 3.125rem;
+  margin: 1.875rem 0 1.875rem 0;
 `;
 
 export const UserHr = styled.hr`
-  margin-top: 24px;
+  margin-top: 1.5rem;
   border: 0;
   height: 0;
-  border-top: 1px solid #8c8c8c;
+  border-top: 0.0625rem solid #8c8c8c;
 `;
 
 export const Bookmark = styled.div`
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
 `;
