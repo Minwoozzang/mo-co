@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import main_background from '../../assets/background/main_background.png';
 import { authService, db } from '../../common/firebase';
-import AddInfoModal from '../../components/home/AddInfoModal';
+import AddInfoModal from '../../components/home/addInfoModal/AddInfoModal';
 import HomeAllBtn from '../../components/home/HomeAllBtn';
 import HomeBanner from '../../components/home/HomeBanner';
 import HomeGuideText from '../../components/home/HomeGuideText';
@@ -148,10 +148,10 @@ const Home = () => {
           <HomeAllBtn />
         </CoverBackground>
       </MainBackground>
-      {/* 신규 유저면 모달 오픈 */}
-      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
-        <AddInfoModal handleModalClose={handleModalClose} />
-      </Modal>
+      <AddInfoModal
+        isModalOpen={isModalOpen}
+        handleModalClose={handleModalClose}
+      />
     </FullScreen>
   );
 };
