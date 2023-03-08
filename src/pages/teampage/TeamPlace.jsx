@@ -122,8 +122,8 @@ export default function TeamPlace({ teamLocationID }) {
                   }}
                   style={{
                     // 지도의 크기
-                    width: '180px',
-                    height: '100px',
+                    width: '150px',
+                    height: '21vh',
                   }}
                   level={4} // 지도의 확대 레벨
                 >
@@ -177,7 +177,7 @@ export default function TeamPlace({ teamLocationID }) {
                 ?.filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
-                    <div key={v4()}>
+                    <PlaceWrapContainer key={v4()}>
                       <Map
                         // 지도를 표시할 Container
                         center={{
@@ -187,7 +187,7 @@ export default function TeamPlace({ teamLocationID }) {
                         }}
                         style={{
                           // 지도의 크기
-                          width: '200px',
+                          width: '150px',
                           height: '21vh',
                         }}
                         level={4} // 지도의 확대 레벨
@@ -204,7 +204,7 @@ export default function TeamPlace({ teamLocationID }) {
                         <PlaceName>{item.contentPlaceName}</PlaceName>
                         <PlaceName>{item.contentPlaceAddress}</PlaceName>
                       </PlaceTextWrap>
-                    </div>
+                    </PlaceWrapContainer>
                   );
                 })}
             </PlaceWrap>
@@ -214,6 +214,12 @@ export default function TeamPlace({ teamLocationID }) {
     </>
   );
 }
+
+const PlaceWrapContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
 
 const ButtonPlaceTitleWrap = styled.div`
   display: flex;
