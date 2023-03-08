@@ -40,6 +40,7 @@ import {
   HeaderNotiDropDownListBox,
   SearchLayer,
   SearchModalLayer,
+  SearchIconBox,
 } from './style';
 import { toast } from 'react-toastify';
 
@@ -278,14 +279,14 @@ const Header = () => {
                 <>
                   <>
                     {isSearchUserDropDown ? (
-                      <NavigateMypage>
+                      <SearchIconBox>
                         <img
                           src={Search}
                           alt="search"
                           style={{ width: '20px' }}
                           onClick={() => setSearchdropDownClick(false)}
                         />
-                      </NavigateMypage>
+                      </SearchIconBox>
                     ) : (
                       ''
                     )}

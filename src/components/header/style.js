@@ -222,6 +222,14 @@ export const HeaderNotiDropDownListBox = styled.div`
 `;
 
 // 검색창 부분
+export const SearchIconBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+`;
 export const SearchLayer = styled.div`
   z-index: 3;
   display: block;
