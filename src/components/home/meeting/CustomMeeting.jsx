@@ -59,36 +59,31 @@ export default CustomMeeting;
 const CustomListWrapper = styled.div`
   height: 320px;
   width: 100%;
-  /* border: 0.3px solid gray; */
   margin-top: 25px;
 `;
 const CustomListContainer = styled.div`
-  width: 1152px;
+  /* width: 1152px; */
+  width: 60%;
   height: 320px;
   margin: 0 auto;
-  /* border: 0.3px solid gray; */
 `;
 const CustomListCardBox = styled.div`
-  width: 1152px;
+  /* width: 1152px; */
+  width: 100%;
   height: 320px;
   margin: 0 auto;
-  /* margin-top: 140px; */
   display: flex;
-  /* gap: 0 30px; */
-  /* border: 0.3px solid gray; */
 `;
 const CustomListCardBox2 = styled.div`
-  width: 1152px;
+  /* width: 1152px; */
+  width: 100%;
   height: 320px;
   margin: 0 auto;
-  /* margin-top: 140px; */
   display: flex;
-
-  /* position: relative; */
-  /* border: 0.3px solid gray; */
 `;
 const YellowBar = styled.div`
-  width: 1152px;
+  /* width: 72rem; */
+  width: 100%;
   height: 320px;
   background-color: #feff80;
   background: linear-gradient(
@@ -124,16 +119,17 @@ const TriAngle2 = styled.div`
   right: 0;
 `;
 const CustomDataCardBox = styled.div`
-  width: 900px;
+  /* width: 900px; */
+  width: 78.2%;
   margin: 0 auto;
   display: flex;
   gap: 0 30px;
 `;
 const NonCustomList = styled.div`
-  width: 900px;
+  /* width: 900px; */
+  width: 78.2%;
   height: 100px;
   margin: 0 auto;
-  /* margin-top: 140px; */
   display: flex;
   background-color: #232323;
   border: 1px solid #3b3b3b;
@@ -146,6 +142,4 @@ const NonCustomList = styled.div`
   font-size: 1.2rem;
   box-shadow: 2px 4px 8px #545454;
   line-height: 1.5;
-  /* position: absolute;
-  top: 110px; */
 `;

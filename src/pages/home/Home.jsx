@@ -87,10 +87,8 @@ const Home = () => {
         ) : (
           <>...</>
         )}
-        <CoverBackground>
           <HomeNewMeetingList />
           <HomeAllBtn />
-        </CoverBackground>
       </MainBackground>
       <AddInfoModal
         isModalOpen={isModalOpen}

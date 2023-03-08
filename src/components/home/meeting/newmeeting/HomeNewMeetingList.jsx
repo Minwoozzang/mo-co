@@ -8,7 +8,7 @@ import {
   NewMeetingTitle,
   NewMeetingTitleBox,
 } from '../../../homestyle/homenewmeeting';
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+// import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { db } from '../../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../../recoil/postState';

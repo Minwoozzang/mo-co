@@ -9,7 +9,6 @@ import {
   LocationMeetingTitleBox2,
   LocationMeetingTitleBox3,
   LocationTitle,
-  MeetingTitleBox,
 } from '../homestyle/homemeeting';
 import BlurCard from './blurcard/BlurCard';
 import styled from '@emotion/styled';
