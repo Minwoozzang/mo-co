@@ -13,6 +13,7 @@ export const HeaderBody = styled.div`
   /* width: 100% */
   left: 0;
   right: 0;
+  /* margin-bottom: 5rem; */
 `;
 
 export const HeaderInfoBody = styled.div`
@@ -215,6 +216,22 @@ export const HeaderNotiDropDownListBox = styled.div`
   }
 `;
 
+// 검색창 부분
+export const SearchLayer = styled.div`
+  z-index: 3;
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+export const SearchModalLayer = styled.div`
+  position: fixed;
+  top: 3.1%;
+  left: 72.4%;
+`;
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;
   height: 100px; //200px
