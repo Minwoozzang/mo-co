@@ -20,12 +20,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
 import { uuidv4 } from '@firebase/util';
-import { useRecoilValue } from 'recoil';
-import commentState from './../../../recoil/commentState';
 
 const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');
-  // const [commentText, setCommentText] = useRecoilValue(commentState);
 
   // 파베 인증
   const currentUser = authService.currentUser;
