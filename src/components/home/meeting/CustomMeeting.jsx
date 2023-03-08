@@ -23,26 +23,26 @@ const CustomMeeting = ({ isLoggedIn, currentUserData }) => {
         {isLoggedIn ? (
           customList.length === 0 ? (
             <CustomListCardBox2>
-             <YellowBar>
-              <TriAngle1 />
-             <NonCustomList>
-                모든 조건이 맞는 모임이 아직 없습니다
-                <br />
-                (기술 스택, 지역, 시간대 종합)
-              </NonCustomList>
-              <TriAngle2 />
-             </YellowBar>
+              <YellowBar>
+                <TriAngle1 />
+                <NonCustomList>
+                  모든 조건이 맞는 모임이 아직 없습니다
+                  <br />
+                  (기술 스택, 지역, 시간대 종합)
+                </NonCustomList>
+                <TriAngle2 />
+              </YellowBar>
             </CustomListCardBox2>
           ) : (
             <CustomListCardBox>
               <YellowBar>
                 <TriAngle1 />
-              <CustomDataCardBox>
-              {customList.slice(0, 3).map((item, idx) => (
-                <CardSection key={idx} item={item} />
-              ))}
-              </CustomDataCardBox>
-              <TriAngle2 />
+                <CustomDataCardBox>
+                  {customList.slice(0, 3).map((item, idx) => (
+                    <CardSection key={idx} item={item} />
+                  ))}
+                </CustomDataCardBox>
+                <TriAngle2 />
               </YellowBar>
             </CustomListCardBox>
           )
@@ -83,7 +83,7 @@ const CustomListCardBox2 = styled.div`
   margin: 0 auto;
   /* margin-top: 140px; */
   display: flex;
-  
+
   /* position: relative; */
   /* border: 0.3px solid gray; */
 `;
@@ -91,8 +91,12 @@ const YellowBar = styled.div`
   width: 1152px;
   height: 320px;
   background-color: #feff80;
-  background: linear-gradient(rgba(0,38,84,0) 28%, #feff80 28%,
-  #feff80 72%, rgba(0,38,84,0) 72%);
+  background: linear-gradient(
+    rgba(0, 38, 84, 0) 28%,
+    #feff80 28%,
+    #feff80 72%,
+    rgba(0, 38, 84, 0) 72%
+  );
   /* background: linear-gradient(#111111 28%, #feff80 28%,
   #feff80 72%, #111111 72%); */
   display: flex;
@@ -124,7 +128,7 @@ const CustomDataCardBox = styled.div`
   margin: 0 auto;
   display: flex;
   gap: 0 30px;
-`
+`;
 const NonCustomList = styled.div`
   width: 900px;
   height: 100px;

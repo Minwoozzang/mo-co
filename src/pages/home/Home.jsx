@@ -1,10 +1,8 @@
 import styled from '@emotion/styled';
 import { Modal } from 'antd';
-import { collection, onSnapshot, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import main_background2 from '../../assets/background/main_background2.png';
-import { authService, db } from '../../common/firebase';
+import { authService } from '../../common/firebase';
 import AddInfoModal from '../../components/home/AddInfoModal';
 import HomeAllBtn from '../../components/home/HomeAllBtn';
 import HomeBanner from '../../components/home/HomeBanner';
@@ -13,7 +11,6 @@ import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
 import useUserQuery from '../../hooks/useUserQuery';
-import postState from '../../recoil/postState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
