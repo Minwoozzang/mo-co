@@ -135,6 +135,7 @@ const MateList = () => {
             textAlign: 'center',
             backgroundColor: '#181616',
             margin: '0 auto',
+            borderColor: '#FEFF80',
           }}
           defaultCurrent={1}
           defaultPageSize={12}
