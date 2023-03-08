@@ -11,7 +11,7 @@ const style = css`
       'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   }
 
-  html {
+  body {
     margin-top: 5rem;
   }
 
