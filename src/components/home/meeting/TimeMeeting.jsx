@@ -1,7 +1,5 @@
 import {
   TimeMeetingArea,
-  MeetingTitleBox,
-  MeetingCardBox,
   TimeMeetingTitle,
   TimeMeetingInnerSection1,
   TimeMeetingCardBox,
@@ -18,16 +16,12 @@ import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
-import userState from '../../../recoil/userState';
-import useUserQuery from '../../../hooks/useUserQuery';
 
 const TimeMeeting = ({ currentUserData }) => {
   const titlestring = '</---*';
   const titlestring1 = '{=';
   const titlestring2 = '{';
 
-  // const userDoc = useUserQuery();
-  // console.log(userDoc)
   const postData = useRecoilValue(postState);
   const recommendTimeList = postData
     ? postData.filter(

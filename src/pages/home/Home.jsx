@@ -87,10 +87,8 @@ const Home = () => {
         ) : (
           <>...</>
         )}
-        <CoverBackground>
           <HomeNewMeetingList />
           <HomeAllBtn />
-        </CoverBackground>
       </MainBackground>
       {/* 신규 유저면 모달 오픈 */}
       <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
