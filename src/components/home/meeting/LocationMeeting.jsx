@@ -9,6 +9,7 @@ import {
   LocationMeetingTitleBox1,
   LocationMeetingTitleBox2,
   LocationMeetingTitleBox3,
+  NonRecommendText2,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
@@ -25,7 +26,7 @@ const LocationMeeting = ({ currentUserData }) => {
     ? postData.filter(
         (item) =>
           !item.isDeleted &&
-          item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
+          item.partyLocation.includes(currentUserData?.moreInfo?.u_location),
       )
     : [];
 
@@ -43,7 +44,13 @@ const LocationMeeting = ({ currentUserData }) => {
         <LocationMeetingInnerSection2>
           <LocationMeetingInnerBox />
           <LocationMeetingCardBox>
-            {recommendLocationList?.length > 0 &&
+            {recommendLocationList.length === 0 ? (
+              <NonRecommendText2>
+                추천 모임이 없습니다.
+                <br />
+                추가 정보를 등록 or 수정해주세요!
+              </NonRecommendText2>
+            ) : (
               recommendLocationList
                 .slice(0, 3)
                 .map((item, idx) => (
@@ -52,7 +59,8 @@ const LocationMeeting = ({ currentUserData }) => {
                     item={item}
                     db={db}
                   />
-                ))}
+                ))
+            )}
           </LocationMeetingCardBox>
         </LocationMeetingInnerSection2>
       </LocationMeetingArea>

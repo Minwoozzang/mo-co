@@ -9,9 +9,6 @@ import TimeMeeting from './TimeMeeting';
 
 const HomeMeetingList = ({
   isLoggedIn,
-  // recommendTechList,
-  // recommendTimeList,
-  // recommendLocationList,
   currentUserData,
 }) => {
   // 로그인 안 됐을 때 리스트
@@ -23,16 +20,13 @@ const HomeMeetingList = ({
         <>
           <TechAndTimeMeetingArea>
             <TechStackMeeting
-              // recommendTechList={recommendTechList}
               currentUserData={currentUserData}
             />
           </TechAndTimeMeetingArea>
           <TimeMeeting
-            // recommendTimeList={recommendTimeList}
             currentUserData={currentUserData}
           />
           <LocationMeeting
-            // recommendLocationList={recommendLocationList}
             currentUserData={currentUserData}
           />
         </>
