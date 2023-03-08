@@ -7,6 +7,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
 import { opens } from '../../data/opens';
@@ -75,7 +76,7 @@ const MateEdit = () => {
     console.log(stack);
     if (selectedTech.includes(stack)) {
       setSelectedTech(selectedTech.filter((item) => item !== stack));
-    } else {
+    } else if (selectedTech.length < 3) {
       setSelectedTech([...selectedTech, stack]);
     }
   };
@@ -113,6 +114,7 @@ const MateEdit = () => {
           console.log('에러남', error);
         });
       queryClient.invalidateQueries('posts');
+      toast.success('수정 완료!');
       navigate(`/matedetail/${id}`);
       console.log('수정 성공');
     } catch (error) {
@@ -155,8 +157,9 @@ const MateEdit = () => {
                 <Tech
                   style={{
                     backgroundColor: selectedTech.includes(stack)
-                      ? '#f7f7f7'
+                      ? '#FEFF80'
                       : 'white',
+                    color: selectedTech.includes(stack) ? '#212121' : '',
                   }}
                   key={idx}
                   onClick={() => handlePartyStack(stack)}
@@ -262,7 +265,7 @@ const MateEdit = () => {
               handleEditPost();
             }}
             style={{
-              backgroundColor: isClicked ? '#f7f7f7' : 'white',
+              backgroundColor: isClicked ? '#f7f7f7' : '#FEFF80',
             }}
             type="submit"
           >
@@ -279,7 +282,6 @@ export default MateEdit;
 const WritePageContainer = styled.div`
   max-width: 977px;
   margin: auto;
-  border: 1px solid black;
   padding: 45px;
 `;
 
@@ -326,7 +328,7 @@ const TechStacks = styled.div`
 
 const Tech = styled.div`
   border-radius: 30px;
-  border: 1px solid #b9b9b9;
+  border: 1px solid #696969;
   font-size: 15px;
   text-align: center;
   padding: 12px 0;
@@ -371,9 +373,10 @@ const WriteButtonBox = styled.div`
 
 const WriteButton = styled.button`
   width: 200px;
-  background-color: transparent;
-  border: 1px solid #b9b9b9;
-  padding: 20px;
-  font-size: 15px;
+  height: 44px;
+  padding: 12px 30px 13px;
   margin: auto;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
 `;

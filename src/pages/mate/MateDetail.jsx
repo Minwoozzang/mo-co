@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import { db } from '../../common/firebase';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
@@ -27,7 +28,7 @@ const MateDetail = () => {
       await updateDoc(doc(db, 'post', id), {
         isDeleted: true,
       });
-      alert('삭제 성공');
+      toast.success('삭제 성공');
       navigate('/mate');
     } catch (error) {
       console.log(error);

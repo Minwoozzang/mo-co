@@ -20,6 +20,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
 import { uuidv4 } from '@firebase/util';
+import { toast } from 'react-toastify';
 
 const AddComment = ({ id }) => {
   const [commentText, setCommentText] = useState('');
@@ -81,7 +82,7 @@ const AddComment = ({ id }) => {
   const AddCommentButton = async (e) => {
     e.preventDefault();
     if (!currentUser) {
-      alert('로그인을 해주세요');
+      toast.warn('로그인을 해주세요');
       return;
     }
     const newComment = {

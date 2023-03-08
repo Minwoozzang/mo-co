@@ -10,6 +10,8 @@ import Router from './shared/router';
 import teamPageState from './recoil/teamPageState';
 import postState from './recoil/postState';
 import usePosts from './hooks/usePost';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const setAuthState = useSetRecoilState(authState);
@@ -42,6 +44,18 @@ function App() {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1300}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <GlobalStyle />
       <Router />
     </>

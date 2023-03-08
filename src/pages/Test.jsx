@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 import useUserDoc from '../hooks/useUserDoc';
 import authState from '../recoil/authState';
 import useUserQuery from '../hooks/useUserQuery';
+import { toast } from 'react-toastify';
 
 function Test() {
   const user = useRecoilValue(authState);
@@ -12,7 +13,7 @@ function Test() {
 
   return (
     <div>
-      <h1>Test</h1>
+      <h1 onClick={notify}>Test</h1>
       <br />
       <p>uid : {user?.uid}</p>
       <p>displayName : {user?.displayName}</p>

@@ -68,7 +68,7 @@ const SearchResultFullScreen = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #111111;
-  margin-top: 80px;
+  /* margin-top: 80px; */
   /* background-size: cover;
   display: flex;
   flex-direction: column;
