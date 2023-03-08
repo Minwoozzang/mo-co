@@ -141,6 +141,7 @@ const JustContainer = styled.div`
 `;
 
 const WholeContainer = styled.div`
+  margin-top: 100px;
   width: 1350px;
   height: 900px;
   display: flex;
