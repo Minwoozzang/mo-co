@@ -21,33 +21,10 @@ const MateList = () => {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedNumOfMember, setSelectedNumOfMember] = useState('');
-  // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
   const [userBookmark, setUserBookmark] = useState([]);
-  console.log(
-    '🚀 ~ file: MateList.jsx:26 ~ MateList ~ userBookmark:',
-    userBookmark,
-  );
-  //페이지네이션
-  // const [currentPage, setCurrentPage] = useState(2);
-  // 페이지네이션
-  // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(12);
-
-  // 내 정보 가져오기
-  const getUserBookmark = () => {
-    const q = query(collection(db, 'user'), where('uid', '==', user?.uid));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUserBookmark(newInfo[0]?.bookmarks);
-    });
-
-    return unsubscribe;
-  };
 
   // selectedTech 배열을 텍스트로 변환
   const selectedTechText = [...selectedTech]
@@ -140,12 +117,7 @@ const MateList = () => {
           {DATA &&
             DATA.length > 0 &&
             DATA.slice(minValue, maxValue).map((item) => (
-              <CardSection
-                key={item.id}
-                item={item}
-                db={db}
-                userBookmark={userBookmark}
-              />
+              <CardSection key={item.id} item={item} db={db} />
             ))}
         </CardList>
       </CardListContainer>

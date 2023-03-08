@@ -214,7 +214,7 @@ const Header = () => {
         <LogoAndMateBox>
           <HeaderLogo onClick={navigateHome}></HeaderLogo>
           <MyCodingMate onClick={navigateMyCodingMate}>
-            내 코딩모임
+            내 코딩모임 보기
           </MyCodingMate>
         </LogoAndMateBox>
         <TeamAndLoginBox>

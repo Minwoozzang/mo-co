@@ -46,7 +46,7 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setInputValue('');
     setIsLoading(true);
     setIsError(false);
     //
