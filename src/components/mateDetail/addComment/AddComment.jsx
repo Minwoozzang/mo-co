@@ -24,10 +24,8 @@ import { useRecoilValue } from 'recoil';
 import commentState from './../../../recoil/commentState';
 
 const AddComment = ({ id }) => {
-  // const [commentText, setCommentText] = useState('');
-  const [commentText, setCommentText] = useRecoilValue(commentState);
-
-  console.log(commentState);
+  const [commentText, setCommentText] = useState('');
+  // const [commentText, setCommentText] = useRecoilValue(commentState);
 
   // 파베 인증
   const currentUser = authService.currentUser;
