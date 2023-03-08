@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import {
   collection,
   doc,
@@ -39,6 +38,8 @@ import {
   HeaderSearchXbutton,
   HeaderNotiDropDownList,
   HeaderNotiDropDownListBox,
+  SearchLayer,
+  SearchModalLayer,
 } from './style';
 // import NotiBadge from './notification/NotiBadge';
 
@@ -161,23 +162,7 @@ const Header = () => {
       setSearchdropDownClick(false);
     }
   };
-  // useEffect(() => {
-  //   const clickOutside = (e) => {
-  //     // 모달이 열려 있고 모달의 바깥쪽을 눌렀을 때 창 닫기
-  //     if (searchdropDownClick && searchRef.current && !searchRef.current.contains(e.target)) {
-  //       setSearchdropDownClick(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("mousedown", clickOutside);
-
-  //   return () => {
-  //     // Cleanup the event listener
-  //     document.removeEventListener("mousedown", clickOutside);
-  //   };
-  // }, [searchdropDownClick]);
   
-
   // 로그아웃
   const HeaderLogOut = async () => {
     // 구글, 깃헙 기존 정보 입력하기
@@ -410,19 +395,3 @@ const Header = () => {
 };
 
 export default Header;
-
-const SearchLayer = styled.div`
-  z-index: 3;
-  display: block;
-  background: rgba(0, 0, 0, 0.2);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;
-const SearchModalLayer = styled.div`
-  position: fixed;
-  top: 3.1%;
-  left: 72.4%;
-`
