@@ -22,6 +22,7 @@ import authState from '../recoil/authState';
 
 const Router = () => {
   const user = useRecoilValue(authState);
+  console.log('🚀 ~ file: router.js:25 ~ Router ~ user:', user);
   // path 이름은 보통 소문자로 하니, 저희도 소문자로 통일하겠습니다
   return (
     <BrowserRouter>
@@ -43,7 +44,7 @@ const Router = () => {
         {/* 테스트페이지 */}
         <Route path="/test" element={<Test />} />
       </Routes>
-      {user?.uid === null ? null : <MocoChat />}
+      {user === null ? null : <MocoChat />}
     </BrowserRouter>
   );
 };
