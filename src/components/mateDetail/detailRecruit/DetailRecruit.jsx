@@ -41,22 +41,15 @@ const DetailRecruit = () => {
   const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
   // 참여신청 버튼 비활성화 여부
   let isBtnDisabled = false;
-
   // 내가 참여 신청한 팀 리스트
   let myTeamIdList = [];
 
-  const getMyTeamIdList = teamPage.forEach((item) => {
-    item.teamMember.forEach((member) => {
-      if (member.nickName === authService?.currentUser?.displayName) {
-        myTeamIdList.push(item.teamID);
-        return false;
-      }
-    });
-  });
-
   // 정원 모집 여부 조건 표현
+
   const itsTeamDoc = teamPage?.filter((item) => item.teamID === post.teamID);
-  const teamMembers = `${itsTeamDoc[0]?.teamMember.length + 1}명`;
+  const teamMembers = itsTeamDoc
+    ? `${itsTeamDoc[0]?.teamMember.length + 1}명`
+    : '';
 
   /*
   참여 신청 버튼 비활성화 조건
@@ -118,6 +111,19 @@ const DetailRecruit = () => {
       });
   };
 
+  const getMyTeamIdList = () => {
+    if (teamPage) {
+      teamPage.forEach((item) => {
+        item.teamMember?.forEach((member) => {
+          if (member.nickName === authService?.currentUser?.displayName) {
+            myTeamIdList.push(item.teamID);
+            return false;
+          }
+        });
+      });
+    }
+  };
+
   const handleModalOk = async (e) => {
     e.preventDefault();
     await updateDoc(doc(db, 'teamPage', post.teamID), {
@@ -162,6 +168,7 @@ const DetailRecruit = () => {
     if (authService.currentUser) {
       GetMyProfileImg();
     }
+    getMyTeamIdList();
   }, []);
 
   return (

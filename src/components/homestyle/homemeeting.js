@@ -24,7 +24,8 @@ export const TechAndTimeMeetingArea = styled.div`
 export const TechStackMeetingArea = styled.div`
     height: 730px;
     /* width: 572px; */
-    width: 48.47%;
+    /* width: 48.47%; */
+    width: 49%;
     /* background-color: blue; */
 `
 export const TechStackMeetingTitle = styled.div`

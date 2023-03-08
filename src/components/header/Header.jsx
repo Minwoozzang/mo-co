@@ -7,7 +7,7 @@ import {
   where,
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ImCancelCircle } from 'react-icons/im';
 import { useLocation, useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
@@ -40,6 +40,8 @@ import {
   HeaderSearchXbutton,
   HeaderNotiDropDownList,
   HeaderNotiDropDownListBox,
+  SearchLayer,
+  SearchModalLayer,
 } from './style';
 // import NotiBadge from './notification/NotiBadge';
 
@@ -53,6 +55,12 @@ const Header = () => {
 
   // 헤더  토글
   const [headerMyIcon, setHeaderMyIcon] = useState(false);
+
+  // 검색창 토글
+  const [searchIcon, setSearchIcon] = useState(false);
+
+  // 검색창 currentTarget
+  const searchRef = useRef(null);
 
   // 드랍다운
   const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
@@ -89,11 +97,13 @@ const Header = () => {
         setIsUserDropDown(true);
         setLoginToggle(false);
         setHeaderMyIcon(true);
+        setSearchIcon(true);
         getUserStackInfo();
         setIsSearchUserDropDown(true);
       } else if (!user) {
         setLoginToggle(true);
         setHeaderMyIcon(false);
+        setSearchIcon(false);
         setIsUserDropDown(false);
         setIsSearchUserDropDown(false);
       }
@@ -144,11 +154,17 @@ const Header = () => {
   };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
-      setDropDownClick(false);
       setSearchdropDownClick(true);
     }
+    setDropDownClick(false);
   };
-
+  const searchModalOutSideClick = (e) => {
+    // 검색창 영역 밖 클릭하면 닫히게 하기
+    if (searchRef.current === e.target) {
+      setSearchdropDownClick(false);
+    }
+  };
+  
   // 로그아웃
   const HeaderLogOut = async () => {
     // 구글, 깃헙 기존 정보 입력하기
@@ -253,52 +269,68 @@ const Header = () => {
             )}
           </div> */}
 
-          <div onClick={searchdropDownHandler}>
-            {searchdropDownClick ? (
-              <>
-                {isSearchUserDropDown ? (
-                  <NavigateMypage>
-                    <img src={Search} alt="search" style={{ width: '20px' }} />
-                  </NavigateMypage>
-                ) : (
-                  ''
-                )}
-                <HeaderSearchDropDownListBox style={{ position: 'absolute' }}>
-                  <HeaderSearchXbuttonBox>
-                    <HeaderSearchXbutton
-                      onClick={() => setSearchdropDownClick(false)}
+          {searchIcon ? (
+            <div onClick={searchdropDownHandler}>
+              {searchdropDownClick ? (
+                <SearchLayer
+                  ref={searchRef}
+                  onClick={(e) => searchModalOutSideClick(e)}
+                >
+                  <SearchModalLayer>
+                    {isSearchUserDropDown ? (
+                      <NavigateMypage>
+                        <img
+                          src={Search}
+                          alt="search"
+                          style={{ width: '20px' }}
+                          onClick={() => setSearchdropDownClick(false)}
+                        />
+                      </NavigateMypage>
+                    ) : (
+                      ''
+                    )}
+                    <HeaderSearchDropDownListBox
+                      style={{ position: 'absolute' }}
                     >
-                      <ImCancelCircle
-                        color="white"
-                        style={{ fontSize: '20px' }}
-                      />
-                    </HeaderSearchXbutton>
-                  </HeaderSearchXbuttonBox>
-                  <HeaderSearchDropDownListSection>
-                    <HeaderSearchBox>
-                      <img
-                        src={Search}
-                        alt="search"
-                        style={{ width: '20px' }}
-                      />
-                      <HeaderSearchInput
-                        onChange={onChangeSearch}
-                        onKeyPress={handleonKeyPress}
-                      />
-                      {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                      <HeaderSearchXbuttonBox>
+                        <HeaderSearchXbutton
+                          onClick={() => setSearchdropDownClick(false)}
+                        >
+                          <ImCancelCircle
+                            color="white"
+                            style={{ fontSize: '20px' }}
+                          />
+                        </HeaderSearchXbutton>
+                      </HeaderSearchXbuttonBox>
+                      <HeaderSearchDropDownListSection>
+                        <HeaderSearchBox>
+                          <img
+                            src={Search}
+                            alt="search"
+                            style={{ width: '20px' }}
+                          />
+                          <HeaderSearchInput
+                            onChange={onChangeSearch}
+                            onKeyPress={handleonKeyPress}
+                          />
+                          {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
                       </HeaderSearchInputBtn> */}
-                    </HeaderSearchBox>
-                  </HeaderSearchDropDownListSection>
-                  {/* <HeaderSearchDropDownHr /> */}
-                </HeaderSearchDropDownListBox>
-              </>
-            ) : (
-              <NavigateMypage>
-                <img src={Search} alt="search" style={{ width: '20px' }} />
-              </NavigateMypage>
-            )}
-          </div>
+                        </HeaderSearchBox>
+                      </HeaderSearchDropDownListSection>
+                      {/* <HeaderSearchDropDownHr /> */}
+                    </HeaderSearchDropDownListBox>
+                  </SearchModalLayer>
+                </SearchLayer>
+              ) : (
+                <NavigateMypage>
+                  <img src={Search} alt="search" style={{ width: '20px' }} />
+                </NavigateMypage>
+              )}
+            </div>
+          ) : (
+            ''
+          )}
 
           {headerMyIcon ? (
             <div onClick={dropDownHandler}>
