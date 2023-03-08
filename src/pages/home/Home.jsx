@@ -3,7 +3,7 @@ import { Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import main_background2 from '../../assets/background/main_background2.png';
 import { authService } from '../../common/firebase';
-import AddInfoModal from '../../components/home/AddInfoModal';
+import AddInfoModal from '../../components/home/addInfoModal/AddInfoModal';
 import HomeAllBtn from '../../components/home/HomeAllBtn';
 import HomeBanner from '../../components/home/HomeBanner';
 import HomeGuideText from '../../components/home/HomeGuideText';
@@ -90,10 +90,10 @@ const Home = () => {
           <HomeNewMeetingList />
           <HomeAllBtn />
       </MainBackground>
-      {/* 신규 유저면 모달 오픈 */}
-      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
-        <AddInfoModal handleModalClose={handleModalClose} />
-      </Modal>
+      <AddInfoModal
+        isModalOpen={isModalOpen}
+        handleModalClose={handleModalClose}
+      />
     </FullScreen>
   );
 };
