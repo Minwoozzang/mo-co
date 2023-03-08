@@ -10,8 +10,11 @@ import {
 } from '../../../homestyle/homenewmeeting';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import { db } from '../../../../common/firebase';
+import { useRecoilValue } from 'recoil';
+import postState from '../../../../recoil/postState';
 
-const HomeNewMeetingList = ({ data, uid, userBookmark }) => {
+const HomeNewMeetingList = ({ uid, userBookmark }) => {
+  const postData = useRecoilValue(postState);
   return (
     <NewMeetingArea>
       <NewMeetingListBox>
@@ -23,16 +26,14 @@ const HomeNewMeetingList = ({ data, uid, userBookmark }) => {
             <AiOutlineArrowLeft size="36" />
           </NewMeetingArrow> */}
           <NewMeetingCardBox>
-            {data
-              ? data
+            {postData
+              ? postData
                   .slice(0, 4)
-                  .map((item) => (
+                  .map((item, idx) => (
                     <CardSection
-                      key={item.id}
+                      key={idx}
                       item={item}
                       db={db}
-                      uid={uid}
-                      userBookmark={userBookmark}
                     />
                   ))
               : []}

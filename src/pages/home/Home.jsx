@@ -3,7 +3,7 @@ import { Modal } from 'antd';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import main_background from '../../assets/background/main_background.png';
+import main_background2 from '../../assets/background/main_background2.png';
 import { authService, db } from '../../common/firebase';
 import AddInfoModal from '../../components/home/AddInfoModal';
 import HomeAllBtn from '../../components/home/HomeAllBtn';
@@ -19,8 +19,7 @@ const Home = () => {
   const [init, setInit] = useState(false);
   // 처음에는 false이고 나중에 사용자 존재 판명이 모두 끝났을 때 true를 통해 해당 화면을 render
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // post 데이터
-  const postData = useRecoilValue(postState);
+  
   const currentUser = authService.currentUser;
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,20 +63,8 @@ const Home = () => {
     setIsModalOpen(false);
   };
 
-  // 사용자 맞춤 리스트
+  // 유저 데이터
   const currentUserData = useUserQuery();
-  
-  const customList = postData
-    ? postData.filter(
-        (item) =>
-          !item.isDeleted &&
-          item.partyStack.includes(
-            currentUserData[0]?.moreInfo?.u_stack.toString(),
-          ) &&
-          item.partyTime.includes(currentUserData[0]?.moreInfo?.u_time) &&
-          item.partyLocation.includes(currentUserData[0]?.moreInfo?.u_location),
-      )
-    : [];
   
   return (
     <FullScreen>
@@ -86,8 +73,14 @@ const Home = () => {
         {init ? (
           <>
             <CustomListContainer>
-            <HomeGuideText isLoggedIn={isLoggedIn} currentUser={currentUser} />
-            <CustomMeeting isLoggedIn={isLoggedIn} customList={customList} />
+            <HomeGuideText 
+              isLoggedIn={isLoggedIn} 
+              currentUser={currentUser} 
+            />
+            <CustomMeeting 
+              isLoggedIn={isLoggedIn} 
+              currentUserData={currentUserData} 
+            />
             </CustomListContainer>
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
@@ -98,7 +91,7 @@ const Home = () => {
           <>...</>
         )}
         <CoverBackground>
-          <HomeNewMeetingList data={postData} />
+          <HomeNewMeetingList />
           <HomeAllBtn />
         </CoverBackground>
       </MainBackground>
@@ -121,22 +114,22 @@ const FullScreen = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 80px;
 `;
 const MainBackground = styled.div`
   width: 100%;
   /* height: 100%; */
-  background: url(${main_background});
+  background: url(${main_background2});
   background-size: cover;
 
   background-position: center;
   /* background-color: white; */
 `;
 const CustomListContainer = styled.div`
-  border: 0.1px solid gray;
   width: 100%;
   height: 585px;
-`
+`;
 const CoverBackground = styled.div`
   width: 100%;
-  background-color: #111111;
+  /* background-color: #111111; */
 `;

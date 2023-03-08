@@ -44,7 +44,7 @@ const GuideContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   /* background-color: #111111; */
 `;
 const GuideText = styled.div`
