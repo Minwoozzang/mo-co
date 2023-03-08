@@ -8,6 +8,7 @@ export const MeetingArea = styled.div`
     margin: 0 auto;
     /* background-color: lightgray; */
 `
+
 /* TechStackMeeting + TimeMeeting */
 export const TechAndTimeMeetingArea = styled.div`
     /* width: 1180px; */
@@ -18,6 +19,7 @@ export const TechAndTimeMeetingArea = styled.div`
     /* background-color: aliceblue; */
     /* gap: 0 36px; */
 `
+
 /* TechStackMeeting */
 export const TechStackMeetingArea = styled.div`
     height: 730px;
@@ -31,6 +33,7 @@ export const TechStackMeetingTitle = styled.div`
     font-weight: 600;
     color: #FFFFFF;
 `
+
 /* TimeMeeting */
 export const TimeMeetingArea = styled.div`
     height: 386px;
@@ -126,6 +129,7 @@ export const TimeMeetingCardBox = styled.div`
     display: flex;
     gap: 0 20px;
 `
+
 /* TechStackMeeting */ 
 export const MeetingTitleBox = styled.div`
     height: 29px;
@@ -154,6 +158,7 @@ export const MeetingCard = styled.div`
     height: 320px;
     border: 1px solid;
 `
+
 /* LocationMeeting */
 export const LocationMeetingArea = styled.div`
     height: 356px;
@@ -242,6 +247,7 @@ export const LocationMeetingCardBox = styled.div`
     display: flex;
     gap: 0 20px;
 `
+
 // 추천모임 없을 때 (기술스택)
 export const NonRecommendText1 = styled.div`
     /* width: 572px; */
@@ -258,6 +264,7 @@ export const NonRecommendText1 = styled.div`
     background-color: #232323;
     box-shadow: 2px 4px 8px #545454;
 `
+
 // 추천모임 없을 때 (시간, 장소)
 export const NonRecommendText2 = styled.div`
     height: 320px;
