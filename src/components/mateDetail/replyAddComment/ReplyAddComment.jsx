@@ -10,6 +10,7 @@ import {
   AddCommentBtn,
   AddCommentListAll,
 } from './ReplyAddCommentStyle';
+import { toast } from 'react-toastify';
 
 const ReplyAddComment = ({ comment, setDisplay }) => {
   // 파베 인증
@@ -25,7 +26,7 @@ const ReplyAddComment = ({ comment, setDisplay }) => {
   const AddCommentButton = async (e) => {
     e.preventDefault();
     if (!currentUser) {
-      alert('로그인을 해주세요');
+      toast.warn('로그인을 해주세요');
       return;
     }
     const newComment = {

@@ -28,6 +28,7 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import authState from '../../recoil/authState';
 import { memo } from 'react';
+import { toast } from 'react-toastify';
 
 const MateWrite = () => {
 
@@ -105,7 +106,7 @@ const MateWrite = () => {
           partyLocation === '' ||
           partyDesc === ''
         ) {
-          alert('모임 정보를 모두 입력해주세요');
+          toast('모임 정보를 모두 입력해주세요');
           return;
         }
 
