@@ -149,6 +149,7 @@ const DetailRecruit = () => {
         console.log('참여 신청 에러');
       });
     queryClient.invalidateQueries('teamPage');
+    toast.success('참여 신청 완료!');
     console.log('참여 완료');
     setIsModalOpen(false);
   };
