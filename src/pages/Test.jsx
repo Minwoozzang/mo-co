@@ -11,6 +11,10 @@ function Test() {
   const myDoc = useUserQuery();
   console.log('🚀 ~ file: Test.jsx:10 ~ Test ~ myDoc:', myDoc);
 
+  const notify = () => {
+    toast('Hello World!');
+  };
+
   return (
     <div>
       <h1 onClick={notify}>Test</h1>
