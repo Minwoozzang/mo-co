@@ -13,6 +13,7 @@ export const HeaderBody = styled.div`
   /* width: 100% */
   left: 0;
   right: 0;
+  /* margin-bottom: 5rem; */
 `;
 
 export const HeaderInfoBody = styled.div`

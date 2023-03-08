@@ -289,7 +289,7 @@ const Header = () => {
                   ref={searchRef}
                   onClick={(e) => searchModalOutSideClick(e)}
                 >
-                  <div style={{position: 'fixed', top: '50%', left: '50%'}}>
+                  <SearchModalLayer>
                     {isSearchUserDropDown ? (
                       <NavigateMypage>
                         <img
@@ -333,7 +333,7 @@ const Header = () => {
                       </HeaderSearchDropDownListSection>
                       {/* <HeaderSearchDropDownHr /> */}
                     </HeaderSearchDropDownListBox>
-                  </div>
+                  </SearchModalLayer>
                 </SearchLayer>
               ) : (
                 <NavigateMypage>
@@ -414,10 +414,15 @@ export default Header;
 const SearchLayer = styled.div`
   z-index: 3;
   display: block;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 `;
+const SearchModalLayer = styled.div`
+  position: fixed;
+  top: 3.1%;
+  left: 72.4%;
+`
