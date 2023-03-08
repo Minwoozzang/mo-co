@@ -12,10 +12,11 @@ export const AddCommentListWrap = styled.div`
   display: flex;
   flex-direction: row;
   border: 2px solid #525252;
-  width: 38%;
+  width: 100%;
+  max-width: 725px;
   height: 130px;
   padding: 20px 25px 25px 40px;
-  margin: 50px 16px 0 0px;
+  margin: 50px 460px 0 0px;
   box-sizing: border-box;
   border-radius: 10px;
 `;
@@ -37,7 +38,12 @@ export const AddInputContent = styled.input`
   }
 `;
 
-export const AddCommentBtnDiv = styled.div``;
+export const AddCommentBtnDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-right: 100px;
+`;
 
 export const AddCommentBtn = styled.button`
   width: 120px;

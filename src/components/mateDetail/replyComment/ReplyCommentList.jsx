@@ -22,7 +22,6 @@ const ReplyCommentList = ({ comment }) => {
       {comment?.replyComment.map((item, index) => {
         return <ReplyComment comment={item} index={index} comments={comment} />;
       })}
-      ;
     </ReplyWrap>
   );
 };
