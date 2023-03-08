@@ -13,7 +13,7 @@ export const RecruitWrap = styled.div`
   justify-content: space-between;
   position: fixed;
   top: 200px;
-  right: 365px;
+  right: 250px;
   border-radius: 20px;
 `;
 export const RecruitFont = styled.p`
