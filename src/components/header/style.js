@@ -222,6 +222,14 @@ export const HeaderNotiDropDownListBox = styled.div`
 `;
 
 // 검색창 부분
+export const SearchIconBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+`;
 export const SearchLayer = styled.div`
   z-index: 3;
   display: block;
@@ -242,7 +250,7 @@ export const SearchModalLayer = styled.div`
 `;
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;
-  height: 100px; //200px
+  height: 120px; //200px
   margin-top: 10px;
   border-radius: 5px;
   background-color: #3b3b3b;
@@ -273,6 +281,7 @@ export const HeaderSearchXbuttonBox = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding: 5px 10px 0;
+  /* margin-bottom: 10px; */
 `;
 
 export const HeaderSearchXbutton = styled.div`
@@ -283,7 +292,7 @@ export const HeaderSearchXbutton = styled.div`
 
 export const HeaderSearchDropDownListSection = styled.div`
   width: 100%;
-  height: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -298,19 +307,21 @@ export const HeaderSearchDropDownHr = styled.div`
 
 export const HeaderSearchBox = styled.div`
   display: flex;
-  /* justify-content: space-around; */
+  /* justify-content: space-between; */
   align-items: center;
-  width: 200px;
-  height: 30px;
+  width: 230px;
+  /* height: 30px; */
+  /* background-color: royalblue; */
 `;
 
 export const HeaderSearchInput = styled.input`
   border-radius: 10px;
-  height: 30px;
-  width: 140px;
+  height: 40px;
+  width: 160px;
   border: 0.1px solid gray;
   padding-left: 10px;
   margin-left: 15px;
+  font-size: 13px;
   :focus {
     outline: none;
   }

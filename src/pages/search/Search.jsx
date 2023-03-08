@@ -9,7 +9,8 @@ import CardSection from '../../shared/CardSection';
 const Search = () => {
   const params = useParams();
   const [searchData, setSearchData] = useState([]);
-  
+  console.log(params.word)
+
   // firestore에서 post 문서 받아와서 검색한 내용이 포함 된 데이터만 추출
   useEffect(() => {
     const postCollectionRef = collection(db, 'post');
@@ -22,7 +23,7 @@ const Search = () => {
       const firstCharUpper = params.word.replace(/^[a-z]/, (char) =>
         char.toUpperCase(),
       );
-      
+
       let filterList = [];
       newPost.map((item) => {
         let stringStack = '';
@@ -30,11 +31,13 @@ const Search = () => {
           for (let i = 0; i < item.partyStack.length; i++) {
             stringStack += item.partyStack[i];
           }
-        };
-        if (stringStack.includes(firstCharUpper) ||
-        item.partyLocation.includes(params.word) ||
-        item.partyTime.includes(params.word) ||
-        item.partyName.includes(params.word)) {
+        }
+        if (
+          stringStack.includes(firstCharUpper) ||
+          item.partyLocation.includes(params.word) ||
+          item.partyTime.includes(params.word) ||
+          item.partyName.includes(params.word)
+        ) {
           filterList.push(item);
         }
       });
@@ -47,17 +50,19 @@ const Search = () => {
   return (
     <SearchResultFullScreen>
       <SearchResultContainer>
-      <SearchTitle>검색 건수 : {searchData.length}</SearchTitle>
-      <CardWrapper>
-        {searchData.map((item, idx) => (
-          <CardSection 
-            key={idx} 
-            item={item}
-            db={db} 
-          />
-        ))}
-      </CardWrapper>
-    </SearchResultContainer>
+        <SearchTitle>검색 건수 : {searchData.length}</SearchTitle>
+        <CardWrapper>
+          {searchData.length > 0 ? (
+            searchData.map((item, idx) => (
+              <CardSection key={idx} item={item} db={db} />
+            ))
+          ) : (
+            <NonSearchResultBox>
+              <NonSearchResultText>검색 결과가 없습니다.</NonSearchResultText>
+            </NonSearchResultBox>
+          )}
+        </CardWrapper>
+      </SearchResultContainer>
     </SearchResultFullScreen>
   );
 };
@@ -73,9 +78,10 @@ const SearchResultFullScreen = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center; */
-`
+`;
 const SearchResultContainer = styled.div`
-  width: 1180px;
+  /* width: 1180px; */
+  width: 61.46%;
   /* height: 1000px; */
   margin: 0 auto;
   /* background-color: #111111; */
@@ -85,12 +91,30 @@ const SearchTitle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: white;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
 `;
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   /* background-color: #c8f1e8; */
   gap: 100px 20px;
+`;
+const NonSearchResultBox = styled.div`
+  width: 80%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 80px auto 0;
+  /* background-color: #3B3B3B; */
+  border-radius: 20px;
+`;
+const NonSearchResultText = styled.div`
+  text-align: center;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 500;
 `;
 // <SearchResultCard key={idx} {...item} />
