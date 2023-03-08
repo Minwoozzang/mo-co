@@ -33,6 +33,7 @@ const Home = () => {
         setIsLoggedIn(false); // 로그인 안됨
       }
       setInit(true); // user 판명 끝
+      handleModalOpen();
     });
   }, []);
 
