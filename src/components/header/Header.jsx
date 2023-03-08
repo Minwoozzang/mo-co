@@ -146,9 +146,12 @@ const Header = () => {
   };
   const handleonKeyPress = (e) => {
     // Enter 키 입력 함수
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && word.length > 0) {
       onSubmit();
     }
+    // if (e.key === 'Enter' && word.length === 0) {
+
+    // }
   };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
@@ -279,15 +282,15 @@ const Header = () => {
                           src={Search}
                           alt="search"
                           style={{ width: '20px' }}
-                          // onClick={() => setSearchdropDownClick(false)}
+                          onClick={() => setSearchdropDownClick(false)}
                         />
                       </NavigateMypage>
                     ) : (
                       ''
                     )}
                     </>
-                    <SearchLayer ref={searchRef} onClick={(e)=>searchModalOutSideClick(e)}>
-                    <SearchModalLayer>
+                    <>
+                    <>
                     <HeaderSearchDropDownListBox
                       style={{ position: 'absolute' }}
                     >
@@ -306,11 +309,12 @@ const Header = () => {
                           <img
                             src={Search}
                             alt="search"
-                            style={{ width: '20px' }}
+                            style={{ width: '20px', marginLeft: '10px' }}
                           />
                           <HeaderSearchInput
                             onChange={onChangeSearch}
                             onKeyPress={handleonKeyPress}
+                            placeholder='검색어를 입력해주세요.'
                           />
                           {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
@@ -319,8 +323,8 @@ const Header = () => {
                       </HeaderSearchDropDownListSection>
                       {/* <HeaderSearchDropDownHr /> */}
                     </HeaderSearchDropDownListBox>
-                    </SearchModalLayer>
-                    </SearchLayer>
+                    </>
+                    </>
                     </>
                   
                 
