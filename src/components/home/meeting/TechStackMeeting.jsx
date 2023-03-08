@@ -12,9 +12,6 @@ import postState from '../../../recoil/postState';
 
 const TechStackMeeting = ({
   isLoggedIn,
-  // recommendTechList,
-  uid,
-  userBookmark,
   currentUserData,
 }) => {
   const postData = useRecoilValue(postState);
@@ -23,7 +20,7 @@ const TechStackMeeting = ({
         (item) =>
           !item.isDeleted &&
           item.partyStack.includes(
-            currentUserData[0]?.moreInfo?.u_stack.toString(),
+            currentUserData?.moreInfo?.u_stack.toString(),
           ),
       )
     : [];
@@ -43,15 +40,7 @@ const TechStackMeeting = ({
         ) : (
           recommendTechList
             .slice(0, 4)
-            .map((item, idx) => (
-              <CardSection
-                key={idx}
-                item={item}
-                db={db}
-                uid={uid}
-                userBookmark={userBookmark}
-              />
-            ))
+            .map((item, idx) => <CardSection key={idx} item={item} db={db} />)
         )}
       </MeetingCardBox>
     </TechStackMeetingArea>

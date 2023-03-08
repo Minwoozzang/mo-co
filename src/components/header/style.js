@@ -8,6 +8,11 @@ export const HeaderBody = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1;
+  position: fixed;
+  top: 0;
+  /* width: 100% */
+  left: 0;
+  right: 0;
 `;
 
 export const HeaderInfoBody = styled.div`
@@ -19,7 +24,7 @@ export const HeaderInfoBody = styled.div`
 `;
 
 export const LogoAndMateBox = styled.div`
-  width: 241px;
+  width: 20rem;
   height: 50px;
   display: flex;
   align-items: center;
@@ -42,7 +47,10 @@ export const MyCodingMate = styled.div`
   font-size: 19px;
   font-weight: 600;
   color: #ffffff;
-  margin-left: 5px;
+  /* hover animation */
+  :hover {
+    color: #feff80;
+  }
 `;
 
 export const TeamAndLoginBox = styled.div`
@@ -171,7 +179,7 @@ export const HeaderDropDownList = styled.li`
 `;
 
 export const HeaderNotiDropDownList = styled.li`
-  font-size: 1.0rem;
+  font-size: 1rem;
   color: #ffffff;
   list-style: none;
 `;
