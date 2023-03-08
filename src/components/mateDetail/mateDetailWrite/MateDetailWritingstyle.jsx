@@ -29,12 +29,11 @@ export const GroupImg = styled.img`
   height: 2.5rem;
   border-radius: 1.25rem;
   margin-top: auto;
-  margin-left: 360px;
 `;
 export const GroupUserId = styled.p`
   width: 30%;
   margin: 2.6875rem 0.5rem 0.5rem;
-  text-align: center;
+
   color: #fff;
 `;
 
@@ -52,10 +51,10 @@ export const DropdownOptions = styled(FiShare2)`
 `;
 
 export const GroupBox = styled.div`
-  width: 47.5rem;
+  max-width: 47.5rem;
   height: 100%;
   min-height: 68.75rem;
-  margin: 0 352px 0 352px;
+  margin: 0 0 0 352px;
   background-color: #232323;
   border-radius: 1.25rem;
   color: #fff;

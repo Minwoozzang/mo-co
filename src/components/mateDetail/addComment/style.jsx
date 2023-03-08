@@ -10,15 +10,12 @@ export const AddCommentListAll = styled.div`
 
 export const AddCommentListWrap = styled.div`
   display: flex;
-
   flex-direction: row;
   border: 2px solid #525252;
-  width: 100%;
+  width: 38%;
   height: 130px;
   padding: 20px 25px 25px 40px;
-  max-width: 527px;
-  margin: 50px 770px 0 420px;
-  /* margin: 50px 0px 0 0px; */
+  margin: 50px 16px 0 0px;
   box-sizing: border-box;
   border-radius: 10px;
 `;
