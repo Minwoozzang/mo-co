@@ -16,18 +16,21 @@ export const NewMeetingListBox = styled.div`
 `
 export const NewMeetingTitleBox = styled.div`
     height: 32px;
-    width: 1180px;
+    /* width: 1180px; */
+    width: 61.46%;
     display: flex;
     margin: 0 auto 30px;
 `
 export const NewMeetingTitle = styled.div`
     height: 29px;
+    width: 100%;
     font-size: 20px;
     font-weight: 600;
     color: #FFFFFF;
 `
 export const NewMeetingCardWrap = styled.div`
-    width: 1296px;
+    /* width: 1296px; */
+    width: 67.5%;
     height: 320px;
     margin: 0 auto;
     display: flex;
@@ -36,7 +39,8 @@ export const NewMeetingCardWrap = styled.div`
 `
 export const NewMeetingCardBox = styled.div`
     height: 320px;
-    width: 1180px;
+    /* width: 1180px; */
+    width: 91.05%;
     display: flex;
     gap: 0 20px;
     margin: 0 auto;
