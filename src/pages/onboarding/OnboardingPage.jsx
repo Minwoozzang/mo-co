@@ -3,6 +3,7 @@ import { Checkbox } from 'antd';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { authService, db } from '../../common/firebase';
@@ -20,6 +21,8 @@ export default function OnboardingPage() {
   const [currentUserName, setCurrentUserName] = useState('');
   // 네비게이트
   const navigate = useNavigate();
+  // 작성글 버튼 클릭 상태
+  const [isClicked, setIsClicked] = useState(false);
 
   // 기술 스택 선택 핸들러 함수
   const handleStack = (stack) => {
@@ -72,173 +75,210 @@ export default function OnboardingPage() {
 
   return (
     <>
-      <JustContainer>
-        <WholeContainer>
+      <JustContainerBox>
+        <TextBox>
           <PhraseTitle>
-            맞춤 모임 추천을 위해 {currentUserName ? currentUserName : '익명'}
+            맞춤 모임 추천을 위해
+            <br />
+            {currentUserName ? currentUserName : '익명'}
             님의 정보를 알려주세요 🙌
           </PhraseTitle>
-          <AreaContainer>
-            <h3>기술 스택</h3>
-            <SetStacks>
-              {stacks.map((techitem, idx) => (
-                <Stacks
-                  style={{
-                    backgroundColor: userStack.includes(techitem)
-                      ? '#f7f7f7'
-                      : 'white',
-                  }}
-                  key={idx}
-                  onClick={() => handleStack(techitem)}
-                >
-                  {techitem}
-                </Stacks>
-              ))}
-            </SetStacks>
-          </AreaContainer>
-          <AreaContainer>
-            <h3>선호 시간 설정</h3>
-            <FilterContainer>
-              <Select
-                options={times}
-                placeholder={!userTime ? '모임 시간대' : userTime}
-                onChange={(time) => setUserTime(time.value)}
-                value={userTime}
-              />
-            </FilterContainer>
-          </AreaContainer>
-          <AreaContainer>
-            <h3>선호 지역 설정</h3>
-            <FilterPlaceContainer>
-              <FilterContainerOnly>
+        </TextBox>
+        <JustContainer>
+          <WholeContainer>
+            <AreaContainer>
+              <h3>기술 스택</h3>
+              <SetStacks>
+                {stacks.map((techitem, idx) => (
+                  <Stacks
+                    style={{
+                      backgroundColor: userStack.includes(techitem)
+                        ? '#FEFF80'
+                        : '#212121',
+                      color: userStack.includes(techitem) ? '#212121' : 'white',
+                    }}
+                    key={idx}
+                    onClick={() => handleStack(techitem)}
+                  >
+                    {techitem}
+                  </Stacks>
+                ))}
+              </SetStacks>
+            </AreaContainer>
+            <AreaContainer>
+              <h3>선호 시간 설정</h3>
+              <FilterContainer>
                 <Select
-                  options={locations}
-                  placeholder={!userLocation ? '모집 지역' : userLocation}
-                  onChange={(loc) => setUserLocation(loc.value)}
-                  value={userLocation}
-                  isDisabled={isDisabled}
+                  styles={{
+                    menu: (provided) => ({ ...provided, color: 'black' }),
+                  }}
+                  options={times}
+                  placeholder={!userTime ? '모임 시간대' : userTime}
+                  onChange={(time) => setUserTime(time.value)}
+                  value={userTime}
                 />
-              </FilterContainerOnly>
-              <Checkbox style={{ marginLeft: 20 }} onChange={handleisRemote}>
-                비대면을 원해요
-              </Checkbox>
-            </FilterPlaceContainer>
-          </AreaContainer>
-          <IntroSubmitBtnBox>
-            <>
-              <IntroSubmitBtn onClick={updateIntroduce} type="submit">
-                등록 완료
-              </IntroSubmitBtn>
-            </>
-            {/* <>
-              <IntroEditBtn onClick={editIntroduce}>수정하기</IntroEditBtn>
-            </> */}
-          </IntroSubmitBtnBox>
-        </WholeContainer>
-      </JustContainer>
+              </FilterContainer>
+            </AreaContainer>
+            <AreaContainer>
+              <h3>선호 지역 설정</h3>
+              <FilterPlaceContainer>
+                <FilterContainerOnly>
+                  <Select
+                    styles={{
+                      menu: (provided) => ({ ...provided, color: 'black' }),
+                    }}
+                    options={locations}
+                    placeholder={!userLocation ? '모집 지역' : userLocation}
+                    onChange={(loc) => setUserLocation(loc.value)}
+                    value={userLocation}
+                    isDisabled={isDisabled}
+                  />
+                </FilterContainerOnly>
+                <Checkbox
+                  style={{ marginLeft: 20, color: 'white' }}
+                  onChange={handleisRemote}
+                >
+                  비대면을 원해요
+                </Checkbox>
+              </FilterPlaceContainer>
+            </AreaContainer>
+          </WholeContainer>
+        </JustContainer>
+        <IntroSubmitBtnBox>
+          <IntroSubmitBtn
+            onClick={() => {
+              setIsClicked(!isClicked);
+              updateIntroduce();
+            }}
+            type="submit"
+            style={{
+              backgroundColor: isClicked ? '#f7f7f7' : '#FEFF80',
+            }}
+          >
+            등록 완료
+          </IntroSubmitBtn>
+        </IntroSubmitBtnBox>
+      </JustContainerBox>
     </>
   );
 }
 
+const JustContainerBox = styled.div`
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2em 1em;
+`;
+
+const TextBox = styled.div`
+  width: 1250px;
+  margin: 50px auto 10px;
+  padding: 40px;
+  color: white;
+  display: flex;
+`;
+
 const JustContainer = styled.div`
-  font-family: var(--body-font);
-  color: var(--body-color);
-  background-position: center;
+  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 1em 2em;
+  padding: 0 2em 1em;
   width: 100%;
 `;
 
 const WholeContainer = styled.div`
-  max-width: 1240px;
+  max-width: 77.5rem;
   height: 95%;
   width: 100%;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-weight: 500;
-  border: 1px solid black;
+  color: white;
+  background-color: #212121;
+  border-radius: 20px;
   position: relative;
-  padding: 150px;
-  margin: 100px;
+  padding: 130px 130px 100px;
+  margin: 0 6.25rem 6.25rem;
+  background-position: center;
 `;
 
 const PhraseTitle = styled.p`
-  font-size: 24px;
-  line-height: 32px;
-  font-weight: 700;
-  margin-bottom: 100px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
+  color: white;
 `;
 
 const AreaContainer = styled.div`
-  margin-bottom: 100px;
+  margin-bottom: 6.25rem;
+  color: white;
 `;
 
 const SetStacks = styled.div`
-  margin-top: 20px;
+  margin-top: 1.25rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.625rem;
+  color: black;
 `;
 
 const Stacks = styled.div`
-  border-radius: 30px;
-  border: 1px solid #b9b9b9;
-  font-size: 15px;
+  border-radius: 1.875rem;
+  border: 0.0625rem solid #b9b9b9;
+  font-size: 0.9375rem;
   text-align: center;
-  padding: 12px 0;
-  width: 130px;
+  padding: 0.75rem 0;
+  width: 8.125rem;
+  color: white;
   cursor: pointer;
 `;
 
 const FilterContainer = styled.div`
-  margin-top: 20px;
-  width: 400px;
-  margin-bottom: 100px;
+  margin-top: 1.25rem;
+  width: 25rem;
+  margin-bottom: 6.25rem;
 `;
 
 const FilterContainerOnly = styled.div`
-  width: 400px;
+  width: 25rem;
 `;
 
 const FilterPlaceContainer = styled.div`
-  margin-top: 20px;
-  margin-bottom: 100px;
+  margin-top: 1.25rem;
+  margin-bottom: 6.25rem;
   align-items: center;
   display: flex;
 `;
 
 const IntroSubmitBtnBox = styled.div`
-  margin-left: 40%;
+  margin: auto;
 `;
 
 const IntroSubmitBtn = styled.button`
-  width: 180px;
-  height: 50px;
+  width: 200px;
+  height: 44px;
 
-  font-size: 1.3rem;
+  font-size: 16px;
 
-  background: #0002;
+  background: white;
+  color: black;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
 
   display: block;
-
-  margin-top: 20px;
+  cursor: pointer;
 `;
 
 const IntroEditBtn = styled.div`
-  width: 180px;
-  height: 50px;
+  width: 11.25rem;
+  height: 3.125rem;
 
-  font-size: 1.1rem;
+  font-size: 17.6px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  margin-top: 20px;
-
-  cursor: pointer;
+  margin-top: 1.25rem;
 `;
