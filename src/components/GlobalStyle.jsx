@@ -11,6 +11,10 @@ const style = css`
       'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   }
 
+  html {
+    margin-top: 5rem;
+  }
+
   button {
     cursor: pointer;
   }
