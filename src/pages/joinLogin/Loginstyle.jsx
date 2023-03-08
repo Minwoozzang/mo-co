@@ -12,8 +12,8 @@ export const LoginBody = styled.div`
 `;
 
 export const LoginForm = styled.div`
-  width: 500px;
-  height: 555px;
+  width: 31.25rem;
+  height: 34.6875rem;
 
   border-radius: 20px;
 
@@ -21,11 +21,11 @@ export const LoginForm = styled.div`
 `;
 
 export const LoginTitleLogo = styled.div`
-  height: 33px;
+  height: 2.0625rem;
 
   text-align: center;
 
-  margin-top: 80px;
+  margin-top: 5rem;
 `;
 
 export const LoginTitle = styled.div`
@@ -38,22 +38,22 @@ export const LoginTitle = styled.div`
 
   letter-spacing: -0.03em;
   color: #ffffff;
-  margin-top: 85px;
+  margin-top: 5.3125rem;
 `;
 
 export const LoginInputBody = styled.div`
-  width: 500px;
-  height: 105px;
-  margin-top: 65px;
+  width: 31.25rem;
+  height: 6.5625rem;
+  margin-top: 4.0625rem;
 `;
 
 export const LoginInputSection = styled.div`
-  margin-left: 100px;
+  margin-left: 6.25rem;
 `;
 
 export const EmailBody = styled.div`
-  width: 380px;
-  height: 40px;
+  width: 23.75rem;
+  height: 2.5rem;
 `;
 
 export const EmailText = styled.div`
@@ -61,7 +61,7 @@ export const EmailText = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 0.875rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
@@ -69,8 +69,8 @@ export const EmailText = styled.div`
 `;
 
 export const LoginEmailInput = styled.input`
-  width: 300px;
-  height: 25px;
+  width: 18.75rem;
+  height: 1.5625rem;
   font-size: 1.2rem;
   border-top: 0px;
   border-left: 0px;
@@ -95,14 +95,14 @@ export const PasswordText = styled.div`
 `;
 
 export const PasswordBody = styled.div`
-  width: 380px;
-  height: 40px;
+  width: 23.75rem;
+  height: 2.5rem;
   margin-top: 20px;
 `;
 
 export const LoginPasswordInput = styled.input`
-  width: 300px;
-  height: 25px;
+  width: 18.75rem;
+  height: 1.5625rem;
   font-size: 1.2rem;
   border-top: 0px;
   border-left: 0px;
@@ -132,13 +132,13 @@ export const LoginLogo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
-  gap: 50px;
+  margin-top: 1.875rem;
+  gap: 3.125rem;
 `;
 
 export const GoogleLogo = styled.div`
-  width: 120px;
-  height: 140px;
+  width: 7.5rem;
+  height: 8.75rem;
   background-color: #232323;
   border-radius: 20px;
   border: 1px solid #3b3b3b;
@@ -150,8 +150,8 @@ export const GoogleLogo = styled.div`
 `;
 
 export const GithubLogo = styled.div`
-  width: 120px;
-  height: 140px;
+  width: 7.5rem;
+  height: 8.75rem;
   background-color: #232323;
   border-radius: 20px;
   border: 1px solid #3b3b3b;
@@ -163,9 +163,9 @@ export const GithubLogo = styled.div`
 `;
 
 export const LogoIcon = styled.img`
-  width: 80px;
-  height: 80px;
-  margin-bottom: 10px;
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.625rem;
 `;
 export const LogoIconTitle = styled.div`
   color: #ffffff;
@@ -173,30 +173,30 @@ export const LogoIconTitle = styled.div`
 `;
 
 export const LoginLouteBody = styled.div`
-  width: 300px;
-  margin-top: 20px;
-  margin-left: 100px;
+  width: 18.75rem;
+  margin-top: 1.25rem;
+  margin-left: 6.25rem;
   display: flex;
   justify-content: flex-end;
 `;
 
 export const LoginBtn = styled.div`
-  width: 300px;
-  height: 44px;
+  width: 18.75rem;
+  height: 2.75rem;
   background-color: #feff80;
   border-radius: 5px;
   font-weight: 600;
-  margin-left: 100px;
+  margin-left: 6.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin-top: 15px;
+  margin-top: 0.9375rem;
 `;
 
 export const LouteSignUpPageBtn = styled.div`
-  width: 48px;
-  height: 15px;
+  width: 4rem;
+  height: 0.9375rem;
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 400;
@@ -207,6 +207,9 @@ export const LouteSignUpPageBtn = styled.div`
   color: #858585;
 
   cursor: pointer;
+
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export const ToggleEmailBtn = styled.div`
@@ -219,7 +222,7 @@ export const ToggleEmailBtn = styled.div`
 `;
 
 export const ToggleEmailBack = styled.div`
-  width: 170px;
+  width: 11.5rem;
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 500;
@@ -237,7 +240,7 @@ export const ToggleEmailBack = styled.div`
 export const ToggleSocialBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 5rem;
 `;
 
 export const FullScreen = styled.body`

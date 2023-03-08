@@ -2,14 +2,16 @@ import styled from '@emotion/styled';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { db } from '../../common/firebase';
+import headerToggle from '../../recoil/headerToggleState';
 import CardSection from '../../shared/CardSection';
 // import SearchResultCard from './SearchResultCard';
 
 const Search = () => {
   const params = useParams();
   const [searchData, setSearchData] = useState([]);
-  
+
   // firestore에서 post 문서 받아오기
   useEffect(() => {
     const postCollectionRef = collection(db, 'post');
@@ -22,7 +24,7 @@ const Search = () => {
       const firstCharUpper = params.word.replace(/^[a-z]/, (char) =>
         char.toUpperCase(),
       );
-      
+
       let filterList = [];
       newPost.map((item) => {
         let stringStack = '';
@@ -30,11 +32,13 @@ const Search = () => {
           for (let i = 0; i < item.partyStack.length; i++) {
             stringStack += item.partyStack[i];
           }
-        };
-        if (stringStack.includes(firstCharUpper) ||
-        item.partyLocation.includes(params.word) ||
-        item.partyTime.includes(params.word) ||
-        item.partyName.includes(params.word)) {
+        }
+        if (
+          stringStack.includes(firstCharUpper) ||
+          item.partyLocation.includes(params.word) ||
+          item.partyTime.includes(params.word) ||
+          item.partyName.includes(params.word)
+        ) {
           filterList.push(item);
         }
       });
@@ -44,20 +48,18 @@ const Search = () => {
   }, [params.word]);
   console.log(searchData);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <SearchResultFullScreen>
+    <SearchResultFullScreen onClick={() => setDropDownClick(false)}>
       <SearchResultContainer>
-      <SearchTitle>검색어 : {params.word.toLowerCase()}</SearchTitle>
-      <CardWrapper>
-        {searchData.map((item, idx) => (
-          <CardSection 
-            key={idx} 
-            item={item}
-            db={db} 
-          />
-        ))}
-      </CardWrapper>
-    </SearchResultContainer>
+        <SearchTitle>검색어 : {params.word.toLowerCase()}</SearchTitle>
+        <CardWrapper>
+          {searchData.map((item, idx) => (
+            <CardSection key={idx} item={item} db={db} />
+          ))}
+        </CardWrapper>
+      </SearchResultContainer>
     </SearchResultFullScreen>
   );
 };
@@ -72,7 +74,7 @@ const SearchResultFullScreen = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center; */
-`
+`;
 const SearchResultContainer = styled.div`
   width: 1180px;
   /* height: 1000px; */

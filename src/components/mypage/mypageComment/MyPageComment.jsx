@@ -48,7 +48,6 @@ const MyPageComment = () => {
       }
     });
   }, []);
-
   return (
     <>
       <MyCommentBody>

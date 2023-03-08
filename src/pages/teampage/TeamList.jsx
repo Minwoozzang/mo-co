@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
+import headerToggle from '../../recoil/headerToggleState';
 import postState from '../../recoil/postState';
 import teamPageState from '../../recoil/teamPageState';
 import CardSection from '../../shared/CardSection';
@@ -64,16 +65,16 @@ const TeamList = () => {
         return false;
       }
     });
-  })
-  
+  });
+
   // 팀 멤버에 내 닉네임이 포함된 데이터에서 teamID만 추출
   const myAppliedteamID = myApprovedMeetingAfter?.map((item) => item.teamID);
-  
+
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
     myAppliedteamID?.includes(item.teamID),
   );
-  
+
   // 카테고리 클릭 시
   const [myTeamIsWait, setMyTeamIsWait] = useState(false);
 
@@ -104,8 +105,10 @@ const TeamList = () => {
     navigate(`/teamPage/${id}`, { state: id });
   };
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <TeamListFullScreen>
+    <TeamListFullScreen onClick={() => setDropDownClick(false)}>
       <TeamListContainer>
         <GapBox />
         <UserMeetingTitle>{params.nickname}님의 코딩모임</UserMeetingTitle>
@@ -118,29 +121,25 @@ const TeamList = () => {
             />
           ))}
         </MeetingCategory>
-        
-          {myTeamIsWait
-            ? <CardContainer1>
-            {
-              appliedMeeting?.map((item, idx) => (
-                <CardSection 
-                  key={idx} 
-                  item={item}
-                  db={db}
-                />
-              ))
-            }</CardContainer1>
-            : <CardContainer2>{
-              onGoingMeeting?.map((item, idx) => (
-                <OngoingCardSection
-                  key={idx}
-                  item={item}
-                  goToTeamPage={goToTeamPage}
-                  showTeamPageBtn={show}
-                />
-              ))
-            }</CardContainer2>}
-        
+
+        {myTeamIsWait ? (
+          <CardContainer1>
+            {appliedMeeting?.map((item, idx) => (
+              <CardSection key={idx} item={item} db={db} />
+            ))}
+          </CardContainer1>
+        ) : (
+          <CardContainer2>
+            {onGoingMeeting?.map((item, idx) => (
+              <OngoingCardSection
+                key={idx}
+                item={item}
+                goToTeamPage={goToTeamPage}
+                showTeamPageBtn={show}
+              />
+            ))}
+          </CardContainer2>
+        )}
       </TeamListContainer>
     </TeamListFullScreen>
   );

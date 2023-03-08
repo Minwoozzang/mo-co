@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Pagination } from 'antd';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { db } from '../../common/firebase';
 import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
@@ -12,6 +12,7 @@ import FilterLocation from '../../shared/FilterLocation';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import FilterTech from '../../shared/FilterTech';
 import FilterTime from '../../shared/FilterTime';
+import headerToggle from '../../recoil/headerToggleState';
 
 const MateList = () => {
   const user = useRecoilValue(authState);
@@ -23,14 +24,17 @@ const MateList = () => {
   // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
   const [userBookmark, setUserBookmark] = useState([]);
-  console.log("🚀 ~ file: MateList.jsx:26 ~ MateList ~ userBookmark:", userBookmark)
+  console.log(
+    '🚀 ~ file: MateList.jsx:26 ~ MateList ~ userBookmark:',
+    userBookmark,
+  );
   //페이지네이션
   // const [currentPage, setCurrentPage] = useState(2);
   // 페이지네이션
   // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(12);
-  
+
   // 내 정보 가져오기
   const getUserBookmark = () => {
     const q = query(collection(db, 'user'), where('uid', '==', user?.uid));
@@ -100,8 +104,10 @@ const MateList = () => {
     DATA = DATA.sort((a, b) => b.createdAt - a.createdAt);
   }
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <FullScreen>
+    <FullScreen onClick={() => setDropDownClick(false)}>
       {/* 필터 & 정렬 */}
       <ViewOptions>
         <FilterBox>

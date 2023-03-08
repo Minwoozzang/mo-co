@@ -13,9 +13,10 @@ import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
 import usePosts from '../../hooks/usePost';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import postState from '../../recoil/postState';
 import authState from '../../recoil/authState';
+import headerToggle from '../../recoil/headerToggleState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
@@ -150,9 +151,11 @@ const Home = () => {
     }
     return getUser;
   }, []);
-  
+
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <FullScreen>
+    <FullScreen onClick={() => setDropDownClick(false)}>
       <HomeBanner />
       <MainBackground>
         {init ? (

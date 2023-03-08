@@ -7,12 +7,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { useRecoilState } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
 import { opens } from '../../data/opens';
 import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
+import headerToggle from '../../recoil/headerToggleState';
 
 const MateEdit = () => {
   const queryClient = useQueryClient();
@@ -126,8 +128,10 @@ const MateEdit = () => {
     console.log(currentUser);
   }, []);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <WritePageContainer>
+    <WritePageContainer onClick={() => setDropDownClick(false)}>
       <GuideTextsBox>
         <PageTitle>
           <h2>모임 글 수정하기</h2>
