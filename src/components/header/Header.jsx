@@ -41,6 +41,8 @@ import {
   SearchLayer,
   SearchModalLayer,
 } from './style';
+import { toast } from 'react-toastify';
+
 // import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
@@ -149,9 +151,9 @@ const Header = () => {
     if (e.key === 'Enter' && word.length > 0) {
       onSubmit();
     }
-    // if (e.key === 'Enter' && word.length === 0) {
-
-    // }
+    if (e.key === 'Enter' && word.length === 0) {
+      toast.warn('검색어를 입력해주세요.')
+    }
   };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
@@ -165,7 +167,7 @@ const Header = () => {
       setSearchdropDownClick(false);
     }
   };
-  
+
   // 로그아웃
   const HeaderLogOut = async () => {
     // 구글, 깃헙 기존 정보 입력하기
@@ -238,7 +240,7 @@ const Header = () => {
           <MakeTeam
             onClick={() => {
               if (!authService.currentUser) {
-                alert('로그인이 필요합니다.');
+                toast.warn('로그인이 필요합니다 :)');
               } else {
                 setDropDownClick(false);
                 setSearchdropDownClick(false);
@@ -273,9 +275,8 @@ const Header = () => {
           {searchIcon ? (
             <div onClick={searchdropDownHandler}>
               {searchdropDownClick ? (
-                
-                    <>
-                    <>
+                <>
+                  <>
                     {isSearchUserDropDown ? (
                       <NavigateMypage>
                         <img
@@ -289,7 +290,7 @@ const Header = () => {
                       ''
                     )}
                     </>
-                    <>
+                    
                     <>
                     <HeaderSearchDropDownListBox
                       style={{ position: 'absolute' }}
@@ -325,7 +326,7 @@ const Header = () => {
                     </HeaderSearchDropDownListBox>
                     </>
                     </>
-                    </>
+                    
                   
                 
               ) : (

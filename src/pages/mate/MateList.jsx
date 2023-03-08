@@ -83,6 +83,7 @@ const MateList = () => {
   return (
     <FullScreen>
       {/* 필터 & 정렬 */}
+      <MateListTitle>모임 전체보기</MateListTitle>
       <ViewOptions>
         <FilterBox>
           <FilterTech onSelectedTech={handleSelectTech} />
@@ -92,6 +93,10 @@ const MateList = () => {
         </FilterBox>
         <SortBox>
           <SortByRecommend
+            style={{
+              color: selectedSort === 'byRecommend' ? '#FEFF80' : 'white',
+              textDecoration: selectedSort === 'byRecommend' ? 'underline' : '',
+            }}
             onClick={() => {
               setSelectedSort('byRecommend');
             }}
@@ -99,6 +104,10 @@ const MateList = () => {
             스크랩순
           </SortByRecommend>
           <SortByNew
+            style={{
+              color: selectedSort === 'byNewest' ? '#FEFF80' : 'white',
+              textDecoration: selectedSort === 'byNewest' ? 'underline' : '',
+            }}
             onClick={() => {
               setSelectedSort('byNewest');
             }}
@@ -146,10 +155,23 @@ const FullScreen = styled.body`
   width: 100%;
 `;
 
+const MateListTitle = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+  font-size: 2em;
+  font-weight: 500;
+  padding-top: 1.3em;
+  margin-bottom: 1em;
+`;
+
 // 필터 & 정렬
 const ViewOptions = styled.div`
   max-width: 1200px;
-  padding: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 3em;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -159,6 +181,7 @@ const ViewOptions = styled.div`
 const FilterBox = styled.div`
   display: flex;
   gap: 1em;
+  margin-bottom: 2rem;
 `;
 
 const SortBox = styled.div`
