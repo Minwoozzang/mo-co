@@ -233,9 +233,12 @@ export const SearchLayer = styled.div`
   bottom: 0;
 `;
 export const SearchModalLayer = styled.div`
-  position: absolute;
-  top: 3.1%;
-  left: 75.4%;
+  position: fixed;
+  /* top: 31.005px; */
+  top: 60px;
+  left: 72%;
+  /* right: 20%; */
+  /* background-color: aliceblue; */
 `;
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;
