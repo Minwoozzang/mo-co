@@ -21,6 +21,7 @@ export const UserInfoWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 export const GroupImg = styled.img`
@@ -31,19 +32,21 @@ export const GroupImg = styled.img`
   margin-left: 360px;
 `;
 export const GroupUserId = styled.p`
+  width: 30%;
   margin: 2.6875rem 0.5rem 0.5rem;
   text-align: center;
   color: #fff;
 `;
 
 export const Social = styled.div`
+  width: 30%;
   display: flex;
   justify-content: flex-end;
 `;
 
 export const DropdownOptions = styled(FiShare2)`
   font-size: 1.5625rem;
-  margin-top: 2.6875rem;
+  margin: 2.75rem 0 0 10rem;
   color: white;
   cursor: pointer;
 `;

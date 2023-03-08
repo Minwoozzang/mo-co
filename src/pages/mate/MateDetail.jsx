@@ -105,7 +105,7 @@ const CommentBtnWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 20px 0 0 150px;
+  margin: 20px 0 0 30px;
 `;
 const CommentBtn = styled.button`
   width: 120px;
