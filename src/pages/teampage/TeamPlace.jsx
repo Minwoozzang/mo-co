@@ -16,8 +16,13 @@ import styled from '@emotion/styled';
 import TeamPlaceModal from '../../components/teamPage/TeamPlaceModal';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { v4 } from 'uuid';
+import { useRecoilState } from 'recoil';
+import teamPageState from '../../recoil/teamPageState';
+import { useQueryClient } from 'react-query';
 
 export default function TeamPlace({ teamLocationID }) {
+  const queryClient = useQueryClient();
+
   // const [place, setPlace] = useState([]);
   const [convert, setConvert] = useState(false);
   const [currentUserId, setCurrentUserId] = useState('');
@@ -25,6 +30,8 @@ export default function TeamPlace({ teamLocationID }) {
   const [placeName, setPlaceName] = useState('');
   const [placeX, setPlaceX] = useState(33.450701);
   const [placeY, setPlaceY] = useState(126.570667);
+
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
 
   const [idUid, setidUid] = useState([]);
   const postGetTeamID = () => {
@@ -44,22 +51,22 @@ export default function TeamPlace({ teamLocationID }) {
   };
 
   useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
+    // const teamPageCollectionRef = collection(db, 'teamPage');
+    // const q = query(teamPageCollectionRef);
+    // const getTeamPage = onSnapshot(q, (snapshot) => {
+    //   const teamPageData = snapshot.docs.map((doc) => ({
+    //     id: doc.id,
+    //     ...doc.data(),
+    //   }));
+    //   setTeamPage(teamPageData);
+    // });
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setCurrentUserId(authService.currentUser.uid);
         postGetTeamID();
       }
     });
-    return getTeamPage;
+    // return getTeamPage;
   }, []);
 
   const isOwner = idUid === currentUserId ? true : false;
@@ -77,6 +84,7 @@ export default function TeamPlace({ teamLocationID }) {
       };
       try {
         await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
+        queryClient.invalidateQueries('teamPage');
       } catch (e) {
         console.log(e);
       } finally {
@@ -88,8 +96,6 @@ export default function TeamPlace({ teamLocationID }) {
   };
 
   const [modal, setModal] = useState(false);
-
-  const [teamPage, setTeamPage] = useState([]);
 
   return (
     <>
@@ -168,7 +174,7 @@ export default function TeamPlace({ teamLocationID }) {
             </ButtonPlaceTitleWrap>
             <PlaceWrap>
               {teamPage
-                .filter((item) => item.id === teamLocationID)
+                ?.filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
                     <div key={v4()}>

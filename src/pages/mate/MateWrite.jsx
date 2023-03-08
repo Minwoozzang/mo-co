@@ -28,6 +28,7 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import authState from '../../recoil/authState';
 import headerToggle from '../../recoil/headerToggleState';
+import { memo } from 'react';
 
 const MateWrite = () => {
   const user = useRecoilValue(authState);
@@ -40,10 +41,6 @@ const MateWrite = () => {
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
   const [partyTime, setPartyTime] = useState('');
-  console.log(
-    '🚀 ~ file: MateWrite.jsx:43 ~ MateWrite ~ partyTime:',
-    partyTime,
-  );
   const [partyNum, setPartyNum] = useState('');
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
@@ -150,6 +147,7 @@ const MateWrite = () => {
                   partyName,
                   partyLocation,
                   partyTime,
+                  partyStack,
                 },
               });
             })
@@ -168,6 +166,7 @@ const MateWrite = () => {
               console.log('팀페이지 에러');
             });
           queryClient.invalidateQueries('posts');
+          queryClient.invalidateQueries('teamPage'); // 진행 중 모임에 바로 반영
           console.log('업로드 성공');
           navigate(`/mate`);
         } catch (error) {
@@ -398,7 +397,7 @@ const MateWrite = () => {
   );
 };
 
-export default MateWrite;
+export default memo(MateWrite);
 
 const FullScreen = styled.body`
   background-color: black;
