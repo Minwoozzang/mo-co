@@ -47,7 +47,10 @@ const DetailRecruit = () => {
   // 정원 모집 여부 조건 표현
   const itsTeamDoc = teamPage?.filter((item) => item.teamID === post.teamID);
   const teamMembers = itsTeamDoc
-    ? `${itsTeamDoc[0]?.teamMember.length + 1}명`
+    ? `${
+        itsTeamDoc[0]?.teamMember.filter((member) => member.isWait === false)
+          .length + 1
+      }명`
     : '';
 
   /*
