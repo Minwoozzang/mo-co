@@ -117,10 +117,10 @@ export const HeaderImage = styled.img`
 `;
 
 export const HeaderDropDownListBox = styled.div`
-  width: 250px;
-  height: 300px;
+  width: 15.625rem;
+  height: 18.75rem;
 
-  margin-top: 10px;
+  margin-top: 0.625rem;
 
   border-radius: 5px;
   background-color: #3b3b3b;

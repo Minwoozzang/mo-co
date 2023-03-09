@@ -10,6 +10,7 @@ import CommentList from '../../components/mateDetail/commentList/CommentList';
 import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
+import headerToggle from '../../recoil/headerToggleState';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 
 const MateDetail = () => {

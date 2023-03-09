@@ -6,10 +6,12 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { useRecoilState } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
+import headerToggle from '../../recoil/headerToggleState';
 
 export default function OnboardingPage() {
   const [isRemote, setIsRemote] = useState(false);
@@ -73,9 +75,11 @@ export default function OnboardingPage() {
     });
   }, []);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
     <>
-      <JustContainerBox>
+      <JustContainerBox onClick={() => setDropDownClick(false)}>
         <TextBox>
           <PhraseTitle>
             맞춤 모임 추천을 위해

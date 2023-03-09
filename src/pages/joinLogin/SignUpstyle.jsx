@@ -10,8 +10,8 @@ export const SignUpBody = styled.div`
 `;
 
 export const SignUpForm = styled.div`
-  width: 500px;
-  height: 715px;
+  width: 31.25rem;
+  height: 44.6875rem;
 
   border-radius: 20px;
   border: 1px solid #232323;
@@ -19,11 +19,11 @@ export const SignUpForm = styled.div`
 `;
 
 export const FormBox = styled.div`
-  width: 352px;
-  height: 485px;
+  width: 22rem;
+  height: 30.3125rem;
 
-  margin-left: 74px;
-  margin-top: 50px;
+  margin-left: 4.625rem;
+  margin-top: 3.125rem;
 `;
 
 export const SignUpTitleLogo = styled.div`
@@ -40,26 +40,26 @@ export const SignUpTitleLogo = styled.div`
 
 export const SignUpTitle = styled.div`
   width: 100%;
-  height: 25px;
+  height: 1.5625rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-top: 30px;
+  margin-top: 1.875rem;
 `;
 
 export const SignUpInputBody = styled.div`
-  width: 500px;
-  height: 225px;
+  width: 31.25rem;
+  height: 14.0625rem;
 
-  margin-top: 30px;
+  margin-top: 1.875rem;
 `;
 
 export const SignUpInputSection = styled.div``;
 
 export const EmailBody = styled.div`
-  width: 380px;
+  width: 23.75rem;
 `;
 
 export const EmailText = styled.div`
@@ -75,8 +75,8 @@ export const EmailText = styled.div`
 `;
 
 export const SignUpEmailInput = styled.input`
-  width: 350px;
-  height: 45px;
+  width: 21.875rem;
+  height: 2.8125rem;
 
   font-size: 1.2rem;
 
@@ -86,13 +86,13 @@ export const SignUpEmailInput = styled.input`
 
   background: none;
 
-  margin-top: 12px;
+  margin-top: 0.75rem;
 
   :focus-visible {
     outline: none;
   }
 
-  padding-left: 5px;
+  padding-left: 0.3125rem;
 
   ::placeholder {
     font-size: 1rem;
@@ -113,8 +113,8 @@ export const PasswordText = styled.div`
 `;
 
 export const PasswordBody = styled.div`
-  width: 380px;
-  margin-top: 28px;
+  width: 23.75rem;
+  margin-top: 1.75rem;
 `;
 
 export const PasswordTextBody = styled.div`
@@ -125,18 +125,18 @@ export const PasswordTextInfo = styled.div`
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 400;
-  font-size: 11px;
-  line-height: 14px;
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
   letter-spacing: -0.03em;
 
   color: #858585;
 
-  margin-left: 20px;
+  margin-left: 0.75rem;
 `;
 
 export const SignUpPasswordInput = styled.input`
-  width: 350px;
-  height: 45px;
+  width: 21.875rem;
+  height: 2.8125rem;
 
   font-size: 1.2rem;
 
@@ -146,18 +146,18 @@ export const SignUpPasswordInput = styled.input`
 
   background: none;
 
-  margin-top: 12px;
+  margin-top: 0.75rem;
 
   :focus-visible {
     outline: none;
   }
 
-  padding-left: 5px;
+  padding-left: 0.3125rem;
 `;
 
 export const CheckPasswordBody = styled.div`
-  width: 380px;
-  margin-top: 28px;
+  width: 23.75rem;
+  margin-top: 1.75rem;
 `;
 
 export const CheckPasswordText = styled.div`
@@ -165,14 +165,14 @@ export const CheckPasswordText = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 0.875rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
   letter-spacing: -0.03em;
   color: #9d9d9d;
 `;
 
 export const CheckSignUpPasswordInput = styled.input`
-  width: 350px;
-  height: 45px;
+  width: 21.875rem;
+  height: 2.8125rem;
 
   font-size: 1.2rem;
 
@@ -182,18 +182,18 @@ export const CheckSignUpPasswordInput = styled.input`
 
   background: none;
 
-  margin-top: 12px;
+  margin-top: 0.75rem;
 
   :focus-visible {
     outline: none;
   }
 
-  padding-left: 5px;
+  padding-left: 0.3125rem;
 `;
 
 export const NickNameBody = styled.div`
-  width: 380px;
-  margin-top: 28px;
+  width: 23.75rem;
+  margin-top: 1.75rem;
 `;
 
 export const NickNameText = styled.div`
@@ -201,13 +201,13 @@ export const NickNameText = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 0.875rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
   letter-spacing: -0.03em;
   color: #9d9d9d;
 `;
 export const SignUpNickNameInput = styled.input`
-  width: 350px;
-  height: 45px;
+  width: 21.875rem;
+  height: 2.8125rem;
 
   font-size: 1.2rem;
 
@@ -217,13 +217,13 @@ export const SignUpNickNameInput = styled.input`
 
   background: none;
 
-  margin-top: 12px;
+  margin-top: 0.75rem;
 
   :focus-visible {
     outline: none;
   }
 
-  padding-left: 5px;
+  padding-left: 0.3125rem;
 
   ::placeholder {
     font-size: 1rem;
@@ -235,12 +235,12 @@ export const WarnigTextBody = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 0.625rem;
 `;
 
 export const WarnigText = styled.div`
-  margin-left: 5px;
-  margin-top: 2px;
+  margin-left: 0.3125rem;
+  margin-top: 0.125rem;
   color: red;
 
   font-size: 0.9rem;
@@ -251,41 +251,41 @@ export const SignUpLogo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
-  gap: 50px;
+  margin-top: 1.875rem;
+  gap: 3.125rem;
 `;
 
 export const SignUpLouteBody = styled.div`
   width: 100%;
-  margin-top: 30px;
+  margin-top: 1.875rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 export const SignUpBtn = styled.div`
-  width: 300px;
-  height: 44px;
+  width: 18.75rem;
+  height: 2.75rem;
   background-color: #feff80;
   border-radius: 5px;
   font-weight: 600;
-  margin-left: 100px;
+  margin-left: 6.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 
-  margin-top: 45px;
+  margin-top: 2.8125rem;
 `;
 
 export const LoginFooterText = styled.div`
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
@@ -293,7 +293,7 @@ export const LoginFooterText = styled.div`
 `;
 
 export const LouteSignUpPageBtn = styled.div`
-  width: 50px;
+  width: 3.125rem;
 
   font-family: 'Pretendard';
   font-style: normal;
@@ -302,7 +302,7 @@ export const LouteSignUpPageBtn = styled.div`
   line-height: 14px;
   text-align: center;
   text-decoration: underline;
-  text-underline-offset: 8px;
+  text-underline-offset: 0.5rem;
   color: #9d9d9d;
   cursor: pointer;
 `;

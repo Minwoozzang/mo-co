@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Modal } from 'antd';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import main_background2 from '../../assets/background/main_background2.png';
 import { authService } from '../../common/firebase';
 import AddInfoModal from '../../components/home/addInfoModal/AddInfoModal';
@@ -11,12 +12,13 @@ import CustomMeeting from '../../components/home/meeting/CustomMeeting';
 import HomeMeetingList from '../../components/home/meeting/HomeMeetingList';
 import HomeNewMeetingList from '../../components/home/meeting/newmeeting/HomeNewMeetingList';
 import useUserQuery from '../../hooks/useUserQuery';
+import headerToggle from '../../recoil/headerToggleState';
 
 const Home = () => {
   const [init, setInit] = useState(false);
   // 처음에는 false이고 나중에 사용자 존재 판명이 모두 끝났을 때 true를 통해 해당 화면을 render
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+
   const currentUser = authService.currentUser;
   //* 모달 오픈 여부 상태
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,22 +65,24 @@ const Home = () => {
 
   // 유저 데이터
   const currentUserData = useUserQuery();
-  
+
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <FullScreen>
+    <FullScreen onClick={() => setDropDownClick(false)}>
       <HomeBanner />
       <MainBackground>
         {init ? (
           <>
             <CustomListContainer>
-            <HomeGuideText 
-              isLoggedIn={isLoggedIn} 
-              currentUser={currentUser} 
-            />
-            <CustomMeeting 
-              isLoggedIn={isLoggedIn} 
-              currentUserData={currentUserData} 
-            />
+              <HomeGuideText
+                isLoggedIn={isLoggedIn}
+                currentUser={currentUser}
+              />
+              <CustomMeeting
+                isLoggedIn={isLoggedIn}
+                currentUserData={currentUserData}
+              />
             </CustomListContainer>
             <HomeMeetingList
               isLoggedIn={isLoggedIn}
@@ -88,8 +92,8 @@ const Home = () => {
         ) : (
           <>...</>
         )}
-          <HomeNewMeetingList />
-          <HomeAllBtn />
+        <HomeNewMeetingList />
+        <HomeAllBtn />
       </MainBackground>
       <AddInfoModal
         isModalOpen={isModalOpen}

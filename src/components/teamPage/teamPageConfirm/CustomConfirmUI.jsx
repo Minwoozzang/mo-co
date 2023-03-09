@@ -11,6 +11,8 @@ import {
 import { useEffect, useState } from 'react';
 import { authService, db } from '../../../common/firebase';
 import cancel from '../../../../src/assets/icon/Icon_cancel.png';
+import { useRecoilState } from 'recoil';
+import confirmState from '../../../recoil/confirmState';
 
 const CustomConfirmUI = (props) => {
   // 본인 아이디
