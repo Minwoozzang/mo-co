@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import {
   MeetingArea,
   TechStackMeetingContainer,
@@ -7,10 +8,7 @@ import LocationMeeting from './LocationMeeting';
 import TechStackMeeting from './TechStackMeeting';
 import TimeMeeting from './TimeMeeting';
 
-const HomeMeetingList = ({
-  isLoggedIn,
-  currentUserData,
-}) => {
+const HomeMeetingList = ({ isLoggedIn, currentUserData }) => {
   // 로그인 안 됐을 때 리스트
   const blurList = [1, 2, 3, 4];
 
@@ -19,16 +17,11 @@ const HomeMeetingList = ({
       {isLoggedIn ? (
         <>
           <TechStackMeetingContainer>
-            <TechStackMeeting
-              currentUserData={currentUserData}
-            />
+            <TechStackMeeting currentUserData={currentUserData} />
           </TechStackMeetingContainer>
-          <TimeMeeting
-            currentUserData={currentUserData}
-          />
-          <LocationMeeting
-            currentUserData={currentUserData}
-          />
+          <TimeMeeting currentUserData={currentUserData} />
+          <TimeAndLocationGap />
+          <LocationMeeting currentUserData={currentUserData} />
         </>
       ) : (
         <>
@@ -40,3 +33,8 @@ const HomeMeetingList = ({
 };
 
 export default HomeMeetingList;
+
+const TimeAndLocationGap = styled.div`
+  height: 150px;
+  width: 100%;
+`;

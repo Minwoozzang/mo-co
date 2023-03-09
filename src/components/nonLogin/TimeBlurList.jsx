@@ -27,9 +27,17 @@ const TimeBlurList = ({ isLoggedIn, blurList }) => {
   const navigate = useNavigate();
   // small screen
   const referenceSize = 1920;
-  const isSmallScreen = useMediaQuery({
-    query: `(max-width: 1420px)`,
+  const isSmallScreen1 = useMediaQuery({
+    query: `(min-width: 1420px)`,
   });
+  const isSmallScreen2 = useMediaQuery({
+    query: `(min-width: 1072px) and (max-width: 1420px)`,
+  });
+  const isSmallScreen3 = useMediaQuery({
+    query: `(max-width: 1072px)`,
+  });
+
+  const blurList1 = [1, 2];
 
   const titlestring = '</---*';
   const titlestring1 = '{=';
@@ -37,22 +45,7 @@ const TimeBlurList = ({ isLoggedIn, blurList }) => {
 
   return (
     <TimeMeetingArea>
-      {isSmallScreen ? (
-        <TimeMeetingMediaBox>
-          <TimeMeetingMediaLeftCornerBox>
-            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
-            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
-          </TimeMeetingMediaLeftCornerBox>
-          <TimeMeetingMediaCardBox style={{ position: 'relative' }}>
-            <MediaGuideText onClick={() => navigate('/login')}>
-              로그인이 필요합니다
-            </MediaGuideText>
-            {blurList.slice(0, 3).map((item, idx) => (
-              <BlurCard key={idx} />
-            ))}
-          </TimeMeetingMediaCardBox>
-        </TimeMeetingMediaBox>
-      ) : (
+      {isSmallScreen1 && (
         <div>
           <TimeMeetingTopBox />
           <TimeMeetingBox>
@@ -78,6 +71,38 @@ const TimeBlurList = ({ isLoggedIn, blurList }) => {
             </TimeMeetingInnerSection2>
           </TimeMeetingBox>
         </div>
+      )}
+      {isSmallScreen2 && (
+        <TimeMeetingMediaBox>
+          <TimeMeetingMediaLeftCornerBox>
+            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
+            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
+          </TimeMeetingMediaLeftCornerBox>
+          <TimeMeetingMediaCardBox style={{ position: 'relative' }}>
+            <MediaGuideText onClick={() => navigate('/login')}>
+              로그인이 필요합니다
+            </MediaGuideText>
+            {blurList.slice(0, 3).map((item, idx) => (
+              <BlurCard key={idx} />
+            ))}
+          </TimeMeetingMediaCardBox>
+        </TimeMeetingMediaBox>
+      )}
+      {isSmallScreen3 && (
+        <TimeMeetingMediaBox>
+          <TimeMeetingMediaLeftCornerBox>
+            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
+            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
+          </TimeMeetingMediaLeftCornerBox>
+          <TimeMeetingMediaCardBox style={{ position: 'relative' }}>
+            <MediaGuideText onClick={() => navigate('/login')}>
+              로그인이 필요합니다
+            </MediaGuideText>
+            {blurList1.map((item, idx) => (
+              <BlurCard key={idx} />
+            ))}
+          </TimeMeetingMediaCardBox>
+        </TimeMeetingMediaBox>
       )}
     </TimeMeetingArea>
   );

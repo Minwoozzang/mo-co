@@ -23,9 +23,18 @@ import { useMediaQuery } from 'react-responsive';
 const LocationBlurList = ({ isLoggedIn, blurList }) => {
   // small screen
   const referenceSize = 1920;
-  const isSmallScreen = useMediaQuery({
-    query: `(max-width: 1420px)`,
+  const isSmallScreen1 = useMediaQuery({
+    query: `(min-width: 1420px)`,
   });
+  const isSmallScreen2 = useMediaQuery({
+    query: `(min-width: 1072px) and (max-width: 1420px)`,
+  });
+  const isSmallScreen3 = useMediaQuery({
+    query: `(max-width: 1072px)`,
+  });
+
+  const blurList1 = [1, 2];
+
   const titlestring1 = '{=';
   const titlestring2 = ';';
   const titlestring3 = '} * --- />';
@@ -34,26 +43,7 @@ const LocationBlurList = ({ isLoggedIn, blurList }) => {
 
   return (
     <>
-      {isSmallScreen ? (
-        <LocationMeetingMediaBox>
-          <LocationMeetingMediaLeftCornerBox>
-            <LocationMeetingMediaTitle>
-              지역이 맞는 모임
-            </LocationMeetingMediaTitle>
-            <LocationMeetingMediaTitleBox>
-              {titlestring4}
-            </LocationMeetingMediaTitleBox>
-          </LocationMeetingMediaLeftCornerBox>
-          <LocationMeetingMediaCardBox style={{ position: 'relative' }}>
-            <MediaGuideText onClick={() => navigate('/login')}>
-              로그인이 필요합니다
-            </MediaGuideText>
-            {blurList.slice(0, 3).map((item, idx) => (
-              <BlurCard key={idx} />
-            ))}
-          </LocationMeetingMediaCardBox>
-        </LocationMeetingMediaBox>
-      ) : (
+      {isSmallScreen1 && (
         <LocationMeetingArea>
           <LocationMeetingInnerSection1>
             <LocationMeetingTitleBox>
@@ -79,6 +69,46 @@ const LocationBlurList = ({ isLoggedIn, blurList }) => {
             </LocationMeetingCardBox>
           </LocationMeetingInnerSection2>
         </LocationMeetingArea>
+      )}
+      {isSmallScreen2 && (
+        <LocationMeetingMediaBox>
+          <LocationMeetingMediaLeftCornerBox>
+            <LocationMeetingMediaTitle>
+              지역이 맞는 모임
+            </LocationMeetingMediaTitle>
+            <LocationMeetingMediaTitleBox>
+              {titlestring4}
+            </LocationMeetingMediaTitleBox>
+          </LocationMeetingMediaLeftCornerBox>
+          <LocationMeetingMediaCardBox style={{ position: 'relative' }}>
+            <MediaGuideText onClick={() => navigate('/login')}>
+              로그인이 필요합니다
+            </MediaGuideText>
+            {blurList.slice(0, 3).map((item, idx) => (
+              <BlurCard key={idx} />
+            ))}
+          </LocationMeetingMediaCardBox>
+        </LocationMeetingMediaBox>
+      )}
+      {isSmallScreen3 && (
+        <LocationMeetingMediaBox>
+          <LocationMeetingMediaLeftCornerBox>
+            <LocationMeetingMediaTitle>
+              지역이 맞는 모임
+            </LocationMeetingMediaTitle>
+            <LocationMeetingMediaTitleBox>
+              {titlestring4}
+            </LocationMeetingMediaTitleBox>
+          </LocationMeetingMediaLeftCornerBox>
+          <LocationMeetingMediaCardBox style={{ position: 'relative' }}>
+            <MediaGuideText onClick={() => navigate('/login')}>
+              로그인이 필요합니다
+            </MediaGuideText>
+            {blurList1.map((item, idx) => (
+              <BlurCard key={idx} />
+            ))}
+          </LocationMeetingMediaCardBox>
+        </LocationMeetingMediaBox>
       )}
     </>
   );

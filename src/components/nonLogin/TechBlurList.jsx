@@ -60,8 +60,8 @@ const GuideText = styled.div`
   font-weight: 400;
   position: absolute;
   z-index: 9999;
-  /* top: 41.5%; */
-  top: 50%;
+  top: 41.5%;
+  /* top: 45%; */
   /* left: 33%; */
   left: 50%;
   transform: translate(-50%, -50%);
