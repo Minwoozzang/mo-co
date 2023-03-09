@@ -41,6 +41,7 @@ const DetailRecruit = () => {
   const [myProfileImg, setMyProfileImg] = useState([]);
   const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
   const [myTeamList, setMyTeamList] = useState([]);
+  const [disable, setDisable] = useState(false);
   // 참여신청 버튼 비활성화 여부
   let isBtnDisabled = false;
 
@@ -152,6 +153,7 @@ const DetailRecruit = () => {
         console.log('참여 신청 에러');
       });
     queryClient.invalidateQueries('teamPage');
+    setDisable(true);
     toast.success('참여 신청 완료!');
     console.log('참여 완료');
     setIsModalOpen(false);
@@ -206,7 +208,7 @@ const DetailRecruit = () => {
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>모집진행 {post.partyNum}</RecruitDetail>
       </RecruitCurrent>
-      <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
+      <RecruitBtn disabled={isBtnDisabled || disable} onClick={handleModalOpen}>
         모임 참여 신청
       </RecruitBtn>
       <ApplyModal
