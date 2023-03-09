@@ -71,10 +71,10 @@ const Home = () => {
   const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
 
   // small screen
-  const referenceSize = 1920;
-  const isSmallScreen = useMediaQuery({
-    query: `(max-width: ${referenceSize*0.5}px)`,
-  });
+  // const referenceSize = 1920;
+  // const isSmallScreen = useMediaQuery({
+  //   query: `(max-width: ${referenceSize*0.5}px)`,
+  // });
 
   return (
     <FullScreen onClick={() => setDropDownClick(false)}>
@@ -92,14 +92,10 @@ const Home = () => {
                 currentUserData={currentUserData}
               />
             </CustomListContainer>
-            {isSmallScreen ? (
-              <div style={{color: 'white'}}>aaa</div>
-            ) : (
-              <HomeMeetingList
+            <HomeMeetingList
               isLoggedIn={isLoggedIn}
               currentUserData={currentUserData}
             />
-            )}
           </>
         ) : (
           <>...</>
