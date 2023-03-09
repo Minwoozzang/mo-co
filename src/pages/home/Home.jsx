@@ -66,6 +66,7 @@ const Home = () => {
   // 유저 데이터
   const currentUserData = useUserQuery();
 
+  // recoil 전역에서 가져오기
   const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
 
   return (
