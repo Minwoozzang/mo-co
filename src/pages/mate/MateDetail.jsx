@@ -12,8 +12,10 @@ import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
 import headerToggle from '../../recoil/headerToggleState';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
+import { useQueryClient } from 'react-query';
 
 const MateDetail = () => {
+  const queryClient = useQueryClient();
   const user = useRecoilValue(authState);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ const MateDetail = () => {
       await updateDoc(doc(db, 'post', id), {
         isDeleted: true,
       });
+      queryClient.invalidateQueries('posts');
       toast.success('삭제 성공');
       navigate('/mate');
     } catch (error) {
