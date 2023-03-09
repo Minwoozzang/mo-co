@@ -12,7 +12,6 @@ const MyComment = ({ myItem }) => {
     navigate(`/matedetail/${myItem.mateDetailId}`);
   };
 
-  console.log('asd', myItem);
   return (
     <MyCommentsBox onClick={navigateComment}>
       <MyCommentOfComment>{myItem.comment}</MyCommentOfComment>

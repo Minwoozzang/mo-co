@@ -17,7 +17,10 @@ export const MyCommetTitle = styled.div`
 
   margin-right: 4.375rem;
 `;
-export const MyCommentList = styled.div``;
+export const MyCommentList = styled.div`
+  width: 35.625rem;
+  height: 13rem;
+`;
 
 // MyComment 부분
 

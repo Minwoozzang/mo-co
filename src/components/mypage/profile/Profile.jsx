@@ -100,7 +100,6 @@ const Profile = () => {
       if (user) {
         setCurrentUser(authService.currentUser.uid);
         setNickName(authService.currentUser.displayName);
-        // setPhotoURL(authService.currentUser.photoURL);
         getUserStackInfo();
       }
     });
