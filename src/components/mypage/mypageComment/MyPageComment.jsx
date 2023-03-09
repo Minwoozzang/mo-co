@@ -24,7 +24,7 @@ const MyPageComment = () => {
   // 댓글
   const [myComment, setMyComment] = useState([]);
 
-  // 댓글 정보 가져오가
+  // 댓글 정보 가져오기
   const getMyCommnet = () => {
     const q = query(
       collection(db, 'comment'),

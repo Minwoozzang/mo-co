@@ -93,9 +93,8 @@ const CommentContainHeader = styled.p`
   font-size: 20px;
   font-weight: 500;
   line-height: 29px;
-  margin: 30px 0 30px 0;
+  margin: 30px 250px 30px 360px;
   color: #fff;
-  margin: 0 250px 0 420px;
 `;
 const UserHr = styled.hr`
   border: 0;
@@ -106,7 +105,7 @@ const CommentBtnWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 20px 0 0 150px;
+  margin: 20px 0 0 30px;
 `;
 const CommentBtn = styled.button`
   width: 120px;

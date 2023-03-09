@@ -40,6 +40,7 @@ import {
   HeaderNotiDropDownListBox,
   SearchLayer,
   SearchModalLayer,
+  SearchIconBox,
 } from './style';
 import { toast } from 'react-toastify';
 
@@ -148,8 +149,11 @@ const Header = () => {
   };
   const handleonKeyPress = (e) => {
     // Enter 키 입력 함수
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && word.length > 0) {
       onSubmit();
+    }
+    if (e.key === 'Enter' && word.length === 0) {
+      toast.warn('검색어를 입력해주세요.')
     }
   };
   const searchdropDownHandler = () => {
@@ -275,57 +279,57 @@ const Header = () => {
                 <>
                   <>
                     {isSearchUserDropDown ? (
-                      <NavigateMypage>
+                      <SearchIconBox>
                         <img
                           src={Search}
                           alt="search"
                           style={{ width: '20px' }}
-                          // onClick={() => setSearchdropDownClick(false)}
+                          onClick={() => setSearchdropDownClick(false)}
                         />
-                      </NavigateMypage>
+                      </SearchIconBox>
                     ) : (
                       ''
                     )}
-                  </>
-                  <SearchLayer
-                    ref={searchRef}
-                    onClick={(e) => searchModalOutSideClick(e)}
-                  >
-                    <SearchModalLayer>
-                      <HeaderSearchDropDownListBox
-                        style={{ position: 'absolute' }}
-                      >
-                        <HeaderSearchXbuttonBox>
-                          <HeaderSearchXbutton
-                            onClick={() => setSearchdropDownClick(false)}
-                          >
-                            <ImCancelCircle
-                              color="white"
-                              style={{ fontSize: '20px' }}
-                            />
-                          </HeaderSearchXbutton>
-                        </HeaderSearchXbuttonBox>
-                        <HeaderSearchDropDownListSection>
-                          <HeaderSearchBox>
-                            <img
-                              src={Search}
-                              alt="search"
-                              style={{ width: '20px' }}
-                            />
-                            <HeaderSearchInput
-                              onChange={onChangeSearch}
-                              onKeyPress={handleonKeyPress}
-                            />
-                            {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                    </>
+                    
+                    <>
+                    <HeaderSearchDropDownListBox
+                      style={{ position: 'absolute' }}
+                    >
+                      <HeaderSearchXbuttonBox>
+                        <HeaderSearchXbutton
+                          onClick={() => setSearchdropDownClick(false)}
+                        >
+                          <ImCancelCircle
+                            color="white"
+                            style={{ fontSize: '20px' }}
+                          />
+                        </HeaderSearchXbutton>
+                      </HeaderSearchXbuttonBox>
+                      <HeaderSearchDropDownListSection>
+                        <HeaderSearchBox>
+                          <img
+                            src={Search}
+                            alt="search"
+                            style={{ width: '20px', marginLeft: '10px' }}
+                          />
+                          <HeaderSearchInput
+                            onChange={onChangeSearch}
+                            onKeyPress={handleonKeyPress}
+                            placeholder='검색어를 입력해주세요.'
+                          />
+                          {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
                       </HeaderSearchInputBtn> */}
-                          </HeaderSearchBox>
-                        </HeaderSearchDropDownListSection>
-                        {/* <HeaderSearchDropDownHr /> */}
-                      </HeaderSearchDropDownListBox>
-                    </SearchModalLayer>
-                  </SearchLayer>
-                </>
+                        </HeaderSearchBox>
+                      </HeaderSearchDropDownListSection>
+                      {/* <HeaderSearchDropDownHr /> */}
+                    </HeaderSearchDropDownListBox>
+                    </>
+                    </>
+                    
+                  
+                
               ) : (
                 <NavigateMypage>
                   <img src={Search} alt="search" style={{ width: '20px' }} />
