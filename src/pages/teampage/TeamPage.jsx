@@ -16,7 +16,7 @@ import teamPageState from '../../recoil/teamPageState';
 import { useQueryClient } from 'react-query';
 
 export default function TeamPage() {
-  const teamPage = useRecoilState(teamPageState);
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
 
   const navigate = useNavigate();
 
@@ -53,10 +53,9 @@ export default function TeamPage() {
       <JustContainer>
         <WholeContainer>
           <MemberSide teamLocationID={teamLocationID} />
-
           <DashBoardContainer>
             {teamPage
-              ?.filter((item) => item.id === teamLocationID)
+              .filter((item) => item.id === teamLocationID)
               .map((item) => {
                 return (
                   <DashboardHeaderWrap key={item.id}>
@@ -92,7 +91,6 @@ export default function TeamPage() {
                   </DashboardHeaderWrap>
                 );
               })}
-
             <ContentContainerR>
               <ContentContainer>
                 <ContenRuleAndPlace>
