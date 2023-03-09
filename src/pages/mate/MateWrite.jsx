@@ -131,6 +131,7 @@ const MateWrite = () => {
           })
             .then(() => {
               setDoc(doc(db, 'teamPage', teamID), {
+                isDeleted : false,
                 createdDate: now(),
                 createdAt: Date.now(),
                 teamID: teamID,
