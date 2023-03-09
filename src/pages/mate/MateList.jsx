@@ -1,19 +1,17 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { Pagination } from 'antd';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { db } from '../../common/firebase';
+import Pagenation from '../../components/pagenation/Pagenation';
 import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
+import headerToggle from '../../recoil/headerToggleState';
 import CardSection from '../../shared/CardSection';
 import FilterLocation from '../../shared/FilterLocation';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import FilterTech from '../../shared/FilterTech';
 import FilterTime from '../../shared/FilterTime';
-import headerToggle from '../../recoil/headerToggleState';
-import Pagenation from '../../components/pagenation/Pagenation';
 
 const MateList = () => {
   const user = useRecoilValue(authState);
@@ -124,13 +122,24 @@ const MateList = () => {
 
       {/* 카드 리스트 */}
       <CardListContainer>
-        <CardList>
-          {DATA &&
-            DATA.length > 0 &&
-            DATA.slice(minValue, maxValue).map((item) => (
-              <CardSection key={item.id} item={item} db={db} />
-            ))}
-        </CardList>
+        <>
+          {DATA?.length > 0 ? (
+            <CardList>
+              {DATA &&
+                DATA.length > 0 &&
+                DATA.slice(minValue, maxValue).map((item) => (
+                  <CardSection key={item.id} item={item} db={db} />
+                ))}
+            </CardList>
+          ) : (
+            <NoResult>
+              <NoResultMessage>
+                ⚠️<br></br>찾는 모임이 없습니다<br></br>원하는 모임을 만들어
+                보세요 :)
+              </NoResultMessage>
+            </NoResult>
+          )}
+        </>
       </CardListContainer>
 
       {/* 페이지 */}
@@ -144,7 +153,7 @@ const MateList = () => {
 export default MateList;
 
 const FullScreen = styled.body`
-  background-color: #181616;
+  background-color: #111111;
   height: 100%;
   min-height: 100vh;
   width: 100%;
@@ -222,5 +231,24 @@ const PaginationContainer = styled.div`
   /* margin: 3rem; */
   /* margin-top: 110px; */
   padding: 6rem;
-  background-color: #181616;
+  background-color: #111111;
+`;
+
+const NoResult = styled.div`
+  background-color: #232323;
+  max-width: 1200px;
+  width: 100%;
+  height: 300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+`;
+
+const NoResultMessage = styled.div`
+  color: #feff80;
+  text-align: center;
+  line-height: 2rem;
+  font-size: 1.2rem;
 `;
