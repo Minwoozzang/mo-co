@@ -40,8 +40,8 @@ export const LogoAndMateBox = styled.div`
 export const HeaderLogo = styled.div`
   cursor: pointer;
   font-size: 30px;
-  background-image: url('images/logo.png');
-  background-size: 16rem;
+  background-image: url('https://i.imgur.com/h1eUKhk.png');
+  background-size: 8rem;
   background-repeat: no-repeat;
   background-position: center;
   width: 130px;
@@ -231,7 +231,6 @@ export const SearchIconBox = styled.div`
   align-items: center;
 
   cursor: pointer;
-
 `;
 export const SearchLayer = styled.div`
   z-index: 3;
