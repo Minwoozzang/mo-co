@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Pagination } from 'antd';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { db } from '../../common/firebase';
 import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
@@ -12,6 +12,7 @@ import FilterLocation from '../../shared/FilterLocation';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import FilterTech from '../../shared/FilterTech';
 import FilterTime from '../../shared/FilterTime';
+import headerToggle from '../../recoil/headerToggleState';
 import Pagenation from '../../components/pagenation/Pagenation';
 
 const MateList = () => {
@@ -81,8 +82,10 @@ const MateList = () => {
     DATA = DATA.sort((a, b) => b.createdAt - a.createdAt);
   }
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <FullScreen>
+    <FullScreen onClick={() => setDropDownClick(false)}>
       {/* 필터 & 정렬 */}
       <MateListTitle>모임 전체보기</MateListTitle>
       <ViewOptions>

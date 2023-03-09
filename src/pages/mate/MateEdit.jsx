@@ -5,8 +5,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { useRecoilState } from 'recoil';
 import { toast } from 'react-toastify';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
@@ -14,8 +15,16 @@ import { opens } from '../../data/opens';
 import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
+import headerToggle from '../../recoil/headerToggleState';
 
 const MateEdit = () => {
+  // 팀 ID 경로 받아오기
+  // 경로 id 받아오기
+  const location = useLocation();
+  const teamLocationID = location.state;
+
+  console.log('team', teamLocationID);
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -26,22 +35,18 @@ const MateEdit = () => {
   const quillRef = useRef(null);
   // 글쓰기 페이지에서 유저가 입력한 데이터를 저장하는 상태
   const [partyName, setPartyname] = useState('');
-  const [partyStack, setPartyStack] = useState([]);
-  console.log('🚀 ~ file: MateEdit.jsx:35 ~ partyName:', partyName);
   const [partyTime, setPartyTime] = useState('');
   const [partyNum, setPartyNum] = useState('');
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
   const [partyIsOpen, setPartyIsOpen] = useState(true);
   const [partyPostTitile, setPartyPostTitle] = useState('');
-  const [partyDesc, setPartyDesc] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
   // 작성글 버튼 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   // !
   const [selectedTech, setSelectedTech] = useState([]);
-  const [changedDesc, setChangedDesc] = useState('');
   const [writtenDesc, setWrittenDesc] = useState('');
   const [postIdInfo, setPostIdInfo] = useState([]);
 
@@ -115,7 +120,8 @@ const MateEdit = () => {
         });
       queryClient.invalidateQueries('posts');
       toast.success('수정 완료!');
-      navigate(`/matedetail/${id}`);
+      // window.location.replace(`/teamPage/${teamLocationID}`);
+      // navigate(`/teamPage/${teamLocationID}`);
       console.log('수정 성공');
     } catch (error) {
       console.log(error);
@@ -128,8 +134,10 @@ const MateEdit = () => {
     console.log(currentUser);
   }, []);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <JustContainer>
+    <JustContainer onClick={() => setDropDownClick(false)}>
       <GuideTextsBox>
         <PageTitle>
           <h2>모임 글 수정하기</h2>

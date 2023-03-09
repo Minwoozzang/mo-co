@@ -12,6 +12,7 @@ import TeamPlace from './TeamPlace';
 import { onAuthStateChanged } from '@firebase/auth';
 import MemberChatingRoom from '../../components/teamPage/chat/MemberChatingRoom';
 import { useRecoilState } from 'recoil';
+import headerToggle from '../../recoil/headerToggleState';
 import teamPageState from '../../recoil/teamPageState';
 import { useQueryClient } from 'react-query';
 
@@ -48,9 +49,11 @@ export default function TeamPage() {
     });
   }, []);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
     <>
-      <JustContainer>
+      <JustContainer onClick={() => setDropDownClick(false)}>
         <WholeContainer>
           <MemberSide teamLocationID={teamLocationID} />
           <DashBoardContainer>
