@@ -12,7 +12,18 @@ export const GroupHeader = styled.h4`
   font-weight: 500;
   color: #fff;
   padding-left: 22.5rem;
+
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    padding-left: 11rem;
+  }
+
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    padding-left: 8.5rem;
+  }
 `;
+
 export const GroupUserInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -58,6 +69,12 @@ export const GroupBox = styled.div`
   background-color: #232323;
   border-radius: 1.25rem;
   color: #fff;
+  /* 태블릿, 아이패드 */
+
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    max-width: 550px;
+    margin: 0 0 0 140px;
+  }
 `;
 export const GroupPerson = styled.div`
   width: 100%;
