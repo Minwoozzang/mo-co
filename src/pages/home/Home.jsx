@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Modal } from 'antd';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useRecoilState } from 'recoil';
 import main_background2 from '../../assets/background/main_background2.png';
 import { authService } from '../../common/firebase';
@@ -68,6 +69,12 @@ const Home = () => {
 
   const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
 
+  // small screen
+  const referenceSize = 1920;
+  const isSmallScreen = useMediaQuery({
+    query: `(max-width: ${referenceSize*0.5}px)`,
+  });
+
   return (
     <FullScreen onClick={() => setDropDownClick(false)}>
       <HomeBanner />
@@ -84,10 +91,14 @@ const Home = () => {
                 currentUserData={currentUserData}
               />
             </CustomListContainer>
-            <HomeMeetingList
+            {isSmallScreen ? (
+              <div style={{color: 'white'}}>aaa</div>
+            ) : (
+              <HomeMeetingList
               isLoggedIn={isLoggedIn}
               currentUserData={currentUserData}
             />
+            )}
           </>
         ) : (
           <>...</>

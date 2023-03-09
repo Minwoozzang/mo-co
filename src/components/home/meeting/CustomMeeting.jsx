@@ -87,37 +87,45 @@ const YellowBar = styled.div`
   width: 100%;
   height: 320px;
   background-color: #feff80;
-  background: linear-gradient(
+  /* background: linear-gradient(
     rgba(0, 38, 84, 0) 28%,
     #feff80 28%,
     #feff80 72%,
     rgba(0, 38, 84, 0) 72%
-  );
-  /* background: linear-gradient(#111111 28%, #feff80 28%,
-  #feff80 72%, #111111 72%); */
+  ); */
+  background: linear-gradient(#111111 28%, #feff80 28%,
+  #feff80 72%, #111111 72%);
   display: flex;
   align-items: center;
   position: relative;
+  border: 1px solid #111111;
 `;
 const TriAngle1 = styled.div`
   width: 0px;
   height: 0px;
-  border-bottom: 140px solid transparent;
+  /* border-bottom: 140px solid transparent; */
+  border-bottom: 160px solid transparent;
   border-left: 47px solid #111111;
+  /* border-left: 30px solid #9e6060; */
   border-right: 47px solid transparent;
+  /* border-right: 60px solid transparent; */
   position: absolute;
-  top: 90px;
-  left: 0;
+  /* top: 90px; */
+  top: 80px;
+  /* left: 0; */
+  left: -1px;
 `;
 const TriAngle2 = styled.div`
   width: 0px;
   height: 0px;
-  border-top: 140px solid transparent;
+  /* border-top: 140px solid transparent; */
+  border-top: 160px solid transparent;
   border-left: 47px solid transparent;
   border-right: 47px solid #111111;
   position: absolute;
-  top: 90px;
-  right: 0;
+  /* top: 90px; */
+  bottom: 80px;
+  right: -1px;
 `;
 const CustomDataCardBox = styled.div`
   /* width: 900px; */

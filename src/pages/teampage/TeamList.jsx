@@ -72,6 +72,7 @@ const TeamList = () => {
 
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
+    item.isDeleted === false &&
     myAppliedteamID?.includes(item.teamID),
   );
 
