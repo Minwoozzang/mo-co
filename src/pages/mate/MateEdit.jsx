@@ -127,7 +127,6 @@ const MateEdit = () => {
       queryClient.invalidateQueries('posts');
       toast.success('수정 완료!');
       navigate(-1);
-      window.location.replace(`/teamPage/${teamLocationID}`);
       console.log('수정 성공');
     } catch (error) {
       console.log(error);
