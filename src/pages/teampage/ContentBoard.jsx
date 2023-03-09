@@ -158,6 +158,10 @@ const ContentCard = styled.div`
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  @media screen and (max-height: 800px) {
+    height: 390px;
+  }
 `;
 
 const ButtonPlaceTitleWrap = styled.div`
