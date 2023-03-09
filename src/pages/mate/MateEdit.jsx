@@ -1,6 +1,14 @@
 import styled from '@emotion/styled';
 import { Checkbox } from 'antd';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import ReactQuill from 'react-quill';
@@ -16,15 +24,14 @@ import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import headerToggle from '../../recoil/headerToggleState';
+import { onAuthStateChanged } from '@firebase/auth';
 
 const MateEdit = () => {
   // 팀 ID 경로 받아오기
-  // 경로 id 받아오기
   const location = useLocation();
   const teamLocationID = location.state;
 
-  console.log('team', teamLocationID);
-
+  // 경로 id 받아오기
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -56,7 +63,6 @@ const MateEdit = () => {
       .then((doc) => {
         if (doc.exists()) {
           setPostIdInfo(doc.data().teamID);
-          console.log('문서:', doc.data());
           setPostData(doc.data());
           setPartyname(doc.data().partyName);
           setPartyTime(doc.data().partyTime);
@@ -120,8 +126,8 @@ const MateEdit = () => {
         });
       queryClient.invalidateQueries('posts');
       toast.success('수정 완료!');
-      // window.location.replace(`/teamPage/${teamLocationID}`);
-      // navigate(`/teamPage/${teamLocationID}`);
+      navigate(-1);
+      window.location.replace(`/teamPage/${teamLocationID}`);
       console.log('수정 성공');
     } catch (error) {
       console.log(error);
@@ -129,9 +135,12 @@ const MateEdit = () => {
   };
 
   useEffect(() => {
+    onAuthStateChanged(authService, (user) => {
+      if (user) {
+        getPostData();
+      }
+    });
     if (!currentUser) return;
-    getPostData();
-    console.log(currentUser);
   }, []);
 
   const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);

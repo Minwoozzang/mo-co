@@ -58,7 +58,7 @@ export default function TeamPage() {
           <MemberSide teamLocationID={teamLocationID} />
           <DashBoardContainer>
             {teamPage
-              .filter((item) => item.id === teamLocationID)
+              ?.filter((item) => item.id === teamLocationID)
               .map((item) => {
                 return (
                   <DashboardHeaderWrap key={item.id}>
