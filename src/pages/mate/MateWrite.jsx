@@ -42,7 +42,7 @@ const MateWrite = () => {
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
   const [partyTime, setPartyTime] = useState('');
-  const [partyNum, setPartyNum] = useState('');
+  const [partyNum, setPartyNum] = useState(0);
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
   const [partyIsOpen, setPartyIsOpen] = useState(true);
@@ -94,14 +94,14 @@ const MateWrite = () => {
         console.log(
           partyStack.length === 0,
           partyTime === '',
-          partyNum === '',
+          partyNum === 0,
           partyLocation === '',
           partyDesc === '',
         );
         if (
           partyStack.length === 0 ||
           partyTime === '' ||
-          partyNum === '' ||
+          partyNum === 0 ||
           partyLocation === '' ||
           partyDesc === ''
         ) {
