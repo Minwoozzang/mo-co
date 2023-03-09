@@ -31,21 +31,21 @@ export const GroupImg = styled.img`
   margin-top: auto;
 `;
 export const GroupUserId = styled.p`
-  width: 30%;
+  width: 10%;
   margin: 2.6875rem 0.5rem 0.5rem;
 
   color: #fff;
 `;
 
 export const Social = styled.div`
-  width: 30%;
+  padding-left: 25%;
+  width: 50%;
   display: flex;
-  justify-content: flex-end;
 `;
 
 export const DropdownOptions = styled(FiShare2)`
   font-size: 1.5625rem;
-  margin: 2.75rem 0 0 10rem;
+  margin: 2.75rem 0 0 0;
   color: white;
   cursor: pointer;
 `;
