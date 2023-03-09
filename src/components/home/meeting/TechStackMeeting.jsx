@@ -19,6 +19,7 @@ const TechStackMeeting = ({
     ? postData.filter(
         (item) =>
           !item.isDeleted &&
+          item.uid !== currentUserData?.uid &&
           item.partyStack.includes(
             currentUserData?.moreInfo?.u_stack.toString(),
           ),
