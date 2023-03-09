@@ -17,8 +17,17 @@ export const RecruitWrap = styled.div`
   border-radius: 1.25rem;
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
-    right: 0rem;
+    right: 1.5rem;
   }
+`;
+
+export const RecruitName = styled.div`
+  width: 100%;
+`;
+export const NameDetail = styled.p`
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
 `;
 export const RecruitFont = styled.p`
   font-size: 0.75rem;
