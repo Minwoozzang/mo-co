@@ -129,6 +129,7 @@ export const TimeMeetingCardBox = styled.div`
     width: 100%;
     display: flex;
     gap: 0 20px;
+    /* background-color: blue; */
 `
 
 /* TechStackMeeting */ 
