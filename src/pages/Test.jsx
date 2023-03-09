@@ -3,6 +3,7 @@ import useUserDoc from '../hooks/useUserDoc';
 import authState from '../recoil/authState';
 import useUserQuery from '../hooks/useUserQuery';
 import { toast } from 'react-toastify';
+import Pagenation from '../components/pagenation/Pagenation';
 
 function Test() {
   const user = useRecoilValue(authState);
@@ -16,7 +17,7 @@ function Test() {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: 'black' }}>
       <h1 onClick={notify}>Test</h1>
       <br />
       <p>uid : {user?.uid}</p>
@@ -27,6 +28,7 @@ function Test() {
       <br />
       <h1>post 컬렉션 TEST</h1>
       <br />
+      <Pagenation />
     </div>
   );
 }

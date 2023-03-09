@@ -11,8 +11,7 @@ import {
   PageBox,
 } from './MyPageBookmarkStyle';
 import { useNavigate } from 'react-router';
-
-import { Pagination } from 'antd';
+import PagenationMyScrap from '../../pagenation/PagenationMyScrap';
 
 const MyPageBookmark = () => {
   // 페이지네이션
@@ -94,12 +93,9 @@ const MyPageBookmark = () => {
         </MyBookmarkBody>
       </MyBookmarkBox>
       <PageBox>
-        <Pagination
-          style={{ backgroundColor: '#383838' }}
-          defaultCurrent={1}
-          defaultPageSize={2}
-          onChange={handleChange}
-          total={userBookmark ? userBookmark.length : 0}
+        <PagenationMyScrap
+          handleChange={handleChange}
+          userBookmark={userBookmark}
         />
       </PageBox>
     </>

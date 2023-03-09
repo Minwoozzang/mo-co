@@ -12,6 +12,7 @@ import FilterLocation from '../../shared/FilterLocation';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import FilterTech from '../../shared/FilterTech';
 import FilterTime from '../../shared/FilterTime';
+import Pagenation from '../../components/pagenation/Pagenation';
 
 const MateList = () => {
   const user = useRecoilValue(authState);
@@ -106,6 +107,7 @@ const MateList = () => {
           <SortByNew
             style={{
               color: selectedSort === 'byNewest' ? '#FEFF80' : 'white',
+
               textDecoration: selectedSort === 'byNewest' ? 'underline' : '',
             }}
             onClick={() => {
@@ -130,18 +132,7 @@ const MateList = () => {
 
       {/* 페이지 */}
       <PaginationContainer>
-        <Pagination
-          style={{
-            textAlign: 'center',
-            backgroundColor: '#181616',
-            margin: '0 auto',
-            borderColor: '#FEFF80',
-          }}
-          defaultCurrent={1}
-          defaultPageSize={12}
-          onChange={handleChange}
-          total={DATA ? DATA.length : 0}
-        />
+        <Pagenation handleChange={handleChange} DATA={DATA} />
       </PaginationContainer>
     </FullScreen>
   );

@@ -9,7 +9,7 @@ import {
   MyCommentList,
   PageBox,
 } from './MyPageCommentStyle';
-import { Pagination } from 'antd';
+import PagenationMyComment from '../../pagenation/PagenationMyComment';
 
 const MyPageComment = () => {
   // 페이지네이션
@@ -60,14 +60,9 @@ const MyPageComment = () => {
         </MyCommentList>
       </MyCommentBody>
       <PageBox>
-        <Pagination
-          style={{
-            backgroundColor: '#383838',
-          }}
-          defaultCurrent={1}
-          defaultPageSize={2}
-          onChange={handleChange}
-          total={myComment ? myComment.length : 0}
+        <PagenationMyComment
+          handleChange={handleChange}
+          myComment={myComment}
         />
       </PageBox>
     </>
