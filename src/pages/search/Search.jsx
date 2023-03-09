@@ -55,9 +55,15 @@ const Search = () => {
       <SearchResultContainer>
         <SearchTitle>검색 건수 : {searchData.length}</SearchTitle>
         <CardWrapper>
-          {searchData.map((item, idx) => (
-            <CardSection key={idx} item={item} db={db} />
-          ))}
+          {searchData.length > 0 ? (
+            searchData.map((item, idx) => (
+              <CardSection key={idx} item={item} db={db} />
+            ))
+          ) : (
+            <NonSearchResultBox>
+              <NonSearchResultText>검색 결과가 없습니다.</NonSearchResultText>
+            </NonSearchResultBox>
+          )}
         </CardWrapper>
       </SearchResultContainer>
     </SearchResultFullScreen>
@@ -70,14 +76,15 @@ const SearchResultFullScreen = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #111111;
-  margin-top: 80px;
+  /* margin-top: 80px; */
   /* background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center; */
 `;
 const SearchResultContainer = styled.div`
-  width: 1180px;
+  /* width: 1180px; */
+  width: 61.46%;
   /* height: 1000px; */
   margin: 0 auto;
   /* background-color: #111111; */
@@ -87,12 +94,30 @@ const SearchTitle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: white;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
 `;
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   /* background-color: #c8f1e8; */
   gap: 100px 20px;
+`;
+const NonSearchResultBox = styled.div`
+  width: 80%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 80px auto 0;
+  /* background-color: #3B3B3B; */
+  border-radius: 20px;
+`;
+const NonSearchResultText = styled.div`
+  text-align: center;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 500;
 `;
 // <SearchResultCard key={idx} {...item} />

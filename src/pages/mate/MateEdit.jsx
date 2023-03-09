@@ -8,6 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { useRecoilState } from 'recoil';
+import { toast } from 'react-toastify';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
 import { opens } from '../../data/opens';
@@ -118,7 +119,9 @@ const MateEdit = () => {
           console.log('에러남', error);
         });
       queryClient.invalidateQueries('posts');
-      navigate('/edit/teamLocationID');
+      toast.success('수정 완료!');
+      window.location.replace(`/teamPage/${teamLocationID}`);
+      // navigate(`/teamPage/${teamLocationID}`);
       console.log('수정 성공');
     } catch (error) {
       console.log(error);

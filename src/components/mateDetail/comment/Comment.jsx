@@ -90,7 +90,7 @@ const Comment = ({ comment }) => {
             <GrMoreVertical
               style={{
                 color: '#858585',
-                width: '550px',
+                width: '410px',
               }}
               onClick={() => ToggleDropDown(comment.userId)}
             />

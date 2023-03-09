@@ -29,6 +29,7 @@ import { times } from '../../data/times';
 import authState from '../../recoil/authState';
 import headerToggle from '../../recoil/headerToggleState';
 import { memo } from 'react';
+import { toast } from 'react-toastify';
 
 const MateWrite = () => {
   const user = useRecoilValue(authState);
@@ -104,7 +105,7 @@ const MateWrite = () => {
           partyLocation === '' ||
           partyDesc === ''
         ) {
-          alert('모임 정보를 모두 입력해주세요');
+          toast('모임 정보를 모두 입력해주세요');
           return;
         }
 
@@ -168,6 +169,7 @@ const MateWrite = () => {
           queryClient.invalidateQueries('posts');
           queryClient.invalidateQueries('teamPage'); // 진행 중 모임에 바로 반영
           console.log('업로드 성공');
+          toast.success('모임 개설이 완료되었습니다');
           navigate(`/mate`);
         } catch (error) {
           console.log(error);

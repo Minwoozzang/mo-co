@@ -43,7 +43,7 @@ const Router = () => {
         {/* 테스트페이지 */}
         <Route path="/test" element={<Test />} />
       </Routes>
-      {user?.uid === null ? null : <MocoChat />}
+      {user === null ? null : <MocoChat />}
     </BrowserRouter>
   );
 };

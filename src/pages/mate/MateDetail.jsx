@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
 import { db } from '../../common/firebase';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
 import CommentList from '../../components/mateDetail/commentList/CommentList';
@@ -28,7 +29,7 @@ const MateDetail = () => {
       await updateDoc(doc(db, 'post', id), {
         isDeleted: true,
       });
-      alert('삭제 성공');
+      toast.success('삭제 성공');
       navigate('/mate');
     } catch (error) {
       console.log(error);
@@ -93,9 +94,8 @@ const CommentContainHeader = styled.p`
   font-size: 20px;
   font-weight: 500;
   line-height: 29px;
-  margin: 30px 0 30px 0;
+  margin: 30px 250px 30px 360px;
   color: #fff;
-  margin: 0 250px 0 420px;
 `;
 const UserHr = styled.hr`
   border: 0;
@@ -106,7 +106,7 @@ const CommentBtnWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 20px 0 0 150px;
+  margin: 20px 0 0 30px;
 `;
 const CommentBtn = styled.button`
   width: 120px;

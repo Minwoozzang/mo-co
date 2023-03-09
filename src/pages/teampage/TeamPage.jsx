@@ -17,7 +17,7 @@ import teamPageState from '../../recoil/teamPageState';
 import { useQueryClient } from 'react-query';
 
 export default function TeamPage() {
-  const teamPage = useRecoilState(teamPageState);
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
 
   const navigate = useNavigate();
 

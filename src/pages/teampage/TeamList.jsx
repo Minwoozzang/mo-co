@@ -151,7 +151,7 @@ const TeamListFullScreen = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #111111;
-  margin-top: 80px;
+  /* margin-top: 80px; */
 `;
 const TeamListContainer = styled.div`
   width: 1178px;

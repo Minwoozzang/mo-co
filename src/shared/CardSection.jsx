@@ -9,6 +9,8 @@ import BookmarkedImg from '../assets/icon/Icon_Scrap_active.png';
 import defaultImg from '../assets/icon/user.png';
 import useUserQuery from '../hooks/useUserQuery';
 import authState from '../recoil/authState';
+import { toast } from 'react-toastify';
+
 
 const CardSection = ({ item, db }) => {
   const user = useRecoilValue(authState);
@@ -36,7 +38,7 @@ const CardSection = ({ item, db }) => {
   const handleBookmark = useCallback(
     debounce(async () => {
       if (user === null) {
-        alert('로그인 후 이용해 주세요.');
+        toast.warn('로그인이 필요합니다 :)');
         return;
       }
       // 현재 유저 문서 가져오기
