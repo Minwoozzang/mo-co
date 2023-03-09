@@ -12,9 +12,22 @@ import {
 import { db } from '../../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../../recoil/postState';
+import { useMediaQuery } from 'react-responsive';
 
 const HomeNewMeetingList = ({ uid, userBookmark }) => {
+  // small screen
+  const referenceSize = 1920;
+  const isSmallScreen1 = useMediaQuery({
+    query: `(min-width: 1860px)`,
+  });
+  const isSmallScreen2 = useMediaQuery({
+    query: `(min-width: 1325px) and (max-width: 1860px)`,
+  });
+  const isSmallScreen3 = useMediaQuery({
+    query: `(max-width: 1325px)`,
+  });
   const postData = useRecoilValue(postState);
+
   return (
     <NewMeetingArea>
       <NewMeetingListBox>
@@ -26,15 +39,25 @@ const HomeNewMeetingList = ({ uid, userBookmark }) => {
             <AiOutlineArrowLeft size="36" />
           </NewMeetingArrow> */}
           <NewMeetingCardBox>
-            {postData
+            {isSmallScreen1 && postData
               ? postData
                   .slice(0, 4)
                   .map((item, idx) => (
-                    <CardSection
-                      key={idx}
-                      item={item}
-                      db={db}
-                    />
+                    <CardSection key={idx} item={item} db={db} />
+                  ))
+              : []}
+            {isSmallScreen2 && postData
+              ? postData
+                  .slice(0, 3)
+                  .map((item, idx) => (
+                    <CardSection key={idx} item={item} db={db} />
+                  ))
+              : []}
+            {isSmallScreen3 && postData
+              ? postData
+                  .slice(0, 2)
+                  .map((item, idx) => (
+                    <CardSection key={idx} item={item} db={db} />
                   ))
               : []}
           </NewMeetingCardBox>

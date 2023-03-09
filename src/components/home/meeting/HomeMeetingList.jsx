@@ -1,6 +1,6 @@
 import {
   MeetingArea,
-  TechAndTimeMeetingArea,
+  TechStackMeetingContainer,
 } from '../../homestyle/homemeeting';
 import HomeBlurList from '../../nonLogin/HomeBlurList';
 import LocationMeeting from './LocationMeeting';
@@ -18,11 +18,11 @@ const HomeMeetingList = ({
     <MeetingArea>
       {isLoggedIn ? (
         <>
-          <TechAndTimeMeetingArea>
+          <TechStackMeetingContainer>
             <TechStackMeeting
               currentUserData={currentUserData}
             />
-          </TechAndTimeMeetingArea>
+          </TechStackMeetingContainer>
           <TimeMeeting
             currentUserData={currentUserData}
           />

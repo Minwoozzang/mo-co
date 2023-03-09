@@ -1,4 +1,4 @@
-import { MeetingArea, TechAndTimeMeetingArea } from '../homestyle/homemeeting';
+import { MeetingArea, TechStackMeetingContainer } from '../homestyle/homemeeting';
 import LocationBlurList from './LocationBlurList';
 import TechBlurList from './TechBlurList';
 import TimeBlurList from './TimeBlurList';
@@ -9,12 +9,12 @@ const HomeBlurList = ({
 }) => {
   return (
     <MeetingArea>
-      <TechAndTimeMeetingArea>
+      <TechStackMeetingContainer>
         <TechBlurList
           isLoggedIn={isLoggedIn}
           blurList={blurList}
         />
-      </TechAndTimeMeetingArea>
+      </TechStackMeetingContainer>
       <TimeBlurList
           isLoggedIn={isLoggedIn}
           blurList={blurList}

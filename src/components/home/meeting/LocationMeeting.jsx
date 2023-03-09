@@ -10,16 +10,29 @@ import {
   LocationMeetingTitleBox2,
   LocationMeetingTitleBox3,
   NonRecommendText2,
+  LocationMeetingMediaBox,
+  LocationMeetingMediaTitleBox,
+  LocationMeetingMediaLeftCornerBox,
+  LocationMeetingMediaTitle,
+  LocationMeetingMediaCardBox,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
+import { useMediaQuery } from 'react-responsive';
 
 const LocationMeeting = ({ currentUserData }) => {
+  // small screen
+  const referenceSize = 1920;
+  const isSmallScreen = useMediaQuery({
+    query: `(max-width: 1420px)`,
+  });
+
   const titlestring1 = '{=';
   const titlestring2 = ';';
   const titlestring3 = '} * --- />';
+  const titlestring4 = '* --- />';
 
   const postData = useRecoilValue(postState);
   const recommendLocationList = postData
@@ -34,7 +47,36 @@ const LocationMeeting = ({ currentUserData }) => {
   return (
     <>
       <LocationMeetingArea>
-        <LocationMeetingInnerSection1>
+        {isSmallScreen ? (
+          <LocationMeetingMediaBox>
+          <LocationMeetingMediaLeftCornerBox>
+            <LocationMeetingMediaTitle>지역이 맞는 모임</LocationMeetingMediaTitle>
+            <LocationMeetingMediaTitleBox>{titlestring4}</LocationMeetingMediaTitleBox>
+          </LocationMeetingMediaLeftCornerBox>
+          <LocationMeetingMediaCardBox>
+          {recommendLocationList.length === 0 ? (
+              <NonRecommendText2>
+                추천 모임이 없습니다.
+                <br />
+                추가 정보를 등록 or 수정해주세요!
+              </NonRecommendText2>
+            ) : (
+              recommendLocationList
+                .slice(0, 3)
+                .map((item, idx) => (
+                  <CardSection
+                    key={`지역이 맞는 모임 ${idx}`}
+                    item={item}
+                    db={db}
+                  />
+                ))
+            )}
+          </LocationMeetingMediaCardBox>
+        </LocationMeetingMediaBox>
+
+        ) : (
+          <>
+          <LocationMeetingInnerSection1>
           <LocationMeetingTitleBox>
             <LocationMeetingTitleBox1>{titlestring1}</LocationMeetingTitleBox1>
             <LocationTitle>지역이 맞는 모임</LocationTitle>
@@ -64,6 +106,8 @@ const LocationMeeting = ({ currentUserData }) => {
             )}
           </LocationMeetingCardBox>
         </LocationMeetingInnerSection2>
+          </>
+        )}
       </LocationMeetingArea>
     </>
   );
