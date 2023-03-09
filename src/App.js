@@ -1,17 +1,61 @@
-import Router from './shared/router';
-import { init } from '@amplitude/analytics-browser';
-import GlobalStyle from './components/GlobalStyle';
 import { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
+import userState from './recoil/userState';
+import useUser from './hooks/useUser';
+import { authService } from './common/firebase';
+import GlobalStyle from './components/GlobalStyle';
+import useTeamPage from './hooks/useTeamPage';
+import authState from './recoil/authState';
+import Router from './shared/router';
+import teamPageState from './recoil/teamPageState';
+import postState from './recoil/postState';
+import usePosts from './hooks/usePost';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// init = apikey, userId 를 받으며 비회원이어도 트레킹할 수 있도록 'user@amplitude.com' 생략
 function App() {
-  const API_KEY = process.env.REACT_APP_REACT_APP_API_KEY;
+  const setAuthState = useSetRecoilState(authState);
+  const setPostState = useSetRecoilState(postState);
+  const setTeamPageState = useSetRecoilState(teamPageState);
+  const post = usePosts();
+  const teamPage = useTeamPage();
+
+  const setUserState = useSetRecoilState(userState);
+  const user = useUser();
 
   useEffect(() => {
-    init(API_KEY);
-  }, []);
+    authService.onAuthStateChanged((user) => {
+      if (user) {
+        setAuthState({
+          uid: user.uid,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          isLogin: true,
+        });
+      } else {
+        return;
+      }
+    });
+    setUserState(user.data);
+
+    setPostState(post.data);
+    setTeamPageState(teamPage.data);
+  }, [post.data, teamPage.data, user.data]);
+
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1300}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <GlobalStyle />
       <Router />
     </>

@@ -5,7 +5,7 @@ export const ReplyWrap = styled.section`
 `;
 
 export const CommentContainer = styled.div`
-  margin: 80px 800px 0 50px;
+  margin: 5rem 0rem 0 1.875rem;
 `;
 
 export const ListContainer = styled.div``;
@@ -16,7 +16,7 @@ export const CommentNickname = styled.p`
 `;
 
 export const CommentUserName = styled.p`
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   color: #fff;
   margin-right: 1.5%;
@@ -36,30 +36,32 @@ export const ListTextSection = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  @media screen and (max-width: 900px) {
-    width: 350px;
+  @media screen and (max-width: 56.25rem) {
+    width: 21.875rem;
   }
-  @media screen and (max-width: 780px) {
-    width: 580px;
+  @media screen and (max-width: 48.75rem) {
+    width: 36.25rem;
   }
 `;
 
 export const CommentText = styled.p`
   width: 100%;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 400;
   margin-left: 1%;
   color: #fff;
-  margin: 16px 0 16px 0;
+  margin: 1rem 0 1rem 0;
 `;
 
 export const CommentUserInput = styled.input`
   width: 90%;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid black;
-  font-size: 1rem;
+  box-sizing: border-box;
+  border: 0.125rem solid #525252;
+  border-radius: 0.625rem;
+  font-size: 16px;
+  padding: 1.25rem;
+  background-color: transparent;
+  color: #fff;
   margin-left: 1%;
   :focus {
     outline: none;
@@ -67,7 +69,7 @@ export const CommentUserInput = styled.input`
 `;
 
 export const CommentTextIcon = styled.div`
-  font-size: 1.4rem;
+  font-size: 22.4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,33 +79,35 @@ export const CommentTextIcon = styled.div`
 export const CommentIconBody = styled.div`
   width: 25%;
   margin-left: 69%;
+  position: absolute;
+  margin-left: 26.25rem;
 `;
 
 export const UpdateDeleteBody = styled.div`
   width: 50%;
-  margin-left: 275px;
+  margin-left: 17.1875rem;
 `;
 
 export const CommentDeleteBtn = styled.button`
-  width: 80px;
-  height: 30px;
+  width: 5rem;
+  height: 1.875rem;
   background-color: #3b3b3b;
-  border: 2px solid #3b3b3b;
+  border: 0.125rem solid #3b3b3b;
   color: #fff;
-  border-radius: 5px;
-  font-size: 0.9rem;
+  border-radius: 0.3125rem;
+  font-size: 14.4px;
   font-weight: 600;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   cursor: pointer;
   :hover {
     background-color: #222222;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     border: none;
   }
 `;
@@ -116,26 +120,26 @@ export const NoneDiv = styled.div`
 `;
 
 export const CommentProfileImage = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.25rem;
   background-color: #d9d9d9;
 `;
 export const CommentDate = styled.p`
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 400;
   color: #858585;
 `;
 
 export const UserHr = styled.hr`
-  margin: 35px 40px 0px 0px;
+  margin: 2.1875rem 2.5rem 0rem 0rem;
   border: 1;
-  width: 870px;
-  border-top: 1px solid #3b3b3b;
+  width: 43.5rem;
+  border-top: 0.0625rem solid #3b3b3b;
 `;
 
 export const Replybutton = styled.button`
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 400;
   color: #858585;
   background: none;

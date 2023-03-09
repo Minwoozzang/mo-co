@@ -1,49 +1,34 @@
-import React, { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../common/firebase';
-import { Spin } from 'antd';
-import usePosts from '../hooks/usePost';
+import { useRecoilValue } from 'recoil';
+import useUserDoc from '../hooks/useUserDoc';
+import authState from '../recoil/authState';
+import useUserQuery from '../hooks/useUserQuery';
+import { toast } from 'react-toastify';
+import Pagenation from '../components/pagenation/Pagenation';
 
 function Test() {
-  const { data, isLoading, isError, error } = usePosts();
-  console.log('🚀 ~ file: Test.jsx:10 ~ Test ~ data:', data);
+  const user = useRecoilValue(authState);
+  console.log('🚀 ~ file: Test.jsx:8 ~ Test ~ user:', user);
+  const userDoc = useUserDoc();
+  const myDoc = useUserQuery();
+  console.log('🚀 ~ file: Test.jsx:10 ~ Test ~ myDoc:', myDoc);
 
-  // const { isLoading, isError, data, error } = useQuery(
-  //   'posts',
-  //   async () => {
-  //     const q = collection(db, 'post');
-  //     const querySnapshot = await getDocs(q);
-  //     const posts = querySnapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     return posts;
-  //   },
-  //   {
-  //     cacheTime: 5 * 60 * 1000,
-  //     staleTime: 2 * 60 * 1000,
-  //     notifyOnChangeProps: ['data'], // 데이터가 바꾸지 않았을 때는 리렌더링 하지 않음
-  //   },
-  // );
-
-  if (isLoading) {
-    return <Spin />;
-  }
-
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
+  const notify = () => {
+    toast('Hello World!');
+  };
 
   return (
-    <div>
-      <h1>Posts:</h1>
-      {data.map((post) => (
-        <div key={post.id}>
-          <h2>{post.id}</h2>
-          <p>{post.partyName}</p>
-        </div>
-      ))}
+    <div style={{ backgroundColor: 'black' }}>
+      <h1 onClick={notify}>Test</h1>
+      <br />
+      <p>uid : {user?.uid}</p>
+      <p>displayName : {user?.displayName}</p>
+      <p>photoURL : {user?.photoURL}</p>
+      <p>isLogin : {user?.isLogin}</p>
+      <p>email : {userDoc?.email}</p>
+      <br />
+      <h1>post 컬렉션 TEST</h1>
+      <br />
+      <Pagenation />
     </div>
   );
 }

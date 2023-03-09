@@ -15,7 +15,6 @@ import {
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
-import TeamSettingConfirm from './teamPageConfirm/TeamSettingConfirm';
 
 export default function TeamManage({ teamLocationID, item }) {
   const [showOptions, setShowOptions] = useState(false);
@@ -101,7 +100,7 @@ export default function TeamManage({ teamLocationID, item }) {
 
   // 모임 수정하기
   const navigateWrite = () => {
-    navigate(`/edit/${teamPost}`);
+    navigate(`/edit/${teamPost}`, { state: teamLocationID });
   };
 
   const getPostData = async () => {

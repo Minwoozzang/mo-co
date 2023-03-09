@@ -15,15 +15,17 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
             <OngoingMeetingTagItem>
               {item?.teamPartyStack?.partyTime}
             </OngoingMeetingTagItem>
-            <OngoingMeetingTagItem>팀원</OngoingMeetingTagItem>
+            {item?.teamLeader?.nickName ===
+            authService?.currentUser?.displayName ? (
+              ''
+            ) : (
+              <OngoingMeetingTagItem>팀원</OngoingMeetingTagItem>
+            )}
           </OngoingMeetingTagBox>
           {/* {리더 표시해주기} */}
           {item?.teamLeader?.nickName ===
           authService?.currentUser?.displayName ? (
-            <BiCrown 
-              style={{ fontSize: '26px' }} 
-              color='#FFFFFF'
-            />
+            <BiCrown style={{ fontSize: '26px' }} color="#FFFFFF" />
           ) : (
             ''
           )}
@@ -34,23 +36,26 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
         </OngoingMeetingPartyName>
         <OngoingMeetingStackWrapper>
           <StackBox>
-            {/* <StackIcon />
-            <StackIcon />
-            <StackIcon /> */}
+            {item?.teamPartyStack?.partyStack?.map((stack, idx) => (
+              <StackIcon
+                key={idx}
+                src={require(`../../assets/stack/${stack}.png`)}
+                alt={stack}
+              />
+            ))}
           </StackBox>
           {showTeamPageBtn ? (
             <NavigateArrow>
-            <NavigateBtn onClick={()=>goToTeamPage(item.teamID)}>
-            <AiOutlineArrowRight 
-              style={{ fontSize: '36px' }} 
-              color='#FEFF80'
-            />
-            </NavigateBtn>
-          </NavigateArrow>
+              <NavigateBtn onClick={() => goToTeamPage(item.teamID)}>
+                <AiOutlineArrowRight
+                  style={{ fontSize: '36px' }}
+                  color="#FEFF80"
+                />
+              </NavigateBtn>
+            </NavigateArrow>
           ) : (
             ''
           )}
-          
         </OngoingMeetingStackWrapper>
       </OngoingMeetingBox>
     </OngoingMeetingContainer>
@@ -67,7 +72,7 @@ const OngoingMeetingContainer = styled.div`
   border-radius: 10px;
   border: 1px solid;
   /* padding: 20px 24px 24px; */
-  border-color: #3B3B3B;
+  border-color: #3b3b3b;
   background-color: #232323;
 `;
 const OngoingMeetingBox = styled.div`
@@ -94,7 +99,7 @@ const OngoingMeetingTagItem = styled.div`
   font-weight: 400;
   border-radius: 20px;
   background-color: #111111;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 const OngoingMeetingPartyName = styled.div`
   height: 24px;
@@ -102,7 +107,7 @@ const OngoingMeetingPartyName = styled.div`
   font-size: 18px;
   margin-top: 10px;
   margin-bottom: 50px;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 const OngoingMeetingStackWrapper = styled.div`
   width: 332px;
@@ -116,11 +121,9 @@ const StackBox = styled.div`
   display: flex;
   gap: 0 4px;
 `;
-const StackIcon = styled.div`
+const StackIcon = styled.img`
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background-color: #d9d9d9;
 `;
 const NavigateArrow = styled.div`
   width: 53px;
@@ -134,6 +137,6 @@ const NavigateBtn = styled.div`
   border-radius: 50%;
   cursor: pointer;
   &:hover {
-    background-color: #D9D9D9;
+    background-color: #d9d9d9;
   }
-`
+`;

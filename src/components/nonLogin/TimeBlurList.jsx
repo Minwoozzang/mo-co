@@ -1,7 +1,5 @@
 import {
   TimeMeetingArea,
-  MeetingTitleBox,
-  MeetingCardBox,
   TimeMeetingTitle,
   TimeMeetingInnerSection1,
   TimeMeetingCardBox,

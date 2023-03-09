@@ -1,50 +1,24 @@
-import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
-import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
+import { doc, updateDoc } from 'firebase/firestore';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useRecoilValue } from 'recoil';
+import { db } from '../../common/firebase';
 import AddComment from '../../components/mateDetail/addComment/AddComment';
-import ReplyComment from '../../components/mateDetail/replyComment/replyCommentList';
 import CommentList from '../../components/mateDetail/commentList/CommentList';
-import { db, authService } from '../../common/firebase';
-import {
-  doc,
-  updateDoc,
-  query,
-  collection,
-  onSnapshot,
-  where,
-} from 'firebase/firestore';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import usePosts from '../../hooks/usePost';
-import defaultImg from '../../assets/icon/user.png';
+import authState from '../../recoil/authState';
+import headerToggle from '../../recoil/headerToggleState';
+import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 
 const MateDetail = () => {
+  const user = useRecoilValue(authState);
   const { id } = useParams();
   const navigate = useNavigate();
-  // 파베 인증
-  const currentUser = authService.currentUser;
-  // 유저 닉네임 - 프로필 가져오기 상태
-  const [nickName, setNickName] = useState('');
-  const [profileImg, setGetProfileImg] = useState('');
-  const { data } = usePosts();
-  const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === currentUser?.uid;
+  const { data, isLoading } = usePosts();
 
-  // 유저 닉네임 - 프로필 가져오기 함수
-  const getUserInfo = () => {
-    if (currentUser !== null) {
-      const displayName = currentUser.displayName;
-      const photoURL = currentUser.photoURL;
-      setNickName(displayName);
-      setGetProfileImg(photoURL);
-    }
-  };
-  useEffect(() => {
-    if (!currentUser) return;
-    getUserInfo();
-  }, [currentUser]);
-
-  // 작성자만 수정가능하게
   const handleMoveToEdit = () => {
     navigate(`/edit/${id}`);
   };
@@ -55,12 +29,19 @@ const MateDetail = () => {
       await updateDoc(doc(db, 'post', id), {
         isDeleted: true,
       });
-      alert('삭제 성공');
+      toast.success('삭제 성공');
       navigate('/mate');
     } catch (error) {
       console.log(error);
     }
   };
+
+  // usequery문제가 있음! 따라서 데이터가 없어 undefined가 뜬 부분이 있어서 ~thispost 부분을 내려 작성
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
+  const thisPost = data?.filter((item) => item.id === id);
+  let isMyPost = thisPost[0]?.uid === user?.uid;
 
   return (
     <MateDetailWrap>
@@ -78,7 +59,7 @@ const MateDetail = () => {
       <CommentWrap>
         {/* <UserHr /> */}
         <CommentContainHeader>댓글</CommentContainHeader>
-        <CommentList id={id} img={profileImg} />
+        <CommentList id={id} img={user?.photoURL} />
         <AddComment id={id} />
       </CommentWrap>
       <DetailRecruit />
@@ -113,9 +94,8 @@ const CommentContainHeader = styled.p`
   font-size: 20px;
   font-weight: 500;
   line-height: 29px;
-  margin: 30px 0 30px 0;
+  margin: 30px 250px 30px 360px;
   color: #fff;
-  margin: 0 250px 0 420px;
 `;
 const UserHr = styled.hr`
   border: 0;
@@ -126,7 +106,7 @@ const CommentBtnWrap = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 20px 0 0 150px;
+  margin: 20px 0 0 30px;
 `;
 const CommentBtn = styled.button`
   width: 120px;

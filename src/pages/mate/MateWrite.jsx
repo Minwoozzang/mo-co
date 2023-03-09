@@ -1,50 +1,47 @@
-import React, { useEffect, useRef, useCallback } from 'react';
-import { useState } from 'react';
 import styled from '@emotion/styled';
-import Select from 'react-select';
-import { Checkbox } from 'antd';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { now } from '../../common/date';
 import { uuidv4 } from '@firebase/util';
-import { locations } from '../../data/locations';
-import { people } from '../../data/people';
-import { stacks } from '../../data/stacks';
-import { times } from '../../data/times';
-import { opens } from '../../data/opens';
-import { db, authService } from '../../common/firebase';
+import { Checkbox } from 'antd';
 import {
   addDoc,
   collection,
   doc,
-  getDoc,
   onSnapshot,
   query,
   setDoc,
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { debounce } from 'lodash';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
-import { withTheme } from '@emotion/react';
-import _, { debounce, throttle } from 'lodash';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { now } from '../../common/date';
+import { db } from '../../common/firebase';
+import { locations } from '../../data/locations';
+import { opens } from '../../data/opens';
+import { people } from '../../data/people';
+import { stacks } from '../../data/stacks';
+import { times } from '../../data/times';
+import authState from '../../recoil/authState';
+import headerToggle from '../../recoil/headerToggleState';
+import { memo } from 'react';
+import { toast } from 'react-toastify';
 
 const MateWrite = () => {
+  const user = useRecoilValue(authState);
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   // 파베 인증
-  const currentUser = authService.currentUser;
   const quillRef = useRef(null);
-  // 유저 닉네임 - 프로필 가져오기 상태
-  const [nickName, setNickName] = useState('');
   // 글쓰기 페이지에서 유저가 입력한 데이터를 저장하는 상태
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
   const [partyTime, setPartyTime] = useState('');
-  console.log(
-    '🚀 ~ file: MateWrite.jsx:43 ~ MateWrite ~ partyTime:',
-    partyTime,
-  );
   const [partyNum, setPartyNum] = useState('');
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
@@ -59,32 +56,19 @@ const MateWrite = () => {
   const [teamID, setTeamID] = useState(uuidv4());
 
   // 리더 이미지, 팀 ID 가져오기
-  const [profileUserInfo, setProfileUserInfo] = useState([]);
   const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
 
-  const getLeaderImg = () => {
-    const q = query(
-      collection(db, 'user'),
-      where('uid', '==', authService.currentUser.uid),
-    );
+  const getTeamID = () => {
+    const q = query(collection(db, 'user'), where('uid', '==', user?.uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const newInfo = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setProfileUserInfo(newInfo[0]?.profileImg);
       setTeamIDUserInfo(newInfo[0]?.teamID);
     });
 
     return unsubscribe;
-  };
-
-  // 유저 닉네임 - 프로필 가져오기 함수
-  const getUserInfo = () => {
-    if (currentUser !== null) {
-      const displayName = currentUser.displayName;
-      setNickName(displayName);
-    }
   };
 
   const handlePartyStack = (stack) => {
@@ -121,7 +105,7 @@ const MateWrite = () => {
           partyLocation === '' ||
           partyDesc === ''
         ) {
-          alert('모임 정보를 모두 입력해주세요');
+          toast('모임 정보를 모두 입력해주세요');
           return;
         }
 
@@ -136,24 +120,26 @@ const MateWrite = () => {
             isRemote,
             partyPostTitile,
             partyDesc,
-            nickName,
-            profileImg: profileUserInfo,
+            nickName: user?.displayName,
+            profileImg: user?.photoURL,
             createdDate: now(),
             teamID: teamID,
-            uid: currentUser.uid,
+            uid: user?.uid,
             isDeleted: false,
             createdAt: Date.now(),
             bookmark: 0,
           })
             .then(() => {
               setDoc(doc(db, 'teamPage', teamID), {
+                createdDate: now(),
+                createdAt: Date.now(),
                 teamID: teamID,
                 teamLeader: {
                   teamID: teamID,
-                  uid: authService.currentUser?.uid,
+                  uid: user?.uid,
                   host: 'https://littledeep.com/wp-content/uploads/2020/03/littledeep_crown_style1.png',
-                  profileImg: profileUserInfo,
-                  nickName,
+                  profileImg: user?.photoURL,
+                  nickName: user?.displayName,
                   isWait: false,
                   teamPosition: '리더',
                 },
@@ -162,11 +148,12 @@ const MateWrite = () => {
                   partyName,
                   partyLocation,
                   partyTime,
+                  partyStack,
                 },
               });
             })
             .then(() => {
-              updateDoc(doc(db, 'user', authService.currentUser.uid), {
+              updateDoc(doc(db, 'user', user?.uid), {
                 teamID: [...teamIDUserInfo, teamID],
               });
             })
@@ -180,7 +167,9 @@ const MateWrite = () => {
               console.log('팀페이지 에러');
             });
           queryClient.invalidateQueries('posts');
+          queryClient.invalidateQueries('teamPage'); // 진행 중 모임에 바로 반영
           console.log('업로드 성공');
+          toast.success('모임 개설이 완료되었습니다');
           navigate(`/mate`);
         } catch (error) {
           console.log(error);
@@ -193,10 +182,9 @@ const MateWrite = () => {
   );
 
   useEffect(() => {
-    if (!currentUser) return;
-    getUserInfo();
-    getLeaderImg();
-  }, [currentUser]);
+    if (user?.uid !== null) return;
+    getTeamID();
+  }, [user]);
 
   const getDebounce = useRef(
     debounce((e) => {
@@ -207,8 +195,10 @@ const MateWrite = () => {
 
   const handleChangePartyname = (event) => getDebounce(event.target.value);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <FullScreen>
+    <FullScreen onClick={() => setDropDownClick(false)}>
       <GuideTextsBox>
         <PageTitle>
           <h2>모각코 모임 개설</h2>
@@ -409,7 +399,7 @@ const MateWrite = () => {
   );
 };
 
-export default MateWrite;
+export default memo(MateWrite);
 
 const FullScreen = styled.body`
   background-color: black;
@@ -457,7 +447,7 @@ const PartyTitle = styled.input`
   border: 1px solid #3b3b3b;
   border-radius: 10px;
   outline-style: none;
-  width: 877px;
+  width: 100%;
   margin-top: 20px;
   font-size: 15px;
   padding: 10px;
@@ -512,7 +502,7 @@ const PostTitle = styled.input`
   outline-style: none;
   font-size: 15px;
   padding: 10px;
-  width: 877px;
+  width: 100%;
   color: white;
 `;
 

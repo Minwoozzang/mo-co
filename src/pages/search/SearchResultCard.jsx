@@ -1,22 +1,19 @@
 import styled from '@emotion/styled';
+import { Tag } from 'antd';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { BsBookmarkHeart } from 'react-icons/bs';
-import { GrFormView } from 'react-icons/gr';
-import { FaRegCommentDots } from 'react-icons/fa';
-import { BsPeopleFill } from 'react-icons/bs';
-import { BsPower } from 'react-icons/bs';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { authService, db } from '../../common/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useRecoilValue } from 'recoil';
 import defaultImg from '../../assets/icon/user.png';
-import { Tag } from 'antd';
+import { db } from '../../common/firebase';
+import authState from '../../recoil/authState';
 
 const SearchResultCard = (item) => {
+  const user = useRecoilValue(authState);
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const [uid, setUid] = useState('');
   const bookmark = item.bookmark;
 
   // HTML을 plain text로 변환
@@ -25,7 +22,7 @@ const SearchResultCard = (item) => {
   // 북마크 핸들링 함수
   const handleBookmark = async () => {
     // 현재 유저 문서 가져오기
-    const userDoc = await getDoc(doc(db, 'user', uid));
+    const userDoc = await getDoc(doc(db, 'user', user?.uid));
     const userData = userDoc.data();
     const bookmarks = await userData.bookmarks;
 
@@ -37,7 +34,7 @@ const SearchResultCard = (item) => {
           bookmark: bookmark + 1,
         });
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 추가
-        await updateDoc(doc(db, 'user', uid), {
+        await updateDoc(doc(db, 'user', user?.uid), {
           bookmarks: [...bookmarks, item.id],
         });
         queryClient.invalidateQueries('posts');
@@ -55,7 +52,7 @@ const SearchResultCard = (item) => {
           bookmark: bookmark - 1,
         });
         // user 컬렉션의 해당 유저의 bookmarks 필드에 해당 게시물 id 삭제
-        await updateDoc(doc(db, 'user', uid), {
+        await updateDoc(doc(db, 'user', user?.uid), {
           bookmarks: bookmarks.filter((bookmark) => bookmark !== item.id),
         });
         queryClient.invalidateQueries('posts');
@@ -65,17 +62,6 @@ const SearchResultCard = (item) => {
       }
     }
   };
-
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setUid(uid);
-      } else {
-        return;
-      }
-    });
-  }, [uid]);
 
   return (
     <PostCard>
@@ -107,9 +93,12 @@ const SearchResultCard = (item) => {
         <PostDesc>{parsedHtml}</PostDesc>
         <TechStackIcon>
           {item.partyStack?.map((item, idx) => (
-            <Tag key={idx} style={{ fontSize: 12 }} color="red">
-              {item}
-            </Tag>
+            <img
+              key={idx}
+              src={require(`../../assets/stack/${item}.png`)}
+              alt={item}
+              style={{ width: 30, height: 30, marginRight: 5 }}
+            />
           ))}
         </TechStackIcon>
       </PostBox>
@@ -332,3 +321,7 @@ const PostComments = styled.div`
   margin-left: 5px;
   font-size: 15px;
 `;
+
+//<Tag key={idx} style={{ fontSize: 12 }} color="red">
+//            {item}
+//        </Tag>

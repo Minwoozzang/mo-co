@@ -10,7 +10,6 @@ import {
 import React, { useState, useEffect } from 'react';
 import { db, authService } from './../../../common/firebase';
 import { useParams } from 'react-router-dom';
-import { Modal } from 'antd';
 import {
   RecruitWrap,
   RecruitFont,
@@ -23,44 +22,37 @@ import {
   RecruitCurrent,
   RecruitDetail,
   RecruitBtn,
-  RecruitModal,
-  RecruitModalTitle,
-  RecruitModalContentBox,
-  RecruitModalContent,
-  RecruitModalBtnBox,
-  RecruitModalBtnNo,
-  RecruitModalBtnYes,
-  RecruitFooter,
-  RecruitGuide,
   UserHr,
 } from './DetailRecruitStyle';
+import ApplyModal from '../applyModal/ApplyModal';
+import { useQueryClient } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import teamPageState from '../../../recoil/teamPageState';
+import { toast } from 'react-toastify';
 
 const DetailRecruit = () => {
+  const teamPage = useRecoilValue(teamPageState);
+  const queryClient = useQueryClient();
   const { id } = useParams();
   const [post, setpost] = useState([]);
-  console.log('🚀 ~ file: DetailRecruit.jsx:41 ~ DetailRecruit ~ post:', post);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // 주최자에게 전하는 말
   const [joinMessage, setJoinMessage] = useState('');
   const [teamMember, setTeamMember] = useState([]);
+  const [myProfileImg, setMyProfileImg] = useState([]);
+  const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
+  const [myTeamList, setMyTeamList] = useState([]);
+  const [disable, setDisable] = useState(false);
   // 참여신청 버튼 비활성화 여부
-  const [teamPage, setTeamPage] = useState([]);
   let isBtnDisabled = false;
-  // 내가 참여 신청한 팀 리스트
-  let myTeamIdList = [];
-  const getMyTeamIdList = teamPage.forEach((item) => {
-    item.teamMember.forEach((member) => {
-      if (member.nickName === authService?.currentUser?.displayName) {
-        myTeamIdList.push(item.teamID);
-        return false;
-      }
-    });
-  });
 
   // 정원 모집 여부 조건 표현
   const itsTeamDoc = teamPage?.filter((item) => item.teamID === post.teamID);
-
-  const teamMembers = `${itsTeamDoc[0]?.teamMember.length + 1}명`;
+  const teamMembers = itsTeamDoc
+    ? `${
+        itsTeamDoc[0]?.teamMember.filter((member) => member.isWait === false)
+          .length + 1
+      }명`
+    : '';
 
   /*
   참여 신청 버튼 비활성화 조건
@@ -69,7 +61,6 @@ const DetailRecruit = () => {
   3. 이미 신청한 경우 ( 신청 완료 텍스트 포함 )
   4. 정원이 다 찬 경우
   */
-
   if (teamMembers == post.partyNum) {
     isBtnDisabled = true;
   }
@@ -82,14 +73,11 @@ const DetailRecruit = () => {
     isBtnDisabled = true;
   }
 
-  if (myTeamIdList.includes(post.teamID)) {
+  if (myTeamList.includes(post.teamID)) {
     isBtnDisabled = true;
   }
 
   // 프로필 이미지, 팀 ID 받아오기
-  const [myProfileImg, setMyProfileImg] = useState([]);
-  const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
-
   const GetMyProfileImg = () => {
     const q = query(
       collection(db, 'user'),
@@ -108,7 +96,7 @@ const DetailRecruit = () => {
 
   const handleModalOpen = () => {
     if (!authService.currentUser) {
-      alert('로그인 후 이용해주세요');
+      toast.warn('로그인 후 이용해주세요');
       return;
     }
     setIsModalOpen(true);
@@ -126,12 +114,28 @@ const DetailRecruit = () => {
       });
   };
 
+  const getMyTeamIdList = () => {
+    let myTeamIdList = [];
+    if (teamPage?.length > 0) {
+      teamPage.forEach((item) => {
+        item.teamMember?.forEach((member) => {
+          if (member.nickName === authService?.currentUser?.displayName) {
+            myTeamIdList.push(item.teamID);
+            setMyTeamList(myTeamIdList);
+            return false;
+          }
+        });
+      });
+    }
+  };
+
   const handleModalOk = async (e) => {
     e.preventDefault();
     await updateDoc(doc(db, 'teamPage', post.teamID), {
       teamMember: [
         ...teamMember,
         {
+          isRead: false,
           uid: authService.currentUser.uid,
           joinMessage: joinMessage,
           isWait: true,
@@ -148,6 +152,9 @@ const DetailRecruit = () => {
       .catch(() => {
         console.log('참여 신청 에러');
       });
+    queryClient.invalidateQueries('teamPage');
+    setDisable(true);
+    toast.success('참여 신청 완료!');
     console.log('참여 완료');
     setIsModalOpen(false);
   };
@@ -164,24 +171,11 @@ const DetailRecruit = () => {
   };
 
   useEffect(() => {
-    const teamPageCollectionRef = collection(db, 'teamPage');
-    const q = query(teamPageCollectionRef);
-    const getTeamPage = onSnapshot(q, (snapshot) => {
-      const teamPageData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamPage(teamPageData);
-    });
-    return getTeamPage;
-  }, []);
-
-  useEffect(() => {
     getPost();
     if (authService.currentUser) {
       GetMyProfileImg();
     }
-    // GetMyProfileImg();
+    getMyTeamIdList();
   }, []);
 
   return (
@@ -214,35 +208,16 @@ const DetailRecruit = () => {
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>모집진행 {post.partyNum}</RecruitDetail>
       </RecruitCurrent>
-      <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
+      <RecruitBtn disabled={isBtnDisabled || disable} onClick={handleModalOpen}>
         모임 참여 신청
       </RecruitBtn>
-      <Modal open={isModalOpen} centered={true} closable={false} footer={false}>
-        <RecruitModal>
-          <RecruitModalTitle>이 모임에 참여하시겠어요?</RecruitModalTitle>
-          <RecruitModalContentBox>
-            <RecruitModalContent
-              onChange={(e) => {
-                setJoinMessage(e.target.value);
-              }}
-              value={joinMessage}
-              maxLength={220}
-              placeholder="주최자에게 전하고 싶은 말을 적어주세요 ( 소개, 지원 동기 등 )"
-            />
-          </RecruitModalContentBox>
-          <RecruitModalBtnBox>
-            <RecruitModalBtnNo onClick={handleModalCancel}>
-              아니오
-            </RecruitModalBtnNo>
-            <RecruitModalBtnYes onClick={handleModalOk}>예</RecruitModalBtnYes>
-          </RecruitModalBtnBox>
-          <RecruitFooter>
-            * 신청하시면, 정보제공 및 유의사항에 동의한 것으로 간주합니다.
-          </RecruitFooter>
-          <h4 style={{ padding: 20 }}>유의사항</h4>
-          <RecruitGuide>1. 코딩금지</RecruitGuide>
-        </RecruitModal>
-      </Modal>
+      <ApplyModal
+        isModalOpen={isModalOpen}
+        handleModalOk={handleModalOk}
+        handleModalCancel={handleModalCancel}
+        setJoinMessage={setJoinMessage}
+        joinMessage={joinMessage}
+      />
     </RecruitWrap>
   );
 };

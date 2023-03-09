@@ -1,51 +1,31 @@
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import CardSection from '../../shared/CardSection';
-import FilterTech from '../../shared/FilterTech';
-import FilterLocation from '../../shared/FilterLocation';
-import FilterTime from '../../shared/FilterTime';
-import FilterNumOfMember from '../../shared/FilterNumOfMember';
-import { authService, db } from '../../common/firebase';
 import { Pagination } from 'antd';
-import usePosts from '../../hooks/usePost';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { db } from '../../common/firebase';
+import usePosts from '../../hooks/usePost';
+import authState from '../../recoil/authState';
+import CardSection from '../../shared/CardSection';
+import FilterLocation from '../../shared/FilterLocation';
+import FilterNumOfMember from '../../shared/FilterNumOfMember';
+import FilterTech from '../../shared/FilterTech';
+import FilterTime from '../../shared/FilterTime';
+import headerToggle from '../../recoil/headerToggleState';
+import Pagenation from '../../components/pagenation/Pagenation';
 
 const MateList = () => {
+  const user = useRecoilValue(authState);
   const { data, isLoading, isError, error } = usePosts();
-
   const [selectedTech, setSelectedTech] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   const [selectedNumOfMember, setSelectedNumOfMember] = useState('');
-  // 정렬 옵션 상태
   const [selectedSort, setSelectedSort] = useState('');
-  const [uid, setUid] = useState('');
   const [userBookmark, setUserBookmark] = useState([]);
-  //페이지네이션
-  // const [currentPage, setCurrentPage] = useState(2);
-  // 페이지네이션
-  // 16개로 변경하면 값도 같이 변경 해야함 3 > 16
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(12);
-
-  // 내 정보 가져오기
-  const getUserBookmark = () => {
-    const q = query(
-      collection(db, 'user'),
-      where('uid', '==', authService.currentUser.uid),
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setUserBookmark(newInfo[0]?.bookmarks);
-    });
-
-    return unsubscribe;
-  };
 
   // selectedTech 배열을 텍스트로 변환
   const selectedTechText = [...selectedTech]
@@ -102,21 +82,12 @@ const MateList = () => {
     DATA = DATA.sort((a, b) => b.createdAt - a.createdAt);
   }
 
-  useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setUid(uid);
-        getUserBookmark();
-      } else {
-        return;
-      }
-    });
-  }, [uid]);
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
 
   return (
-    <FullScreen>
+    <FullScreen onClick={() => setDropDownClick(false)}>
       {/* 필터 & 정렬 */}
+      <MateListTitle>모임 전체보기</MateListTitle>
       <ViewOptions>
         <FilterBox>
           <FilterTech onSelectedTech={handleSelectTech} />
@@ -126,6 +97,10 @@ const MateList = () => {
         </FilterBox>
         <SortBox>
           <SortByRecommend
+            style={{
+              color: selectedSort === 'byRecommend' ? '#FEFF80' : 'white',
+              textDecoration: selectedSort === 'byRecommend' ? 'underline' : '',
+            }}
             onClick={() => {
               setSelectedSort('byRecommend');
             }}
@@ -133,6 +108,11 @@ const MateList = () => {
             스크랩순
           </SortByRecommend>
           <SortByNew
+            style={{
+              color: selectedSort === 'byNewest' ? '#FEFF80' : 'white',
+
+              textDecoration: selectedSort === 'byNewest' ? 'underline' : '',
+            }}
             onClick={() => {
               setSelectedSort('byNewest');
             }}
@@ -148,30 +128,14 @@ const MateList = () => {
           {DATA &&
             DATA.length > 0 &&
             DATA.slice(minValue, maxValue).map((item) => (
-              <CardSection
-                key={item.id}
-                item={item}
-                db={db}
-                userBookmark={userBookmark}
-                uid={uid}
-              />
+              <CardSection key={item.id} item={item} db={db} />
             ))}
         </CardList>
       </CardListContainer>
 
       {/* 페이지 */}
       <PaginationContainer>
-        <Pagination
-          style={{
-            textAlign: 'center',
-            backgroundColor: '#181616',
-            margin: '0 auto',
-          }}
-          defaultCurrent={1}
-          defaultPageSize={12}
-          onChange={handleChange}
-          total={DATA ? DATA.length : 0}
-        />
+        <Pagenation handleChange={handleChange} DATA={DATA} />
       </PaginationContainer>
     </FullScreen>
   );
@@ -186,10 +150,23 @@ const FullScreen = styled.body`
   width: 100%;
 `;
 
+const MateListTitle = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  color: white;
+  font-size: 2em;
+  font-weight: 500;
+  padding-top: 1.3em;
+  margin-bottom: 1em;
+`;
+
 // 필터 & 정렬
 const ViewOptions = styled.div`
   max-width: 1200px;
-  padding: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 3em;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -199,6 +176,7 @@ const ViewOptions = styled.div`
 const FilterBox = styled.div`
   display: flex;
   gap: 1em;
+  margin-bottom: 2rem;
 `;
 
 const SortBox = styled.div`

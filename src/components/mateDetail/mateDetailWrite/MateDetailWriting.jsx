@@ -40,7 +40,7 @@ const MateDetailWriting = () => {
 
   useEffect(() => {
     getPost();
-  }, []);
+  }, [id]);
   return (
     <>
       <GroupWrap>
@@ -52,21 +52,21 @@ const MateDetailWriting = () => {
               alt={post.profileImg}
             ></GroupImg>
             <GroupUserId>{post.nickName}</GroupUserId>
-          </UserInfoWrap>
-          <Social
-            onClick={() => {
-              setShowOptions(!showOptions);
-            }}
-          >
-            <DropdownOptions />
-          </Social>
-          {showOptions === true ? (
-            <SocialShare
-              onClose={() => {
+            <Social
+              onClick={() => {
                 setShowOptions(!showOptions);
               }}
-            />
-          ) : null}
+            >
+              <DropdownOptions />
+            </Social>
+            {showOptions === true ? (
+              <SocialShare
+                onClose={() => {
+                  setShowOptions(!showOptions);
+                }}
+              />
+            ) : null}
+          </UserInfoWrap>
         </GroupUserInfo>
         {/* <UserHr /> */}
         <GroupBox>

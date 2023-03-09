@@ -14,7 +14,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
 import MemberCancelConfirmUI from './teamPageConfirm/MemberCancelConfirmUI';
 import MyProfileConfirm from './teamPageConfirm/MyProfileConfirm';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 
 const SideMemberList = ({ item, teamLocationID }) => {
   // 멤버 리스트

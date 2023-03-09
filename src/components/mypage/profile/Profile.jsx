@@ -42,6 +42,7 @@ import {
 import { useNavigate } from 'react-router';
 import wheel from '../../../../src/assets/login/wheel.png';
 import default_profile from '../../../assets/icon/user.png';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
   // 네이게이트
@@ -100,7 +101,6 @@ const Profile = () => {
       if (user) {
         setCurrentUser(authService.currentUser.uid);
         setNickName(authService.currentUser.displayName);
-        // setPhotoURL(authService.currentUser.photoURL);
         getUserStackInfo();
       }
     });
@@ -124,7 +124,7 @@ const Profile = () => {
     await updateDoc(doc(db, 'user', authService.currentUser.uid), {
       nickname: nickNamevalue,
     });
-    alert('닉네임 수정 완료');
+    toast.success('닉네임 수정 완료');
     setClickBtn(true);
     setEditNickName(false);
   };
@@ -147,7 +147,7 @@ const Profile = () => {
       });
       setNewPhotoURL(imgUrl);
     };
-    alert('프로필 이미지 수정 완료');
+    toast.success('프로필 이미지 수정 완료');
   };
 
   // 맞춤 정보 수장

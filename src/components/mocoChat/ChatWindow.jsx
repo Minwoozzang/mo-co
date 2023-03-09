@@ -6,16 +6,20 @@ import moco from '../../assets/mocoChat/moco.png';
 import loading from '../../assets/mocoChat/moco_thinking2.png';
 import error from '../../assets/mocoChat/moco_breakdown.png';
 import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import authState from '../../recoil/authState';
 
-const ChatWindow = ({ handleMocoChatOpen, uid }) => {
+const ChatWindow = ({ handleMocoChatOpen }) => {
+  const user = useRecoilValue(authState);
+
   const [inputValue, setInputValue] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const scrollEnd = useRef();
   // 처음 모코챗 열면, 로컬스토리지 세팅하기
-  if (!localStorage.getItem(`chat_${uid}`)) {
+  if (!localStorage.getItem(`chat_${user?.uid}`)) {
     localStorage.setItem(
-      `chat_${uid}`,
+      `chat_${user?.uid}`,
       JSON.stringify([
         {
           content:
@@ -28,10 +32,13 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
   }
   // 메시지 배열 상태
   const [messageArr, setMessageArr] = useState(
-    JSON.parse(localStorage.getItem(`chat_${uid}`)),
+    JSON.parse(localStorage.getItem(`chat_${user?.uid}`)),
   );
   console.log('스테이트', messageArr);
-  console.log('로컬스토리지', JSON.parse(localStorage.getItem(`chat_${uid}`)));
+  console.log(
+    '로컬스토리지',
+    JSON.parse(localStorage.getItem(`chat_${user?.uid}`)),
+  );
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -39,7 +46,7 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setInputValue('');
     setIsLoading(true);
     setIsError(false);
     //
@@ -52,7 +59,9 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
       max_tokens: 2000,
     };
 
-    const existingMessage = JSON.parse(localStorage.getItem(`chat_${uid}`));
+    const existingMessage = JSON.parse(
+      localStorage.getItem(`chat_${user?.uid}`),
+    );
 
     existingMessage.push({
       content: inputValue,
@@ -62,7 +71,7 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
 
     // setMessageArr(existingMessage);
 
-    localStorage.setItem(`chat_${uid}`, JSON.stringify(existingMessage));
+    localStorage.setItem(`chat_${user?.uid}`, JSON.stringify(existingMessage));
 
     console.log(
       '🚀 ~ file: ChatWindow.jsx:40 ~ handleSubmit ~ existingMessage:',
@@ -84,7 +93,10 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
         id: Date.now(),
       });
 
-      localStorage.setItem(`chat_${uid}`, JSON.stringify(existingMessage));
+      localStorage.setItem(
+        `chat_${user?.uid}`,
+        JSON.stringify(existingMessage),
+      );
 
       setMessageArr(existingMessage);
     } catch (error) {
@@ -128,7 +140,7 @@ const ChatWindow = ({ handleMocoChatOpen, uid }) => {
       ) : (
         <MessageList>
           {isLoading ? <MocoLoading /> : null}
-          {messageArr.map((message) => (
+          {messageArr?.map((message) => (
             <Message ref={scrollEnd} key={message.id} isSent={message.isSent}>
               {message.content}
             </Message>

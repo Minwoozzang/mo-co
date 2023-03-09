@@ -7,11 +7,21 @@ export const HeaderBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  /* z-index: 1;
+  position: fixed;
+  top: 0; */
+  /* width: 100% */
+  /* left: 0;
+  right: 0; */
+  /* margin-bottom: 5rem; */
 `;
 
 export const HeaderInfoBody = styled.div`
   width: 1180px;
+  /* width: 61.456%; */
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -19,7 +29,8 @@ export const HeaderInfoBody = styled.div`
 `;
 
 export const LogoAndMateBox = styled.div`
-  width: 241px;
+  width: 20rem;
+  /* width: 27.12%; */
   height: 50px;
   display: flex;
   align-items: center;
@@ -34,6 +45,7 @@ export const HeaderLogo = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   width: 130px;
+  /* width: 40.625%; */
   height: 50px;
 `;
 
@@ -42,11 +54,15 @@ export const MyCodingMate = styled.div`
   font-size: 19px;
   font-weight: 600;
   color: #ffffff;
-  margin-left: 5px;
+  /* hover animation */
+  :hover {
+    color: #feff80;
+  }
 `;
 
 export const TeamAndLoginBox = styled.div`
   width: 330px;
+  /* width: 27.97%; */
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -55,6 +71,7 @@ export const TeamAndLoginBox = styled.div`
 
 export const MakeTeam = styled.button`
   width: 114px;
+  /* width: 34.55%; */
   height: 40px;
   border-radius: 20px;
   border: none;
@@ -100,10 +117,10 @@ export const HeaderImage = styled.img`
 `;
 
 export const HeaderDropDownListBox = styled.div`
-  width: 250px;
-  height: 300px;
+  width: 15.625rem;
+  height: 18.75rem;
 
-  margin-top: 10px;
+  margin-top: 0.625rem;
 
   border-radius: 5px;
   background-color: #3b3b3b;
@@ -170,9 +187,73 @@ export const HeaderDropDownList = styled.li`
   list-style: none;
 `;
 
+export const HeaderNotiDropDownList = styled.li`
+  font-size: 1rem;
+  color: #ffffff;
+  list-style: none;
+`;
+
+export const HeaderNotiDropDownListBox = styled.div`
+  width: 280px;
+  height: 300px;
+
+  margin-top: 10px;
+
+  border-radius: 5px;
+  background-color: #3b3b3b;
+  box-shadow: 2px 2px 10px 10px #0001;
+
+  overflow-y: auto;
+
+  z-index: 999;
+
+  ::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom-color: #3b3b3b;
+    border-top: 0;
+    margin-left: -22px;
+    margin-top: -13px;
+
+    z-index: 5;
+  }
+`;
+
+// 검색창 부분
+export const SearchIconBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+`;
+export const SearchLayer = styled.div`
+  z-index: 3;
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+`;
+export const SearchModalLayer = styled.div`
+  position: fixed;
+  /* top: 31.005px; */
+  top: 60px;
+  left: 72%;
+  /* right: 20%; */
+  /* background-color: aliceblue; */
+`;
 export const HeaderSearchDropDownListBox = styled.div`
   width: 250px;
-  height: 100px; //200px
+  height: 120px; //200px
   margin-top: 10px;
   border-radius: 5px;
   background-color: #3b3b3b;
@@ -203,6 +284,7 @@ export const HeaderSearchXbuttonBox = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding: 5px 10px 0;
+  /* margin-bottom: 10px; */
 `;
 
 export const HeaderSearchXbutton = styled.div`
@@ -213,7 +295,7 @@ export const HeaderSearchXbutton = styled.div`
 
 export const HeaderSearchDropDownListSection = styled.div`
   width: 100%;
-  height: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,19 +310,21 @@ export const HeaderSearchDropDownHr = styled.div`
 
 export const HeaderSearchBox = styled.div`
   display: flex;
-  /* justify-content: space-around; */
+  /* justify-content: space-between; */
   align-items: center;
-  width: 200px;
-  height: 30px;
+  width: 230px;
+  /* height: 30px; */
+  /* background-color: royalblue; */
 `;
 
 export const HeaderSearchInput = styled.input`
   border-radius: 10px;
-  height: 30px;
-  width: 140px;
+  height: 40px;
+  width: 160px;
   border: 0.1px solid gray;
   padding-left: 10px;
   margin-left: 15px;
+  font-size: 13px;
   :focus {
     outline: none;
   }

@@ -11,37 +11,24 @@ import TeamManage from '../../components/teamPage/TeamManage';
 import TeamPlace from './TeamPlace';
 import { onAuthStateChanged } from '@firebase/auth';
 import MemberChatingRoom from '../../components/teamPage/chat/MemberChatingRoom';
+import { useRecoilState } from 'recoil';
+import headerToggle from '../../recoil/headerToggleState';
+import teamPageState from '../../recoil/teamPageState';
+import { useQueryClient } from 'react-query';
 
 export default function TeamPage() {
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
+
   const navigate = useNavigate();
 
   // 경로 id 받아오기
   const location = useLocation();
   const teamLocationID = location.state;
 
-  // 팀 정보 가져오기
-  const [teamList, setTeamList] = useState([]);
-
-  const getTeamInformation = () => {
-    const postCollectionRef = collection(db, 'teamPage');
-    const q = query(postCollectionRef);
-    const getPost = onSnapshot(q, (snapshot) => {
-      const newInfo = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setTeamList(newInfo);
-    });
-
-    return getPost;
-  };
-
-  // 유저에서 팀 ID 랑 팀페이지 침 ID가 다를 경우 navigate
-
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
-        getTeamInformation();
+        // getTeamInformation();
 
         const q = query(
           collection(db, 'user'),
@@ -62,14 +49,15 @@ export default function TeamPage() {
     });
   }, []);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
     <>
-      <JustContainer>
+      <JustContainer onClick={() => setDropDownClick(false)}>
         <WholeContainer>
           <MemberSide teamLocationID={teamLocationID} />
-
           <DashBoardContainer>
-            {teamList
+            {teamPage
               .filter((item) => item.id === teamLocationID)
               .map((item) => {
                 return (
@@ -106,7 +94,6 @@ export default function TeamPage() {
                   </DashboardHeaderWrap>
                 );
               })}
-
             <ContentContainerR>
               <ContentContainer>
                 <ContenRuleAndPlace>
@@ -155,6 +142,7 @@ const JustContainer = styled.div`
 `;
 
 const WholeContainer = styled.div`
+  margin-top: 100px;
   width: 1350px;
   height: 900px;
   display: flex;
@@ -229,41 +217,6 @@ const ContenRuleAndPlace = styled.div`
   flex-direction: column;
 `;
 
-const ContentTitle = styled.a`
-  font-size: 18px;
-  font-weight: 700;
-  padding-bottom: 20px;
-  margin-top: 20px;
-`;
-
-const ContentCard = styled.div`
-  position: relative;
-  background-color: var(--video-bg);
-  border-radius: 20px;
-  overflow: hidden;
-  transition: 0.4s;
-  height: 25vh;
-  background-color: black;
-`;
-
-const PlaceCardTitle = styled.p`
-  color: #fff;
-  font-size: 16px;
-  line-height: 1.4em;
-  padding: 12px 20px 0;
-  overflow: hidden;
-  background-color: var(--video-bg);
-  z-index: 9;
-  position: relative;
-`;
-
-const PlaceCardText = styled.p`
-  font-size: 12px;
-  padding: 12px 20px 20px;
-  background-color: var(--video-bg);
-  position: relative;
-`;
-
 const ContentContainerR = styled.div`
   display: flex;
   width: 100%;
@@ -280,11 +233,4 @@ const ContentChat = styled.div`
 const ContentChatContainer = styled.div`
   flex: 2;
   margin: 10px;
-`;
-
-const ContentChatArea = styled.div`
-  width: 100%;
-  height: 63vh;
-  background-color: black;
-  border-radius: 20px;
 `;

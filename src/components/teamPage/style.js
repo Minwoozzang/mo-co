@@ -9,7 +9,7 @@ export const MemberSidebar = styled.div`
   flex-direction: column;
   flex-shrink: 0;
   transition-duration: 0.2s;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   background-color: #232323;
 
@@ -86,7 +86,7 @@ export const SideWrapperThr = styled.div`
   margin: 30px 10px 10px;
   width: 170px;
   position: sticky;
-  top: 0px;
+  bottom: 0;
 `;
 
 export const MemberInfoProfileTitle = styled.div`

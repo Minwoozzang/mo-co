@@ -11,6 +11,8 @@ import {
 import { useEffect, useState } from 'react';
 import { authService, db } from '../../../common/firebase';
 import cancel from '../../../../src/assets/icon/Icon_cancel.png';
+import { useRecoilState } from 'recoil';
+import confirmState from '../../../recoil/confirmState';
 
 const CustomConfirmUI = (props) => {
   // 본인 아이디
@@ -51,6 +53,7 @@ const CustomConfirmUI = (props) => {
       teamMember: [
         ...otherMember,
         {
+          isRead: myInfo.isRead,
           isWait: false,
           joinMessage: myInfo.joinMessage,
           nickName: myInfo.nickName,
@@ -74,11 +77,10 @@ const CustomConfirmUI = (props) => {
     props.onClose();
   }
   return (
-    <WholeWrap>
+    <WholeWrap onClick={props.onClose}>
       <PlaceModal>
         <ConfirmBox>
           <TitleBox>
-            {/* <ConfirmTitle>참여신청</ConfirmTitle> */}
             <CancelImg onClick={props.onClose} src={cancel} />
           </TitleBox>
           <UserAcceptOrNot>
@@ -147,16 +149,6 @@ const UserImgBox = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 50px;
-`;
-
-const ConfirmBody = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 const ConfirmBox = styled.div`

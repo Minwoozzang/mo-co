@@ -4,13 +4,18 @@ import {
   onSnapshot,
   query,
   setDoc,
-  updateDoc,
   where,
 } from '@firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ImCancelCircle } from 'react-icons/im';
 import { useLocation, useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
+import defaultImg from '../../../src/assets/icon/user.png';
+import Alarm from '../../assets/icon/Icon_Alarm.png';
+import Search from '../../assets/icon/Icon_Search.png';
 import { authService, db } from '../../common/firebase';
+import headerToggle from '../../recoil/headerToggleState';
 import {
   HeaderBody,
   HeaderInfoBody,
@@ -33,21 +38,35 @@ import {
   HeaderSearchDropDownListSection,
   HeaderSearchXbuttonBox,
   HeaderSearchXbutton,
+  HeaderNotiDropDownList,
+  HeaderNotiDropDownListBox,
+  SearchLayer,
+  SearchModalLayer,
+  SearchIconBox,
 } from './style';
-import Search from '../../assets/icon/Icon_Search.png';
-import Alarm from '../../assets/icon/Icon_Alarm.png';
-import { ImCancelCircle } from 'react-icons/im';
-import defaultImg from '../../../src/assets/icon/user.png';
+import { toast } from 'react-toastify';
+
+// import NotiBadge from './notification/NotiBadge';
 
 const Header = () => {
+  // 현제 경로
+  const location = useLocation();
+  const path = location.pathname;
+
   // 헤더 로그인 토글
   const [loginToggle, setLoginToggle] = useState(true);
 
   // 헤더  토글
   const [headerMyIcon, setHeaderMyIcon] = useState(false);
 
+  // 검색창 토글
+  const [searchIcon, setSearchIcon] = useState(false);
+
+  // 검색창 currentTarget
+  const searchRef = useRef(null);
+
   // 드랍다운
-  const [dropDownClick, setDropDownClick] = useState(false);
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
   const [searchdropDownClick, setSearchdropDownClick] = useState(false);
 
   // 헤더 드랍다운 생성유뮤
@@ -81,11 +100,13 @@ const Header = () => {
         setIsUserDropDown(true);
         setLoginToggle(false);
         setHeaderMyIcon(true);
+        setSearchIcon(true);
         getUserStackInfo();
         setIsSearchUserDropDown(true);
       } else if (!user) {
         setLoginToggle(true);
         setHeaderMyIcon(false);
+        setSearchIcon(false);
         setIsUserDropDown(false);
         setIsSearchUserDropDown(false);
       }
@@ -95,10 +116,13 @@ const Header = () => {
   const navigate = useNavigate();
 
   const navigateHome = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate('/');
   };
 
   const navigateMyPage = () => {
+    setSearchdropDownClick(false);
     navigate('/mypage');
   };
 
@@ -111,6 +135,8 @@ const Header = () => {
 
   // 내 코딩모임 페이지로 이동
   const navigateMyCodingMate = () => {
+    setDropDownClick(false);
+    setSearchdropDownClick(false);
     navigate(`/teamlist/${authService.currentUser.displayName}`);
   };
 
@@ -125,13 +151,23 @@ const Header = () => {
   };
   const handleonKeyPress = (e) => {
     // Enter 키 입력 함수
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && word.length > 0) {
       onSubmit();
+    }
+    if (e.key === 'Enter' && word.length === 0) {
+      toast.warn('검색어를 입력해주세요.')
     }
   };
   const searchdropDownHandler = () => {
     if (searchdropDownClick === false) {
       setSearchdropDownClick(true);
+    }
+    setDropDownClick(false);
+  };
+  const searchModalOutSideClick = (e) => {
+    // 검색창 영역 밖 클릭하면 닫히게 하기
+    if (searchRef.current === e.target) {
+      setSearchdropDownClick(false);
     }
   };
 
@@ -182,6 +218,7 @@ const Header = () => {
     } else {
       setDropDownClick(false);
     }
+    setSearchdropDownClick(false);
   };
 
   // 알람 드랍다운
@@ -199,22 +236,24 @@ const Header = () => {
         <LogoAndMateBox>
           <HeaderLogo onClick={navigateHome}></HeaderLogo>
           <MyCodingMate onClick={navigateMyCodingMate}>
-            내 코딩모임
+            내 코딩모임 보기
           </MyCodingMate>
         </LogoAndMateBox>
         <TeamAndLoginBox>
           <MakeTeam
             onClick={() => {
               if (!authService.currentUser) {
-                alert('로그인이 필요합니다.');
+                toast.warn('로그인이 필요합니다 :)');
               } else {
+                setDropDownClick(false);
+                setSearchdropDownClick(false);
                 navigate('/write');
               }
             }}
           >
             팀 개설하기
           </MakeTeam>
-          <div>
+          {/* <div>
             <img
               src={Alarm}
               alt="alarm"
@@ -222,60 +261,86 @@ const Header = () => {
               onClick={alarmDropDown}
             />
             {alarmDrop ? (
-              <HeaderDropDownListBox style={{ position: 'absolute' }}>
-                <HeaderDropDownListSection>hhhaaa</HeaderDropDownListSection>
-              </HeaderDropDownListBox>
+              <HeaderNotiDropDownListBox 
+                style={{ position: 'absolute' }}
+              >
+                <HeaderDropDownListSection style={{padding: '10px'}}>
+                  <HeaderNotiDropDownList>
+                    <NotiBadge />
+                  </HeaderNotiDropDownList>
+                </HeaderDropDownListSection>
+              </HeaderNotiDropDownListBox>
             ) : (
               ''
             )}
-          </div>
+          </div> */}
 
-          <div onClick={searchdropDownHandler}>
-            {searchdropDownClick ? (
-              <>
-                {isSearchUserDropDown ? (
-                  <NavigateMypage>
-                    <img src={Search} alt="search" style={{ width: '20px' }} />
-                  </NavigateMypage>
-                ) : (
-                  ''
-                )}
-                <HeaderSearchDropDownListBox style={{ position: 'absolute' }}>
-                  <HeaderSearchXbuttonBox>
-                    <HeaderSearchXbutton
-                      onClick={() => setSearchdropDownClick(false)}
+          {searchIcon ? (
+            <div onClick={searchdropDownHandler}>
+              {searchdropDownClick ? (
+                <>
+                  <>
+                    {isSearchUserDropDown ? (
+                      <SearchIconBox>
+                        <img
+                          src={Search}
+                          alt="search"
+                          style={{ width: '20px' }}
+                          onClick={() => setSearchdropDownClick(false)}
+                        />
+                      </SearchIconBox>
+                    ) : (
+                      ''
+                    )}
+                    </>
+                    
+                    <>
+                    <HeaderSearchDropDownListBox
+                      style={{ position: 'absolute' }}
                     >
-                      <ImCancelCircle
-                        color="white"
-                        style={{ fontSize: '20px' }}
-                      />
-                    </HeaderSearchXbutton>
-                  </HeaderSearchXbuttonBox>
-                  <HeaderSearchDropDownListSection>
-                    <HeaderSearchBox>
-                      <img
-                        src={Search}
-                        alt="search"
-                        style={{ width: '20px' }}
-                      />
-                      <HeaderSearchInput
-                        onChange={onChangeSearch}
-                        onKeyPress={handleonKeyPress}
-                      />
-                      {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
+                      <HeaderSearchXbuttonBox>
+                        <HeaderSearchXbutton
+                          onClick={() => setSearchdropDownClick(false)}
+                        >
+                          <ImCancelCircle
+                            color="white"
+                            style={{ fontSize: '20px' }}
+                          />
+                        </HeaderSearchXbutton>
+                      </HeaderSearchXbuttonBox>
+                      <HeaderSearchDropDownListSection>
+                        <HeaderSearchBox>
+                          <img
+                            src={Search}
+                            alt="search"
+                            style={{ width: '20px', marginLeft: '10px' }}
+                          />
+                          <HeaderSearchInput
+                            onChange={onChangeSearch}
+                            onKeyPress={handleonKeyPress}
+                            placeholder='검색어를 입력해주세요.'
+                          />
+                          {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
                       </HeaderSearchInputBtn> */}
-                    </HeaderSearchBox>
-                  </HeaderSearchDropDownListSection>
-                  {/* <HeaderSearchDropDownHr /> */}
-                </HeaderSearchDropDownListBox>
-              </>
-            ) : (
-              <NavigateMypage>
-                <img src={Search} alt="search" style={{ width: '20px' }} />
-              </NavigateMypage>
-            )}
-          </div>
+                        </HeaderSearchBox>
+                      </HeaderSearchDropDownListSection>
+                      {/* <HeaderSearchDropDownHr /> */}
+                    </HeaderSearchDropDownListBox>
+                    </>
+                    </>
+                    
+                  
+                
+              ) : (
+                <NavigateMypage>
+                  <img src={Search} alt="search" style={{ width: '20px' }} />
+                </NavigateMypage>
+              )}
+            </div>
+          ) : (
+            ''
+          )}
 
           {headerMyIcon ? (
             <div onClick={dropDownHandler}>

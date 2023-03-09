@@ -1,9 +1,6 @@
 import {
   TimeMeetingArea,
-  MeetingTitleBox,
-  MeetingCardBox,
   TimeMeetingTitle,
-  MeetingMoreBox,
   TimeMeetingInnerSection1,
   TimeMeetingCardBox,
   TimeMeetingInnerSection2,
@@ -17,15 +14,23 @@ import {
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
-import { MdExpandMore } from 'react-icons/md';
-import { useQueries, useQuery } from 'react-query';
-import { getPost, getUser } from '../../../common/utils/getApi';
-import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import postState from '../../../recoil/postState';
 
-const TimeMeeting = ({ recommendTimeList, uid, userBookmark }) => {
+const TimeMeeting = ({ currentUserData }) => {
   const titlestring = '</---*';
   const titlestring1 = '{=';
   const titlestring2 = '{';
+
+  const postData = useRecoilValue(postState);
+  const recommendTimeList = postData
+    ? postData.filter(
+        (item) =>
+          !item.isDeleted &&
+          item.uid !== currentUserData?.uid &&
+          item.partyTime.includes(currentUserData?.moreInfo?.u_time),
+      )
+    : [];
 
   return (
     <TimeMeetingArea>
@@ -40,27 +45,25 @@ const TimeMeeting = ({ recommendTimeList, uid, userBookmark }) => {
       </TimeMeetingInnerSection1>
       <TimeMeetingInnerSection2>
         <TimeMeetingInnerBox />
-          <TimeMeetingCardBox>
-            {recommendTimeList.length === 0 ? (
+        <TimeMeetingCardBox>
+          {recommendTimeList.length === 0 ? (
             <NonRecommendText2>
               추천 모임이 없습니다.
               <br />
               추가 정보를 등록 or 수정해주세요!
             </NonRecommendText2>
           ) : (
-              recommendTimeList
-                .slice(0, 3)
-                .map((item, idx) => (
-                  <CardSection
-                    key={`시간대가 맞는 모임 ${idx}`}
-                    item={item}
-                    db={db}
-                  uid={uid}
-                  userBookmark={userBookmark}
-                  />
-                ))
+            recommendTimeList
+              .slice(0, 3)
+              .map((item, idx) => (
+                <CardSection
+                  key={`시간대가 맞는 모임 ${idx}`}
+                  item={item}
+                  db={db}
+                />
+              ))
           )}
-          </TimeMeetingCardBox>
+        </TimeMeetingCardBox>
       </TimeMeetingInnerSection2>
     </TimeMeetingArea>
   );
