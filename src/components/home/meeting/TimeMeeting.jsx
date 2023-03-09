@@ -27,6 +27,7 @@ const TimeMeeting = ({ currentUserData }) => {
     ? postData.filter(
         (item) =>
           !item.isDeleted &&
+          item.uid !== currentUserData?.uid &&
           item.partyTime.includes(currentUserData?.moreInfo?.u_time),
       )
     : [];

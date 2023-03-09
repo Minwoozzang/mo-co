@@ -19,6 +19,7 @@ import Test from '../pages/Test';
 import { useRecoilValue } from 'recoil';
 import ScrollTop from '../common/scrollTop';
 import authState from '../recoil/authState';
+import OnboardingEdit from '../pages/onboarding/OnboardingEdit';
 
 const Router = () => {
   const user = useRecoilValue(authState);
@@ -34,6 +35,7 @@ const Router = () => {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/matedetail/:id" element={<MateDetail />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
+        <Route path="/onboardingedit" element={<OnboardingEdit />} />
         <Route path="/teampage/:id" element={<TeamPage />} />
         <Route path="/mate" element={<MateList />} />
         <Route path="/write" element={<MateWrite />} />

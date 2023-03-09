@@ -56,10 +56,9 @@ export default function TeamPage() {
       <JustContainer onClick={() => setDropDownClick(false)}>
         <WholeContainer>
           <MemberSide teamLocationID={teamLocationID} />
-
           <DashBoardContainer>
             {teamPage
-              ?.filter((item) => item.id === teamLocationID)
+              .filter((item) => item.id === teamLocationID)
               .map((item) => {
                 return (
                   <DashboardHeaderWrap key={item.id}>
@@ -95,7 +94,6 @@ export default function TeamPage() {
                   </DashboardHeaderWrap>
                 );
               })}
-
             <ContentContainerR>
               <ContentContainer>
                 <ContenRuleAndPlace>

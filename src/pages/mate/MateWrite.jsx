@@ -447,7 +447,7 @@ const PartyTitle = styled.input`
   border: 1px solid #3b3b3b;
   border-radius: 10px;
   outline-style: none;
-  width: 877px;
+  width: 100%;
   margin-top: 20px;
   font-size: 15px;
   padding: 10px;
@@ -502,7 +502,7 @@ const PostTitle = styled.input`
   outline-style: none;
   font-size: 15px;
   padding: 10px;
-  width: 877px;
+  width: 100%;
   color: white;
 `;
 
