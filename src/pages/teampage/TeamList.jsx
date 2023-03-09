@@ -46,6 +46,7 @@ const TeamList = () => {
 
   // 자신이 개설한 팀 데이터(리더)
   const myOnGoingMeeting = teamPage?.filter((item) =>
+    item.isDeleted === false &&
     item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
   );
 
@@ -72,6 +73,7 @@ const TeamList = () => {
 
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
+    item.isDeleted === false &&
     myAppliedteamID?.includes(item.teamID),
   );
 
