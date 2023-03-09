@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
 export const MyProfileBody = styled.div`
-  width: 330px;
+  width: 20.625rem;
   height: 100%;
 `;
 
 export const ProfileSectionGap = styled.div`
   width: 100%;
-  height: 80px;
+  height: 5rem;
 `;
 
 export const ProfileSection = styled.div`
@@ -29,17 +29,17 @@ export const ProfileMocoText = styled.div`
 `;
 
 export const NicknameImageBox = styled.div`
-  width: 330px;
-  height: 100px;
+  width: 20.625rem;
+  height: 6.25rem;
 
   display: flex;
 
-  margin-top: 70px;
-  margin-bottom: 40px;
+  margin-top: 4.375rem;
+  margin-bottom: 2.5rem;
 `;
 
 export const NicknameTextBox = styled.div`
-  width: 150px;
+  width: 9.375rem;
 `;
 
 export const NicaknameHello = styled.div`
@@ -53,7 +53,7 @@ export const NicaknameHello = styled.div`
 
   color: #ffffff;
 
-  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
 `;
 
 export const ProfileHeaderIcon = styled.div`
@@ -61,7 +61,7 @@ export const ProfileHeaderIcon = styled.div`
 `;
 
 export const ProfileImageBody = styled.div`
-  margin-right: 20px;
+  margin-right: 1.25rem;
 `;
 
 export const ProfileImage = styled.img`
@@ -71,8 +71,8 @@ export const ProfileImage = styled.img`
 export const ProfileEditBody = styled.div``;
 
 export const EditNickNameInput = styled.input`
-  width: 120px;
-  height: 25px;
+  width: 7.5rem;
+  height: 1.5625rem;
 
   border-top: none;
   border-left: none;
@@ -89,13 +89,13 @@ export const EditNickNameInput = styled.input`
     outline: none;
   }
 
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `;
 
 export const ProfileNickNameBody = styled.div``;
 
 export const ProfileNickName = styled.div`
-  width: 120px;
+  width: 7.5rem;
 
   font-family: 'Pretendard';
   font-style: normal;
@@ -107,7 +107,7 @@ export const ProfileNickName = styled.div`
 
   color: #ffffff;
 
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `;
 
 export const ProfileNickNameBtn = styled.div`
@@ -115,7 +115,7 @@ export const ProfileNickNameBtn = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 1.15rem;
-  line-height: 14px;
+  line-height: 0.875rem;
   letter-spacing: -0.03em;
 
   color: #9d9d9d;
@@ -128,7 +128,7 @@ export const NickNameCompleteBtn = styled.div`
   font-style: normal;
   font-weight: 400;
   font-size: 1.15rem;
-  line-height: 14px;
+  line-height: 0.875rem;
   letter-spacing: -0.03em;
 
   color: #9d9d9d;
@@ -137,10 +137,10 @@ export const NickNameCompleteBtn = styled.div`
 `;
 
 export const ProfileMiddleSection = styled.div`
-  width: 330px;
-  height: 200px;
+  width: 20.625rem;
+  height: 12.5rem;
 
-  margin-top: 40px;
+  margin-top: 2.5rem;
 
   display: flex;
   justify-content: center;
@@ -153,12 +153,12 @@ export const MiddleBody = styled.div`
 
 export const ProfileStackBody = styled.div`
   width: 100%;
-  height: 25px;
+  height: 1.5625rem;
 
   font-size: 1.1rem;
   font-weight: 600;
 
-  margin-top: 15px;
+  margin-top: 0.9375rem;
 
   display: flex;
 `;
@@ -170,7 +170,7 @@ export const StackbodyTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.15rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
@@ -182,7 +182,7 @@ export const StackbodyText = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.16rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
@@ -192,7 +192,7 @@ export const StackbodyText = styled.div`
 export const ProfileTechBody = styled.div`
   width: 100%;
 
-  margin-top: 10px;
+  margin-top: 0.625rem;
 `;
 
 export const TechBodyTitle = styled.div`
@@ -200,13 +200,13 @@ export const TechBodyTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.15rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
   color: #9d9d9d;
 
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 `;
 
 export const TechBodyImage = styled.div``;
@@ -214,12 +214,12 @@ export const TechBodyImage = styled.div``;
 export const ProfileFooterBody = styled.div`
   width: 100%;
 
-  margin-top: 25px;
+  margin-top: 1.5625rem;
 `;
 
 export const ProfileCompleteBtn = styled.div`
-  width: 110px;
-  height: 40px;
+  width: 6.875rem;
+  height: 2.5rem;
 
   margin-bottom: 20px;
 
@@ -237,8 +237,8 @@ export const ProfileCompleteBtn = styled.div`
 `;
 
 export const ProfileStackBtn = styled.div`
-  width: 305px;
-  height: 50px;
+  width: 19.0625rem;
+  height: 3.125rem;
 
   background: #feff80;
   border-radius: 10px;
@@ -249,6 +249,6 @@ export const ProfileStackBtn = styled.div`
   justify-content: center;
   align-items: center;
 
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
 `;

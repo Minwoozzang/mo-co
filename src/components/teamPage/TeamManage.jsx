@@ -100,7 +100,7 @@ export default function TeamManage({ teamLocationID, item }) {
 
   // 모임 수정하기
   const navigateWrite = () => {
-    navigate(`/edit/${teamPost}`);
+    navigate(`/edit/${teamPost}`, { state: teamLocationID });
   };
 
   const getPostData = async () => {

@@ -1,21 +1,33 @@
 import styled from '@emotion/styled';
 import { Checkbox } from 'antd';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
+import {
+  doc,
+  updateDoc,
+  collection,
+  onSnapshot,
+  query,
+  setDoc,
+  where,
+  getDocs,
+} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
-import { useRecoilState } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
-import headerToggle from '../../recoil/headerToggleState';
+import { useRecoilState } from 'recoil';
+import userState from '../../recoil/userState';
+import { useQueryClient } from 'react-query';
 
-export default function OnboardingPage() {
+export default function OnboardingEdit() {
   const [isRemote, setIsRemote] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const queryClient = useQueryClient();
+
   // 인풋값
   const [userStack, setUserStack] = useState([]);
   const [userTime, setUserTime] = useState('');
@@ -26,6 +38,11 @@ export default function OnboardingPage() {
   // 작성글 버튼 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
 
+  // 유저 정보 가져오기
+  const [user, setUser] = useRecoilState(userState);
+
+  console.log('????', userStack);
+
   // 기술 스택 선택 핸들러 함수
   const handleStack = (stack) => {
     if (userStack.includes(stack)) {
@@ -33,6 +50,13 @@ export default function OnboardingPage() {
     } else {
       setUserStack([...userStack, stack]);
     }
+  };
+
+  const getPostData = () => {
+    setUserStack(user[0].moreInfo.u_stack);
+    setUserLocation(user[0].moreInfo.u_location);
+    setIsRemote(user[0].moreInfo.u_isRemote);
+    setUserTime(user[0].moreInfo.u_time);
   };
 
   // 비대면 모임 체크박스 핸들러 함수
@@ -55,6 +79,7 @@ export default function OnboardingPage() {
     };
     try {
       await updateDoc(userDoc, newField);
+      queryClient.invalidateQueries('users');
     } catch (e) {
       console.log(e);
     } finally {
@@ -71,15 +96,14 @@ export default function OnboardingPage() {
           setCurrentUserName(auth2.currentUser.displayName);
         };
         getUserName();
+        getPostData();
       }
     });
   }, []);
 
-  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
-
   return (
     <>
-      <JustContainerBox onClick={() => setDropDownClick(false)}>
+      <JustContainerBox>
         <TextBox>
           <PhraseTitle>
             맞춤 모임 추천을 위해

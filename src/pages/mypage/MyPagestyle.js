@@ -22,7 +22,7 @@ export const DummyProfile = styled.div`
 `;
 
 export const MySection = styled.div`
-  width: 1500px;
+  width: 93.75rem;
   height: 100%;
 
   background-color: #232323;
@@ -31,7 +31,7 @@ export const MySection = styled.div`
 `;
 
 export const MyProfilSectionBox = styled.div`
-  width: 620px;
+  width: 38.75rem;
   height: 100%;
 
   background-color: #232323;
@@ -41,7 +41,7 @@ export const MyProfilSectionBox = styled.div`
 `;
 
 export const MyInfoSection = styled.div`
-  width: 1300px;
+  width: 81.25rem;
   background-color: black;
 `;
 

@@ -10,10 +10,12 @@ import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect, useRef, useState } from 'react';
 import { ImCancelCircle } from 'react-icons/im';
 import { useLocation, useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
 import defaultImg from '../../../src/assets/icon/user.png';
 import Alarm from '../../assets/icon/Icon_Alarm.png';
 import Search from '../../assets/icon/Icon_Search.png';
 import { authService, db } from '../../common/firebase';
+import headerToggle from '../../recoil/headerToggleState';
 import {
   HeaderBody,
   HeaderInfoBody,
@@ -64,7 +66,7 @@ const Header = () => {
   const searchRef = useRef(null);
 
   // 드랍다운
-  const [dropDownClick, setDropDownClick] = useState(false);
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
   const [searchdropDownClick, setSearchdropDownClick] = useState(false);
 
   // 헤더 드랍다운 생성유뮤
@@ -153,7 +155,7 @@ const Header = () => {
       onSubmit();
     }
     if (e.key === 'Enter' && word.length === 0) {
-      toast.warn('검색어를 입력해주세요.')
+      toast.warn('검색어를 입력해주세요.');
     }
   };
   const searchdropDownHandler = () => {
@@ -290,9 +292,9 @@ const Header = () => {
                     ) : (
                       ''
                     )}
-                    </>
-                    
-                    <>
+                  </>
+
+                  <>
                     <HeaderSearchDropDownListBox
                       style={{ position: 'absolute' }}
                     >
@@ -316,7 +318,7 @@ const Header = () => {
                           <HeaderSearchInput
                             onChange={onChangeSearch}
                             onKeyPress={handleonKeyPress}
-                            placeholder='검색어를 입력해주세요.'
+                            placeholder="검색어를 입력해주세요."
                           />
                           {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
@@ -325,11 +327,8 @@ const Header = () => {
                       </HeaderSearchDropDownListSection>
                       {/* <HeaderSearchDropDownHr /> */}
                     </HeaderSearchDropDownListBox>
-                    </>
-                    </>
-                    
-                  
-                
+                  </>
+                </>
               ) : (
                 <NavigateMypage>
                   <img src={Search} alt="search" style={{ width: '20px' }} />

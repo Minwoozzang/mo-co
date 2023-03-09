@@ -2,14 +2,15 @@ import styled from '@emotion/styled';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { db } from '../../common/firebase';
+import headerToggle from '../../recoil/headerToggleState';
 import CardSection from '../../shared/CardSection';
 // import SearchResultCard from './SearchResultCard';
 
 const Search = () => {
   const params = useParams();
   const [searchData, setSearchData] = useState([]);
-  console.log(params.word)
 
   // firestore에서 post 문서 받아와서 검색한 내용이 포함 된 데이터만 추출
   useEffect(() => {
@@ -47,8 +48,10 @@ const Search = () => {
   }, [params.word]);
   // console.log(searchData);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <SearchResultFullScreen>
+    <SearchResultFullScreen onClick={() => setDropDownClick(false)}>
       <SearchResultContainer>
         <SearchTitle>검색 건수 : {searchData.length}</SearchTitle>
         <CardWrapper>

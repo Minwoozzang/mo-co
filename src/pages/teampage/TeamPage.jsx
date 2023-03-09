@@ -12,11 +12,12 @@ import TeamPlace from './TeamPlace';
 import { onAuthStateChanged } from '@firebase/auth';
 import MemberChatingRoom from '../../components/teamPage/chat/MemberChatingRoom';
 import { useRecoilState } from 'recoil';
+import headerToggle from '../../recoil/headerToggleState';
 import teamPageState from '../../recoil/teamPageState';
 import { useQueryClient } from 'react-query';
 
 export default function TeamPage() {
-  const teamPage = useRecoilState(teamPageState);
+  const [teamPage, setTeamPage] = useRecoilState(teamPageState);
 
   const navigate = useNavigate();
 
@@ -48,12 +49,13 @@ export default function TeamPage() {
     });
   }, []);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
     <>
-      <JustContainer>
+      <JustContainer onClick={() => setDropDownClick(false)}>
         <WholeContainer>
           <MemberSide teamLocationID={teamLocationID} />
-
           <DashBoardContainer>
             {teamPage
               ?.filter((item) => item.id === teamLocationID)
@@ -92,7 +94,6 @@ export default function TeamPage() {
                   </DashboardHeaderWrap>
                 );
               })}
-
             <ContentContainerR>
               <ContentContainer>
                 <ContenRuleAndPlace>
@@ -141,7 +142,7 @@ const JustContainer = styled.div`
 `;
 
 const WholeContainer = styled.div`
-  margin-top: 100px;
+  margin: 80px 0 40px;
   width: 1350px;
   height: 900px;
   display: flex;
@@ -152,6 +153,11 @@ const WholeContainer = styled.div`
   box-shadow: 0 20px 50px rgb(0 0 0 / 30%);
   position: relative;
   @media screen and (max-width: 1280px) {
+    max-width: 1200px;
+    height: 650px;
+  }
+
+  @media screen and (max-height: 800px) {
     max-width: 1200px;
     height: 650px;
   }

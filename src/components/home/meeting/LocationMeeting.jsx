@@ -26,6 +26,7 @@ const LocationMeeting = ({ currentUserData }) => {
     ? postData.filter(
         (item) =>
           !item.isDeleted &&
+          item.uid !== currentUserData?.uid &&
           item.partyLocation.includes(currentUserData?.moreInfo?.u_location),
       )
     : [];

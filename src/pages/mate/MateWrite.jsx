@@ -18,7 +18,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { now } from '../../common/date';
 import { db } from '../../common/firebase';
 import { locations } from '../../data/locations';
@@ -27,6 +27,7 @@ import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import authState from '../../recoil/authState';
+import headerToggle from '../../recoil/headerToggleState';
 import { memo } from 'react';
 import { toast } from 'react-toastify';
 
@@ -130,6 +131,7 @@ const MateWrite = () => {
           })
             .then(() => {
               setDoc(doc(db, 'teamPage', teamID), {
+                isDeleted : false,
                 createdDate: now(),
                 createdAt: Date.now(),
                 teamID: teamID,
@@ -194,8 +196,10 @@ const MateWrite = () => {
 
   const handleChangePartyname = (event) => getDebounce(event.target.value);
 
+  const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
   return (
-    <FullScreen>
+    <FullScreen onClick={() => setDropDownClick(false)}>
       <GuideTextsBox>
         <PageTitle>
           <h2>모각코 모임 개설</h2>
@@ -444,7 +448,7 @@ const PartyTitle = styled.input`
   border: 1px solid #3b3b3b;
   border-radius: 10px;
   outline-style: none;
-  width: 877px;
+  width: 100%;
   margin-top: 20px;
   font-size: 15px;
   padding: 10px;
@@ -499,7 +503,7 @@ const PostTitle = styled.input`
   outline-style: none;
   font-size: 15px;
   padding: 10px;
-  width: 877px;
+  width: 100%;
   color: white;
 `;
 

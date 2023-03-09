@@ -101,7 +101,6 @@ const Profile = () => {
       if (user) {
         setCurrentUser(authService.currentUser.uid);
         setNickName(authService.currentUser.displayName);
-        // setPhotoURL(authService.currentUser.photoURL);
         getUserStackInfo();
       }
     });
@@ -153,7 +152,7 @@ const Profile = () => {
 
   // 맞춤 정보 수장
   const EditStackBtn = () => {
-    navigate('/onboarding');
+    navigate('/onboardingedit');
   };
 
   return (
