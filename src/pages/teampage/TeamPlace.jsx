@@ -269,6 +269,11 @@ const ContentCard = styled.div`
   height: 200px;
   background-color: white;
   margin-top: 25px;
+
+  @media screen and (max-height: 800px) {
+    width: 300px;
+    height: 150px;
+  }
 `;
 
 const PlaceBtn = styled.div`
@@ -301,5 +306,11 @@ const PlaceTextWrap = styled.div`
   flex-direction: column;
   div {
     padding: 20px;
+  }
+
+  @media screen and (max-height: 800px) {
+    div {
+      padding: 10px;
+    }
   }
 `;

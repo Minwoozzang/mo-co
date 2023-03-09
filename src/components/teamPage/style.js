@@ -129,8 +129,9 @@ export const MemberInfoProfile = styled.div`
 export const MemberInfoProfileImg = styled.img`
   width: 40px;
   height: 40px;
+  flex-shrink: 0;
 
-  border-radius: 20px;
+  border-radius: 50px;
   border: 1px solid black;
   object-fit: cover;
 

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
+import { useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
@@ -17,9 +18,14 @@ import { useQueryClient } from 'react-query';
 const MateDetail = () => {
   const queryClient = useQueryClient();
   const user = useRecoilValue(authState);
+
+  const queryClient = useQueryClient();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = usePosts();
+  const thisPost = data?.filter((item) => item.id === id);
+  let isMyPost = thisPost[0]?.uid === user?.uid;
 
   const handleMoveToEdit = () => {
     navigate(`/edit/${id}`);
@@ -31,10 +37,14 @@ const MateDetail = () => {
       await updateDoc(doc(db, 'post', id), {
         isDeleted: true,
       });
-      queryClient.invalidateQueries('posts');
+      await updateDoc(doc(db, 'teamPage', thisPost[0]?.teamID), {
+        isDeleted: true,
+      });
       toast.success('삭제 성공');
       navigate('/mate');
-    } catch (error) {
+      queryClient.invalidateQueries('teamPage');
+    }
+     catch (error) {
       console.log(error);
     }
   };
@@ -43,8 +53,6 @@ const MateDetail = () => {
   if (isLoading) {
     return <div>로딩중</div>;
   }
-  const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === user?.uid;
 
   return (
     <MateDetailWrap>

@@ -206,6 +206,10 @@ const ContentCard = styled.div`
   p {
     padding: 20px;
   }
+
+  @media screen and (max-height: 800px) {
+    height: 200px;
+  }
 `;
 
 const ButtonPlaceTitleWrap = styled.div`

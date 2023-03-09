@@ -36,16 +36,19 @@ export const NewMeetingCardWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: lightgray; */
 `
 export const NewMeetingCardBox = styled.div`
     height: 320px;
     /* width: 1180px; */
     /* width: 91.05%; */
-    width: 92%;
+    width: 95%;
     display: flex;
+    justify-content: center;
     gap: 0 20px;
     margin: 0 auto;
     flex-wrap: wrap;
+    /* background-color: gray; */
 `
 export const NewMeetingArrow = styled.div`
     width: 48px;
