@@ -41,13 +41,17 @@ const DetailRecruit = () => {
   const [myProfileImg, setMyProfileImg] = useState([]);
   const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
   const [myTeamList, setMyTeamList] = useState([]);
+  const [disable, setDisable] = useState(false);
   // 참여신청 버튼 비활성화 여부
   let isBtnDisabled = false;
 
   // 정원 모집 여부 조건 표현
   const itsTeamDoc = teamPage?.filter((item) => item.teamID === post.teamID);
   const teamMembers = itsTeamDoc
-    ? `${itsTeamDoc[0]?.teamMember.length + 1}명`
+    ? `${
+        itsTeamDoc[0]?.teamMember.filter((member) => member.isWait === false)
+          .length + 1
+      }명`
     : '';
 
   /*
@@ -149,6 +153,7 @@ const DetailRecruit = () => {
         console.log('참여 신청 에러');
       });
     queryClient.invalidateQueries('teamPage');
+    setDisable(true);
     toast.success('참여 신청 완료!');
     console.log('참여 완료');
     setIsModalOpen(false);
@@ -203,7 +208,7 @@ const DetailRecruit = () => {
         <RecruitFont>모집현황</RecruitFont>
         <RecruitDetail>모집진행 {post.partyNum}</RecruitDetail>
       </RecruitCurrent>
-      <RecruitBtn disabled={isBtnDisabled} onClick={handleModalOpen}>
+      <RecruitBtn disabled={isBtnDisabled || disable} onClick={handleModalOpen}>
         모임 참여 신청
       </RecruitBtn>
       <ApplyModal
