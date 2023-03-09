@@ -7,12 +7,15 @@ export const HeaderBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
-  position: fixed;
+  position: sticky;
   top: 0;
+  z-index: 999;
+  /* z-index: 1;
+  position: fixed;
+  top: 0; */
   /* width: 100% */
-  left: 0;
-  right: 0;
+  /* left: 0;
+  right: 0; */
   /* margin-bottom: 5rem; */
 `;
 
