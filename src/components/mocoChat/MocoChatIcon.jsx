@@ -12,14 +12,13 @@ const MocoChat = () => {
   return (
     <>
       <img
-        src="images/moco.png"
+        src="https://i.imgur.com/gMG1fOm.png"
         alt="chat"
-        width="120px"
+        width="65rem"
         style={{
           position: 'fixed',
           bottom: '30px',
           right: '30px',
-          borderRadius: '50%',
           cursor: 'pointer',
         }}
         onClick={handleMocoChatOpen}

@@ -166,8 +166,8 @@ const ChatWindowContainer = styled.div`
   width: 370px;
   height: 626px;
   position: fixed;
-  bottom: 130px;
-  right: 120px;
+  bottom: 100px;
+  right: 90px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),

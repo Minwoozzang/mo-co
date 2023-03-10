@@ -17,10 +17,9 @@ function App() {
   const setAuthState = useSetRecoilState(authState);
   const setPostState = useSetRecoilState(postState);
   const setTeamPageState = useSetRecoilState(teamPageState);
+  const setUserState = useSetRecoilState(userState);
   const post = usePosts();
   const teamPage = useTeamPage();
-
-  const setUserState = useSetRecoilState(userState);
   const user = useUser();
 
   useEffect(() => {
@@ -37,7 +36,6 @@ function App() {
       }
     });
     setUserState(user.data);
-
     setPostState(post.data);
     setTeamPageState(teamPage.data);
   }, [post.data, teamPage.data, user.data]);

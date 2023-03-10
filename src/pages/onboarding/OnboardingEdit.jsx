@@ -79,7 +79,7 @@ export default function OnboardingEdit() {
     };
     try {
       await updateDoc(userDoc, newField);
-      queryClient.invalidateQueries('users');
+      queryClient.invalidateQueries();
     } catch (e) {
       console.log(e);
     } finally {
