@@ -43,6 +43,7 @@ import {
   SearchLayer,
   SearchModalLayer,
   SearchIconBox,
+  HeaderUserIconBody,
 } from './style';
 import { toast } from 'react-toastify';
 
@@ -339,8 +340,9 @@ const Header = () => {
             ''
           )}
 
+          {/* 유저 아이콘 */}
           {headerMyIcon ? (
-            <div onClick={dropDownHandler}>
+            <HeaderUserIconBody onClick={dropDownHandler}>
               {dropDownClick ? (
                 <>
                   {isUserDropDown ? (
@@ -358,16 +360,11 @@ const Header = () => {
                   ) : (
                     ''
                   )}
-                  <HeaderDropDownListBox style={{ position: 'absolute' }}>
+                  <HeaderDropDownListBox>
                     <HeaderImageBox>
                       <HeaderImage
                         src={profileUserInfo[0]?.profileImg ?? defaultImg}
                         alt="user"
-                        style={{
-                          width: '80px',
-                          height: '80px',
-                          borderRadius: '40px',
-                        }}
                       />
                     </HeaderImageBox>
                     <HeaderDropDownListSection>
@@ -389,7 +386,7 @@ const Header = () => {
                   />
                 </NavigateMypage>
               )}
-            </div>
+            </HeaderUserIconBody>
           ) : (
             ''
           )}
