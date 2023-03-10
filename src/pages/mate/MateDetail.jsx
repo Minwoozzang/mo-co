@@ -120,6 +120,10 @@ const CommentBtnWrap = styled.div`
   flex-direction: row;
   justify-content: center;
   margin: 20px 0 0 30px;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 20px 30px 0 30px;
+  }
 `;
 const CommentBtn = styled.button`
   width: 120px;
