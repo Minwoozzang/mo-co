@@ -11,15 +11,11 @@ import CommentList from '../../components/mateDetail/commentList/CommentList';
 import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
-import headerToggle from '../../recoil/headerToggleState';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
-import { useQueryClient } from 'react-query';
 
 const MateDetail = () => {
   const queryClient = useQueryClient();
   const user = useRecoilValue(authState);
-
-  const queryClient = useQueryClient();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -43,13 +39,11 @@ const MateDetail = () => {
       toast.success('삭제 성공');
       navigate('/mate');
       queryClient.invalidateQueries('teamPage');
-    }
-     catch (error) {
+    } catch (error) {
       console.log(error);
     }
   };
 
-  // usequery문제가 있음! 따라서 데이터가 없어 undefined가 뜬 부분이 있어서 ~thispost 부분을 내려 작성
   if (isLoading) {
     return <div>로딩중</div>;
   }
