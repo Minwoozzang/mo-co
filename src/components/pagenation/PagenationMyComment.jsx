@@ -14,7 +14,7 @@ const PagenationMyComment = ({ myComment, handleChange }) => (
       total={myComment ? myComment.length : 0}
       onChange={handleChange}
       defaultCurrent={1}
-      defaultPageSize={2}
+      defaultPageSize={4}
     />
   </ConfigProvider>
 );

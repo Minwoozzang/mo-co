@@ -2,10 +2,8 @@ import styled from '@emotion/styled';
 
 export const MyPageBody = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
-
-  background-color: red;
 `;
 
 export const DummyBox = styled.div`
