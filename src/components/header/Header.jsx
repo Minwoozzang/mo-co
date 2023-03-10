@@ -358,16 +358,11 @@ const Header = () => {
                   ) : (
                     ''
                   )}
-                  <HeaderDropDownListBox style={{ position: 'absolute' }}>
+                  <HeaderDropDownListBox>
                     <HeaderImageBox>
                       <HeaderImage
                         src={profileUserInfo[0]?.profileImg ?? defaultImg}
                         alt="user"
-                        style={{
-                          width: '80px',
-                          height: '80px',
-                          borderRadius: '40px',
-                        }}
                       />
                     </HeaderImageBox>
                     <HeaderDropDownListSection>
