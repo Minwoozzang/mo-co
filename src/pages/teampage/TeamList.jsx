@@ -22,6 +22,7 @@ const TeamList = () => {
   // teamPage teamMember에서 내 닉네임이 포함된 teamPage 데이터
   let myAppliedMeeting = [];
   const myApplyMeeting = teamPage?.forEach((item) => {
+    item.isDeleted === false &&
     item.teamMember.forEach((member) => {
       if (member.uid === authService?.currentUser?.uid) {
         myAppliedMeeting.push(item);

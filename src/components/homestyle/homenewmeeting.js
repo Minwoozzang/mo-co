@@ -42,7 +42,8 @@ export const NewMeetingCardBox = styled.div`
     height: 320px;
     /* width: 1180px; */
     /* width: 91.05%; */
-    width: 95%;
+    /* width: 95%; */
+    width: 1200px;
     display: flex;
     justify-content: center;
     gap: 0 20px;
