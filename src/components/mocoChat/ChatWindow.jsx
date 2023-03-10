@@ -57,6 +57,8 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
       prompt: inputValue,
       model: 'text-davinci-003',
       max_tokens: 2000,
+      temperature: 0.3,
+      top_p: 0.2,
     };
 
     const existingMessage = JSON.parse(
