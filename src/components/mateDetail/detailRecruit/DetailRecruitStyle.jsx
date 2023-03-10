@@ -15,6 +15,10 @@ export const RecruitWrap = styled.div`
   top: 12.5rem;
   right: 20rem;
   border-radius: 1.25rem;
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    right: 4rem;
+  }
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     top: 14rem;
