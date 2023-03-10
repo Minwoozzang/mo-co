@@ -92,6 +92,10 @@ const MateDetailContainer = styled.div`
 const CommentWrap = styled.div`
   width: 100%;
   margin: 50px 0 50px 0;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 0px 0 50px 0;
+  }
 `;
 
 const CommentContainHeader = styled.p`
@@ -102,6 +106,10 @@ const CommentContainHeader = styled.p`
   line-height: 29px;
   margin: 30px 250px 30px 360px;
   color: #fff;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 30px 250px 30px 150px;
+  }
 `;
 const UserHr = styled.hr`
   border: 0;
@@ -113,6 +121,10 @@ const CommentBtnWrap = styled.div`
   flex-direction: row;
   justify-content: center;
   margin: 20px 0 0 30px;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 20px 30px 0 30px;
+  }
 `;
 const CommentBtn = styled.button`
   width: 120px;
