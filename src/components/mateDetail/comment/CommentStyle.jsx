@@ -3,6 +3,10 @@ import styled from '@emotion/styled';
 export const CommentContainer = styled.div`
   margin: 5rem 50rem 0 22.5rem;
 
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin: 5rem 50rem 0 12.5rem;
+  }
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     margin: 0rem 30rem 0 9.5rem;
