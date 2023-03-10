@@ -18,6 +18,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { now } from '../../common/date';
 import { db } from '../../common/firebase';
@@ -28,12 +29,9 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import authState from '../../recoil/authState';
 import headerToggle from '../../recoil/headerToggleState';
-import { memo } from 'react';
-import { toast } from 'react-toastify';
 
 const MateWrite = () => {
   const user = useRecoilValue(authState);
-
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   // 파베 인증
@@ -52,9 +50,7 @@ const MateWrite = () => {
   // 작성글 버튼 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
-
   const [teamID, setTeamID] = useState(uuidv4());
-
   // 리더 이미지, 팀 ID 가져오기
   const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
 
@@ -99,11 +95,13 @@ const MateWrite = () => {
           partyDesc === '',
         );
         if (
-          partyStack.length === 0 ||
-          partyTime === '' ||
-          partyNum === 0 ||
-          partyLocation === '' ||
-          partyDesc === ''
+          !partyName &&
+          !partyStack.length &&
+          !partyTime &&
+          !partyNum &&
+          !partyLocation &&
+          !partyPostTitile &&
+          !partyDesc
         ) {
           toast('모임 정보를 모두 입력해주세요');
           return;
@@ -131,7 +129,7 @@ const MateWrite = () => {
           })
             .then(() => {
               setDoc(doc(db, 'teamPage', teamID), {
-                isDeleted : false,
+                isDeleted: false,
                 createdDate: now(),
                 createdAt: Date.now(),
                 teamID: teamID,
@@ -400,7 +398,7 @@ const MateWrite = () => {
   );
 };
 
-export default memo(MateWrite);
+export default MateWrite;
 
 const FullScreen = styled.body`
   background-color: black;
