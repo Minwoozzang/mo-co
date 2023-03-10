@@ -105,6 +105,11 @@ const CommentContainHeader = styled.p`
   line-height: 29px;
   margin: 30px 250px 30px 360px;
   color: #fff;
+
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin: 30px 250px 30px 200px;
+  }
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     margin: 30px 250px 30px 150px;
