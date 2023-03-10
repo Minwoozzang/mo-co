@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from 'react-responsive';
 import {
   MeetingArea,
   TechStackMeetingContainer,
@@ -12,6 +13,10 @@ const HomeMeetingList = ({ isLoggedIn, currentUserData }) => {
   // 로그인 안 됐을 때 리스트
   const blurList = [1, 2, 3, 4];
 
+  const isSmallScreen = useMediaQuery({
+    query: `(max-width: 1420px)`,
+  });
+
   return (
     <MeetingArea>
       {isLoggedIn ? (
@@ -20,7 +25,7 @@ const HomeMeetingList = ({ isLoggedIn, currentUserData }) => {
             <TechStackMeeting currentUserData={currentUserData} />
           </TechStackMeetingContainer>
           <TimeMeeting currentUserData={currentUserData} />
-          <TimeAndLocationGap />
+          {isSmallScreen ? <div></div> : <TimeAndLocationGap />}
           <LocationMeeting currentUserData={currentUserData} />
         </>
       ) : (
@@ -37,4 +42,5 @@ export default HomeMeetingList;
 const TimeAndLocationGap = styled.div`
   height: 150px;
   width: 100%;
+  /* background-color: aliceblue; */
 `;

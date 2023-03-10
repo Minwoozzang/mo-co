@@ -28,8 +28,14 @@ import { useMediaQuery } from 'react-responsive';
 const TimeMeeting = ({ currentUserData }) => {
   // small screen
   const referenceSize = 1920;
-  const isSmallScreen = useMediaQuery({
-    query: `(max-width: 1420px)`,
+  const isSmallScreen1 = useMediaQuery({
+    query: `(min-width: 1420px)`,
+  });
+  const isSmallScreen2 = useMediaQuery({
+    query: `(min-width: 1080px) and (max-width: 1420px)`,
+  });
+  const isSmallScreen3 = useMediaQuery({
+    query: `(max-width: 1080px)`,
   });
   // const isSmallScreen = useMediaQuery({
   //   query: `(max-width: ${referenceSize*0.5}px)`,
@@ -51,33 +57,7 @@ const TimeMeeting = ({ currentUserData }) => {
 
   return (
     <TimeMeetingArea>
-      {isSmallScreen ? (
-        <TimeMeetingMediaBox>
-          <TimeMeetingMediaLeftCornerBox>
-            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
-            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
-          </TimeMeetingMediaLeftCornerBox>
-          <TimeMeetingMediaCardBox>
-            {recommendTimeList.length === 0 ? (
-              <NonRecommendText2>
-                추천 모임이 없습니다.
-                <br />
-                추가 정보를 등록 or 수정해주세요!
-              </NonRecommendText2>
-            ) : (
-              recommendTimeList
-                .slice(0, 3)
-                .map((item, idx) => (
-                  <CardSection
-                    key={`시간대가 맞는 모임 ${idx}`}
-                    item={item}
-                    db={db}
-                  />
-                ))
-            )}
-          </TimeMeetingMediaCardBox>
-        </TimeMeetingMediaBox>
-      ) : (
+      {isSmallScreen1 && (
         <div>
           <TimeMeetingTopBox />
           <TimeMeetingBox>
@@ -115,6 +95,61 @@ const TimeMeeting = ({ currentUserData }) => {
           </TimeMeetingBox>
         </div>
       )}
+      {isSmallScreen2 && (
+        <TimeMeetingMediaBox>
+          <TimeMeetingMediaLeftCornerBox>
+            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
+            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
+          </TimeMeetingMediaLeftCornerBox>
+          <TimeMeetingMediaCardBox>
+            {recommendTimeList.length === 0 ? (
+              <NonRecommendText2>
+                추천 모임이 없습니다.
+                <br />
+                추가 정보를 등록 or 수정해주세요!
+              </NonRecommendText2>
+            ) : (
+              recommendTimeList
+                .slice(0, 3)
+                .map((item, idx) => (
+                  <CardSection
+                    key={`시간대가 맞는 모임 ${idx}`}
+                    item={item}
+                    db={db}
+                  />
+                ))
+            )}
+          </TimeMeetingMediaCardBox>
+        </TimeMeetingMediaBox>
+      )}
+      {isSmallScreen3 && (
+        <TimeMeetingMediaBox>
+          <TimeMeetingMediaLeftCornerBox>
+            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
+            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
+          </TimeMeetingMediaLeftCornerBox>
+          <TimeMeetingMediaCardBox>
+            {recommendTimeList.length === 0 ? (
+              <NonRecommendText2>
+                추천 모임이 없습니다.
+                <br />
+                추가 정보를 등록 or 수정해주세요!
+              </NonRecommendText2>
+            ) : (
+              recommendTimeList
+                .slice(0, 2)
+                .map((item, idx) => (
+                  <CardSection
+                    key={`시간대가 맞는 모임 ${idx}`}
+                    item={item}
+                    db={db}
+                  />
+                ))
+            )}
+          </TimeMeetingMediaCardBox>
+        </TimeMeetingMediaBox>
+      )
+      }
     </TimeMeetingArea>
   );
 };

@@ -17,23 +17,39 @@ const CustomBlurList = () => {
   const isSmallScreen3 = useMediaQuery({
     query: `(max-width: 820px)`,
   });
+
   return (
     <CustomListContainer>
-      <CustomListCardBox>
-        <GuideText onClick={() => navigate('/login')}>
-          로그인이 필요합니다
-        </GuideText>
-        {isSmallScreen1 && customBlurList1.map((item, idx) => (
-          <BlurCard key={idx} item={item} />
-        ))}
-        {isSmallScreen2 && customBlurList2.map((item, idx) => (
-          <BlurCard key={idx} item={item} />
-        ))}
-        {isSmallScreen3 && customBlurList3.map((item, idx) => (
-          <BlurCard key={idx} item={item} />
-        ))}
-        
-      </CustomListCardBox>
+      {isSmallScreen1 && (
+        <CustomListCardBox>
+          <GuideText onClick={() => navigate('/login')}>
+            로그인이 필요합니다
+          </GuideText>
+          {customBlurList1.map((item, idx) => (
+            <BlurCard key={idx} item={item} />
+          ))}
+        </CustomListCardBox>
+      )}
+      {isSmallScreen2 && (
+        <CustomListCardBox>
+          <HalfScreenGuideText onClick={() => navigate('/login')}>
+            로그인이 필요합니다
+          </HalfScreenGuideText>
+          {customBlurList2.map((item, idx) => (
+            <BlurCard key={idx} item={item} />
+          ))}
+        </CustomListCardBox>
+      )}
+      {isSmallScreen3 && (
+        <CustomListCardBox>
+          <GuideText onClick={() => navigate('/login')}>
+            로그인이 필요합니다
+          </GuideText>
+          {customBlurList3.map((item, idx) => (
+            <BlurCard key={idx} item={item} />
+          ))}
+        </CustomListCardBox>
+      )}
     </CustomListContainer>
   );
 };
@@ -68,6 +84,24 @@ const GuideText = styled.div`
   z-index: 9999;
   top: 40%;
   left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #feff80;
+  box-shadow: 0 0 10px 0 rgba(66, 66, 66, 0.5);
+  padding: 10px;
+  width: 200px;
+  /* width: 25%; */
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+`;
+const HalfScreenGuideText = styled.div`
+  color: black;
+  font-size: 16px;
+  font-weight: 400;
+  position: absolute;
+  z-index: 9999;
+  top: 40%;
+  left: 60%;
   transform: translate(-50%, -50%);
   background-color: #feff80;
   box-shadow: 0 0 10px 0 rgba(66, 66, 66, 0.5);
