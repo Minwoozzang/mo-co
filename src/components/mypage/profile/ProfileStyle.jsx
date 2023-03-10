@@ -65,6 +65,7 @@ export const ProfileImageBody = styled.div`
 `;
 
 export const ProfileImage = styled.img`
+  object-fit: cover;
   border-radius: 45px;
 `;
 

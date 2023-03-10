@@ -1,7 +1,6 @@
 import { onAuthStateChanged, updateProfile } from 'firebase/auth';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { RiFolderUserFill } from 'react-icons/ri';
 import { authService, db } from '../../../common/firebase';
 import {
   MyProfileBody,
@@ -57,9 +56,6 @@ const Profile = () => {
 
   // 현재 유저
   const [currentUser, setCurrentUser] = useState('');
-
-  // 포토 URL
-  const [newPhotoURL, setNewPhotoURL] = useState('');
 
   // 이미지 선택
   const inputImageRef = useRef();
@@ -137,6 +133,10 @@ const Profile = () => {
   // 이미지 수정
   const onFileChange = async (e) => {
     const theFile = e.target.files[0];
+    if (theFile.size > 11300) {
+      toast.warn('이미지 용량을 11KB 이하로 해주세요.');
+      return;
+    }
     const reader = new FileReader();
     reader.readAsDataURL(theFile);
     reader.onloadend = (e) => {
@@ -145,7 +145,6 @@ const Profile = () => {
       updateDoc(doc(db, 'user', authService.currentUser.uid), {
         profileImg: imgUrl,
       });
-      setNewPhotoURL(imgUrl);
     };
     toast.success('프로필 이미지 수정 완료');
   };
