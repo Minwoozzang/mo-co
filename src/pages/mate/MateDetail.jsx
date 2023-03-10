@@ -21,7 +21,7 @@ const MateDetail = () => {
   const navigate = useNavigate();
   const { data, isLoading } = usePosts();
   const thisPost = data?.filter((item) => item.id === id);
-  const title = thisPost[0].partyPostTitile
+  const title = thisPost[0].partyPostTitile;
   let isMyPost = thisPost[0]?.uid === user?.uid;
 
   const handleMoveToEdit = () => {
@@ -39,7 +39,8 @@ const MateDetail = () => {
       });
       toast.success('삭제 성공');
       navigate('/mate');
-      queryClient.invalidateQueries('teamPage');
+      queryClient.invalidateQueries();
+      // queryClient.invalidateQueries('teamPage');
     } catch (error) {
       console.log(error);
     }
