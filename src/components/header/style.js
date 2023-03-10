@@ -260,6 +260,7 @@ export const HeaderSearchDropDownListBox = styled.div`
   background-color: #3b3b3b;
   box-shadow: 2px 2px 10px 10px #0001;
   z-index: 999;
+  
 
   ::after {
     content: '';
