@@ -16,6 +16,7 @@ export const GroupHeader = styled.h4`
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     padding-left: 9.5rem;
+    width: 55%;
   }
 
   /* 태블릿, 아이패드 */
@@ -36,7 +37,7 @@ export const UserInfoWrap = styled.div`
 
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
-    margin-right: 8rem;
+    margin: 2rem 8rem 0 0;
   }
 `;
 
@@ -45,6 +46,9 @@ export const GroupImg = styled.img`
   height: 2.5rem;
   border-radius: 1.25rem;
   margin-top: auto;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+  }
 `;
 export const GroupUserId = styled.p`
   width: 10%;
