@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { db } from '../../common/firebase';
+import PaginationSearch from '../../components/pagenation/PaginationSearch';
 import headerToggle from '../../recoil/headerToggleState';
 import CardSection from '../../shared/CardSection';
 // import SearchResultCard from './SearchResultCard';
@@ -11,6 +12,15 @@ import CardSection from '../../shared/CardSection';
 const Search = () => {
   const params = useParams();
   const [searchData, setSearchData] = useState([]);
+
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(6);
+
+  // 페이지네이션 핸들러
+  const handleChange = (page) => {
+    setMinValue(page * 6 - 6);
+    setMaxValue(page * 6);
+  };
 
   // firestore에서 post 문서 받아와서 검색한 내용이 포함 된 데이터만 추출
   useEffect(() => {
@@ -54,17 +64,29 @@ const Search = () => {
     <SearchResultFullScreen onClick={() => setDropDownClick(false)}>
       <SearchResultContainer>
         <SearchTitle>검색 건수 : {searchData.length}</SearchTitle>
-        <CardWrapper>
+        
           {searchData.length > 0 ? (
-            searchData.map((item, idx) => (
+            <>
+            <CardWrapper>
+            {searchData.slice(minValue, maxValue).map((item, idx) => (
               <CardSection key={idx} item={item} db={db} />
-            ))
+            ))}
+            </CardWrapper>
+            <PaginationContainer>
+            <PaginationSearch 
+              data={searchData} 
+              handleChange={handleChange}
+            />
+            </PaginationContainer>
+            </>
           ) : (
-            <NonSearchResultBox>
+            <CardWrapper>
+              <NonSearchResultBox>
               <NonSearchResultText>검색 결과가 없습니다.</NonSearchResultText>
             </NonSearchResultBox>
+              </CardWrapper>
           )}
-        </CardWrapper>
+        
       </SearchResultContainer>
     </SearchResultFullScreen>
   );
@@ -75,6 +97,8 @@ export default Search;
 const SearchResultFullScreen = styled.div`
   width: 100%;
   height: 100vh;
+  background-size: cover;
+  /* height: 100%; */
   background-color: #111111;
   /* margin-top: 80px; */
   /* background-size: cover;
@@ -85,7 +109,8 @@ const SearchResultFullScreen = styled.div`
 const SearchResultContainer = styled.div`
   /* width: 1180px; */
   width: 61.46%;
-  /* height: 1000px; */
+  /* height: 62.5rem; */
+  /* height: 1500px; */
   margin: 0 auto;
   /* background-color: #111111; */
 `;
@@ -97,12 +122,16 @@ const SearchTitle = styled.div`
   color: #ffffff;
   font-size: 20px;
   font-weight: 600;
+  margin-bottom: 20px;
 `;
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   /* background-color: #c8f1e8; */
   gap: 100px 20px;
+  /* width: 100%; */
+  width: 55rem;
+  /* height: 1000px; */
 `;
 const NonSearchResultBox = styled.div`
   width: 80%;
@@ -120,4 +149,18 @@ const NonSearchResultText = styled.div`
   font-size: 24px;
   font-weight: 500;
 `;
+
+// 페이지네이션
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 880px;
+  /* margin: 3rem; */
+  /* margin-top: 110px; */
+  padding: 6rem;
+  /* background-color: #111111; */
+  /* background-color: bisque; */
+`;
+
 // <SearchResultCard key={idx} {...item} />
