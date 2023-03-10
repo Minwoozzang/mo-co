@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { authService } from '../../../common/firebase';
 import {
+  MessageSectionBox,
   MessageSection,
   MessageImageBox,
   MessageImage,
@@ -17,11 +18,20 @@ import {
 import { v4 } from 'uuid';
 
 const MessageBox = ({ t }) => {
+  // 스크롤 Ref
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
-    <>
+    <MessageSectionBox>
       {t.map((data) => {
         return (
-          <div>
+          <>
             {data.uid !== authService.currentUser.uid ? (
               <>
                 <MessageSection key={v4()}>
@@ -48,10 +58,11 @@ const MessageBox = ({ t }) => {
                 </MyMessageSection>
               </>
             )}
-          </div>
+          </>
         );
       })}
-    </>
+      <div ref={scrollRef} />
+    </MessageSectionBox>
   );
 };
 

@@ -11,7 +11,6 @@ import useUserQuery from '../hooks/useUserQuery';
 import authState from '../recoil/authState';
 import { toast } from 'react-toastify';
 
-
 const CardSection = ({ item, db }) => {
   const user = useRecoilValue(authState);
   const queryClient = useQueryClient();
@@ -191,7 +190,7 @@ const CardSection = ({ item, db }) => {
           ) : (
             <span style={{ color: 'white' }}>모집완료</span>
           )}
-          <HeadCount>{`: ${partyNum + 1} / ${item.partyNum}`}</HeadCount>
+          <HeadCount>{`: ${partyNum + 1} / ${item.partyNum + 1}`}</HeadCount>
         </HeadCountBox>
       </PartyStatusBox>
 

@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
+import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { useRecoilState } from 'recoil';
@@ -14,6 +15,7 @@ import { times } from '../../data/times';
 import headerToggle from '../../recoil/headerToggleState';
 
 export default function OnboardingPage() {
+  const queryClient = useQueryClient();
   const [isRemote, setIsRemote] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   // 인풋값
@@ -55,6 +57,7 @@ export default function OnboardingPage() {
     };
     try {
       await updateDoc(userDoc, newField);
+      queryClient.invalidateQueries('users');
     } catch (e) {
       console.log(e);
     } finally {
