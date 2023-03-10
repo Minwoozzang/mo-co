@@ -220,7 +220,7 @@ const NoCustomContainer = styled.div`
   gap: 0 20px;
   /* align-items: center; */
   margin: 0 auto;
-  z-index: 50;
+  /* z-index: 50; */
   /* background-color: blue; */
 `;
 
@@ -258,7 +258,7 @@ const NonCustomListText = styled.div`
   /* box-shadow: 2px 4px 8px #545454; */
   /* box-shadow: 5px  5px 5px 5px rgba(0, 0, 0, 0.3); */
   line-height: 1.5;
-  z-index: 9999;
+  /* z-index: 999; */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -288,7 +288,7 @@ const HalfScreenNonCustomListText = styled.div`
   /* box-shadow: 2px 4px 8px #545454; */
   /* box-shadow: 5px  5px 5px 5px rgba(0, 0, 0, 0.3); */
   line-height: 1.5;
-  z-index: 9999;
+  z-index: 999;
   position: absolute;
   top: 50%;
   left: 60%;
