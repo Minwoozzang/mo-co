@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const MyCommentBody = styled.div`
   margin-top: 3.125rem;
   margin-left: 6.25rem;
-
   display: flex;
 `;
 export const MyCommetTitle = styled.div`
@@ -68,7 +67,7 @@ export const MyCommentDate = styled.div`
 
 export const PageBox = styled.div`
   text-align: center;
-
+  margin-bottom: 3.125rem;
   margin-left: 6.25rem;
   margin-top: 1.875rem;
 `;

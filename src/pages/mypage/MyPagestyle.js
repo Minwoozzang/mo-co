@@ -29,7 +29,7 @@ export const MySection = styled.div`
 `;
 
 export const MyProfilSectionBox = styled.div`
-  width: 38.75rem;
+  width: 38.75%;
   height: 100%;
 
   background-color: #232323;
@@ -39,7 +39,7 @@ export const MyProfilSectionBox = styled.div`
 `;
 
 export const MyInfoSection = styled.div`
-  width: 81.25rem;
+  width: 81.25%;
   background-color: black;
 `;
 
