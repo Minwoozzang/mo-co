@@ -14,11 +14,11 @@ import PagenationMyComment from '../../pagenation/PagenationMyComment';
 const MyPageComment = () => {
   // 페이지네이션
   const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(2);
+  const [maxValue, setMaxValue] = useState(4);
 
   const handleChange = (page) => {
-    setMinValue(page * 2 - 2);
-    setMaxValue(page * 2);
+    setMinValue(page * 4 - 4);
+    setMaxValue(page * 4);
   };
 
   // 댓글

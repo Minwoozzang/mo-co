@@ -114,11 +114,10 @@ export const PasswordText = styled.div`
 
 export const PasswordBody = styled.div`
   width: 23.75rem;
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
 `;
 
 export const PasswordTextBody = styled.div`
-  display: flex;
   align-items: center;
 `;
 export const PasswordTextInfo = styled.div`
@@ -130,8 +129,6 @@ export const PasswordTextInfo = styled.div`
   letter-spacing: -0.03em;
 
   color: #858585;
-
-  margin-left: 0.75rem;
 `;
 
 export const SignUpPasswordInput = styled.input`
@@ -157,7 +154,7 @@ export const SignUpPasswordInput = styled.input`
 
 export const CheckPasswordBody = styled.div`
   width: 23.75rem;
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
 `;
 
 export const CheckPasswordText = styled.div`
@@ -193,7 +190,7 @@ export const CheckSignUpPasswordInput = styled.input`
 
 export const NickNameBody = styled.div`
   width: 23.75rem;
-  margin-top: 1.75rem;
+  margin-top: 1.5rem;
 `;
 
 export const NickNameText = styled.div`
@@ -240,7 +237,7 @@ export const WarnigTextBody = styled.div`
 
 export const WarnigText = styled.div`
   margin-left: 0.3125rem;
-  margin-top: 0.125rem;
+  margin-top: 0.1rem;
   color: red;
 
   font-size: 0.9rem;
