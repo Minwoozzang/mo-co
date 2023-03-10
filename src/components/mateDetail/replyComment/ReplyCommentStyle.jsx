@@ -85,6 +85,9 @@ export const CommentIconBody = styled.div`
   margin-left: 69%;
   position: absolute;
   margin-left: 26.25rem;
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    width: 30%;
+  }
 `;
 
 export const UpdateDeleteBody = styled.div`
@@ -143,7 +146,7 @@ export const UserHr = styled.hr`
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     margin: 0rem 2.5rem 2.5rem 0rem;
-    width: 42rem;
+    width: 31rem;
   }
 `;
 
