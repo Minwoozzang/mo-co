@@ -10,7 +10,6 @@ export const AddCommentListAll = styled.div`
 
 export const AddCommentListWrap = styled.div`
   display: flex;
-
   flex-direction: row;
   border: 2px solid #525252;
   width: 100%;
