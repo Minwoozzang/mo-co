@@ -1,8 +1,8 @@
-import { ConfigProvider, Pagination } from "antd";
+import { ConfigProvider, Pagination } from 'antd';
 
-const PaginationSearch = ({ data, handleChange }) => {
-    return (
-        <ConfigProvider
+const PaginationSearch = ({ data, handleChange, maxValue }) => {
+  return (
+    <ConfigProvider
       theme={{
         token: {
           colorPrimary: '#000000',
@@ -14,10 +14,10 @@ const PaginationSearch = ({ data, handleChange }) => {
         total={data ? data.length : 0}
         onChange={handleChange}
         defaultCurrent={1}
-        defaultPageSize={6}
+        defaultPageSize={maxValue}
       />
     </ConfigProvider>
-    );
+  );
 };
 
 export default PaginationSearch;
