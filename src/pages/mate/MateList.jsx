@@ -157,6 +157,7 @@ const FullScreen = styled.body`
   height: 100%;
   min-height: 100vh;
   width: 100%;
+  padding: 0 4.5rem;
 `;
 
 const MateListTitle = styled.div`
@@ -175,17 +176,17 @@ const ViewOptions = styled.div`
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 1em;
-  padding-right: 3em;
+  padding-right: 2em;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
 `;
 
 const FilterBox = styled.div`
   display: flex;
   gap: 1em;
-  margin-bottom: 2rem;
 `;
 
 const SortBox = styled.div`
@@ -216,7 +217,7 @@ const CardList = styled.div`
   height: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1em;

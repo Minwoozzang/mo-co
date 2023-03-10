@@ -21,6 +21,7 @@ const MateDetail = () => {
   const navigate = useNavigate();
   const { data, isLoading } = usePosts();
   const thisPost = data?.filter((item) => item.id === id);
+  const title = thisPost[0].partyPostTitile
   let isMyPost = thisPost[0]?.uid === user?.uid;
 
   const handleMoveToEdit = () => {
@@ -65,7 +66,7 @@ const MateDetail = () => {
         {/* <UserHr /> */}
         <CommentContainHeader>댓글</CommentContainHeader>
         <CommentList id={id} img={user?.photoURL} />
-        <AddComment id={id} />
+        <AddComment title={title} id={id} />
       </CommentWrap>
       <DetailRecruit />
     </MateDetailWrap>

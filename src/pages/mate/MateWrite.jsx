@@ -272,7 +272,7 @@ const MateWrite = () => {
               </MeetingTimeBox>
               <PeopleBox>
                 <h3 style={{ marginBottom: 20 }}>모집 인원</h3>
-                {partyNum === '' ? (
+                {partyNum === 0 ? (
                   <span
                     style={{ position: 'relative', top: -12, color: '#FEFF80' }}
                   >

@@ -28,7 +28,7 @@ const FilterTech = ({ onSelectedTech }) => {
       isMulti
       isSearchable={false}
       options={options}
-      closeMenuOnSelect={false}
+      closeMenuOnSelect={true}
       placeholder="기술 스택"
       onChange={handleSelect}
       value={selectedTech}

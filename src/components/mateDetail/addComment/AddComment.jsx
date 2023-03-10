@@ -22,7 +22,7 @@ import AlertUI from './AlertUi';
 import { uuidv4 } from '@firebase/util';
 import { toast } from 'react-toastify';
 
-const AddComment = ({ id }) => {
+const AddComment = ({ id, title }) => {
   const [commentText, setCommentText] = useState('');
 
   // 파베 인증
@@ -99,6 +99,7 @@ const AddComment = ({ id }) => {
       //updatedoc사용할것 - 배열사용(등록, 수정, 삭제 모두 배열로)
       //todolist 참고
       replyComment: [],
+      title: title,
     };
 
     // console.log(newComment);
