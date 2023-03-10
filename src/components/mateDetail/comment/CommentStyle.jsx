@@ -2,6 +2,13 @@ import styled from '@emotion/styled';
 
 export const CommentContainer = styled.div`
   margin: 5rem 50rem 0 22.5rem;
+
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+  }
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  }
 `;
 
 export const ListContainer = styled.div``;

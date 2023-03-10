@@ -58,7 +58,7 @@ export const Social = styled.div`
   display: flex;
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
-    padding-left: 28%;
+    padding-left: 36%;
   }
 `;
 
