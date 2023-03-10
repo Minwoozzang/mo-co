@@ -100,6 +100,10 @@ export const LoginRoute = styled.div`
   color: #ffffff;
 `;
 
+export const HeaderUserIconBody = styled.div`
+  /* width: 30%; */
+`;
+
 export const NavigateMypage = styled.div`
   display: flex;
   justify-content: center;
@@ -152,8 +156,8 @@ export const HeaderDropDownListBox = styled.div`
   }
 
   @media (max-width: 96.875rem) {
-    width: 12rem;
-    height: 15rem;
+    width: 15.625rem;
+    height: 18.75rem;
 
     border-radius: 5px;
     background-color: #3b3b3b;
@@ -161,11 +165,15 @@ export const HeaderDropDownListBox = styled.div`
 
     z-index: 999;
 
+    position: absolute;
+
+    transform: translateX(-13.125rem);
+
     ::after {
       content: '';
       position: absolute;
       top: 0;
-      left: 12%;
+      left: 93%;
       width: 0;
       height: 0;
       border: 20px solid transparent;
@@ -198,12 +206,6 @@ export const HeaderDropDownListSection = styled.ul`
   height: 12.5rem;
 
   margin-top: 3rem;
-
-  @media (max-width: 96.875rem) {
-    width: 100%;
-    height: 8.5rem;
-    margin-top: 2rem;
-  }
 `;
 
 export const DropDownListBody = styled.div`
@@ -219,12 +221,6 @@ export const DropDownListBody = styled.div`
 
   margin-top: 1.25rem;
   cursor: pointer;
-
-  @media (max-width: 96.875rem) {
-    width: 100%;
-    height: 2rem;
-    margin-top: 1.25rem;
-  }
 `;
 
 export const HeaderDropDownList = styled.li`
@@ -319,6 +315,34 @@ export const HeaderSearchDropDownListBox = styled.div`
     margin-top: -10px;
 
     z-index: 5;
+  }
+
+  @media (max-width: 96.875rem) {
+    width: 15.625rem;
+    height: 7.5rem;
+    margin-top: 0.9rem;
+    border-radius: 5px;
+    background-color: #3b3b3b;
+    box-shadow: 2px 2px 10px 10px #0001;
+    z-index: 999;
+
+    transform: translateX(-14.0625rem);
+
+    ::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 98%;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-bottom-color: #3b3b3b;
+      border-top: 0;
+      margin-left: -25px;
+      margin-top: -10px;
+
+      z-index: 5;
+    }
   }
 `;
 

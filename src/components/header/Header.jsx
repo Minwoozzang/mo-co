@@ -43,6 +43,7 @@ import {
   SearchLayer,
   SearchModalLayer,
   SearchIconBox,
+  HeaderUserIconBody,
 } from './style';
 import { toast } from 'react-toastify';
 
@@ -339,8 +340,9 @@ const Header = () => {
             ''
           )}
 
+          {/* 유저 아이콘 */}
           {headerMyIcon ? (
-            <div onClick={dropDownHandler}>
+            <HeaderUserIconBody onClick={dropDownHandler}>
               {dropDownClick ? (
                 <>
                   {isUserDropDown ? (
@@ -384,7 +386,7 @@ const Header = () => {
                   />
                 </NavigateMypage>
               )}
-            </div>
+            </HeaderUserIconBody>
           ) : (
             ''
           )}
