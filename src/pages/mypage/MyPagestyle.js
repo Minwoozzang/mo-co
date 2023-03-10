@@ -20,7 +20,7 @@ export const DummyProfile = styled.div`
 `;
 
 export const MySection = styled.div`
-  width: 93.75rem;
+  width: 1500px;
   height: 100%;
 
   background-color: #232323;

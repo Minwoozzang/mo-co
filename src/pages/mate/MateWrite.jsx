@@ -402,6 +402,8 @@ export default MateWrite;
 
 const FullScreen = styled.body`
   background-color: black;
+  min-height: 100vh;
+  min-width: 39.875rem;
 `;
 
 const Deco = styled.div`
