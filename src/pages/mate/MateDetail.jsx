@@ -93,6 +93,7 @@ const CommentWrap = styled.div`
   margin: 50px 0 50px 0;
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 0px 0 50px 0;
   }
 `;
 

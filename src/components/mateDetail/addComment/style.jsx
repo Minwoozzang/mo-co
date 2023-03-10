@@ -19,6 +19,11 @@ export const AddCommentListWrap = styled.div`
   margin: 50px 460px 0 0px;
   box-sizing: border-box;
   border-radius: 10px;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 0 220px 0 0px;
+    max-width: 500px;
+  }
 `;
 
 export const AddInputDiv = styled.div`
@@ -61,5 +66,9 @@ export const AddCommentBtn = styled.button`
     color: #fff;
     border-radius: 5px;
     border: none;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 30px 20px 0 280px;
   }
 `;
