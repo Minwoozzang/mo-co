@@ -390,10 +390,12 @@ export const NonRecommendText1 = styled.div`
     text-align: center;
     color: #FFFFFF;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 1rem;
+    line-height: 1.8rem;
     border-radius: 30px;
-    background-color: #232323;
-    box-shadow: 2px 4px 8px #545454;
+    /* background-color: #232323; */
+    box-shadow: 5px  5px 5px 5px rgba(0, 0, 0, 0.3);
+    opacity: 0.8;
 `
 export const NonMeetingCardBox = styled.div`
     /* width: 572px; */
@@ -402,7 +404,7 @@ export const NonMeetingCardBox = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 12px 12px;
-    background-color: aqua;
+    /* background-color: aqua; */
 `
 
 // 추천모임 없을 때 (시간, 장소)
@@ -416,8 +418,10 @@ export const NonRecommendText2 = styled.div`
     text-align: center;
     color: #FFFFFF;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 1rem;
+    line-height: 1.8rem;
     border-radius: 20px;
-    background-color: #232323;
-    box-shadow: 2px 4px 8px #545454;
+    /* background-color: #232323; */
+    box-shadow: 5px  5px 5px 5px rgba(0, 0, 0, 0.3);
+    opacity: 0.8;
 `

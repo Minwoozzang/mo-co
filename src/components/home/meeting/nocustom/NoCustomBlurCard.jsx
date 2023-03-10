@@ -1,11 +1,8 @@
 import styled from '@emotion/styled';
 import { BsBookmarkHeart } from 'react-icons/bs';
-import { GrFormView } from 'react-icons/gr';
-import { FaRegCommentDots } from 'react-icons/fa';
-import { BsPeopleFill } from 'react-icons/bs';
-import defaultImg from '../../../assets/icon/user.png';
+import defaultImg from '../../../../assets/icon/user.png';
 
-const BlurCard = ({ item }) => {
+const NoCustomBlurCard = () => {
   return (
     <PostCard>
       <BookmarkIconBox>
@@ -53,7 +50,7 @@ const BlurCard = ({ item }) => {
   );
 };
 
-export default BlurCard;
+export default NoCustomBlurCard;
 
 const PostCard = styled.div`
   /* border: 1px solid black; */
@@ -62,7 +59,8 @@ const PostCard = styled.div`
   padding: 24px;
   flex-grow: 0;
   flex-shrink: 0;
-  width: 280px;
+  width: 17.5rem;
+  /* width: 31.111%; */
   height: 234px;
   display: flex;
   flex-direction: column;
@@ -126,7 +124,7 @@ const PostTitle = styled.div`
   word-break: break-all;
   width: 245px;
   height: 24px;
-  cursor: pointer;
+  /* cursor: pointer; */
   font-size: 1.3em;
   color: white;
   font-weight: 600;
@@ -225,18 +223,4 @@ const NickName = styled.div`
 const InfoBox = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const PostView = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  font-size: 15px;
-`;
-
-const PostComments = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 5px;
-  font-size: 15px;
 `;

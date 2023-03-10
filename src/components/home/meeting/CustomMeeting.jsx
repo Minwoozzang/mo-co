@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
 import CardSection from '../../../shared/CardSection';
 import CustomBlurList from '../../nonLogin/CustomBlurList';
+import NoCustomBlurCard from './nocustom/NoCustomBlurCard';
 
 const CustomMeeting = ({ isLoggedIn, currentUserData }) => {
   const isSmallScreen1 = useMediaQuery({
@@ -34,15 +35,48 @@ const CustomMeeting = ({ isLoggedIn, currentUserData }) => {
         {isLoggedIn ? (
           customList.length === 0 ? (
             <CustomListCardBox2>
-              <YellowBar>
-                <TriAngle1 />
-                <NonCustomList>
-                  모든 조건이 맞는 모임이 아직 없습니다
-                  <br />
-                  (기술 스택, 지역, 시간대 종합)
-                </NonCustomList>
-                <TriAngle2 />
-              </YellowBar>
+              {isSmallScreen1 && (
+                <NonYellowBar>
+                  <NoCustomContainer>
+                    {[1, 2, 3].map((item, idx) => (
+                      <NoCustomBlurCard key={idx} />
+                    ))}
+                  </NoCustomContainer>
+                  <NonCustomListText>
+                    모든 조건이 맞는 모임이 아직 없습니다
+                    <br />
+                    (기술 스택, 지역, 시간대 종합)
+                  </NonCustomListText>
+                </NonYellowBar>
+              )}
+              {isSmallScreen2 && (
+                <NonYellowBar>
+                  <NoCustomContainer>
+                    {[1, 2].map((item, idx) => (
+                      <NoCustomBlurCard key={idx} />
+                    ))}
+                  </NoCustomContainer>
+                  <HalfScreenNonCustomListText>
+                    모든 조건이 맞는 모임이 아직 없습니다
+                    <br />
+                    (기술 스택, 지역, 시간대 종합)
+                  </HalfScreenNonCustomListText>
+                </NonYellowBar>
+              )}
+              {isSmallScreen3 && (
+                <NonYellowBar>
+                  <NoCustomContainer>
+                    {[1].map((item, idx) => (
+                      <NoCustomBlurCard key={idx} />
+                    ))}
+                  </NoCustomContainer>
+                  <NonCustomListText>
+                    모든 조건이 맞는 모임이 아직 없습니다
+                    <br />
+                    (기술 스택, 지역, 시간대 종합)
+                  </NonCustomListText>
+                </NonYellowBar>
+              )}
             </CustomListCardBox2>
           ) : (
             <CustomListCardBox>
@@ -176,21 +210,87 @@ const CustomDataCardBox = styled.div`
   z-index: 100;
   /* background-color: aqua; */
 `;
-const NonCustomList = styled.div`
+
+const NoCustomContainer = styled.div`
   /* width: 900px; */
   width: 78.2%;
-  height: 100px;
+  height: 234px;
+  border-radius: 20px;
+  display: flex;
+  gap: 0 20px;
+  /* align-items: center; */
+  margin: 0 auto;
+  /* z-index: 50; */
+  /* background-color: blue; */
+`;
+
+const NonYellowBar = styled.div`
+  /* width: 72rem; */
+  width: 100%;
+  height: 320px;
+  /* background-color: #feff80; */
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid #111111;
+`;
+
+const NonCustomListText = styled.div`
+  /* width: 900px; */
+  /* width: 78.2%; */
+  text-align: center;
+  width: 50%;
+  height: 40%;
   margin: 0 auto;
   display: flex;
-  background-color: #232323;
-  border: 1px solid #3b3b3b;
-  color: #ffffff;
+  background-color: #feff80;
+  /* border: 1px solid #3b3b3b; */
+  /* color: #ffffff; */
+  color:#111111;
   border-radius: 20px;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-weight: 400;
-  font-size: 1.2rem;
-  box-shadow: 2px 4px 8px #545454;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.8rem;
+  box-shadow: 0 0 10px 0 rgba(66, 66, 66, 0.5);
+  /* box-shadow: 2px 4px 8px #545454; */
+  /* box-shadow: 5px  5px 5px 5px rgba(0, 0, 0, 0.3); */
   line-height: 1.5;
+  /* z-index: 999; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const HalfScreenNonCustomListText = styled.div`
+  /* width: 900px; */
+  /* width: 78.2%; */
+  text-align: center;
+  width: 50%;
+  height: 40%;
+  margin: 0 auto;
+  display: flex;
+  background-color: #feff80;
+  /* border: 1px solid #3b3b3b; */
+  /* color: #ffffff; */
+  color: #111111;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.8rem;
+  box-shadow: 0 0 10px 0 rgba(66, 66, 66, 0.5);
+  /* box-shadow: 2px 4px 8px #545454; */
+  /* box-shadow: 5px  5px 5px 5px rgba(0, 0, 0, 0.3); */
+  line-height: 1.5;
+  z-index: 999;
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
 `;

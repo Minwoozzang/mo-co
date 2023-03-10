@@ -12,7 +12,24 @@ export const GroupHeader = styled.h4`
   font-weight: 500;
   color: #fff;
   padding-left: 22.5rem;
+
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    padding-left: 12rem;
+    width: 55%;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    padding-left: 9.5rem;
+    width: 55%;
+  }
+
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    padding-left: 8.5rem;
+  }
 `;
+
 export const GroupUserInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -22,6 +39,15 @@ export const UserInfoWrap = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin: 2rem 23rem 0 0;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 2rem 8rem 0 0;
+  }
 `;
 
 export const GroupImg = styled.img`
@@ -29,11 +55,14 @@ export const GroupImg = styled.img`
   height: 2.5rem;
   border-radius: 1.25rem;
   margin-top: auto;
+
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+  }
 `;
 export const GroupUserId = styled.p`
   width: 10%;
   margin: 2.6875rem 0.5rem 0.5rem;
-
   color: #fff;
 `;
 
@@ -41,6 +70,15 @@ export const Social = styled.div`
   padding-left: 25%;
   width: 50%;
   display: flex;
+
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    padding-left: 48%;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    padding-left: 36%;
+  }
 `;
 
 export const DropdownOptions = styled(FiShare2)`
@@ -58,6 +96,23 @@ export const GroupBox = styled.div`
   background-color: #232323;
   border-radius: 1.25rem;
   color: #fff;
+
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    max-width: 800px;
+    margin: 0 0 0 190px;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    max-width: 500px;
+    margin: 0 0 0 150px;
+  }
+
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    max-width: 550px;
+    margin: 0 0 0 140px;
+  }
 `;
 export const GroupPerson = styled.div`
   width: 100%;

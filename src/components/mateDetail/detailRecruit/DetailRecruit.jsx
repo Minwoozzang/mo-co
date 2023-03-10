@@ -23,6 +23,8 @@ import {
   RecruitDetail,
   RecruitBtn,
   UserHr,
+  RecruitName,
+  NameDetail,
 } from './DetailRecruitStyle';
 import ApplyModal from '../applyModal/ApplyModal';
 import { useQueryClient } from 'react-query';
@@ -180,6 +182,11 @@ const DetailRecruit = () => {
 
   return (
     <RecruitWrap>
+      <RecruitName>
+        <RecruitFont>모임명</RecruitFont>
+        <NameDetail>{post.partyName}</NameDetail>
+      </RecruitName>
+      <UserHr />
       <RecruitArea>
         <RecruitFont>모임지역</RecruitFont>
         <AreaDetail>{post.partyLocation}</AreaDetail>
