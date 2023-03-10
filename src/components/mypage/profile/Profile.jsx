@@ -152,7 +152,7 @@ const Profile = () => {
 
   // 맞춤 정보 수장
   const EditStackBtn = () => {
-    navigate('/onboarding');
+    navigate('/onboardingedit');
   };
 
   return (

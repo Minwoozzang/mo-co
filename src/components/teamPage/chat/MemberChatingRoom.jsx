@@ -15,9 +15,6 @@ import { v4 } from 'uuid';
 import styled from '@emotion/styled';
 
 const MemberChatingRoom = ({ teamLocationID }) => {
-  // 스크롤 Ref
-  const scrollRef = useRef();
-
   // 유저 정보 가져오기
   const [chatUserImage, setChatUserImage] = useState('');
 
@@ -64,9 +61,6 @@ const MemberChatingRoom = ({ teamLocationID }) => {
         getUserChatInfo();
         getChatID();
       }
-      if (scrollRef.current) {
-        scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
     });
   }, []);
 
@@ -111,7 +105,6 @@ const MemberChatingRoom = ({ teamLocationID }) => {
       <ContentChatAreaBox>
         <ContentChatArea>
           <MessageBox key={v4()} t={AddMessage} />
-          <div ref={scrollRef} />
         </ContentChatArea>
         <ChatFormSection>
           <ChatInputBody>

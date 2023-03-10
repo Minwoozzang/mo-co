@@ -118,8 +118,8 @@ const ProfileBody = styled.div`
 `;
 
 const ProfileBox = styled.div`
-  width: 320px;
-  height: 480px;
+  width: 20rem;
+  height: 30rem;
 
   background: #111111;
 
@@ -132,14 +132,14 @@ const CancelImgBox = styled.div`
   justify-content: flex-end;
   align-items: center;
 
-  margin-top: 15px;
+  margin-top: 0.9375rem;
 `;
 
 const CancelImg = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
 
-  margin-right: 15px;
+  margin-right: 0.9375rem;
 
   cursor: pointer;
 `;
@@ -147,14 +147,14 @@ const CancelImg = styled.img`
 const ImgNickNameBox = styled.div`
   text-align: center;
 
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 `;
 
 const MyImage = styled.img`
-  width: 90px;
-  height: 90px;
-
+  width: 5.625rem;
+  height: 5.625rem;
+  object-fit: cover;
   border-radius: 45px;
 `;
 
@@ -163,18 +163,18 @@ const MyNickName = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1rem;
-  line-height: 19px;
+  line-height: 1.1875rem;
   letter-spacing: -0.03em;
 
   color: #ffffff;
 
-  margin-top: 10px;
+  margin-top: 0.625rem;
 `;
 const ProfileMiddleSection = styled.div`
-  width: 320px;
-  height: 200px;
+  width: 20rem;
+  height: 12.5rem;
 
-  margin-top: 25px;
+  margin-top: 1.5625rem;
 
   display: flex;
   justify-content: center;
@@ -185,9 +185,9 @@ const MiddleBody = styled.div`
 `;
 const ProfileStackBody = styled.div`
   width: 100%;
-  height: 25px;
+  height: 1.5625rem;
 
-  margin-top: 10px;
+  margin-top: 0.625rem;
 
   display: flex;
   align-items: center;
@@ -199,7 +199,7 @@ const StackbodyTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.02rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
@@ -210,7 +210,7 @@ const StackbodyText = styled.div`
   font-style: normal;
   font-weight: 500;
   font-size: 1.02rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
@@ -219,19 +219,19 @@ const StackbodyText = styled.div`
 const ProfileTechBody = styled.div`
   width: 100%;
 
-  margin-top: 10px;
+  margin-top: 0.625rem;
 `;
 const TechBodyTitle = styled.div`
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 500;
   font-size: 1.02rem;
-  line-height: 17px;
+  line-height: 1.0625rem;
 
   letter-spacing: -0.03em;
 
   color: #9d9d9d;
 
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 `;
 const TechBodyImage = styled.div``;

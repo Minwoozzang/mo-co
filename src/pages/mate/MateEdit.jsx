@@ -1,22 +1,15 @@
 import styled from '@emotion/styled';
+import { onAuthStateChanged } from '@firebase/auth';
 import { Checkbox } from 'antd';
-import {
-  collection,
-  doc,
-  getDoc,
-  onSnapshot,
-  query,
-  updateDoc,
-  where,
-} from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
-import { useRecoilState } from 'recoil';
 import { toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
 import { opens } from '../../data/opens';
@@ -24,7 +17,6 @@ import { people } from '../../data/people';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import headerToggle from '../../recoil/headerToggleState';
-import { onAuthStateChanged } from '@firebase/auth';
 
 const MateEdit = () => {
   // 팀 ID 경로 받아오기
@@ -43,7 +35,7 @@ const MateEdit = () => {
   // 글쓰기 페이지에서 유저가 입력한 데이터를 저장하는 상태
   const [partyName, setPartyname] = useState('');
   const [partyTime, setPartyTime] = useState('');
-  const [partyNum, setPartyNum] = useState('');
+  const [partyNum, setPartyNum] = useState(0);
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
   const [partyIsOpen, setPartyIsOpen] = useState(true);
@@ -127,7 +119,6 @@ const MateEdit = () => {
       queryClient.invalidateQueries('posts');
       toast.success('수정 완료!');
       navigate(-1);
-      window.location.replace(`/teamPage/${teamLocationID}`);
       console.log('수정 성공');
     } catch (error) {
       console.log(error);

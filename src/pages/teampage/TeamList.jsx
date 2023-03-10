@@ -22,6 +22,7 @@ const TeamList = () => {
   // teamPage teamMember에서 내 닉네임이 포함된 teamPage 데이터
   let myAppliedMeeting = [];
   const myApplyMeeting = teamPage?.forEach((item) => {
+    item.isDeleted === false &&
     item.teamMember.forEach((member) => {
       if (member.uid === authService?.currentUser?.uid) {
         myAppliedMeeting.push(item);
@@ -46,6 +47,7 @@ const TeamList = () => {
 
   // 자신이 개설한 팀 데이터(리더)
   const myOnGoingMeeting = teamPage?.filter((item) =>
+    item.isDeleted === false &&
     item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
   );
 
@@ -72,6 +74,7 @@ const TeamList = () => {
 
   // myAppliedteamID가 각각 들어있는 postList 추출
   const appliedMeeting = postList?.filter((item) =>
+    item.isDeleted === false &&
     myAppliedteamID?.includes(item.teamID),
   );
 

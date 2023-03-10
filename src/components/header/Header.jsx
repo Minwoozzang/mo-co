@@ -155,7 +155,7 @@ const Header = () => {
       onSubmit();
     }
     if (e.key === 'Enter' && word.length === 0) {
-      toast.warn('검색어를 입력해주세요.')
+      toast.warn('검색어를 입력해주세요.');
     }
   };
   const searchdropDownHandler = () => {
@@ -292,9 +292,9 @@ const Header = () => {
                     ) : (
                       ''
                     )}
-                    </>
-                    
-                    <>
+                  </>
+
+                  <>
                     <HeaderSearchDropDownListBox
                       style={{ position: 'absolute' }}
                     >
@@ -318,7 +318,7 @@ const Header = () => {
                           <HeaderSearchInput
                             onChange={onChangeSearch}
                             onKeyPress={handleonKeyPress}
-                            placeholder='검색어를 입력해주세요.'
+                            placeholder="검색어를 입력해주세요."
                           />
                           {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
@@ -327,11 +327,8 @@ const Header = () => {
                       </HeaderSearchDropDownListSection>
                       {/* <HeaderSearchDropDownHr /> */}
                     </HeaderSearchDropDownListBox>
-                    </>
-                    </>
-                    
-                  
-                
+                  </>
+                </>
               ) : (
                 <NavigateMypage>
                   <img src={Search} alt="search" style={{ width: '20px' }} />

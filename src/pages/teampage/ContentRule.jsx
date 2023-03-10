@@ -203,8 +203,13 @@ const ContentCard = styled.div`
   height: 400px;
   margin-top: 40px;
   background-color: white;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
   p {
     padding: 20px;
+  }
+
+  @media screen and (max-height: 800px) {
+    height: 200px;
   }
 `;
 

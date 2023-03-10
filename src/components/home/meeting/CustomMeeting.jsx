@@ -1,10 +1,20 @@
 import styled from '@emotion/styled';
+import { useMediaQuery } from 'react-responsive';
 import { useRecoilValue } from 'recoil';
 import postState from '../../../recoil/postState';
 import CardSection from '../../../shared/CardSection';
 import CustomBlurList from '../../nonLogin/CustomBlurList';
 
 const CustomMeeting = ({ isLoggedIn, currentUserData }) => {
+  const isSmallScreen1 = useMediaQuery({
+    query: `(min-width: 1230px)`,
+  });
+  const isSmallScreen2 = useMediaQuery({
+    query: `(min-width: 820px) and (max-width: 1230px)`,
+  });
+  const isSmallScreen3 = useMediaQuery({
+    query: `(max-width: 820px)`,
+  });
   const postData = useRecoilValue(postState);
   const customList = postData
     ? postData.filter(
@@ -36,15 +46,39 @@ const CustomMeeting = ({ isLoggedIn, currentUserData }) => {
             </CustomListCardBox2>
           ) : (
             <CustomListCardBox>
-              <YellowBar>
-                <TriAngle1 />
-                <CustomDataCardBox>
-                  {customList.slice(0, 3).map((item, idx) => (
-                    <CardSection key={idx} item={item} />
-                  ))}
-                </CustomDataCardBox>
-                <TriAngle2 />
-              </YellowBar>
+              {isSmallScreen1 && (
+                <YellowBar>
+                  <TriAngle1 />
+                  <CustomDataCardBox>
+                    {customList.slice(0, 3).map((item, idx) => (
+                      <CardSection key={idx} item={item} />
+                    ))}
+                  </CustomDataCardBox>
+                  <TriAngle2 />
+                </YellowBar>
+              )}
+              {isSmallScreen2 && (
+                <YellowBar>
+                  <TriAngle1 />
+                  <CustomDataCardBox>
+                    {customList.slice(0, 2).map((item, idx) => (
+                      <CardSection key={idx} item={item} />
+                    ))}
+                  </CustomDataCardBox>
+                  <TriAngle2 />
+                </YellowBar>
+              )}
+              {isSmallScreen3 && (
+                <YellowBar>
+                  <TriAngle1 />
+                  <CustomDataCardBox>
+                    {customList.slice(0, 1).map((item, idx) => (
+                      <CardSection key={idx} item={item} />
+                    ))}
+                  </CustomDataCardBox>
+                  <TriAngle2 />
+                </YellowBar>
+              )}
             </CustomListCardBox>
           )
         ) : (
@@ -67,6 +101,7 @@ const CustomListContainer = styled.div`
   width: 60%;
   height: 320px;
   margin: 0 auto;
+  /* background-color: aqua; */
 `;
 const CustomListCardBox = styled.div`
   /* width: 1152px; */
@@ -74,6 +109,7 @@ const CustomListCardBox = styled.div`
   height: 320px;
   margin: 0 auto;
   display: flex;
+  /* background-color: aquamarine; */
 `;
 const CustomListCardBox2 = styled.div`
   /* width: 1152px; */
@@ -87,37 +123,49 @@ const YellowBar = styled.div`
   width: 100%;
   height: 320px;
   background-color: #feff80;
-  background: linear-gradient(
+  /* background: linear-gradient(
     rgba(0, 38, 84, 0) 28%,
     #feff80 28%,
     #feff80 72%,
     rgba(0, 38, 84, 0) 72%
+  ); */
+  background: linear-gradient(
+    #111111 28%,
+    #feff80 28%,
+    #feff80 72%,
+    #111111 72%
   );
-  /* background: linear-gradient(#111111 28%, #feff80 28%,
-  #feff80 72%, #111111 72%); */
   display: flex;
   align-items: center;
   position: relative;
+  border: 1px solid #111111;
 `;
 const TriAngle1 = styled.div`
   width: 0px;
   height: 0px;
-  border-bottom: 140px solid transparent;
+  /* border-bottom: 140px solid transparent; */
+  border-bottom: 160px solid transparent;
   border-left: 47px solid #111111;
+  /* border-left: 30px solid #9e6060; */
   border-right: 47px solid transparent;
+  /* border-right: 60px solid transparent; */
   position: absolute;
-  top: 90px;
-  left: 0;
+  /* top: 90px; */
+  top: 80px;
+  /* left: 0; */
+  left: -1px;
 `;
 const TriAngle2 = styled.div`
   width: 0px;
   height: 0px;
-  border-top: 140px solid transparent;
+  /* border-top: 140px solid transparent; */
+  border-top: 160px solid transparent;
   border-left: 47px solid transparent;
   border-right: 47px solid #111111;
   position: absolute;
-  top: 90px;
-  right: 0;
+  /* top: 90px; */
+  bottom: 80px;
+  right: -1px;
 `;
 const CustomDataCardBox = styled.div`
   /* width: 900px; */
@@ -125,6 +173,8 @@ const CustomDataCardBox = styled.div`
   margin: 0 auto;
   display: flex;
   gap: 0 30px;
+  z-index: 100;
+  /* background-color: aqua; */
 `;
 const NonCustomList = styled.div`
   /* width: 900px; */

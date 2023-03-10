@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { authService } from '../../../common/firebase';
 import {
+  MessageSectionBox,
   MessageSection,
   MessageImageBox,
   MessageImage,
@@ -17,41 +18,51 @@ import {
 import { v4 } from 'uuid';
 
 const MessageBox = ({ t }) => {
-  // 나의 채팅
-  const myChat = t.filter((a) => a.uid === authService.currentUser.uid);
+  // 스크롤 Ref
+  const scrollRef = useRef();
 
-  // 상대방 채팅
-  const otherChat = t.filter((a) => a.uid !== authService.currentUser.uid);
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
   return (
-    <>
-      {otherChat.map((data) => {
+    <MessageSectionBox>
+      {t.map((data) => {
         return (
-          <MessageSection key={v4()}>
-            <MessageImageBox>
-              <MessageImage src={data.profileImg} alt="" />
-            </MessageImageBox>
-            <MessageTextBox>
-              <MessageNickName>{data.nickName}</MessageNickName>
-              <MessageContent>{data.comment}</MessageContent>
-            </MessageTextBox>
-          </MessageSection>
+          <>
+            {data.uid !== authService.currentUser.uid ? (
+              <>
+                <MessageSection key={v4()}>
+                  <MessageImageBox>
+                    <MessageImage src={data.profileImg} alt="" />
+                  </MessageImageBox>
+                  <MessageTextBox>
+                    <MessageNickName>{data.nickName}</MessageNickName>
+                    <MessageContent>{data.comment}</MessageContent>
+                  </MessageTextBox>
+                </MessageSection>
+              </>
+            ) : (
+              <>
+                {' '}
+                <MyMessageSection key={v4()}>
+                  <MyMessageTextBox>
+                    <MyMessageNickName>{data.nickName}</MyMessageNickName>
+                    <MyMessageContent>{data.comment}</MyMessageContent>
+                  </MyMessageTextBox>
+                  <MyMessageImageBox>
+                    <MyMessageImage src={data.profileImg} />
+                  </MyMessageImageBox>
+                </MyMessageSection>
+              </>
+            )}
+          </>
         );
       })}
-      {myChat.map((data) => {
-        return (
-          <MyMessageSection key={v4()}>
-            <MyMessageTextBox>
-              <MyMessageNickName>{data.nickName}</MyMessageNickName>
-              <MyMessageContent>{data.comment}</MyMessageContent>
-            </MyMessageTextBox>
-            <MyMessageImageBox>
-              <MyMessageImage src={data.profileImg} />
-            </MyMessageImageBox>
-          </MyMessageSection>
-        );
-      })}
-    </>
+      <div ref={scrollRef} />
+    </MessageSectionBox>
   );
 };
 

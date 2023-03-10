@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
+import { useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
@@ -10,14 +11,17 @@ import CommentList from '../../components/mateDetail/commentList/CommentList';
 import MateDetailWriting from '../../components/mateDetail/mateDetailWrite/MateDetailWriting';
 import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
-import headerToggle from '../../recoil/headerToggleState';
 import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRecruit';
 
 const MateDetail = () => {
+  const queryClient = useQueryClient();
   const user = useRecoilValue(authState);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = usePosts();
+  const thisPost = data?.filter((item) => item.id === id);
+  let isMyPost = thisPost[0]?.uid === user?.uid;
 
   const handleMoveToEdit = () => {
     navigate(`/edit/${id}`);
@@ -29,19 +33,20 @@ const MateDetail = () => {
       await updateDoc(doc(db, 'post', id), {
         isDeleted: true,
       });
+      await updateDoc(doc(db, 'teamPage', thisPost[0]?.teamID), {
+        isDeleted: true,
+      });
       toast.success('삭제 성공');
       navigate('/mate');
+      queryClient.invalidateQueries('teamPage');
     } catch (error) {
       console.log(error);
     }
   };
 
-  // usequery문제가 있음! 따라서 데이터가 없어 undefined가 뜬 부분이 있어서 ~thispost 부분을 내려 작성
   if (isLoading) {
     return <div>로딩중</div>;
   }
-  const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === user?.uid;
 
   return (
     <MateDetailWrap>
