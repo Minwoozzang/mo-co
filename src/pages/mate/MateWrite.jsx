@@ -103,7 +103,7 @@ const MateWrite = () => {
           !partyPostTitile &&
           !partyDesc
         ) {
-          toast('모임 정보를 모두 입력해주세요');
+          toast.warn('모임 정보를 모두 입력해주세요');
           return;
         }
 
