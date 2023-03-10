@@ -28,6 +28,7 @@ import { useMediaQuery } from 'react-responsive';
 const TimeMeeting = ({ currentUserData }) => {
   // small screen
   const referenceSize = 1920;
+  
   const isSmallScreen1 = useMediaQuery({
     query: `(min-width: 1420px)`,
   });

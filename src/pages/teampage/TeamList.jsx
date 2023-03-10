@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import OngoingCardSection from '../../components/teamList/OngoingCardSection';
+import PaginationTeamList from '../../components/pagenation/PaginationTeamList';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
 import headerToggle from '../../recoil/headerToggleState';
 import postState from '../../recoil/postState';
@@ -12,6 +13,15 @@ import CardSection from '../../shared/CardSection';
 
 const TeamList = () => {
   const params = useParams();
+
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(6);
+
+  // 페이지네이션 핸들러
+  const handleChange = (page) => {
+    setMinValue(page * 6 - 6);
+    setMaxValue(page * 6);
+  };
 
   const postList = useRecoilValue(postState);
   const teamPage = useRecoilValue(teamPageState);
@@ -23,12 +33,12 @@ const TeamList = () => {
   let myAppliedMeeting = [];
   const myApplyMeeting = teamPage?.forEach((item) => {
     item.isDeleted === false &&
-    item.teamMember.forEach((member) => {
-      if (member.uid === authService?.currentUser?.uid) {
-        myAppliedMeeting.push(item);
-        return false;
-      }
-    });
+      item.teamMember.forEach((member) => {
+        if (member.uid === authService?.currentUser?.uid) {
+          myAppliedMeeting.push(item);
+          return false;
+        }
+      });
   });
 
   // 참여 신청 수락 후 데이터(진행 중 모임), teamMember isWait=false, uid = useruid
@@ -46,9 +56,10 @@ const TeamList = () => {
   });
 
   // 자신이 개설한 팀 데이터(리더)
-  const myOnGoingMeeting = teamPage?.filter((item) =>
-    item.isDeleted === false &&
-    item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
+  const myOnGoingMeeting = teamPage?.filter(
+    (item) =>
+      item.isDeleted === false &&
+      item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
   );
 
   // 진행 중 모임
@@ -73,9 +84,9 @@ const TeamList = () => {
   const myAppliedteamID = myApprovedMeetingAfter?.map((item) => item.teamID);
 
   // myAppliedteamID가 각각 들어있는 postList 추출
-  const appliedMeeting = postList?.filter((item) =>
-    item.isDeleted === false &&
-    myAppliedteamID?.includes(item.teamID),
+  const appliedMeeting = postList?.filter(
+    (item) =>
+      item.isDeleted === false && myAppliedteamID?.includes(item.teamID),
   );
 
   // 카테고리 클릭 시
@@ -126,22 +137,46 @@ const TeamList = () => {
         </MeetingCategory>
 
         {myTeamIsWait ? (
-          <CardContainer1>
-            {appliedMeeting?.map((item, idx) => (
-              <CardSection key={idx} item={item} db={db} />
-            ))}
-          </CardContainer1>
+          <>
+            <CardContainer1>
+              {appliedMeeting?.slice(minValue, maxValue).map((item, idx) => (
+                <CardSection key={idx} item={item} db={db} />
+              ))}
+            </CardContainer1>
+            {appliedMeeting?.length === 0 ? (
+              ''
+            ) : (
+              <PaginationContainer>
+                <PaginationTeamList
+                  handleChange={handleChange}
+                  data={appliedMeeting}
+                />
+              </PaginationContainer>
+            )}
+          </>
         ) : (
-          <CardContainer2>
-            {onGoingMeeting?.map((item, idx) => (
-              <OngoingCardSection
-                key={idx}
-                item={item}
-                goToTeamPage={goToTeamPage}
-                showTeamPageBtn={show}
-              />
-            ))}
-          </CardContainer2>
+          <>
+            <CardContainer2>
+              {onGoingMeeting?.slice(minValue, maxValue).map((item, idx) => (
+                <OngoingCardSection
+                  key={idx}
+                  item={item}
+                  goToTeamPage={goToTeamPage}
+                  showTeamPageBtn={show}
+                />
+              ))}
+            </CardContainer2>
+            {onGoingMeeting?.length === 0 ? (
+              ''
+            ) : (
+              <PaginationContainer>
+                <PaginationTeamList
+                  handleChange={handleChange}
+                  data={onGoingMeeting}
+                />
+              </PaginationContainer>
+            )}
+          </>
         )}
       </TeamListContainer>
     </TeamListFullScreen>
@@ -196,4 +231,15 @@ const CardContainer2 = styled.div`
   gap: 20px 20px;
   flex-wrap: wrap;
   /* background-color: #c9dff3; */
+`;
+
+// 페이지네이션
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  /* margin: 3rem; */
+  /* margin-top: 110px; */
+  padding: 6rem;
+  background-color: #111111;
 `;
