@@ -5,6 +5,7 @@ export const CommentContainer = styled.div`
 
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 0rem 30rem 0 9.5rem;
   }
   /* 태블릿, 아이패드 */
   @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
@@ -137,6 +138,11 @@ export const UserHr = styled.hr`
   border: 1;
   width: 45.3125rem;
   border-top: 0.0625rem solid #3b3b3b;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    width: 31rem;
+    margin-bottom: 1.25rem;
+  }
 `;
 
 export const Replybutton = styled.button`

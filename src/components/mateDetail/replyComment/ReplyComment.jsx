@@ -91,6 +91,7 @@ const ReplyComment = ({ comment, index, comments }) => {
 
   return (
     <CommentContainer>
+      <UserHr />
       {/* 댓글 내용 */}
       <ListContainer>
         <ListTextSection>
@@ -156,7 +157,6 @@ const ReplyComment = ({ comment, index, comments }) => {
           {/* <ReplyComment user={user} /> */}
         </ListTextSection>
       </ListContainer>
-      <UserHr />
     </CommentContainer>
   );
 };
