@@ -46,7 +46,6 @@ const MessageBox = ({ t }) => {
               </>
             ) : (
               <>
-                {' '}
                 <MyMessageSection key={v4()}>
                   <MyMessageTextBox>
                     <MyMessageNickName>{data.nickName}</MyMessageNickName>
