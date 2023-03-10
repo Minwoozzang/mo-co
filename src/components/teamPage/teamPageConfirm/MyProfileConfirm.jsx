@@ -154,7 +154,7 @@ const ImgNickNameBox = styled.div`
 const MyImage = styled.img`
   width: 5.625rem;
   height: 5.625rem;
-
+  object-fit: cover;
   border-radius: 45px;
 `;
 

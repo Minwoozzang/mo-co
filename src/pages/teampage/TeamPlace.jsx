@@ -270,6 +270,8 @@ const ContentCard = styled.div`
   background-color: white;
   margin-top: 25px;
 
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+
   @media screen and (max-height: 800px) {
     width: 300px;
     height: 150px;

@@ -19,18 +19,17 @@ export const MyCommetTitle = styled.div`
 `;
 export const MyCommentList = styled.div`
   width: 35.625rem;
-  height: 13rem;
+  height: 600px;
+  overflow-y: auto;
 `;
 
 // MyComment 부분
 
 export const MyCommentsBox = styled.div`
   width: 35.625rem;
-  height: 5rem;
-
   border-bottom: 1px solid white;
   margin-bottom: 1.25rem;
-  padding: 0.625rem;
+  padding: 15px;
 
   cursor: pointer;
 `;
@@ -39,8 +38,15 @@ export const MyCommentOfComment = styled.div`
   font-family: 'Pretendard';
   font-style: normal;
   font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 1.375rem;
+  font-size: 16;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.5em;
+  height: 3em;
 
   color: #ffffff;
 `;
@@ -51,7 +57,7 @@ export const MyCommentDate = styled.div`
   line-height: 1.375rem;
 
   color: #b6b6b6;
-  margin: 0.25rem 0 0.625rem 0;
+  margin: 10px 0 10px 0;
 `;
 
 export const PageBox = styled.div`
