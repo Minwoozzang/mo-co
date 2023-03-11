@@ -73,7 +73,7 @@ export const MakeTeam = styled.button`
   height: 2.5rem;
   border-radius: 20px;
   border: none;
-  font-size: 15px;
+  font-size: .9375rem;
   font-weight: 600;
   color: #0a0a0a;
   background-color: #ffffff;

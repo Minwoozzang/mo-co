@@ -27,10 +27,13 @@ const LocationBlurList = ({ isLoggedIn, blurList }) => {
     query: `(min-width: 1420px)`,
   });
   const isSmallScreen2 = useMediaQuery({
-    query: `(min-width: 1072px) and (max-width: 1420px)`,
+    query: `(min-width: 1072px) and (max-width: 1420px)`, // and 사이 한 칸 띄우기
   });
   const isSmallScreen3 = useMediaQuery({
-    query: `(max-width: 1072px)`,
+    query: `(min-width: 710px) and (max-width: 1072px)`,
+  });
+  const isSmallScreen4 = useMediaQuery({
+    query: `(max-width: 710px)`,
   });
 
   const blurList1 = [1, 2];
@@ -105,6 +108,26 @@ const LocationBlurList = ({ isLoggedIn, blurList }) => {
               로그인이 필요합니다
             </MediaGuideText>
             {blurList1.map((item, idx) => (
+              <BlurCard key={idx} />
+            ))}
+          </LocationMeetingMediaCardBox>
+        </LocationMeetingMediaBox>
+      )}
+      {isSmallScreen4 && (
+        <LocationMeetingMediaBox>
+          <LocationMeetingMediaLeftCornerBox>
+            <LocationMeetingMediaTitle>
+              지역이 맞는 모임
+            </LocationMeetingMediaTitle>
+            <LocationMeetingMediaTitleBox>
+              {titlestring4}
+            </LocationMeetingMediaTitleBox>
+          </LocationMeetingMediaLeftCornerBox>
+          <LocationMeetingMediaCardBox style={{ position: 'relative' }}>
+            <MediaGuideText onClick={() => navigate('/login')}>
+              로그인이 필요합니다
+            </MediaGuideText>
+            {[1].map((item, idx) => (
               <BlurCard key={idx} />
             ))}
           </LocationMeetingMediaCardBox>

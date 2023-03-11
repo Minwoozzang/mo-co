@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { db } from '../../common/firebase';
@@ -12,14 +13,38 @@ import CardSection from '../../shared/CardSection';
 const Search = () => {
   const params = useParams();
   const [searchData, setSearchData] = useState([]);
+  const isSmallScreen1 = useMediaQuery({
+    query: `(min-width: 1111px)`,
+  });
+  const isSmallScreen2 = useMediaQuery({
+    query: `(min-width: 740px) and (max-width: 1111px)`,
+  });
 
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(6);
+  const maxValueState = isSmallScreen1 ? 6 : isSmallScreen2 ? 4 : 2;
+
+  const [minValue1, setMinValue1] = useState(0);
+  const [maxValue1, setMaxValue1] = useState(6);
+
+  // 반응형
+  const [minValue2, setMinValue2] = useState(0);
+  const [maxValue2, setMaxValue2] = useState(4);
+
+  // 반응형 모바일
+  const [minValue3, setMinValue3] = useState(0);
+  const [maxValue3, setMaxValue3] = useState(2);
 
   // 페이지네이션 핸들러
   const handleChange = (page) => {
-    setMinValue(page * 6 - 6);
-    setMaxValue(page * 6);
+    setMinValue1(page * maxValueState - maxValueState);
+    setMaxValue1(page * maxValueState);
+  };
+  const handleChange2 = (page) => {
+    setMinValue2(page * maxValueState - maxValueState);
+    setMaxValue2(page * maxValueState);
+  };
+  const handleChange3 = (page) => {
+    setMinValue3(page * maxValueState - maxValueState);
+    setMaxValue3(page * maxValueState);
   };
 
   // firestore에서 post 문서 받아와서 검색한 내용이 포함 된 데이터만 추출
@@ -64,29 +89,63 @@ const Search = () => {
     <SearchResultFullScreen onClick={() => setDropDownClick(false)}>
       <SearchResultContainer>
         <SearchTitle>검색 건수 : {searchData.length}</SearchTitle>
-        
-          {searchData.length > 0 ? (
+
+        {searchData.length > 0 ? (
+          isSmallScreen1 ? (
             <>
-            <CardWrapper>
-            {searchData.slice(minValue, maxValue).map((item, idx) => (
-              <CardSection key={idx} item={item} db={db} />
-            ))}
-            </CardWrapper>
-            <PaginationContainer>
-            <PaginationSearch 
-              data={searchData} 
-              handleChange={handleChange}
-            />
-            </PaginationContainer>
+              <CardWrapper>
+                {searchData.slice(minValue1, maxValue1).map((item, idx) => (
+                  <CardSection key={idx} item={item} db={db} />
+                ))}
+              </CardWrapper>
+              <PaginationContainer>
+                <PaginationSearch
+                  data={searchData}
+                  handleChange={handleChange}
+                  maxValue={maxValue1}
+                />
+              </PaginationContainer>
+            </>
+          ) : isSmallScreen2 ? (
+            <>
+              <CardWrapper2>
+                {searchData.slice(minValue2, maxValue2).map((item, idx) => (
+                  <CardSection key={idx} item={item} db={db} />
+                ))}
+              </CardWrapper2>
+              <PaginationContainer2>
+                <PaginationSearch
+                  data={searchData}
+                  handleChange={handleChange2}
+                  maxValue={maxValue2}
+                />
+              </PaginationContainer2>
             </>
           ) : (
-            <CardWrapper>
-              <NonSearchResultBox>
+            <>
+              <CardWrapper3>
+                {searchData.slice(minValue3, maxValue3).map((item, idx) => (
+                  <CardSection key={idx} item={item} db={db} />
+                ))}
+              </CardWrapper3>
+              <PaginationWrapper3>
+                <PaginationContainer3>
+                  <PaginationSearch
+                    data={searchData}
+                    handleChange={handleChange3}
+                    maxValue={maxValue3}
+                  />
+                </PaginationContainer3>
+              </PaginationWrapper3>
+            </>
+          )
+        ) : (
+          <CardWrapper>
+            <NonSearchResultBox>
               <NonSearchResultText>검색 결과가 없습니다.</NonSearchResultText>
             </NonSearchResultBox>
-              </CardWrapper>
-          )}
-        
+          </CardWrapper>
+        )}
       </SearchResultContainer>
     </SearchResultFullScreen>
   );
@@ -133,6 +192,26 @@ const CardWrapper = styled.div`
   width: 55rem;
   /* height: 1000px; */
 `;
+const CardWrapper2 = styled.div`
+  // 반응형
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: #c8f1e8; */
+  gap: 100px 20px;
+  /* width: 100%; */
+  width: 36.25rem;
+  /* height: 1000px; */
+`;
+const CardWrapper3 = styled.div`
+  // 반응형 모바일
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: #c8f1e8; */
+  gap: 100px 0;
+  /* width: 100%; */
+  width: 17.5rem;
+  /* height: 1000px; */
+`;
 const NonSearchResultBox = styled.div`
   width: 80%;
   height: 300px;
@@ -155,12 +234,32 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 100%;
-  width: 880px;
+  width: 55rem;
   /* margin: 3rem; */
   /* margin-top: 110px; */
   padding: 6rem;
   /* background-color: #111111; */
   /* background-color: bisque; */
+`;
+const PaginationContainer2 = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 36.25rem;
+  padding: 6rem;
+`;
+const PaginationContainer3 = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 3.125rem;
+  width: 180px;
+  margin: 50px auto 0 auto;
+  padding: 0.625rem;
+  /* background-color: aliceblue; */
+`;
+const PaginationWrapper3 = styled.div`
+  width: 17.5rem;
+  /* background-color: aqua; */
 `;
 
 // <SearchResultCard key={idx} {...item} />
