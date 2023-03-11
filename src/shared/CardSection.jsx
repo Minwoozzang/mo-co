@@ -174,9 +174,9 @@ const CardSection = ({ item, db }) => {
       <PostInfo>
         <ProfileBox>
           <ProfileImage
-            src={!userDoc?.profileImg ? defaultImg : userDoc.profileImg}
+            src={!item.profileImg ? defaultImg : item.profileImg}
           ></ProfileImage>
-          <NickName>{userDoc?.nickname}</NickName>
+          <NickName>{item.nickname}</NickName>
         </ProfileBox>
         <InfoBox>
           {/* <GrFormView size="24px" />

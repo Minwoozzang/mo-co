@@ -18,7 +18,6 @@ import {
 import parse from 'html-react-parser';
 import defaultImg from '../../../assets/icon/user.png';
 import SocialShare from './SocialShare';
-import useUserQuery from '../../../hooks/useUserQuery';
 
 // getDoc 사용 doc
 const MateDetailWriting = () => {
@@ -26,7 +25,6 @@ const MateDetailWriting = () => {
   const [post, setpost] = useState([]);
   const [parsedHtml, setparsedHtml] = useState('');
   const [showOptions, setShowOptions] = useState(false);
-  const userDoc = useUserQuery();
 
   //useEffect에선 async사용할 수 없음
   const getPost = async () => {
@@ -50,12 +48,10 @@ const MateDetailWriting = () => {
         <GroupUserInfo>
           <UserInfoWrap>
             <GroupImg
-              src={
-                userDoc?.profileImg === null ? defaultImg : userDoc?.profileImg
-              }
-              alt={userDoc?.profileImg}
+              src={post.profileImg === null ? defaultImg : post.profileImg}
+              alt={post.profileImg}
             ></GroupImg>
-            <GroupUserId>{userDoc?.nickname}</GroupUserId>
+            <GroupUserId>{post.nickName}</GroupUserId>
             <Social
               onClick={() => {
                 setShowOptions(!showOptions);

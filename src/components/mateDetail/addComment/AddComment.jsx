@@ -21,9 +21,11 @@ import { confirmAlert } from 'react-confirm-alert';
 import AlertUI from './AlertUi';
 import { uuidv4 } from '@firebase/util';
 import { toast } from 'react-toastify';
+import useUserQuery from '../../../hooks/useUserQuery';
 
 const AddComment = ({ id, title }) => {
   const [commentText, setCommentText] = useState('');
+  const userDoc = useUserQuery();
 
   // 파베 인증
   const currentUser = authService.currentUser;
@@ -87,7 +89,7 @@ const AddComment = ({ id, title }) => {
     }
     const newComment = {
       comment: commentText,
-      userName: currentUser.displayName,
+      userName: userDoc?.nickname,
       userId: currentUserUid,
       createdAt: new Date(),
       date: NewDate,
@@ -95,7 +97,7 @@ const AddComment = ({ id, title }) => {
       //comment adddoc할때 mateDetailId값에 id(userid = :id)가져오기
       mateDetailId: id,
       postId: id,
-      userImg: currentUser.photoURL,
+      userImg: userDoc?.profileImg,
       //updatedoc사용할것 - 배열사용(등록, 수정, 삭제 모두 배열로)
       //todolist 참고
       replyComment: [],

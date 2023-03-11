@@ -29,8 +29,10 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import authState from '../../recoil/authState';
 import headerToggle from '../../recoil/headerToggleState';
+import useUserQuery from '../../hooks/useUserQuery';
 
 const MateWrite = () => {
+  const userDoc = useUserQuery();
   const user = useRecoilValue(authState);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -118,8 +120,8 @@ const MateWrite = () => {
             isRemote,
             partyPostTitile,
             partyDesc,
-            nickName: user?.displayName,
-            profileImg: user?.photoURL,
+            nickName: userDoc?.nickname,
+            profileImg: userDoc?.profileImg,
             createdDate: now(),
             teamID: teamID,
             uid: user?.uid,

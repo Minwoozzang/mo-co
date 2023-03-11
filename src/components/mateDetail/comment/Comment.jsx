@@ -85,7 +85,7 @@ const Comment = ({ comment }) => {
       <ListContainer>
         <ListTextSection>
           <CommentProfileImage
-            src={!userDoc?.profileImg ? default_profile : userDoc?.profileImg}
+            src={!comment?.userImg ? default_profile : comment?.userImg}
           ></CommentProfileImage>
           <CommentUserName>{comment.userName}</CommentUserName>
           <CommentIconBody>
