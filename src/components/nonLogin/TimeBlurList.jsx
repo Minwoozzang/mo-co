@@ -34,7 +34,10 @@ const TimeBlurList = ({ isLoggedIn, blurList }) => {
     query: `(min-width: 1072px) and (max-width: 1420px)`,
   });
   const isSmallScreen3 = useMediaQuery({
-    query: `(max-width: 1072px)`,
+    query: `(min-width: 710px) and (max-width: 1072px)`,
+  });
+  const isSmallScreen4 = useMediaQuery({
+    query: `(max-width: 710px)`,
   });
 
   const blurList1 = [1, 2];
@@ -99,6 +102,22 @@ const TimeBlurList = ({ isLoggedIn, blurList }) => {
               로그인이 필요합니다
             </MediaGuideText>
             {blurList1.map((item, idx) => (
+              <BlurCard key={idx} />
+            ))}
+          </TimeMeetingMediaCardBox>
+        </TimeMeetingMediaBox>
+      )}
+      {isSmallScreen4 && (
+        <TimeMeetingMediaBox>
+          <TimeMeetingMediaLeftCornerBox>
+            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
+            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
+          </TimeMeetingMediaLeftCornerBox>
+          <TimeMeetingMediaCardBox style={{ position: 'relative' }}>
+            <MediaGuideText onClick={() => navigate('/login')}>
+              로그인이 필요합니다
+            </MediaGuideText>
+            {[1].map((item, idx) => (
               <BlurCard key={idx} />
             ))}
           </TimeMeetingMediaCardBox>
