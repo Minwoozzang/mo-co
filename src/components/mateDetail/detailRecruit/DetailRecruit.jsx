@@ -213,7 +213,10 @@ const DetailRecruit = () => {
       <UserHr />
       <RecruitCurrent>
         <RecruitFont>모집현황</RecruitFont>
-        <RecruitDetail>모집진행 {post.partyNum}</RecruitDetail>
+        {/* 22323232323232323232 */}
+        <RecruitDetail>
+          {post.partyIsOpen ? '모집중' : '모집 종료'}
+        </RecruitDetail>
       </RecruitCurrent>
       <RecruitBtn disabled={isBtnDisabled || disable} onClick={handleModalOpen}>
         모임 참여 신청

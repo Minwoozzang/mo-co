@@ -130,7 +130,8 @@ const AddComment = ({ id, title }) => {
             <AddInputContent
               onChange={AddCommentTextChange}
               value={commentText}
-              placeholder={'댓글을 남겨주세요.'}
+              placeholder={'모임 참여 전 궁금한 내용을 댓글로 남겨보세요'}
+              maxLength={200}
             />
           </AddInputDiv>
         </AddCommentListWrap>

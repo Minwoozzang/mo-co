@@ -186,9 +186,9 @@ const CardSection = ({ item, db }) => {
         </RecruitingBox>
         <HeadCountBox>
           {item.partyIsOpen === true ? (
-            <span style={{ color: 'white' }}>모집중</span>
+            <span style={{ color: '#80FFE9' }}>모집중 &nbsp; </span>
           ) : (
-            <span style={{ color: 'white' }}>모집완료</span>
+            <span style={{ color: '#FF80BF' }}>모집완료 &nbsp; </span>
           )}
           <HeadCount>{`: ${partyNum + 1} / ${item.partyNum + 1}`}</HeadCount>
         </HeadCountBox>
@@ -296,7 +296,7 @@ const PostTitle = styled.div`
   color: white;
   font-weight: 600;
   &:hover {
-    color: #531cab;
+    color: #feff80;
   }
 `;
 

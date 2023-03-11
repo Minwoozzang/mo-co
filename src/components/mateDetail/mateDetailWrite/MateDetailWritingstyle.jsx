@@ -7,10 +7,10 @@ export const GroupWrap = styled.div`
 export const GroupHeader = styled.h4`
   width: 100%;
   height: 1.25rem;
-  margin-top: 5.625rem;
-  font-size: 1.5rem;
+  margin-top: 2rem;
+  font-size: 1.6rem;
   font-weight: 500;
-  color: #fff;
+  color: #FEFF80;
   padding-left: 22.5rem;
 
   /* 맥북 에어 */
@@ -63,7 +63,8 @@ export const GroupImg = styled.img`
 export const GroupUserId = styled.p`
   width: 10%;
   margin: 2.6875rem 0.5rem 0.5rem;
-  color: #fff;
+  color: #dcdcdc;
+  font-size: 1.1rem;
 `;
 
 export const Social = styled.div`
@@ -96,6 +97,8 @@ export const GroupBox = styled.div`
   background-color: #232323;
   border-radius: 1.25rem;
   color: #fff;
+  word-wrap: break-word;
+  line-height: 1.5rem;
 
   /* 맥북 에어 */
   @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
@@ -116,8 +119,9 @@ export const GroupBox = styled.div`
 `;
 export const GroupPerson = styled.div`
   width: 100%;
-  padding: 5.625rem 9.375rem 0 3.125rem;
+  padding: 5rem 6.25rem;
   margin: 1.875rem 0 1.875rem 0;
+  font-size: 1.1rem;
 `;
 
 export const UserHr = styled.hr`
