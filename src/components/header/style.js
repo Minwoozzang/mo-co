@@ -35,6 +35,13 @@ export const LogoAndMateBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 46.875rem) {
+    width: 16rem;
+    display: flex;
+  }
+  @media (max-width: 30rem) {
+    width: 15rem;
+  }
 `;
 
 export const HeaderLogo = styled.div`
@@ -47,6 +54,9 @@ export const HeaderLogo = styled.div`
   width: 8.125rem;
   /* width: 40.625%; */
   height: 3.125rem;
+  @media (max-width: 46.875rem) {
+    background-size: 7rem;
+  }
 `;
 
 export const MyCodingMate = styled.div`
@@ -58,6 +68,9 @@ export const MyCodingMate = styled.div`
   :hover {
     color: #feff80;
   }
+  @media (max-width: 46.875rem) {
+    font-size: 1rem;
+  }
 `;
 
 export const TeamAndLoginBox = styled.div`
@@ -66,6 +79,22 @@ export const TeamAndLoginBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 46.875rem) {
+    width: 19rem;
+    height: 3.125rem;
+    display: flex;
+  }
+  @media (max-width: 35.9375rem) {
+    width: 16rem;
+    height: 3.125rem;
+    display: flex;
+  }
+  @media (max-width: 32.8125rem) {
+    width: 14rem;
+  }
+  @media (max-width: 30.3125rem) {
+    width: 11rem;
+  }
 `;
 
 export const MakeTeam = styled.button`
@@ -73,10 +102,14 @@ export const MakeTeam = styled.button`
   height: 2.5rem;
   border-radius: 20px;
   border: none;
-  font-size: .9375rem;
+  font-size: 15px;
   font-weight: 600;
   color: #0a0a0a;
   background-color: #ffffff;
+  @media (max-width: 46.875rem) {
+    width: 5.5rem;
+    font-size: 0.7813rem;
+  }
 `;
 
 export const HeaderIcon = styled.div`
@@ -300,7 +333,6 @@ export const HeaderSearchDropDownListBox = styled.div`
   background-color: #3b3b3b;
   box-shadow: 2px 2px 10px 10px #0001;
   z-index: 999;
-  
 
   ::after {
     content: '';
