@@ -172,11 +172,13 @@ const TeamList = () => {
         {myTeamIsWait ? (
           <>
             <AppliedCardBox>
-            <CardContainer1>
-              {appliedMeeting?.slice(appliedminValue, appliedmaxValue).map((item, idx) => (
-                <CardSection key={idx} item={item} db={db} />
-              ))}
-            </CardContainer1>
+              <CardContainer1>
+                {appliedMeeting
+                  ?.slice(appliedminValue, appliedmaxValue)
+                  .map((item, idx) => (
+                    <CardSection key={idx} item={item} db={db} />
+                  ))}
+              </CardContainer1>
             </AppliedCardBox>
             {appliedMeeting?.length === 0 ? (
               <NonApplyText>❌ 신청한 모임이 없습니다 ❌</NonApplyText>
@@ -192,32 +194,32 @@ const TeamList = () => {
           </>
         ) : (
           <>
-          <CardContainer2>
-            {onGoingMeeting?.slice(onGoingminValue, onGoingmaxValue).map((item, idx) => (
-              <OngoingCardSection
-                key={idx}
-                item={item}
-                goToTeamPage={goToTeamPage}
-                showTeamPageBtn={show}
-              />
-            ))}
-          </CardContainer2>
-          {onGoingMeeting?.length === 0 ? (
-            <NonApplyText>❌ 신청한 모임이 없습니다 ❌</NonApplyText>
-          ) : 
-            <PaginationContainer>
-              <PaginationTeamList
-                handleChange={handleChange1}
-                data={onGoingMeeting}
-                maxValue={onGoingmaxValue}
-              />
-            </PaginationContainer>
-          }
-        </>
-          )
-        }
+            <CardContainer2>
+              {onGoingMeeting
+                ?.slice(onGoingminValue, onGoingmaxValue)
+                .map((item, idx) => (
+                  <OngoingCardSection
+                    key={idx}
+                    item={item}
+                    goToTeamPage={goToTeamPage}
+                    showTeamPageBtn={show}
+                  />
+                ))}
+            </CardContainer2>
+            {onGoingMeeting?.length === 0 ? (
+              <NonApplyText>❌ 진행 중인 모임이 없습니다 ❌</NonApplyText>
+            ) : (
+              <PaginationContainer>
+                <PaginationTeamList
+                  handleChange={handleChange1}
+                  data={onGoingMeeting}
+                  maxValue={onGoingmaxValue}
+                />
+              </PaginationContainer>
+            )}
+          </>
+        )}
       </TeamListContainer>
-      
     </TeamListFullScreen>
   );
 };
@@ -261,7 +263,7 @@ const MeetingCategory = styled.div`
 const AppliedCardBox = styled.div`
   width: 1180px;
   /* background-color: blue; */
-`
+`;
 const CardContainer1 = styled.div`
   /* width: 73.625rem; */
   width: 100%;
@@ -296,7 +298,7 @@ const PaginationContainer = styled.div`
   height: 3.125rem;
   /* margin: 3rem; */
   /* margin-top: 110px; */
-  padding: .625rem;
+  padding: 0.625rem;
   margin-top: 20px;
   /* background-color: #111111; */
   /* background-color: aliceblue; */
@@ -308,7 +310,7 @@ const AppliedPaginationContainer = styled.div`
   width: 75rem;
   /* margin: 3rem; */
   /* margin-top: 110px; */
-  padding: .625rem;
+  padding: 0.625rem;
   margin-top: 80px;
   /* background-color: #111111; */
   /* background-color: aliceblue; */
