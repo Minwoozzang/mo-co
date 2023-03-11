@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { authService, db } from '../../common/firebase';
-import OngoingCardSection from '../../components/teamList/OngoingCardSection';
+import OngoingCard from '../../components/teamList/OngoingCard';
 import PaginationTeamList from '../../components/pagenation/PaginationTeamList';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
 import headerToggle from '../../recoil/headerToggleState';
@@ -11,51 +11,94 @@ import postState from '../../recoil/postState';
 import teamPageState from '../../recoil/teamPageState';
 import CardSection from '../../shared/CardSection';
 import { useMediaQuery } from 'react-responsive';
+import OnGoingCardBox from '../../components/teamList/media/OnGoingCardBox';
+import OnGoingTabletCardBox from '../../components/teamList/media/OnGoinTabletCardBox';
+import OnGoingMobileCardBox from '../../components/teamList/media/OnGoingMobileCardBox';
+import AppliedCardBox from '../../components/teamList/media/AppliedCardBox';
+import AppliedLaptopCardBox from '../../components/teamList/media/AppliedLaptopCardBox';
+import AppliedTabletCardBox from '../../components/teamList/media/AppliedTabletCardBox';
+import AppliedMobileCardBox from '../../components/teamList/media/AppliedMobileCardBox';
 
 const TeamList = () => {
   const params = useParams();
 
-  const isSmallScreen1 = useMediaQuery({
-    query: `(min-width: 1196px)`,
+  // Ongoing
+  const isOnGoingFullScreen = useMediaQuery({
+    query: `(min-width: 1468px)`,
   });
-  const isSmallScreen2 = useMediaQuery({
-    query: `(min-width: 800px) and (max-width: 1196px)`,
+  const isOnGoingTabletScreen = useMediaQuery({
+    query: `(min-width: 974px) and (max-width: 1468px)`,
   });
-
-  const maxValueState = isSmallScreen1 ? 6 : isSmallScreen2 ? 4 : 2;
+  const isOnGoingMobileScreen = useMediaQuery({
+    query: `(max-width: 974px)`,
+  });
 
   const [onGoingminValue, setOnGoingMinValue] = useState(0);
-  const [onGoingmaxValue, OnGoingsetMaxValue] = useState(3);
+  const [onGoingmaxValue, setOnGoingMaxValue] = useState(6);
+
+  const [onGoingTabletminValue, setOnGoingTabletMinValue] = useState(0);
+  const [onGoingTabletmaxValue, setOnGoingTabletMaxValue] = useState(4);
+
+  const [onGoingMobileminValue, setOnGoingMobileMinValue] = useState(0);
+  const [onGoingMobilemaxValue, setOnGoingMobileMaxValue] = useState(2);
+
+  const onGoinghandleChange = (page) => { // 페이지네이션 핸들러
+    setOnGoingMinValue(page * 6 - 6);
+    setOnGoingMaxValue(page * 6);
+  };
+  const onGoingTablethandleChange = (page) => {
+    setOnGoingTabletMinValue(page * 4 - 4);
+    setOnGoingTabletMaxValue(page * 4);
+  };
+  const onGoingMobilehandleChange = (page) => {
+    setOnGoingMobileMinValue(page * 2 - 2);
+    setOnGoingMobileMaxValue(page * 2);
+  };
+
+  // Applied
+  const isAppliedFullScreen = useMediaQuery({
+    query: `(min-width: 1470px)`,
+  });
+  const isAppliedLaptopScreen = useMediaQuery({
+    query: `(min-width: 1101px) and (max-width: 1470px)`,
+  });
+  const isAppliedTabletScreen = useMediaQuery({
+    query: `(min-width: 733px) and (max-width: 1101px)`,
+  });
+  const isAppliedMobileScreen = useMediaQuery({
+    query: `(max-width: 733px)`,
+  });
 
   const [appliedminValue, setAppliedMinValue] = useState(0);
   const [appliedmaxValue, setAppliedMaxValue] = useState(4);
 
-  // 반응형
-  // const [minValue2, setMinValue2] = useState(0);
-  // const [maxValue2, setMaxValue2] = useState(4);
+  const [appliedLaptopminValue, setAppliedLaptopMinValue] = useState(0);
+  const [appliedLaptopmaxValue, setAppliedLaptopMaxValue] = useState(3);
 
-  // 반응형 모바일
-  // const [minValue3, setMinValue3] = useState(0);
-  // const [maxValue3, setMaxValue3] = useState(2);
+  const [appliedTabletminValue, setAppliedTabletMinValue] = useState(0);
+  const [appliedTabletmaxValue, setAppliedTabletMaxValue] = useState(2);
 
-  // 페이지네이션 핸들러
-  const handleChange1 = (page) => {
-    setOnGoingMinValue(page * 3 - 3);
-    OnGoingsetMaxValue(page * 3);
-  };
-  const handleChange2 = (page) => {
+  const [appliedMobileminValue, setAppliedMobileMinValue] = useState(0);
+  const [appliedMobilemaxValue, setAppliedMobileMaxValue] = useState(1);
+
+  const appliedhandleChange = (page) => { // 페이지네이션 핸들러
     setAppliedMinValue(page * 4 - 4);
     setAppliedMaxValue(page * 4);
   };
-  // const handleChange2 = (page) => {
-  //   setMinValue2(page * maxValueState - maxValueState);
-  //   setMaxValue2(page * maxValueState);
-  // };
-  // const handleChange3 = (page) => {
-  //   setMinValue3(page * maxValueState - maxValueState);
-  //   setMaxValue3(page * maxValueState);
-  // };
+  const appliedLaptophandleChange = (page) => { // 페이지네이션 핸들러
+    setAppliedLaptopMinValue(page * 3 - 3);
+    setAppliedLaptopMaxValue(page * 3);
+  };
+  const appliedTablethandleChange = (page) => { // 페이지네이션 핸들러
+    setAppliedTabletMinValue(page * 2 - 2);
+    setAppliedTabletMaxValue(page * 2);
+  };
+  const appliedMobilehandleChange = (page) => { // 페이지네이션 핸들러
+    setAppliedMobileMinValue(page * 1 - 1);
+    setAppliedMobileMaxValue(page * 1);
+  };
 
+  // 작성글, 팀페이지 데이터
   const postList = useRecoilValue(postState);
   const teamPage = useRecoilValue(teamPageState);
 
@@ -168,56 +211,69 @@ const TeamList = () => {
             />
           ))}
         </MeetingCategory>
-
-        {myTeamIsWait ? (
-          <>
-            <AppliedCardBox>
-            <CardContainer1>
-              {appliedMeeting?.slice(appliedminValue, appliedmaxValue).map((item, idx) => (
-                <CardSection key={idx} item={item} db={db} />
-              ))}
-            </CardContainer1>
-            </AppliedCardBox>
-            {appliedMeeting?.length === 0 ? (
-              <NonApplyText>❌ 신청한 모임이 없습니다 ❌</NonApplyText>
-            ) : (
-              <AppliedPaginationContainer>
-                <PaginationTeamList
-                  handleChange={handleChange2}
-                  data={appliedMeeting}
-                  maxValue={appliedmaxValue}
-                />
-              </AppliedPaginationContainer>
-            )}
-          </>
-        ) : (
-          <>
-          <CardContainer2>
-            {onGoingMeeting?.slice(onGoingminValue, onGoingmaxValue).map((item, idx) => (
-              <OngoingCardSection
-                key={idx}
-                item={item}
-                goToTeamPage={goToTeamPage}
-                showTeamPageBtn={show}
-              />
-            ))}
-          </CardContainer2>
-          {onGoingMeeting?.length === 0 ? (
-            <NonApplyText>❌ 신청한 모임이 없습니다 ❌</NonApplyText>
-          ) : 
-            <PaginationContainer>
-              <PaginationTeamList
-                handleChange={handleChange1}
-                data={onGoingMeeting}
-                maxValue={onGoingmaxValue}
-              />
-            </PaginationContainer>
-          }
-        </>
-          )
-        }
+        {myTeamIsWait === false && isOnGoingFullScreen && (
+          <OnGoingCardBox 
+            onGoingMeeting={onGoingMeeting}
+            goToTeamPage={goToTeamPage}
+            show={show}
+            handleChange={onGoinghandleChange}
+            minValue={onGoingminValue}
+            maxValue={onGoingmaxValue}
+          />
+        )}
+        {myTeamIsWait === false && isOnGoingTabletScreen && (
+          <OnGoingTabletCardBox 
+            onGoingMeeting={onGoingMeeting}
+            goToTeamPage={goToTeamPage}
+            show={show}
+            handleChange={onGoingTablethandleChange}
+            minValue={onGoingTabletminValue}
+            maxValue={onGoingTabletmaxValue}
+          />
+        )}
+        {myTeamIsWait === false && isOnGoingMobileScreen && (
+          <OnGoingMobileCardBox 
+            onGoingMeeting={onGoingMeeting}
+            goToTeamPage={goToTeamPage}
+            show={show}
+            handleChange={onGoingMobilehandleChange}
+            minValue={onGoingMobileminValue}
+            maxValue={onGoingMobilemaxValue}
+          />
+        )}
+        {myTeamIsWait && isAppliedFullScreen && (
+          <AppliedCardBox 
+            appliedMeeting={appliedMeeting}
+            handleChange={appliedhandleChange}
+            minValue={appliedminValue}
+            maxValue={appliedmaxValue}
+          />
+        )}
+        {myTeamIsWait && isAppliedLaptopScreen && (
+          <AppliedLaptopCardBox
+            appliedMeeting={appliedMeeting}
+            handleChange={appliedLaptophandleChange}
+            minValue={appliedLaptopminValue}
+            maxValue={appliedLaptopmaxValue}
+          />
+        )}
+        {myTeamIsWait && isAppliedTabletScreen && (
+          <AppliedTabletCardBox
+            appliedMeeting={appliedMeeting}
+            handleChange={appliedTablethandleChange}
+            minValue={appliedTabletminValue}
+            maxValue={appliedTabletmaxValue}
+          />
+        )}
+        {myTeamIsWait && isAppliedMobileScreen && (
+          <AppliedMobileCardBox
+            appliedMeeting={appliedMeeting}
+            handleChange={appliedMobilehandleChange}
+            minValue={appliedMobileminValue}
+            maxValue={appliedMobilemaxValue}
+          />
+        )}
       </TeamListContainer>
-      
     </TeamListFullScreen>
   );
 };
@@ -258,18 +314,24 @@ const MeetingCategory = styled.div`
   margin-top: 50px;
   /* background-color: #83c0f1; */
 `;
-const AppliedCardBox = styled.div`
-  width: 1180px;
-  /* background-color: blue; */
-`
-const CardContainer1 = styled.div`
+
+const AppliedCardContainer = styled.div`
   /* width: 73.625rem; */
-  width: 100%;
+  width: 1180px;
+  /* height: 618px; */
   margin-top: 40px;
   display: flex;
-  gap: 90px 20px;
+  gap: 0 20px;
   flex-wrap: wrap;
   /* height: 1000px; */
+  /* background-color: #c9dff3; */
+`;
+const OnGoingCardContainer = styled.div`
+  width: 1178px;
+  margin-top: 40px;
+  display: flex;
+  gap: 20px 20px;
+  flex-wrap: wrap;
   /* background-color: #c9dff3; */
 `;
 const OnGoingMediaCardContainer = styled.div`
@@ -280,23 +342,15 @@ const OnGoingMediaCardContainer = styled.div`
   flex-wrap: wrap;
   /* background-color: #c9dff3; */
 `;
-const CardContainer2 = styled.div`
-  width: 1178px;
-  margin-top: 40px;
-  display: flex;
-  gap: 20px 20px;
-  flex-wrap: wrap;
-  /* background-color: #c9dff3; */
-`;
 
 // 페이지네이션
-const PaginationContainer = styled.div`
+const OnGoingPaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 3.125rem;
   /* margin: 3rem; */
   /* margin-top: 110px; */
-  padding: .625rem;
+  padding: 0.625rem;
   margin-top: 20px;
   /* background-color: #111111; */
   /* background-color: aliceblue; */
@@ -305,10 +359,11 @@ const AppliedPaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 3.125rem;
-  width: 75rem;
+  /* width: 75rem; */
+  width: 100%;
   /* margin: 3rem; */
   /* margin-top: 110px; */
-  padding: .625rem;
+  padding: 0.625rem;
   margin-top: 80px;
   /* background-color: #111111; */
   /* background-color: aliceblue; */
