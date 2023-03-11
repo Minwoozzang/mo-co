@@ -25,8 +25,7 @@ export default function useUserQuery() {
     data: userDoc,
   } = useQuery(['user', uid], () => getUserCollection(uid), {
     enabled: !!uid,
-    cacheTime: 5 * 60 * 1000,
-    staleTime: 2 * 60 * 1000,
+    cacheTime: Infinity,
   });
 
   return userDoc;
