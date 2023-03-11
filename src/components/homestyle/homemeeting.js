@@ -30,12 +30,27 @@ export const TechStackMeetingArea = styled.div`
     width: 100%;
     /* background-color: blue; */
 `
+export const MeetingMoreBox = styled.div`
+    width: 57px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+`
+export const TechStackDesignString = styled.div`
+    height: 42px;
+    font-size: 30px;
+    font-weight: 400;
+    color: #80FFE9;
+`
 export const MeetingTitleBox = styled.div`
-    height: 29px;
+    height: 42px;
+    /* height: 29px; */
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     margin-bottom: 30px;
+    gap: 0 10px;
 `
 export const TechStackMeetingTitle = styled.div`
     height: 29px;
@@ -224,21 +239,6 @@ export const TimeMeetingCardBox = styled.div`
     /* flex-wrap: wrap; */
     gap: 0 20px;
     /* background-color: blue; */
-`
-
-//// 미사용
-export const MeetingMoreBox = styled.div`
-    width: 57px;
-    height: 16px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-`
-
-export const MeetingCard = styled.div`
-    width: 280px;
-    height: 320px;
-    border: 1px solid;
 `
 
 /* LocationMeeting */

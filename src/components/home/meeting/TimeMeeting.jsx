@@ -36,7 +36,10 @@ const TimeMeeting = ({ currentUserData }) => {
     query: `(min-width: 1080px) and (max-width: 1420px)`,
   });
   const isSmallScreen3 = useMediaQuery({
-    query: `(max-width: 1080px)`,
+    query: `(min-width: 710px) and (max-width: 1080px)`,
+  });
+  const isSmallScreen4 = useMediaQuery({
+    query: `(max-width: 710px)`,
   });
   // const isSmallScreen = useMediaQuery({
   //   query: `(max-width: ${referenceSize*0.5}px)`,
@@ -139,6 +142,33 @@ const TimeMeeting = ({ currentUserData }) => {
             ) : (
               recommendTimeList
                 .slice(0, 2)
+                .map((item, idx) => (
+                  <CardSection
+                    key={`시간대가 맞는 모임 ${idx}`}
+                    item={item}
+                    db={db}
+                  />
+                ))
+            )}
+          </TimeMeetingMediaCardBox>
+        </TimeMeetingMediaBox>
+      )}
+      {isSmallScreen4 && (
+        <TimeMeetingMediaBox>
+          <TimeMeetingMediaLeftCornerBox>
+            <TimeMeetingMediaTitleBox>{titlestring}</TimeMeetingMediaTitleBox>
+            <TimeMeetingMediaTitle>시간대가 맞는 모임</TimeMeetingMediaTitle>
+          </TimeMeetingMediaLeftCornerBox>
+          <TimeMeetingMediaCardBox>
+            {recommendTimeList.length === 0 ? (
+              <NonRecommendText2>
+                추천 모임이 없습니다.
+                <br />
+                추가 정보를 등록 or 수정해주세요!
+              </NonRecommendText2>
+            ) : (
+              recommendTimeList
+                .slice(0, 1)
                 .map((item, idx) => (
                   <CardSection
                     key={`시간대가 맞는 모임 ${idx}`}
