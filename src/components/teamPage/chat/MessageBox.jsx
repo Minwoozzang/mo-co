@@ -31,10 +31,10 @@ const MessageBox = ({ t }) => {
     <MessageSectionBox>
       {t.map((data) => {
         return (
-          <>
+          <div key={v4()}>
             {data.uid !== authService.currentUser.uid ? (
               <>
-                <MessageSection key={v4()}>
+                <MessageSection>
                   <MessageImageBox>
                     <MessageImage src={data.profileImg} alt="" />
                   </MessageImageBox>
@@ -46,7 +46,7 @@ const MessageBox = ({ t }) => {
               </>
             ) : (
               <>
-                <MyMessageSection key={v4()}>
+                <MyMessageSection>
                   <MyMessageTextBox>
                     <MyMessageNickName>{data.nickName}</MyMessageNickName>
                     <MyMessageContent>{data.comment}</MyMessageContent>
@@ -57,7 +57,7 @@ const MessageBox = ({ t }) => {
                 </MyMessageSection>
               </>
             )}
-          </>
+          </div>
         );
       })}
       <div ref={scrollRef} />

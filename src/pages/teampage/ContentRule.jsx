@@ -131,7 +131,12 @@ export default function ContentRule({ teamLocationID }) {
                 .filter((item) => item.id === teamLocationID)
                 .map((item) => {
                   return (
-                    <textarea disabled key={item.id}>
+                    <textarea
+                      disabled
+                      key={item.id}
+                      value={item.contentRule}
+                      onChange={(e) => e.target.value}
+                    >
                       {item.contentRule}
                     </textarea>
                   );
