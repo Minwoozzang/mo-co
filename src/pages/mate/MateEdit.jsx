@@ -226,7 +226,7 @@ const MateEdit = () => {
               <PeopleBox>
                 <h3 style={{ display: 'inline' }}>모집 지역</h3>
                 <Checkbox
-                  style={{ marginBottom: 20, marginLeft: 10 }}
+                  style={{ marginBottom: 20, marginLeft: 10, color: 'white' }}
                   onChange={handleisRemote}
                   defaultChecked={postData.isRemote}
                 >
