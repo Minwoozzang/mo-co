@@ -2,14 +2,11 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { authService, db } from '../../common/firebase';
-import OngoingCard from '../../components/teamList/OngoingCard';
-import PaginationTeamList from '../../components/pagenation/PaginationTeamList';
+import { authService } from '../../common/firebase';
 import TeamListCategory from '../../components/teamList/TeamListCategory';
 import headerToggle from '../../recoil/headerToggleState';
 import postState from '../../recoil/postState';
 import teamPageState from '../../recoil/teamPageState';
-import CardSection from '../../shared/CardSection';
 import { useMediaQuery } from 'react-responsive';
 import OnGoingCardBox from '../../components/teamList/media/OnGoingCardBox';
 import OnGoingTabletCardBox from '../../components/teamList/media/OnGoinTabletCardBox';
@@ -313,68 +310,4 @@ const MeetingCategory = styled.div`
   gap: 0 30px;
   margin-top: 50px;
   /* background-color: #83c0f1; */
-`;
-
-const AppliedCardContainer = styled.div`
-  /* width: 73.625rem; */
-  width: 1180px;
-  /* height: 618px; */
-  margin-top: 40px;
-  display: flex;
-  gap: 0 20px;
-  flex-wrap: wrap;
-  /* height: 1000px; */
-  /* background-color: #c9dff3; */
-`;
-const OnGoingCardContainer = styled.div`
-  width: 1178px;
-  margin-top: 40px;
-  display: flex;
-  gap: 20px 20px;
-  flex-wrap: wrap;
-  /* background-color: #c9dff3; */
-`;
-const OnGoingMediaCardContainer = styled.div`
-  width: 48.625rem;
-  margin-top: 40px;
-  display: flex;
-  gap: 90px 20px;
-  flex-wrap: wrap;
-  /* background-color: #c9dff3; */
-`;
-
-// 페이지네이션
-const OnGoingPaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 3.125rem;
-  /* margin: 3rem; */
-  /* margin-top: 110px; */
-  padding: 0.625rem;
-  margin-top: 20px;
-  /* background-color: #111111; */
-  /* background-color: aliceblue; */
-`;
-const AppliedPaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 3.125rem;
-  /* width: 75rem; */
-  width: 100%;
-  /* margin: 3rem; */
-  /* margin-top: 110px; */
-  padding: 0.625rem;
-  margin-top: 80px;
-  /* background-color: #111111; */
-  /* background-color: aliceblue; */
-`;
-
-// 모임 목록 없을 때
-const NonApplyText = styled.div`
-  color: #ffffff;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: 400;
 `;
