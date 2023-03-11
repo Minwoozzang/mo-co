@@ -3,7 +3,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import { authService } from '../../common/firebase';
 import { BiCrown } from 'react-icons/bi';
 
-const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
+const OngoingCard = ({ item, goToTeamPage, showTeamPageBtn }) => {
   return (
     <OngoingMeetingContainer>
       <OngoingMeetingBox>
@@ -62,7 +62,7 @@ const OngoingCardSection = ({ item, goToTeamPage, showTeamPageBtn }) => {
   );
 };
 
-export default OngoingCardSection;
+export default OngoingCard;
 
 const OngoingMeetingContainer = styled.div`
   width: 379px;

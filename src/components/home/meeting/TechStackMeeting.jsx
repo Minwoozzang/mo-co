@@ -16,7 +16,7 @@ import { useMediaQuery } from 'react-responsive';
 
 const TechStackMeeting = ({ isLoggedIn, currentUserData }) => {
   const titlestring1 = '{=';
-  const titlestring2 = '}';
+  const titlestring2 = ';';
   // small screen
   const referenceSize = 1920;
   const isSmallScreen = useMediaQuery({
