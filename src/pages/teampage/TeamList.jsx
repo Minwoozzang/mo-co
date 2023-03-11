@@ -232,9 +232,10 @@ const TeamListFullScreen = styled.div`
 `;
 const TeamListContainer = styled.div`
   /* width: 73.625rem; */
-  width: 75rem;
+  /* width: 75rem; */
+  width: 62.5%;
   margin: 0 auto;
-  height: 100vh;
+  /* height: 100vh; */
   /* background-color: #d7e5f1; */
 `;
 const GapBox = styled.div`
@@ -304,11 +305,12 @@ const AppliedPaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 3.125rem;
+  width: 75rem;
   /* margin: 3rem; */
   /* margin-top: 110px; */
   padding: .625rem;
   margin-top: 80px;
-  background-color: #111111;
+  /* background-color: #111111; */
   /* background-color: aliceblue; */
 `;
 

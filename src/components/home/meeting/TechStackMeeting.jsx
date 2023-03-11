@@ -6,6 +6,7 @@ import {
   NonRecommendText1,
   TechMediaCardBox,
   NonMeetingCardBox,
+  TechStackDesignString,
 } from '../../homestyle/homemeeting';
 import CardSection from '../../../shared/CardSection';
 import { db } from '../../../common/firebase';
@@ -14,6 +15,8 @@ import postState from '../../../recoil/postState';
 import { useMediaQuery } from 'react-responsive';
 
 const TechStackMeeting = ({ isLoggedIn, currentUserData }) => {
+  const titlestring1 = '{=';
+  const titlestring2 = '}';
   // small screen
   const referenceSize = 1920;
   const isSmallScreen = useMediaQuery({
@@ -34,7 +37,9 @@ const TechStackMeeting = ({ isLoggedIn, currentUserData }) => {
   return (
     <TechStackMeetingArea>
       <MeetingTitleBox>
+        <TechStackDesignString>{titlestring1}</TechStackDesignString>
         <TechStackMeetingTitle>기술 스택에 맞는 모임</TechStackMeetingTitle>
+        <TechStackDesignString>{titlestring2}</TechStackDesignString>
       </MeetingTitleBox>
       
         {recommendTechList.length === 0 ? (
