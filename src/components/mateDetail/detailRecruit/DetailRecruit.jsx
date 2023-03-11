@@ -189,7 +189,7 @@ const DetailRecruit = () => {
       <UserHr />
       <RecruitArea>
         <RecruitFont>모임지역</RecruitFont>
-        <AreaDetail>{post.partyLocation}</AreaDetail>
+        <AreaDetail>{post.isRemote ? '비대면' : post.partyLocation}</AreaDetail>
       </RecruitArea>
       <UserHr />
       <RecruitDate>
