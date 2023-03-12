@@ -19,10 +19,15 @@ import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
 import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
+import { useRecoilState } from 'recoil';
+import userState from '../../recoil/userState';
+import { useQueryClient } from 'react-query';
 
 export default function OnboardingEdit() {
   const [isRemote, setIsRemote] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  const queryClient = useQueryClient();
+
   // 인풋값
   const [userStack, setUserStack] = useState([]);
   const [userTime, setUserTime] = useState('');
@@ -32,8 +37,11 @@ export default function OnboardingEdit() {
   const navigate = useNavigate();
   // 작성글 버튼 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
+
   // 유저 정보 가져오기
-  const [profileUserInfo, setProfileUserInfo] = useState([]);
+  const [user, setUser] = useRecoilState(userState);
+
+  console.log('????', userStack);
 
   // 기술 스택 선택 핸들러 함수
   const handleStack = (stack) => {
@@ -42,6 +50,13 @@ export default function OnboardingEdit() {
     } else {
       setUserStack([...userStack, stack]);
     }
+  };
+
+  const getPostData = () => {
+    setUserStack(user[0].moreInfo.u_stack);
+    setUserLocation(user[0].moreInfo.u_location);
+    setIsRemote(user[0].moreInfo.u_isRemote);
+    setUserTime(user[0].moreInfo.u_time);
   };
 
   // 비대면 모임 체크박스 핸들러 함수
@@ -64,6 +79,7 @@ export default function OnboardingEdit() {
     };
     try {
       await updateDoc(userDoc, newField);
+      queryClient.invalidateQueries();
     } catch (e) {
       console.log(e);
     } finally {
@@ -80,6 +96,7 @@ export default function OnboardingEdit() {
           setCurrentUserName(auth2.currentUser.displayName);
         };
         getUserName();
+        getPostData();
       }
     });
   }, []);

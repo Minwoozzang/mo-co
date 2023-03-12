@@ -18,6 +18,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { now } from '../../common/date';
 import { db } from '../../common/firebase';
@@ -28,12 +29,11 @@ import { stacks } from '../../data/stacks';
 import { times } from '../../data/times';
 import authState from '../../recoil/authState';
 import headerToggle from '../../recoil/headerToggleState';
-import { memo } from 'react';
-import { toast } from 'react-toastify';
+import useUserQuery from '../../hooks/useUserQuery';
 
 const MateWrite = () => {
+  const userDoc = useUserQuery();
   const user = useRecoilValue(authState);
-
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   // 파베 인증
@@ -42,7 +42,7 @@ const MateWrite = () => {
   const [partyName, setPartyname] = useState('');
   const [partyStack, setPartyStack] = useState([]);
   const [partyTime, setPartyTime] = useState('');
-  const [partyNum, setPartyNum] = useState('');
+  const [partyNum, setPartyNum] = useState(0);
   const [partyLocation, setPartyLocation] = useState('');
   const [isRemote, setIsRemote] = useState(false);
   const [partyIsOpen, setPartyIsOpen] = useState(true);
@@ -52,9 +52,7 @@ const MateWrite = () => {
   // 작성글 버튼 클릭 상태
   const [isClicked, setIsClicked] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
-
   const [teamID, setTeamID] = useState(uuidv4());
-
   // 리더 이미지, 팀 ID 가져오기
   const [teamIDUserInfo, setTeamIDUserInfo] = useState([]);
 
@@ -94,18 +92,20 @@ const MateWrite = () => {
         console.log(
           partyStack.length === 0,
           partyTime === '',
-          partyNum === '',
+          partyNum === 0,
           partyLocation === '',
           partyDesc === '',
         );
         if (
-          partyStack.length === 0 ||
-          partyTime === '' ||
-          partyNum === '' ||
-          partyLocation === '' ||
-          partyDesc === ''
+          !partyName &&
+          !partyStack.length &&
+          !partyTime &&
+          !partyNum &&
+          !partyLocation &&
+          !partyPostTitile &&
+          !partyDesc
         ) {
-          toast('모임 정보를 모두 입력해주세요');
+          toast.warn('모임 정보를 모두 입력해주세요');
           return;
         }
 
@@ -120,8 +120,8 @@ const MateWrite = () => {
             isRemote,
             partyPostTitile,
             partyDesc,
-            nickName: user?.displayName,
-            profileImg: user?.photoURL,
+            nickName: userDoc?.nickname,
+            profileImg: userDoc?.profileImg,
             createdDate: now(),
             teamID: teamID,
             uid: user?.uid,
@@ -131,6 +131,7 @@ const MateWrite = () => {
           })
             .then(() => {
               setDoc(doc(db, 'teamPage', teamID), {
+                isDeleted: false,
                 createdDate: now(),
                 createdAt: Date.now(),
                 teamID: teamID,
@@ -273,7 +274,7 @@ const MateWrite = () => {
               </MeetingTimeBox>
               <PeopleBox>
                 <h3 style={{ marginBottom: 20 }}>모집 인원</h3>
-                {partyNum === '' ? (
+                {partyNum === 0 ? (
                   <span
                     style={{ position: 'relative', top: -12, color: '#FEFF80' }}
                   >
@@ -399,10 +400,12 @@ const MateWrite = () => {
   );
 };
 
-export default memo(MateWrite);
+export default MateWrite;
 
 const FullScreen = styled.body`
   background-color: black;
+  min-height: 100vh;
+  min-width: 39.875rem;
 `;
 
 const Deco = styled.div`

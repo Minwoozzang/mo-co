@@ -2,9 +2,24 @@ import styled from '@emotion/styled';
 
 export const CommentContainer = styled.div`
   margin: 5rem 50rem 0 22.5rem;
+
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin: 5rem 50rem 0 12.5rem;
+    width: 50%;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 0rem 30rem 0 9.5rem;
+
+  }
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  }
 `;
 
-export const ListContainer = styled.div``;
+export const ListContainer = styled.div`
+`;
 
 export const CommentNickname = styled.p`
   color: #fff;
@@ -12,9 +27,9 @@ export const CommentNickname = styled.p`
 `;
 
 export const CommentUserName = styled.p`
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  color: #fff;
+  color: #FEFF80;
   margin-right: 1.5%;
   margin-left: 1.5%;
   margin-bottom: 0.5%;
@@ -47,6 +62,8 @@ export const CommentText = styled.p`
   margin-left: 1%;
   color: #fff;
   margin: 1rem 0 1rem 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 `;
 
 export const CommentUserInput = styled.input`
@@ -118,6 +135,7 @@ export const CommentProfileImage = styled.img`
   height: 2.5rem;
   border-radius: 1.25rem;
   background-color: #d9d9d9;
+  margin-right: 0.5rem;
 `;
 export const CommentDate = styled.p`
   font-size: 0.75rem;
@@ -130,6 +148,11 @@ export const UserHr = styled.hr`
   border: 1;
   width: 45.3125rem;
   border-top: 0.0625rem solid #3b3b3b;
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    width: 31rem;
+    margin-bottom: 1.25rem;
+  }
 `;
 
 export const Replybutton = styled.button`

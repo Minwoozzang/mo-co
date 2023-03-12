@@ -1,5 +1,13 @@
 import styled from '@emotion/styled';
 
+export const MessageSectionBox = styled.div`
+  overflow-y: scroll;
+  /* 스크롤바 숨기기 */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export const MessageSection = styled.div`
   margin-top: 5px;
 

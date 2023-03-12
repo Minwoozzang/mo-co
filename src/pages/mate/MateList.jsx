@@ -1,19 +1,17 @@
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-import { Pagination } from 'antd';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { db } from '../../common/firebase';
+import Pagenation from '../../components/pagenation/Pagenation';
 import usePosts from '../../hooks/usePost';
 import authState from '../../recoil/authState';
+import headerToggle from '../../recoil/headerToggleState';
 import CardSection from '../../shared/CardSection';
 import FilterLocation from '../../shared/FilterLocation';
 import FilterNumOfMember from '../../shared/FilterNumOfMember';
 import FilterTech from '../../shared/FilterTech';
 import FilterTime from '../../shared/FilterTime';
-import headerToggle from '../../recoil/headerToggleState';
-import Pagenation from '../../components/pagenation/Pagenation';
 
 const MateList = () => {
   const user = useRecoilValue(authState);
@@ -124,13 +122,24 @@ const MateList = () => {
 
       {/* 카드 리스트 */}
       <CardListContainer>
-        <CardList>
-          {DATA &&
-            DATA.length > 0 &&
-            DATA.slice(minValue, maxValue).map((item) => (
-              <CardSection key={item.id} item={item} db={db} />
-            ))}
-        </CardList>
+        <>
+          {DATA?.length > 0 ? (
+            <CardList>
+              {DATA &&
+                DATA.length > 0 &&
+                DATA.slice(minValue, maxValue).map((item) => (
+                  <CardSection key={item.id} item={item} db={db} />
+                ))}
+            </CardList>
+          ) : (
+            <NoResult>
+              <NoResultMessage>
+                ⚠️<br></br>찾는 모임이 없습니다<br></br>원하는 모임을 만들어
+                보세요 :)
+              </NoResultMessage>
+            </NoResult>
+          )}
+        </>
       </CardListContainer>
 
       {/* 페이지 */}
@@ -144,14 +153,15 @@ const MateList = () => {
 export default MateList;
 
 const FullScreen = styled.body`
-  background-color: #181616;
+  background-color: #111111;
   height: 100%;
   min-height: 100vh;
   width: 100%;
+  padding: 0 72px;
 `;
 
 const MateListTitle = styled.div`
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
   color: white;
   font-size: 2em;
@@ -162,21 +172,21 @@ const MateListTitle = styled.div`
 
 // 필터 & 정렬
 const ViewOptions = styled.div`
-  max-width: 1200px;
+  max-width: 75rem;
   padding-top: 1em;
   padding-bottom: 1em;
   padding-left: 1em;
-  padding-right: 3em;
+  padding-right: 2em;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 32px;
 `;
 
 const FilterBox = styled.div`
   display: flex;
   gap: 1em;
-  margin-bottom: 2rem;
 `;
 
 const SortBox = styled.div`
@@ -195,19 +205,19 @@ const SortByNew = styled.div`
 
 // 카드 리스트
 const CardListContainer = styled.section`
-  max-width: 1200px;
+  max-width: 75rem;
   width: 100%;
   height: 100%;
   margin: 0 auto;
 `;
 
 const CardList = styled.div`
-  max-width: 1200px;
+  max-width: 75rem;
   width: 100%;
   height: 100%;
   margin: 0 auto;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1em;
@@ -219,8 +229,27 @@ const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
   height: 100%;
-  /* margin: 3rem; */
-  /* margin-top: 110px; */
-  padding: 6rem;
-  background-color: #181616;
+  /* margin: 48px; */
+  /* margin-top: 6.875rem; */
+  padding: 96px;
+  background-color: #111111;
+`;
+
+const NoResult = styled.div`
+  background-color: #232323;
+  max-width: 75rem;
+  width: 100%;
+  height: 18.75rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem;
+`;
+
+const NoResultMessage = styled.div`
+  color: #feff80;
+  text-align: center;
+  line-height: 32px;
+  font-size: 19.2px;
 `;

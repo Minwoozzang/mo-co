@@ -51,22 +51,12 @@ export default function TeamPlace({ teamLocationID }) {
   };
 
   useEffect(() => {
-    // const teamPageCollectionRef = collection(db, 'teamPage');
-    // const q = query(teamPageCollectionRef);
-    // const getTeamPage = onSnapshot(q, (snapshot) => {
-    //   const teamPageData = snapshot.docs.map((doc) => ({
-    //     id: doc.id,
-    //     ...doc.data(),
-    //   }));
-    //   setTeamPage(teamPageData);
-    // });
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setCurrentUserId(authService.currentUser.uid);
         postGetTeamID();
       }
     });
-    // return getTeamPage;
   }, []);
 
   const isOwner = idUid === currentUserId ? true : false;
@@ -92,7 +82,6 @@ export default function TeamPlace({ teamLocationID }) {
       }
     }
     convertChange();
-    // window.location.reload();
   };
 
   const [modal, setModal] = useState(false);
@@ -269,6 +258,13 @@ const ContentCard = styled.div`
   height: 200px;
   background-color: white;
   margin-top: 25px;
+
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+
+  @media screen and (max-height: 800px) {
+    width: 300px;
+    height: 150px;
+  }
 `;
 
 const PlaceBtn = styled.div`
@@ -301,5 +297,11 @@ const PlaceTextWrap = styled.div`
   flex-direction: column;
   div {
     padding: 20px;
+  }
+
+  @media screen and (max-height: 800px) {
+    div {
+      padding: 10px;
+    }
   }
 `;

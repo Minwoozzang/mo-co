@@ -27,14 +27,14 @@ export default function SocialShare({ onClose }) {
   return (
     <>
       <DropdownOption>
-        <ShareTitle>공유</ShareTitle>
+        <ShareTitle>SNS에 공유하기</ShareTitle>
         <IoCloseOutline
           onClick={onClose}
           style={{
             position: 'absolute',
-            top: 25,
+            top: 20,
             right: 20,
-            fontSize: 40,
+            fontSize: 25,
             color: '#E7E7E7',
             cursor: 'pointer',
           }}
@@ -42,7 +42,7 @@ export default function SocialShare({ onClose }) {
         <KakaoShareButton onClick={shareKakao}>
           <WrappingOne>
             <KakaoShare />
-            <SharePh>카카오톡으로 공유하기</SharePh>
+            <SharePh>카카오톡</SharePh>
           </WrappingOne>
         </KakaoShareButton>
         <TwitterShareButton url={currentUrl}>
@@ -69,8 +69,9 @@ const ShareTitle = styled.p`
 const DropdownOption = styled.div`
   position: absolute;
   z-index: 1; /*다른 요소들보다 앞에 배치*/
-  font-weight: 400;
+  font-weight: 300;
   background-color: #232323;
+  border: 1px solid #b9b9b9;
   width: 400px;
   height: 230px;
   border-radius: 20px;

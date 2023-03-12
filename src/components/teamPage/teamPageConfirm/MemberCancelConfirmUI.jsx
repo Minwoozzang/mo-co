@@ -96,8 +96,8 @@ const ConfirmBody = styled.div`
 `;
 
 const ConfirmBox = styled.div`
-  width: 400px;
-  height: 285px;
+  width: 25rem;
+  height: 17.8125rem;
 
   background: #232323;
   border-radius: 20px;
@@ -109,19 +109,20 @@ const ImageBox = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 35px;
+  margin-top: 2.1875rem;
 `;
 
 const MyImage = styled.img`
-  width: 80px;
-  height: 80px;
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
 
   border-radius: 40px;
 `;
 
 const TextBox = styled.div`
   text-align: center;
-  margin-top: 15px;
+  margin-top: 0.9375rem;
 `;
 
 const ConfirmText = styled.p`
@@ -129,7 +130,7 @@ const ConfirmText = styled.p`
   font-style: normal;
   font-weight: 500;
   font-size: 1.05rem;
-  line-height: 21px;
+  line-height: 1.3125rem;
 
   text-align: center;
   letter-spacing: -0.02em;
@@ -138,21 +139,22 @@ const ConfirmText = styled.p`
 `;
 
 const BtnBox = styled.div`
-  margin-top: 30px;
+  margin-top: 1.875rem;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 0.625rem;
 `;
+
 const ConfirmCancelBtn = styled.button`
-  width: 160px;
-  height: 45px;
+  width: 10rem;
+  height: 2.8125rem;
   border-radius: 5px;
 
   font-family: 'Pretendard';
   font-style: normal;
   font-size: 1rem;
   font-weight: 600;
-  line-height: 19px;
+  line-height: 1.1875rem;
   letter-spacing: -0.02em;
 
   background-color: #ffffff;

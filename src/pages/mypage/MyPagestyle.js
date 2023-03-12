@@ -2,10 +2,8 @@ import styled from '@emotion/styled';
 
 export const MyPageBody = styled.div`
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
-
-  background-color: red;
 `;
 
 export const DummyBox = styled.div`
@@ -22,7 +20,7 @@ export const DummyProfile = styled.div`
 `;
 
 export const MySection = styled.div`
-  width: 93.75rem;
+  width: 1500px;
   height: 100%;
 
   background-color: #232323;
@@ -31,7 +29,7 @@ export const MySection = styled.div`
 `;
 
 export const MyProfilSectionBox = styled.div`
-  width: 38.75rem;
+  width: 38.75%;
   height: 100%;
 
   background-color: #232323;
@@ -41,7 +39,7 @@ export const MyProfilSectionBox = styled.div`
 `;
 
 export const MyInfoSection = styled.div`
-  width: 81.25rem;
+  width: 81.25%;
   background-color: black;
 `;
 

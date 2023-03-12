@@ -23,6 +23,7 @@ import {
 } from './CommentStyle';
 import default_profile from '../../../assets/icon/user.png';
 import ReplyCommentList from './../replyComment/ReplyCommentList';
+import useUserQuery from '../../../hooks/useUserQuery';
 
 const Comment = ({ comment }) => {
   // comment 컬렉션 데이터 저장
@@ -31,6 +32,7 @@ const Comment = ({ comment }) => {
   const [editValue, setEditValue] = useState(comment.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
+  const userDoc = useUserQuery();
 
   //console.log(img);
   const handleChange = (e) => {
@@ -83,14 +85,14 @@ const Comment = ({ comment }) => {
       <ListContainer>
         <ListTextSection>
           <CommentProfileImage
-            src={!comment.userImg ? default_profile : comment.userImg}
+            src={!comment?.userImg ? default_profile : comment?.userImg}
           ></CommentProfileImage>
           <CommentUserName>{comment.userName}</CommentUserName>
           <CommentIconBody>
             <GrMoreVertical
               style={{
                 color: '#858585',
-                width: '410px',
+                width: '400px',
               }}
               onClick={() => ToggleDropDown(comment.userId)}
             />

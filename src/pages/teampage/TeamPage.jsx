@@ -142,7 +142,7 @@ const JustContainer = styled.div`
 `;
 
 const WholeContainer = styled.div`
-  margin-top: 100px;
+  margin: 80px 0 40px;
   width: 1350px;
   height: 900px;
   display: flex;
@@ -153,6 +153,11 @@ const WholeContainer = styled.div`
   box-shadow: 0 20px 50px rgb(0 0 0 / 30%);
   position: relative;
   @media screen and (max-width: 1280px) {
+    max-width: 1200px;
+    height: 650px;
+  }
+
+  @media screen and (max-height: 800px) {
     max-width: 1200px;
     height: 650px;
   }

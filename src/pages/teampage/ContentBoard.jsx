@@ -55,7 +55,6 @@ export default function ContentBoard({ teamLocationID }) {
       try {
         await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
         queryClient.invalidateQueries('teamPage');
-        console.log('dkdkdkdkdkdkkd2q2', queryClient);
       } catch (e) {
         console.log(e);
       } finally {
@@ -91,7 +90,11 @@ export default function ContentBoard({ teamLocationID }) {
                 .map((item) => {
                   return (
                     <div key={item.id}>
-                      <textarea disabled value={item.contentBoard}>
+                      <textarea
+                        disabled
+                        value={item.contentBoard}
+                        onChange={(e) => e.target.value}
+                      >
                         {item.contentBoard}
                       </textarea>
                     </div>
@@ -109,7 +112,6 @@ const TextAreaWrapper = styled.div`
   display: flex;
   flex-direction: column;
   .text {
-    width: 100%;
     height: 510px;
   }
 
@@ -152,12 +154,17 @@ const ContentCard = styled.div`
   p {
     padding: 20px;
   }
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
 
   ::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+
+  @media screen and (max-height: 800px) {
+    height: 390px;
+  }
 `;
 
 const ButtonPlaceTitleWrap = styled.div`

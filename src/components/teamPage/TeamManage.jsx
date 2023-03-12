@@ -86,6 +86,8 @@ export default function TeamManage({ teamLocationID, item }) {
     getFindTeamID();
   }, []);
 
+  // post 정보
+
   const getFindTeamID = () => {
     const q = query(collection(db, 'post'), where('teamID', '==', id));
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -173,6 +175,8 @@ export default function TeamManage({ teamLocationID, item }) {
       await updateDoc(doc(db, 'user', authService.currentUser.uid), {
         teamID: myInfo,
       });
+      await deleteDoc(doc(db, 'post', teamPost));
+
       onClose();
       window.location.replace('/');
     };

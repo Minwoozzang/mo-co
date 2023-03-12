@@ -43,6 +43,7 @@ import {
   SearchLayer,
   SearchModalLayer,
   SearchIconBox,
+  HeaderUserIconBody,
 } from './style';
 import { toast } from 'react-toastify';
 
@@ -155,7 +156,7 @@ const Header = () => {
       onSubmit();
     }
     if (e.key === 'Enter' && word.length === 0) {
-      toast.warn('검색어를 입력해주세요.')
+      toast.warn('검색어를 입력해주세요.');
     }
   };
   const searchdropDownHandler = () => {
@@ -292,9 +293,9 @@ const Header = () => {
                     ) : (
                       ''
                     )}
-                    </>
-                    
-                    <>
+                  </>
+
+                  <>
                     <HeaderSearchDropDownListBox
                       style={{ position: 'absolute' }}
                     >
@@ -318,7 +319,7 @@ const Header = () => {
                           <HeaderSearchInput
                             onChange={onChangeSearch}
                             onKeyPress={handleonKeyPress}
-                            placeholder='검색어를 입력해주세요.'
+                            placeholder="검색어를 입력해주세요."
                           />
                           {/* <HeaderSearchInputBtn type="button" onClick={onSubmit}>
                         검색
@@ -327,11 +328,8 @@ const Header = () => {
                       </HeaderSearchDropDownListSection>
                       {/* <HeaderSearchDropDownHr /> */}
                     </HeaderSearchDropDownListBox>
-                    </>
-                    </>
-                    
-                  
-                
+                  </>
+                </>
               ) : (
                 <NavigateMypage>
                   <img src={Search} alt="search" style={{ width: '20px' }} />
@@ -342,8 +340,9 @@ const Header = () => {
             ''
           )}
 
+          {/* 유저 아이콘 */}
           {headerMyIcon ? (
-            <div onClick={dropDownHandler}>
+            <HeaderUserIconBody onClick={dropDownHandler}>
               {dropDownClick ? (
                 <>
                   {isUserDropDown ? (
@@ -361,16 +360,11 @@ const Header = () => {
                   ) : (
                     ''
                   )}
-                  <HeaderDropDownListBox style={{ position: 'absolute' }}>
+                  <HeaderDropDownListBox>
                     <HeaderImageBox>
                       <HeaderImage
                         src={profileUserInfo[0]?.profileImg ?? defaultImg}
                         alt="user"
-                        style={{
-                          width: '80px',
-                          height: '80px',
-                          borderRadius: '40px',
-                        }}
                       />
                     </HeaderImageBox>
                     <HeaderDropDownListSection>
@@ -392,7 +386,7 @@ const Header = () => {
                   />
                 </NavigateMypage>
               )}
-            </div>
+            </HeaderUserIconBody>
           ) : (
             ''
           )}
