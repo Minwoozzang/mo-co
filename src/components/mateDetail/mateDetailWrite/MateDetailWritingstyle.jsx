@@ -10,7 +10,7 @@ export const GroupHeader = styled.h4`
   margin-top: 2rem;
   font-size: 1.6rem;
   font-weight: 500;
-  color: #FEFF80;
+  color: #feff80;
   padding-left: 22.5rem;
 
   /* 맥북 에어 */
@@ -33,11 +33,18 @@ export const GroupHeader = styled.h4`
 export const GroupUserInfo = styled.div`
   display: flex;
   justify-content: space-between;
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin-left: 12rem;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin-left: 9.5rem;
+  }
 `;
 export const UserInfoWrap = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 100%;
 
   /* 맥북 에어 */
@@ -51,7 +58,7 @@ export const UserInfoWrap = styled.div`
 `;
 
 export const GroupImg = styled.img`
-  width: 2.5rem;
+  /* width: 2.5rem; */
   height: 2.5rem;
   border-radius: 1.25rem;
   margin-top: auto;
@@ -61,24 +68,27 @@ export const GroupImg = styled.img`
   }
 `;
 export const GroupUserId = styled.p`
-  width: 10%;
   margin: 2.6875rem 0.5rem 0.5rem;
   color: #dcdcdc;
   font-size: 1.1rem;
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+  }
 `;
 
 export const Social = styled.div`
-  padding-left: 25%;
-  width: 50%;
   display: flex;
 
   /* 맥북 에어 */
   @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
-    padding-left: 48%;
+    margin-left: 42rem;
   }
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
-    padding-left: 36%;
+    margin-left: 24rem;
   }
 `;
 
