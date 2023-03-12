@@ -17,7 +17,7 @@ const AppliedLaptopCardBox = ({
         ))}
       </AppliedCardContainer>
       {appliedMeeting?.length === 0 ? (
-        <NonApplyText>❌ 진행 중인 모임이 없습니다 ❌</NonApplyText>
+        <NonApplyText>❌ 신청한 모임이 없습니다 ❌</NonApplyText>
       ) : (
         <AppliedPaginationContainer>
           <PaginationTeamList

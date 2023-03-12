@@ -176,7 +176,7 @@ const CardSection = ({ item, db }) => {
           <ProfileImage
             src={!item.profileImg ? defaultImg : item.profileImg}
           ></ProfileImage>
-          <NickName>{item.nickname}</NickName>
+          <NickName>{item.nickName}</NickName>
         </ProfileBox>
         <InfoBox>
           {/* <GrFormView size="24px" />

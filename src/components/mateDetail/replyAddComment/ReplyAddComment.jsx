@@ -11,8 +11,10 @@ import {
   AddCommentListAll,
 } from './ReplyAddCommentStyle';
 import { toast } from 'react-toastify';
+import useUserQuery from '../../../hooks/useUserQuery';
 
 const ReplyAddComment = ({ comment, setDisplay }) => {
+  const userDoc = useUserQuery();
   // 파베 인증
   const currentUser = authService.currentUser;
   // 데이터 올리기
@@ -31,12 +33,12 @@ const ReplyAddComment = ({ comment, setDisplay }) => {
     }
     const newComment = {
       comment: commentText,
-      userName: currentUser.displayName,
+      userName: userDoc?.nickname,
       userId: comment.userId,
       createdAt: new Date(),
       date: NewDate,
       commentId: uuidv4(),
-      userImg: currentUser.photoURL,
+      userImg: userDoc?.profileImg,
     };
 
     const replyCommentRef = doc(db, 'comment', comment.id);
