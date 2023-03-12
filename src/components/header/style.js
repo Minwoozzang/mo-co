@@ -10,6 +10,8 @@ export const HeaderBody = styled.div`
   position: sticky;
   top: 0;
   z-index: 999;
+  min-width: 46.1875rem;
+  padding: 0 2rem;
   /* z-index: 1;
   position: fixed;
   top: 0; */

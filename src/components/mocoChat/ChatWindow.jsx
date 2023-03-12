@@ -16,6 +16,10 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const scrollEnd = useRef();
+
+  const handleScrollDown = () => {
+    scrollEnd.current.scrollIntoView({ behavior: 'smooth' });
+  };
   // 처음 모코챗 열면, 로컬스토리지 세팅하기
   if (!localStorage.getItem(`chat_${user?.uid}`)) {
     localStorage.setItem(
@@ -57,6 +61,8 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
       prompt: inputValue,
       model: 'text-davinci-003',
       max_tokens: 2000,
+      temperature: 0.3,
+      top_p: 0.2,
     };
 
     const existingMessage = JSON.parse(
@@ -111,7 +117,7 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
   };
 
   useEffect(() => {
-    scrollEnd.current.scrollIntoView({ behavior: 'smooth' });
+    handleScrollDown();
   }, [messageArr]);
 
   return (
@@ -145,7 +151,6 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
               {message.content}
             </Message>
           ))}
-          <div ref={scrollEnd}></div>
         </MessageList>
       )}
 

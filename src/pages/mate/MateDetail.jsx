@@ -16,12 +16,12 @@ import DetailRecruit from './../../components/mateDetail/detailRecruit/DetailRec
 const MateDetail = () => {
   const queryClient = useQueryClient();
   const user = useRecoilValue(authState);
-
   const { id } = useParams();
   const navigate = useNavigate();
   const { data, isLoading } = usePosts();
   const thisPost = data?.filter((item) => item.id === id);
-  let isMyPost = thisPost[0]?.uid === user?.uid;
+  let title = thisPost?.[0]?.partyPostTitile;
+  let isMyPost = thisPost?.[0]?.uid === user?.uid;
 
   const handleMoveToEdit = () => {
     navigate(`/edit/${id}`);
@@ -38,9 +38,9 @@ const MateDetail = () => {
       });
       toast.success('삭제 성공');
       navigate('/mate');
-      queryClient.invalidateQueries('teamPage');
+      queryClient.invalidateQueries();
     } catch (error) {
-      console.log(error);
+      toast.warn('다시 시도해주세요');
     }
   };
 
@@ -65,7 +65,7 @@ const MateDetail = () => {
         {/* <UserHr /> */}
         <CommentContainHeader>댓글</CommentContainHeader>
         <CommentList id={id} img={user?.photoURL} />
-        <AddComment id={id} />
+        <AddComment title={title} id={id} />
       </CommentWrap>
       <DetailRecruit />
     </MateDetailWrap>

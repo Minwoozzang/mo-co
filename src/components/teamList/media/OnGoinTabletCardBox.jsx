@@ -23,7 +23,7 @@ const OnGoingTabletCardBox = ({
         ))}
       </OnGoingCardContainer>
       {onGoingMeeting?.length === 0 ? (
-        <NonApplyText>❌ 신청한 모임이 없습니다 ❌</NonApplyText>
+        <NonApplyText>❌ 진행 중인 모임이 없습니다 ❌</NonApplyText>
       ) : (
         <OnGoingPaginationContainer>
           <PaginationTeamList

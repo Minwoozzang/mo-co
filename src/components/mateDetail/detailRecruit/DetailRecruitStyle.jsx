@@ -12,7 +12,7 @@ export const RecruitWrap = styled.div`
   align-items: center;
   justify-content: space-between;
   position: fixed;
-  top: 12.5rem;
+  top: 7.5rem;
   right: 20rem;
   border-radius: 1.25rem;
   /* 맥북 에어 */
@@ -35,9 +35,9 @@ export const NameDetail = styled.p`
   color: #fff;
 `;
 export const RecruitFont = styled.p`
-  font-size: 0.75rem;
+  font-size: 0.84rem;
   font-weight: 400;
-  color: #cecece;
+  color: #80FFE9;
   margin-bottom: 1rem;
 `;
 export const RecruitArea = styled.div`
