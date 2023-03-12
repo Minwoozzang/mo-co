@@ -192,7 +192,7 @@ const ChatInput = styled.input`
 
   padding-left: 5px;
 
-  font-size: 1.3rem;
+  font-size: 1rem;
 
   border: none;
   border-radius: 20px;

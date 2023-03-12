@@ -51,22 +51,12 @@ export default function TeamPlace({ teamLocationID }) {
   };
 
   useEffect(() => {
-    // const teamPageCollectionRef = collection(db, 'teamPage');
-    // const q = query(teamPageCollectionRef);
-    // const getTeamPage = onSnapshot(q, (snapshot) => {
-    //   const teamPageData = snapshot.docs.map((doc) => ({
-    //     id: doc.id,
-    //     ...doc.data(),
-    //   }));
-    //   setTeamPage(teamPageData);
-    // });
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setCurrentUserId(authService.currentUser.uid);
         postGetTeamID();
       }
     });
-    // return getTeamPage;
   }, []);
 
   const isOwner = idUid === currentUserId ? true : false;
@@ -92,7 +82,6 @@ export default function TeamPlace({ teamLocationID }) {
       }
     }
     convertChange();
-    // window.location.reload();
   };
 
   const [modal, setModal] = useState(false);
