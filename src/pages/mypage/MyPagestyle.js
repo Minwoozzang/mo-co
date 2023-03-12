@@ -15,25 +15,20 @@ export const DummyBox = styled.div`
 
 export const DummyProfile = styled.div`
   width: 50%;
-
   background-color: #232323;
 `;
 
 export const MySection = styled.div`
   width: 1500px;
   height: 100%;
-
   background-color: #232323;
-
   display: flex;
 `;
 
 export const MyProfilSectionBox = styled.div`
   width: 38.75%;
   height: 100%;
-
   background-color: #232323;
-
   display: flex;
   justify-content: flex-end;
 `;
@@ -45,6 +40,5 @@ export const MyInfoSection = styled.div`
 
 export const DummyBookmark = styled.div`
   width: 50%;
-
   background-color: black;
 `;
