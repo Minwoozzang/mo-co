@@ -129,7 +129,6 @@ const MainBackground = styled.div`
   /* height: 100%; */
   background: url(${main_background2});
   background-size: cover;
-
   background-position: center;
   /* background-color: white; */
 `;

@@ -36,15 +36,15 @@ const ReplyComment = ({ comment, index, comments }) => {
   // 토글 버튼을 누를 시 userid와 currentuid비교
   // 수정 삭제 버튼 오픈
   const ToggleDropDown = (userId) => {
-    const currentUid = authService?.currentUser?.uid;
+    //  const currentUid = authService?.currentUser?.uid;
 
     if (toggleBtn === false) {
-      if (userId === currentUid) {
+      if (userId === comment.userId) {
         setAreYouUser(true);
       }
       setToggleBtn(true);
     } else if (toggleBtn === true) {
-      if (userId === currentUid) {
+      if (userId === comment.userId) {
         setAreYouUser(false);
       }
       setToggleBtn(false);
@@ -104,7 +104,7 @@ const ReplyComment = ({ comment, index, comments }) => {
                 color: '#858585',
                 width: '600px',
               }}
-              onClick={() => ToggleDropDown(comment?.userId)}
+              onClick={() => ToggleDropDown(comment.userId)}
             />
             <CommentTextIcon>
               {toggleBtn ? (
