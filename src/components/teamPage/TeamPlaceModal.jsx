@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { uuidv4 } from '@firebase/util';
 import { IoCloseOutline } from 'react-icons/io5';
 import { IoSearchOutline } from 'react-icons/io5';
+import { toast } from 'react-toastify';
 
 export default function TeamPlaceModal({
   setAddress,
@@ -35,25 +36,8 @@ export default function TeamPlaceModal({
         setResultData(res.data.documents);
       })
       .catch(() => {
-        console.log('실패함');
+        toast.warn('다시 시도해주세요');
       });
-    // let fullAddress = data.address;
-    // let extraAddress = '';
-
-    // if (data.addressType === 'R') {
-    //   if (data.bname !== '') {
-    //     extraAddress += data.bname;
-    //   }
-    //   if (data.buildingName !== '') {
-    //     extraAddress +=
-    //       extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-    //   }
-    //   fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-    // }
-
-    // setAddressDetail(fullAddress);
-
-    // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
   };
 
   const handlePlace = (name, address, coordinateX, coordinateY) => {

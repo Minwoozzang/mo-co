@@ -8,7 +8,6 @@ import {
 } from './MyPageCommentStyle';
 
 const MyComment = ({ myItem }) => {
-  console.log('🚀 ~ file: MyComment.jsx:10 ~ MyComment ~ myItem:', myItem);
   const navigate = useNavigate();
   const navigateComment = () => {
     navigate(`/matedetail/${myItem.mateDetailId}`);

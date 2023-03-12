@@ -4,7 +4,6 @@ import { authService, db } from '../../../common/firebase';
 
 const NotiMessage = ({ item }) => {
   const { teamMember, teamLeader, teamPartyStack } = item;
-  // console.log(teamMember.isRead)
   
 
   return (

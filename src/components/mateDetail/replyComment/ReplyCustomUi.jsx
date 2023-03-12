@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 import { db } from '../../../common/firebase';
 
 const ReplyCustomUi = ({ comment, id, onClose }) => {
-  console.log(comment.replyComment.filter((x) => x.commentId !== id));
-  console.log(comment.id);
 
   const deleteHandler = async () => {
     const newComment = comment.replyComment.filter((x) => x.commentId !== id);

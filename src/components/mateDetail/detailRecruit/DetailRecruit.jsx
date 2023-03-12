@@ -112,7 +112,7 @@ const DetailRecruit = () => {
         setTeamMember(teamPage.teamMember);
       })
       .catch((error) => {
-        console.log(error);
+        toast.warn('다시 시도해주세요');
       });
   };
 
@@ -152,12 +152,11 @@ const DetailRecruit = () => {
         });
       })
       .catch(() => {
-        console.log('참여 신청 에러');
+        toast.warn('다시 시도해주세요');
       });
     queryClient.invalidateQueries('teamPage');
     setDisable(true);
     toast.success('참여 신청 완료!');
-    console.log('참여 완료');
     setIsModalOpen(false);
   };
 

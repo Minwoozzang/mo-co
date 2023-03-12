@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { db } from '../../../common/firebase';
 
 const CustomUi = (comment) => {
-  console.log(comment.id);
   return (
     <ConfirmBody>
       <ConfirmBox>

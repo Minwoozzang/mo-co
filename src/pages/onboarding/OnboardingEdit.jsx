@@ -22,6 +22,7 @@ import { times } from '../../data/times';
 import { useRecoilState } from 'recoil';
 import userState from '../../recoil/userState';
 import { useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 
 export default function OnboardingEdit() {
   const [isRemote, setIsRemote] = useState(false);
@@ -40,8 +41,6 @@ export default function OnboardingEdit() {
 
   // 유저 정보 가져오기
   const [user, setUser] = useRecoilState(userState);
-
-  console.log('????', userStack);
 
   // 기술 스택 선택 핸들러 함수
   const handleStack = (stack) => {
@@ -81,9 +80,7 @@ export default function OnboardingEdit() {
       await updateDoc(userDoc, newField);
       queryClient.invalidateQueries();
     } catch (e) {
-      console.log(e);
-    } finally {
-      console.log('end');
+      toast.warn('다시 시도해주세요');
     }
     navigate('/mypage');
   };

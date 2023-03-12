@@ -14,8 +14,6 @@ import TeamList from '../pages/teampage/TeamList';
 import TeamPage from '../pages/teampage/TeamPage';
 import Home from './../pages/home/Home';
 import MateDetail from './../pages/mate/MateDetail';
-// * 테스트 페이지
-import Test from '../pages/Test';
 import { useRecoilValue } from 'recoil';
 import ScrollTop from '../common/scrollTop';
 import authState from '../recoil/authState';
@@ -42,8 +40,6 @@ const Router = () => {
         <Route path="/edit/:id" element={<MateEdit />} />
         <Route path="/search/:word" element={<Search />} />
         <Route path="/teamlist/:nickname" element={<TeamList />} />
-        {/* 테스트페이지 */}
-        <Route path="/test" element={<Test />} />
       </Routes>
       {user === null ? null : <MocoChat />}
     </BrowserRouter>
