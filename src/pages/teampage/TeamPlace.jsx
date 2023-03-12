@@ -19,6 +19,7 @@ import { v4 } from 'uuid';
 import { useRecoilState } from 'recoil';
 import teamPageState from '../../recoil/teamPageState';
 import { useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 
 export default function TeamPlace({ teamLocationID }) {
   const queryClient = useQueryClient();
@@ -76,9 +77,7 @@ export default function TeamPlace({ teamLocationID }) {
         await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
         queryClient.invalidateQueries('teamPage');
       } catch (e) {
-        console.log(e);
-      } finally {
-        console.log('end');
+        toast.warn('다시 시도해주세요');
       }
     }
     convertChange();

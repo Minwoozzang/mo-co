@@ -38,11 +38,6 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
   const [messageArr, setMessageArr] = useState(
     JSON.parse(localStorage.getItem(`chat_${user?.uid}`)),
   );
-  console.log('스테이트', messageArr);
-  console.log(
-    '로컬스토리지',
-    JSON.parse(localStorage.getItem(`chat_${user?.uid}`)),
-  );
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -79,11 +74,6 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
 
     localStorage.setItem(`chat_${user?.uid}`, JSON.stringify(existingMessage));
 
-    console.log(
-      '🚀 ~ file: ChatWindow.jsx:40 ~ handleSubmit ~ existingMessage:',
-      existingMessage,
-    );
-
     try {
       // 결과 받아오기
       const response = await axios.post(ENDPOINT, requestData, {
@@ -110,10 +100,8 @@ const ChatWindow = ({ handleMocoChatOpen }) => {
 
       console.error(error);
     } finally {
-      console.log('성공');
       setIsLoading(false);
     }
-    console.log('비동기 끝');
   };
 
   useEffect(() => {

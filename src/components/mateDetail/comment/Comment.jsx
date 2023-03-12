@@ -34,7 +34,6 @@ const Comment = ({ comment }) => {
   const [areYouUser, setAreYouUser] = useState(false);
   const userDoc = useUserQuery();
 
-  //console.log(img);
   const handleChange = (e) => {
     setEditValue(e.target.value);
   };

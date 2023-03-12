@@ -65,18 +65,15 @@ const MateEdit = () => {
           setPartyPostTitle(doc.data().partyPostTitile);
           setSelectedTech(doc.data().partyStack);
           setWrittenDesc(doc.data().partyDesc);
-        } else {
-          console.log('문서 찾기 실패');
         }
       })
       .catch((error) => {
-        console.log('에러', error);
+        toast.warn('다시 시도해주세요');
       });
   };
 
   // 기술 스택 선택 핸들러 함수
   const handlePartyStack = (stack) => {
-    console.log(stack);
     if (selectedTech.includes(stack)) {
       setSelectedTech(selectedTech.filter((item) => item !== stack));
     } else if (selectedTech.length < 3) {
@@ -114,14 +111,13 @@ const MateEdit = () => {
           });
         })
         .catch((error) => {
-          console.log('에러남', error);
+          toast.warn('다시 시도해주세요');
         });
       queryClient.invalidateQueries('posts');
       toast.success('수정 완료!');
       navigate(-1);
-      console.log('수정 성공');
     } catch (error) {
-      console.log(error);
+      toast.warn('다시 시도해주세요');
     }
   };
 

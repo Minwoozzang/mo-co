@@ -32,7 +32,6 @@ import userState from '../../recoil/userState';
 
 export default function MemberSide({ teamLocationID }) {
   const getMyinfo = useRecoilValue(userState);
-  // console.log('get', getMyinfo);
 
   const [nickName, setNickName] = useState('');
 

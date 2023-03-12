@@ -56,6 +56,7 @@ import Github from '../../../src/assets/login/github.png';
 import Google from '../../../src/assets/login/google.png';
 
 import defaultImg from '../../../src/assets/icon/default_profile.png';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const emailRef = useRef(null);
@@ -122,13 +123,12 @@ const Login = () => {
 
     signInWithEmailAndPassword(authService, email, password)
       .then(() => {
-        console.log('로그인성공');
+        toast.warn('반갑니다!');
         setEmail('');
         setPassword('');
         navigate('/');
       })
       .catch((err) => {
-        console.log('err.message:', err.message);
         if (err.message.includes('user-not-found')) {
           setWarningText('회원이 아닙니다. 회원가입을 먼저 진행해 주세요.');
         }
@@ -199,7 +199,7 @@ const Login = () => {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
+        toast.warn('다시 시도해주세요');
       });
   };
 
@@ -258,7 +258,7 @@ const Login = () => {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
+        toast.warn('다시 시도해주세요');
       });
   };
 

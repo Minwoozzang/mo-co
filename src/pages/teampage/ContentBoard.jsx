@@ -12,6 +12,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useRecoilState } from 'recoil';
 import teamPageState from '../../recoil/teamPageState';
 import { useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 
 export default function ContentBoard({ teamLocationID }) {
   const queryClient = useQueryClient();
@@ -56,9 +57,7 @@ export default function ContentBoard({ teamLocationID }) {
         await updateDoc(doc(db, 'teamPage', teamLocationID), newContentField);
         queryClient.invalidateQueries('teamPage');
       } catch (e) {
-        console.log(e);
-      } finally {
-        console.log('end');
+        toast.warn('다시 시도해주세요');
       }
     }
     convertChange();
