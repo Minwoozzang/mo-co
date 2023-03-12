@@ -32,7 +32,6 @@ export default function TeamPlaceModal({
         { headers: { Authorization: `KakaoAK ${REST_API_KEY}` } },
       )
       .then((res) => {
-        console.log(res.data.documents);
         setResultData(res.data.documents);
       })
       .catch(() => {

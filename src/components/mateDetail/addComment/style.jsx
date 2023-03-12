@@ -11,23 +11,23 @@ export const AddCommentListAll = styled.div`
 export const AddCommentListWrap = styled.div`
   display: flex;
   flex-direction: row;
-  border: 2px solid #525252;
+  border: .125rem solid #525252;
   width: 100%;
-  max-width: 725px;
-  height: 130px;
-  padding: 20px 25px 25px 40px;
-  margin: 50px 460px 0 0px;
+  max-width: 45.3125rem;
+  height: 8.125rem;
+  padding: 1.25rem;
+  margin: 3.125rem 28.75rem 0 0rem;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: .625rem;
   /* 맥북 에어 */
-  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
-    margin: 50px 310px 0 0px;
-    max-width: 725px;
+  @media only screen and (min-device-width: 85.375rem) and (max-device-width: 90rem) {
+    margin: 3.125rem 19.375rem 0 0rem;
+    max-width: 45.3125rem;
   }
   /* 아이패드 프로 */
-  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
-    margin: 0 220px 0 0px;
-    max-width: 500px;
+  @media only screen and (min-device-width: 64rem) and (max-device-width: 85.375rem) {
+    margin: 0 13.75rem 0 0rem;
+    max-width: 31.25rem;
   }
 `;
 
@@ -38,13 +38,14 @@ export const AddInputDiv = styled.div`
 `;
 
 export const AddInputContent = styled.input`
+  font-size: 1rem;
   width: 100%;
   height: 100%;
   background-color: #111;
-
+  outline: none;
   border: none;
   :focus {
-    color: #858585;
+    color: #ffffff;
   }
 `;
 
@@ -52,33 +53,33 @@ export const AddCommentBtnDiv = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;
-  margin-right: 100px;
+  margin-right: 6.25rem;
 `;
 
 export const AddCommentBtn = styled.button`
-  width: 120px;
-  height: 35px;
+  width: 7.5rem;
+  height: 2.1875rem;
   cursor: pointer;
   background-color: #545454;
   color: #fff;
-  border: 1px solid #545454;
-  border-radius: 5px;
-  font-size: 14px;
+  border: .0625rem solid #545454;
+  border-radius: .3125rem;
+  font-size: .875rem;
   font-weight: 600;
-  margin: 30px 40px 0 280px;
+  margin: 1.875rem 2.5rem 0 17.5rem;
   :hover {
     background-color: #3b3b3b;
     color: #fff;
-    border-radius: 5px;
+    border-radius: .3125rem;
     border: none;
   }
   /* 맥북 에어 */
-  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
-    margin: 30px 0px 0 390px;
-    max-width: 725px;
+  @media only screen and (min-device-width: 85.375rem) and (max-device-width: 90rem) {
+    margin: 1.875rem 0rem 0 24.375rem;
+    max-width: 45.3125rem;
   }
   /* 아이패드 프로 */
-  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
-    margin: 30px 20px 0 280px;
+  @media only screen and (min-device-width: 64rem) and (max-device-width: 85.375rem) {
+    margin: 1.875rem 1.25rem 0 17.5rem;
   }
 `;

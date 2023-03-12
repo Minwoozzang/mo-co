@@ -32,7 +32,10 @@ const LocationMeeting = ({ currentUserData }) => {
     query: `(min-width: 1080px) and (max-width: 1420px)`,
   });
   const isSmallScreen3 = useMediaQuery({
-    query: `(max-width: 1080px)`,
+    query: `(min-width: 710px) and (max-width: 1080px)`,
+  });
+  const isSmallScreen4 = useMediaQuery({
+    query: `(max-width: 710px)`,
   });
 
   const titlestring1 = '{=';
@@ -106,9 +109,9 @@ const LocationMeeting = ({ currentUserData }) => {
             <LocationMeetingMediaCardBox>
               {recommendLocationList.length === 0 ? (
                 <NonRecommendText2>
-                  추천 모임이 없습니다.
+                  ⚠️ 추천 모임이 없습니다 ⚠️
                   <br />
-                  추가 정보를 등록 or 수정해주세요!
+                  세부 정보를 등록하거나 모임을 만들어 보세요
                 </NonRecommendText2>
               ) : (
                 recommendLocationList
@@ -137,13 +140,44 @@ const LocationMeeting = ({ currentUserData }) => {
             <LocationMeetingMediaCardBox>
               {recommendLocationList.length === 0 ? (
                 <NonRecommendText2>
+                  ⚠️ 추천 모임이 없습니다 ⚠️
+                  <br />
+                  세부 정보를 등록하거나 모임을 만들어 보세요
+                </NonRecommendText2>
+              ) : (
+                recommendLocationList
+                  .slice(0, 2)
+                  .map((item, idx) => (
+                    <CardSection
+                      key={`지역이 맞는 모임 ${idx}`}
+                      item={item}
+                      db={db}
+                    />
+                  ))
+              )}
+            </LocationMeetingMediaCardBox>
+          </LocationMeetingMediaBox>
+        )}
+        {isSmallScreen4 && (
+          <LocationMeetingMediaBox>
+            <LocationMeetingMediaLeftCornerBox>
+              <LocationMeetingMediaTitle>
+                지역이 맞는 모임
+              </LocationMeetingMediaTitle>
+              <LocationMeetingMediaTitleBox>
+                {titlestring4}
+              </LocationMeetingMediaTitleBox>
+            </LocationMeetingMediaLeftCornerBox>
+            <LocationMeetingMediaCardBox>
+              {recommendLocationList.length === 0 ? (
+                <NonRecommendText2>
                   추천 모임이 없습니다.
                   <br />
                   추가 정보를 등록 or 수정해주세요!
                 </NonRecommendText2>
               ) : (
                 recommendLocationList
-                  .slice(0, 2)
+                  .slice(0, 1)
                   .map((item, idx) => (
                     <CardSection
                       key={`지역이 맞는 모임 ${idx}`}

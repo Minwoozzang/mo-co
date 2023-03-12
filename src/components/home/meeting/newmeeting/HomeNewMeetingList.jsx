@@ -31,6 +31,7 @@ const HomeNewMeetingList = ({ uid, userBookmark }) => {
   });
 
   const postData = useRecoilValue(postState);
+  console.log("🚀 ~ file: HomeNewMeetingList.jsx:34 ~ HomeNewMeetingList ~ postData:", postData)
 
   return (
     <NewMeetingArea>
@@ -45,6 +46,7 @@ const HomeNewMeetingList = ({ uid, userBookmark }) => {
           <NewMeetingCardBox>
             {isSmallScreen1 && postData
               ? postData
+                  .filter((item) => item.isDeleted === false)
                   .slice(0, 4)
                   .map((item, idx) => (
                     <CardSection key={idx} item={item} db={db} />
@@ -52,6 +54,7 @@ const HomeNewMeetingList = ({ uid, userBookmark }) => {
               : []}
             {isSmallScreen2 && postData
               ? postData
+                  .filter((item) => item.isDeleted === false)
                   .slice(0, 3)
                   .map((item, idx) => (
                     <CardSection key={idx} item={item} db={db} />
@@ -59,6 +62,7 @@ const HomeNewMeetingList = ({ uid, userBookmark }) => {
               : []}
             {isSmallScreen3 && postData
               ? postData
+                  .filter((item) => item.isDeleted === false)
                   .slice(0, 2)
                   .map((item, idx) => (
                     <CardSection key={idx} item={item} db={db} />
@@ -66,6 +70,7 @@ const HomeNewMeetingList = ({ uid, userBookmark }) => {
               : []}
             {isSmallScreen4 && postData
               ? postData
+                  .filter((item) => item.isDeleted === false)
                   .slice(0, 1)
                   .map((item, idx) => (
                     <CardSection key={idx} item={item} db={db} />

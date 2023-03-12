@@ -42,9 +42,11 @@ import { useNavigate } from 'react-router';
 import wheel from '../../../../src/assets/login/wheel.png';
 import default_profile from '../../../assets/icon/user.png';
 import { toast } from 'react-toastify';
+import { useQueryClient } from 'react-query';
 
 const Profile = () => {
   // 네이게이트
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   // 닉네임 수정 input 여부
@@ -120,6 +122,7 @@ const Profile = () => {
     await updateDoc(doc(db, 'user', authService.currentUser.uid), {
       nickname: nickNamevalue,
     });
+    queryClient.invalidateQueries();
     toast.success('닉네임 수정 완료');
     setClickBtn(true);
     setEditNickName(false);
@@ -146,6 +149,7 @@ const Profile = () => {
         profileImg: imgUrl,
       });
     };
+    queryClient.invalidateQueries();
     toast.success('프로필 이미지 수정 완료');
   };
 

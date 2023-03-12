@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const MyCommentBody = styled.div`
   margin-top: 3.125rem;
   margin-left: 6.25rem;
-
   display: flex;
 `;
 export const MyCommetTitle = styled.div`
@@ -30,15 +29,21 @@ export const MyCommentsBox = styled.div`
   border-bottom: 1px solid white;
   margin-bottom: 1.25rem;
   padding: 15px;
-
   cursor: pointer;
+`;
+
+export const MycommentOfTitile = styled.div`
+  color: #FEFF80;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 `;
 
 export const MyCommentOfComment = styled.div`
   font-family: 'Pretendard';
   font-style: normal;
-  font-weight: 400;
-  font-size: 16;
+  font-weight: 300;
+  font-size: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -46,7 +51,7 @@ export const MyCommentOfComment = styled.div`
   -webkit-box-orient: vertical;
   word-wrap: break-word;
   line-height: 1.5em;
-  height: 3em;
+  height: 1.8em;
 
   color: #ffffff;
 `;
@@ -54,15 +59,15 @@ export const MyCommentOfComment = styled.div`
 export const MyCommentDate = styled.div`
   font-weight: 500;
   font-size: 0.9375rem;
-  line-height: 1.375rem;
-
+  /* line-height: 1.375rem; */
+  text-align: right;
   color: #b6b6b6;
   margin: 10px 0 10px 0;
 `;
 
 export const PageBox = styled.div`
   text-align: center;
-
+  margin-bottom: 3.125rem;
   margin-left: 6.25rem;
   margin-top: 1.875rem;
 `;
