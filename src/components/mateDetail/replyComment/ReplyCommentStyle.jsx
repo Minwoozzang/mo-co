@@ -40,6 +40,13 @@ export const ListTextSection = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin: 0 0 0 50px;
+  }
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin: 0 0 0 30px;
+  }
   @media screen and (max-width: 56.25rem) {
     width: 21.875rem;
   }
@@ -85,8 +92,14 @@ export const CommentIconBody = styled.div`
   margin-left: 69%;
   position: absolute;
   margin-left: 26.25rem;
+
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     width: 30%;
+    margin-left: 9rem;
+  }
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin-left: 21.5rem;
   }
 `;
 
