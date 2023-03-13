@@ -46,6 +46,7 @@ export const UserInfoWrap = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  margin: 2rem 0 0 22rem;
 
   /* 맥북 에어 */
   @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
@@ -81,6 +82,7 @@ export const GroupUserId = styled.p`
 
 export const Social = styled.div`
   display: flex;
+  margin-left: 40rem;
 
   /* 맥북 에어 */
   @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
