@@ -10,7 +10,6 @@ import testteamPageState from '../../../recoil/testteamPageState';
 const NotiBadge = () => {
   // const [teamPage, setTeamPage] = useState([]);
   const teamPage = useRecoilValue(testteamPageState);
-  console.log(teamPage)
 
   // 팀페이지 팀멤버에서 isRead가 false인 데이터
   
@@ -24,13 +23,11 @@ const NotiBadge = () => {
       }
     });
   });
-  console.log('참여된 모임 데이터', myAppliedMeeting);
 
   // teamPage.teamLeader에서 currentUser가 포함된 teamPage 데이터
   const teamLeaderList = teamPage.filter((item) =>
     item.teamLeader?.uid?.includes(authService?.currentUser?.uid),
   );
-  console.log('팀리더 데이터', teamLeaderList);
 
   // 카테고리 클릭 시
   const [myNoti, setMyNoti] = useState(false);
@@ -56,20 +53,6 @@ const NotiBadge = () => {
     }
   };
 
-  // teamPage 데이터
-  // useEffect(() => {
-  //   const teamPageCollectionRef = collection(db, 'teamPage');
-  //   const q = query(teamPageCollectionRef);
-  //   const getTeamPage = onSnapshot(q, (snapshot) => {
-  //     const teamPageData = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setTeamPage(teamPageData);
-  //   });
-  //   return getTeamPage;
-  // }, []);
-  // console.log(teamPage);
 
   return (
     <Container>

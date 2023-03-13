@@ -81,7 +81,6 @@ const Search = () => {
     });
     return getPost;
   }, [params.word]);
-  // console.log(searchData);
 
   const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
 

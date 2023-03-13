@@ -17,7 +17,6 @@ const postShare = () => {
     });
     return getPost;
   }, []);
-  console.log(post);
 
   return <></>;
 };

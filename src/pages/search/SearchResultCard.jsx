@@ -4,6 +4,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { BsBookmarkHeart } from 'react-icons/bs';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useRecoilValue } from 'recoil';
 import defaultImg from '../../assets/icon/user.png';
 import { db } from '../../common/firebase';
@@ -38,9 +39,8 @@ const SearchResultCard = (item) => {
           bookmarks: [...bookmarks, item.id],
         });
         queryClient.invalidateQueries('posts');
-        console.log('북마크 추가 성공');
       } catch {
-        console.log('북마크 추가 실패');
+        toast.warn('다시 시도해주세요');
       }
     }
 
@@ -56,9 +56,8 @@ const SearchResultCard = (item) => {
           bookmarks: bookmarks.filter((bookmark) => bookmark !== item.id),
         });
         queryClient.invalidateQueries('posts');
-        console.log('북마크 삭제 성공');
       } catch {
-        console.log('북마크 삭제 실패');
+        toast.warn('다시 시도해주세요');
       }
     }
   };

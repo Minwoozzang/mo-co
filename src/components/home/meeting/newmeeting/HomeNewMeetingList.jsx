@@ -31,7 +31,6 @@ const HomeNewMeetingList = ({ uid, userBookmark }) => {
   });
 
   const postData = useRecoilValue(postState);
-  console.log("🚀 ~ file: HomeNewMeetingList.jsx:34 ~ HomeNewMeetingList ~ postData:", postData)
 
   return (
     <NewMeetingArea>

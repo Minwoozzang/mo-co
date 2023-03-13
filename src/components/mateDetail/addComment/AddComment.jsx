@@ -45,7 +45,7 @@ const AddComment = ({ id, title }) => {
         setCurrentUserName(authService.currentUser?.displayName);
         setCurrentUserUid(authService.currentUser?.uid);
       } else if (!user) {
-        console.log('로그인을 해주세요');
+        toast.warn('로그인을 해주세요');
       }
     });
   }, [currentUserName, currentUserUid]);
@@ -104,7 +104,6 @@ const AddComment = ({ id, title }) => {
       title: title,
     };
 
-    // console.log(newComment);
     if (!authService.currentUser) {
       confirmAlert({
         customUI: ({ onClose }) => {

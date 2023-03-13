@@ -29,7 +29,6 @@ const ReplyComment = ({ comment, index, comments }) => {
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
 
-  //console.log(img);
   const handleChange = (e) => {
     setEditValue(e.target.value);
   };

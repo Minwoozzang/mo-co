@@ -7,6 +7,7 @@ import { Container } from 'react-bootstrap';
 import { useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import { toast } from 'react-toastify';
 import { useRecoilState } from 'recoil';
 import { authService, db } from '../../common/firebase';
 import { locations } from '../../data/locations';
@@ -59,9 +60,7 @@ export default function OnboardingPage() {
       await updateDoc(userDoc, newField);
       queryClient.invalidateQueries('users');
     } catch (e) {
-      console.log(e);
-    } finally {
-      console.log('end');
+      toast.warn('다시 시도해주세요');
     }
     navigate('/mypage');
   };

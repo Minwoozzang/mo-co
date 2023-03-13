@@ -15,6 +15,7 @@ import {
 } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { confirmAlert } from 'react-confirm-alert';
+import { toast } from 'react-toastify';
 
 export default function TeamManage({ teamLocationID, item }) {
   const [showOptions, setShowOptions] = useState(false);
@@ -110,15 +111,11 @@ export default function TeamManage({ teamLocationID, item }) {
     getDoc(postRef)
       .then((doc) => {
         if (doc.exists()) {
-          console.log('Document data:', doc.data());
-
           setPostIdInfo(doc.data().teamID);
-        } else {
-          console.log('No such document!');
         }
       })
       .catch((error) => {
-        console.log('Error getting document:', error);
+        toast.warn('다시 시도해주세요');
       });
   };
 
@@ -131,7 +128,7 @@ export default function TeamManage({ teamLocationID, item }) {
           teamMember: otherMember,
         });
       } catch (error) {
-        console.log(error);
+        toast.warn('다시 시도해주세요');
       }
       await updateDoc(doc(db, 'user', uid), {
         teamID: myInfo,
@@ -168,7 +165,7 @@ export default function TeamManage({ teamLocationID, item }) {
       try {
         await deleteDoc(doc(db, 'teamPage', teamLocationID));
       } catch (error) {
-        console.log(error);
+        toast.warn('다시 시도해주세요');
       }
       await deleteDoc(doc(db, 'teamChat', teamLocationID));
 

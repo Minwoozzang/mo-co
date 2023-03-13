@@ -12,6 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { authService, db } from '../../common/firebase';
 import { useRecoilState } from 'recoil';
 import teamPageState from '../../recoil/teamPageState';
+import { toast } from 'react-toastify';
 
 export default function ContentRule({ teamLocationID }) {
   const [teamPage, setTeamPage] = useRecoilState(teamPageState);
@@ -95,9 +96,7 @@ export default function ContentRule({ teamLocationID }) {
       try {
         await updateDoc(doc(db, 'teamPage', teamID), newContentField);
       } catch (e) {
-        console.log(e);
-      } finally {
-        console.log('end');
+        toast.warn('다시 시도해주세요');
       }
     }
     convertChange();
