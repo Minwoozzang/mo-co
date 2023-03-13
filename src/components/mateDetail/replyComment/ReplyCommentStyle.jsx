@@ -101,6 +101,10 @@ export const CommentIconBody = styled.div`
   @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
     margin-left: 21.5rem;
   }
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    margin-left: 22.5rem;
+  }
 `;
 
 export const UpdateDeleteBody = styled.div`
@@ -160,6 +164,10 @@ export const UserHr = styled.hr`
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     margin: 0rem 2.5rem 2.5rem 0rem;
     width: 31rem;
+  }
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    width: 42.5rem;
   }
 `;
 

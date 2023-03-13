@@ -114,6 +114,10 @@ const CommentContainHeader = styled.p`
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     margin: 30px 250px 30px 150px;
   }
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    margin: 30px 0px 30px 50px;
+  }
 `;
 const UserHr = styled.hr`
   border: 0;
