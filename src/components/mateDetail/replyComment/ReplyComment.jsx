@@ -28,23 +28,22 @@ const ReplyComment = ({ comment, index, comments }) => {
   const [editValue, setEditValue] = useState(comment?.comment);
   const [toggleBtn, setToggleBtn] = useState(false);
   const [areYouUser, setAreYouUser] = useState(false);
-
   const handleChange = (e) => {
     setEditValue(e.target.value);
   };
 
   // 토글 버튼을 누를 시 userid와 currentuid비교
   // 수정 삭제 버튼 오픈
-  const ToggleDropDown = (userId) => {
-    //  const currentUid = authService?.currentUser?.uid;
+  const ToggleDropDown = () => {
+    const currentUser = authService?.currentUser?.uid;
 
     if (toggleBtn === false) {
-      if (userId === comment.userId) {
+      if (currentUser === comment.userId) {
         setAreYouUser(true);
       }
       setToggleBtn(true);
     } else if (toggleBtn === true) {
-      if (userId === comment.userId) {
+      if (currentUser === comment.userId) {
         setAreYouUser(false);
       }
       setToggleBtn(false);
