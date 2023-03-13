@@ -36,16 +36,16 @@ const ReplyComment = ({ comment, index, comments }) => {
 
   // 토글 버튼을 누를 시 userid와 currentuid비교
   // 수정 삭제 버튼 오픈
-  const ToggleDropDown = (userId) => {
-    //  const currentUid = authService?.currentUser?.uid;
+  const ToggleDropDown = () => {
+    const currentUid = authService?.currentUser?.uid;
 
     if (toggleBtn === false) {
-      if (userId === comment.userId) {
+      if (comment.userId === currentUid) {
         setAreYouUser(true);
       }
       setToggleBtn(true);
     } else if (toggleBtn === true) {
-      if (userId === comment.userId) {
+      if (comment.userId === currentUid) {
         setAreYouUser(false);
       }
       setToggleBtn(false);
