@@ -11,15 +11,14 @@ export const CommentContainer = styled.div`
   /* 아이패드 프로 */
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     margin: 0rem 30rem 0 9.5rem;
-
   }
   /* 태블릿, 아이패드 */
   @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    margin: 0rem 30rem 0 3rem;
   }
 `;
 
-export const ListContainer = styled.div`
-`;
+export const ListContainer = styled.div``;
 
 export const CommentNickname = styled.p`
   color: #fff;
@@ -29,7 +28,7 @@ export const CommentNickname = styled.p`
 export const CommentUserName = styled.p`
   font-size: 1.1rem;
   font-weight: 500;
-  color: #FEFF80;
+  color: #feff80;
   margin-right: 1.5%;
   margin-left: 1.5%;
   margin-bottom: 0.5%;
@@ -90,8 +89,24 @@ export const CommentTextIcon = styled.div`
 `;
 
 export const CommentIconBody = styled.div`
-  width: 25%;
-  margin-left: 69%;
+  margin-left: 18.5%;
+  position: absolute;
+  margin-bottom: 7.5%;
+  /* 맥북 에어 */
+  @media only screen and (min-device-width: 1366px) and (max-device-width: 1440px) {
+    margin-left: 48%;
+    margin-bottom: 20%;
+  }
+  /* 아이패드 프로 */
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
+    margin-left: 45.5%;
+    margin-bottom: 28%;
+  }
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    margin-left: 85%;
+    margin-bottom: 38%;
+  }
 `;
 
 export const UpdateDeleteBody = styled.div`
@@ -152,6 +167,10 @@ export const UserHr = styled.hr`
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) {
     width: 31rem;
     margin-bottom: 1.25rem;
+  }
+  /* 태블릿, 아이패드 */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    width: 43rem;
   }
 `;
 
