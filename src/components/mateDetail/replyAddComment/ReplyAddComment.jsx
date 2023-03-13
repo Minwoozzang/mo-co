@@ -34,7 +34,7 @@ const ReplyAddComment = ({ comment, setDisplay }) => {
     const newComment = {
       comment: commentText,
       userName: userDoc?.nickname,
-      userId: comment.userId,
+      userId: userDoc?.uid,
       createdAt: new Date(),
       date: NewDate,
       commentId: uuidv4(),
