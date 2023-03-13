@@ -136,9 +136,13 @@ const Header = () => {
 
   // 내 코딩모임 페이지로 이동
   const navigateMyCodingMate = () => {
-    setDropDownClick(false);
-    setSearchdropDownClick(false);
-    navigate(`/teamlist/${authService.currentUser.displayName}`);
+    if (!authService.currentUser) {
+      toast.warn('로그인 후 이용해주세요.');
+    } else {
+      setDropDownClick(false);
+      setSearchdropDownClick(false);
+      navigate(`/teamlist/${authService.currentUser.displayName}`);
+    }
   };
 
   // 검색 기능
