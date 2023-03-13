@@ -32,11 +32,11 @@ const ReplyComment = ({ comment, index, comments }) => {
     setEditValue(e.target.value);
   };
 
+  const currentUser = authService?.currentUser?.uid;
+
   // 토글 버튼을 누를 시 userid와 currentuid비교
   // 수정 삭제 버튼 오픈
   const ToggleDropDown = () => {
-    const currentUser = authService?.currentUser?.uid;
-
     if (toggleBtn === false) {
       if (currentUser === comment.userId) {
         setAreYouUser(true);
