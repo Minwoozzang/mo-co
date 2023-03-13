@@ -288,7 +288,6 @@ const HalfScreenNonCustomListText = styled.div`
   /* box-shadow: 2px 4px 8px #545454; */
   /* box-shadow: 5px  5px 5px 5px rgba(0, 0, 0, 0.3); */
   line-height: 1.5;
-  z-index: 999;
   position: absolute;
   top: 50%;
   left: 60%;
