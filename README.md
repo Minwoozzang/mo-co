@@ -105,7 +105,7 @@
 </br>
 
 ### 3.2 팀원 수락, 강퇴
-<img width="600" alt="스크린샷 2023-03-14 211503" src="https://user-images.githubusercontent.com/112860405/224998139-f9951dd2-a862-4f32-8914-65c8773f0da1.png">
+<img width="706" alt="스크린샷 2023-03-14 212904" src="https://user-images.githubusercontent.com/112860405/225001262-0c0cc70f-1511-4f3e-ad34-0e54c4e8e5ad.png">
 
 </br>
 
@@ -113,11 +113,19 @@
   - #### 수락할 경우 해당 팀원의 isWait를 false로 바꿔 팀 멤버가 됨
   - #### 거절할 경우 해당 팀원을 제외한 다른 멤버들의 정보를 넣어줘서 해당 팀원의 정보를 DB에서 제외시킴
 
+</br>
 
 ### 3.3 실시간 채팅
+<img width="700" alt="스크린샷 2023-03-14 212538" src="https://user-images.githubusercontent.com/112860405/225000429-75b5d05b-505b-47ce-b8af-3ee15edf00c6.png">
 
+</br>
 
+- **채팅 정보 데이터 올리기** :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/teamPage/chat/MemberChatingRoom.jsx#L82)
+  - #### 채팅을 하는 사용자의 정보를 DB에 올림
+  - #### UID 값을 이용해 사용자를 구분하여 채팅 BOX를 다르게 나타나게 함 
+  - #### Firebase의 onSnapshot 메서드를 이용해서 실시간으로 업데이트 가능 :pushpin: [문서 참조](https://firebase.google.com/docs/firestore/query-data/listen)
 
+</br>
 
 ### 3.4 Moco 챗
 
