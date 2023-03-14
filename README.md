@@ -193,7 +193,7 @@
 
  
  - #### 프로필 이미지 변경할 때 이미지 용량에 조건을 걸어줌 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/mypage/profile/Profile.jsx#L137)
-- #### :pushpin: [참고사항](https://redcow77.tistory.com/561)
+- #### :pushpin: [참조](https://redcow77.tistory.com/561)
  
 </div>
 </details>
@@ -216,6 +216,24 @@
 
  - #### ```git config core.ignorecase false``` 
  - #### 명령어를 입력하여 대소문자를 무시하지 않도록 설정함
+
+
+</div>
+</details>
+
+</br>
+
+<details>
+<summary><b>배포 환경에서 소셜로그인 불가</b></summary>
+<div markdown="1">
+
+### 문제점
+- #### 로컬에서는 작동이 잘 되지만 배포 된 사이트에서는 소셜로그인이 안됨
+
+### 해결
+
+ - #### Firebase에서 배포된 도메인 주소를 등록
+- #### :pushpin: [참조](https://velog.io/@renovatio_hyuns/%EC%95%B1-%EB%B0%B0%ED%8F%AC-%ED%9B%84-Google-%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%9D%B4-%EC%95%88%EB%90%98%EB%8A%94-%ED%98%84%EC%83%81)
 
 
 </div>
