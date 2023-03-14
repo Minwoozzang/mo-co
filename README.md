@@ -186,13 +186,37 @@
 ### 문제점
  <img width="370" alt="스크린샷 2023-03-10 152542" src="https://user-images.githubusercontent.com/112860405/225030688-eefe6726-5c93-4c6a-b9c1-a666e2cf0bfd.png">
 
-- #### 프로필 이미지의 용량이 클 경우 채팅시 DB 할당량이 초과되어 채팅을 하지 못
+- #### 프로필 이미지의 용량이 클 경우 채팅시 DB 할당량이 초과되어 채팅을 하지 못 함
 - #### 과도한 프로필 이미지 용량
 ### 해결
  <img width="370" alt="스크린샷 2023-03-10 152654" src="https://user-images.githubusercontent.com/112860405/225030941-0c4d50f3-e39c-499f-aac1-4bae6dab112e.png">
 
  
  - #### 프로필 이미지 변경할 때 이미지 용량에 조건을 걸어줌 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/mypage/profile/Profile.jsx#L137)
+- #### :pushpin: [참고사항](https://redcow77.tistory.com/561)
+ 
+</div>
+</details>
+
+</br>
+
+<details>
+<summary><b>파일명 대소문자 변경</b></summary>
+<div markdown="1">
+
+### 문제점
+ <img width="700" alt="스크린샷 2023-03-14 233015" src="https://user-images.githubusercontent.com/112860405/225033547-f4466f04-f1bb-4bb2-910d-59809bb2a3b9.png">
+
+ 
+- #### vercel에서 배포가 되지 않으며, 팀원들의 파일에서도 경로 에러가 발생
+- #### 폴더와 파일 대소문자 변환을 깃허브가 인식하지 못함 
+
+### 해결
+ 
+
+ - #### ```git config core.ignorecase false``` 
+ - #### 명령어를 입력하여 대소문자를 무시하지 않도록 설정함
+
 
 </div>
 </details>
