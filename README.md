@@ -87,7 +87,7 @@
 - #### 코딩 공부에 도움이 되는 챗봇 서비스 제공 
 
 <details>
-<summary><b>핵심 기능 설명 펼치기</b></summary>
+<summary><b>핵심 기능 설명 펼쳐보기</b></summary>
 <div markdown="1">
 
 ### 3.1 모각코 모임 추천
@@ -142,7 +142,7 @@
 
 </br>
 
-## 4. 트러블 슈팅
+## 4. 트러블 슈팅 :rotating_light:
 
 <details>
 <summary><b>유저 피드백</b></summary>
