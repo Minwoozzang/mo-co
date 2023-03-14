@@ -90,30 +90,36 @@
 <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 
-### 3.1. 모각코 모임 추천
-<img width="450" alt="스크린샷 2023-03-14 204636" src="https://user-images.githubusercontent.com/112860405/224992808-840c3714-a119-42ef-a4c3-3d603c11c5af.png">
+### 3.1 모각코 모임 추천
+<img width="450"  src="https://user-images.githubusercontent.com/112860405/224992808-840c3714-a119-42ef-a4c3-3d603c11c5af.png">
+ </br>
+<img width="510"  src="https://user-images.githubusercontent.com/112860405/224996128-6c14de32-959b-4a77-8fcb-255fc2d0d57f.png">
 
+ </br>
+ 
 - **유저 정보 필터링** :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/home/meeting/TechStackMeeting.jsx#L26)
   - #### 전체 모임리스트 중 내가 선택한 정보와 일치한 스택이 있으면 추천해줌
-  - #### 내가 선택한 정보와 일치한 모임이 없을 경우 또는 정보를 등록하지 않았을 경우에는 예외처리 해줌 
+  - #### 내가 선택한 정보와 일치한 모임이 없을 경우와 정보를 등록하지 않았을 경우에는 예외처리 해줌 
+
+
+</br>
+
+### 3.2 팀원 수락, 강퇴
+<img width="600" alt="스크린샷 2023-03-14 211503" src="https://user-images.githubusercontent.com/112860405/224998139-f9951dd2-a862-4f32-8914-65c8773f0da1.png">
+
+</br>
+
+- **팀원 멤버 정보** :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/teamPage/teamPageConfirm/CustomConfirmUI.jsx#L51)
+  - #### 수락할 경우 해당 팀원의 isWait를 false로 바꿔 팀 멤버가 됨
+  - #### 거절할 경우 해당 팀원을 제외한 다른 멤버들의 정보를 넣어줘서 해당 팀원의 정보를 DB에서 제외시킴
+
+
+### 3.3 실시간 채팅
 
 
 
-### 3.2. 모임 참여 신청
 
-
-
-
-### 3.3. 팀원 수락, 강퇴
-
-
-
-### 3.4. 실시간 채팅
-
-
-
-
-### 3.5. Moco 챗
+### 3.4 Moco 챗
 
 
 
