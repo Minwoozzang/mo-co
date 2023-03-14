@@ -1,4 +1,4 @@
-# ![Hello](https://user-images.githubusercontent.com/112860405/224942152-c485de5b-6ed9-4a31-b208-a4e7b7a34ed5.png)
+# <img src="https://user-images.githubusercontent.com/112860405/224942152-c485de5b-6ed9-4a31-b208-a4e7b7a34ed5.png" fontSize: 100/>
 
 > MOCO는 개발자 문화 중 하나인 모각코 모임을 찾고 메이트를 매칭해주는 플랫폼입니다.
 > 
