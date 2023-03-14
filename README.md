@@ -133,7 +133,7 @@
 </br>
 
 - **Chat GPT 오픈 소스 이용** :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/mocoChat/ChatWindow.jsx#L53)
-  - #### 서비스 의도에 맞게 옵션을 정해줌
+  - #### 서비스 의도에 맞게 옵션을 정해줌 (model, tokens 등)
   - #### try - catch로 해당 데이터를 받고, 에러 처리를 해줌 :pushpin: [문서 참조](https://github.com/openai/openai-node)
 
 
@@ -142,8 +142,17 @@
 
 </br>
 
-## 4. 핵심 트러블 슈팅
-### 4.1 유저 피드백
+## 4. 트러블 슈팅
+
+<details>
+<summary><b>유저 피드백</b></summary>
+<div markdown="1">
+
+![Untitled (1)](https://user-images.githubusercontent.com/112860405/225014904-e249411f-bb18-401f-b591-6bc267d51477.png)
+
+
+</div>
+</details>
 
 </br>
 
