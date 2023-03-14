@@ -128,7 +128,13 @@
 </br>
 
 ### 3.4 Moco 챗
+<img width="250" alt="스크린샷 2023-03-14 220402" src="https://user-images.githubusercontent.com/112860405/225009708-f3a652b8-511a-406c-a329-b3d1b8fb0093.png">
 
+</br>
+
+- **Chat GPT 오픈 소스 이용** :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/mocoChat/ChatWindow.jsx#L53)
+  - #### 서비스 의도에 맞게 옵션을 정해줌
+  - #### try - catch로 해당 데이터를 받고, 에러 처리를 해줌 :pushpin: [문서 참조](https://github.com/openai/openai-node)
 
 
 </div>
