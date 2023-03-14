@@ -235,11 +235,49 @@
  - #### Firebase에서 배포된 도메인 주소를 등록
 - #### :pushpin: [참조](https://velog.io/@renovatio_hyuns/%EC%95%B1-%EB%B0%B0%ED%8F%AC-%ED%9B%84-Google-%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%9D%B4-%EC%95%88%EB%90%98%EB%8A%94-%ED%98%84%EC%83%81)
 
+</div>
+</details>
+
+</br>
+
+<details>
+<summary><b>헤더 토글이 다른 페이지로 넘어가도 유지 되는 문제</b></summary>
+<div markdown="1">
+
+### 문제점
+ 
+- #### 헤더 아이콘 클릭 후 다른 페이지 넘어가면 토글이 그대로 남아있음
+- #### 클릭을 해줘야만 토글이 닫힘 
+ 
+<details>
+<summary><b>기존 코드</b></summary>
+<div markdown="1">
+ 
+ ```
+ // 드랍다운
+const [dropDownClick, setDropDownClick] = useState(false);
+const dropDownHandler = () => {
+    if (dropDownClick === false) {
+      setDropDownClick(true);
+    } else {
+      setDropDownClick(false);
+    }
+  };
+ ```
+ </div>
+</details>
+ 
+### 해결
+
+ - #### Recoil로 상태를 전역으로 관리
+ - #### 전역 저장소 설정 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/recoil/headerToggleState.js#L1)
+ - #### 해당 컴포넌트 최상위 div에 적용 
 
 </div>
 </details>
 
 </br>
+
 
 ## 5. 그 외 트러블 슈팅
 
