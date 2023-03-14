@@ -90,24 +90,30 @@
 <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 
-### 3.1. 모각코 모임 추
+### 3.1. 모각코 모임 추천
+<img width="450" alt="스크린샷 2023-03-14 204636" src="https://user-images.githubusercontent.com/112860405/224992808-840c3714-a119-42ef-a4c3-3d603c11c5af.png">
 
-
-### 3.2. 사용자 요청
-
-
-
-
-### 3.3. Controller
+- **유저 정보 필터링** :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/home/meeting/TechStackMeeting.jsx#L26)
+  - #### 전체 모임리스트 중 내가 선택한 정보와 일치한 스택이 있으면 추천해줌
+  - #### 내가 선택한 정보와 일치한 모임이 없을 경우 또는 정보를 등록하지 않았을 경우에는 예외처리 해줌 
 
 
 
-### 3.4. Service
+### 3.2. 모임 참여 신청
 
 
 
 
-### 3.5. Repository
+### 3.3. 팀원 수락, 강퇴
+
+
+
+### 3.4. 실시간 채팅
+
+
+
+
+### 3.5. Moco 챗
 
 
 
