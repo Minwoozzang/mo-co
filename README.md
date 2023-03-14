@@ -149,7 +149,30 @@
 <div markdown="1">
 
 ![Untitled (1)](https://user-images.githubusercontent.com/112860405/225014904-e249411f-bb18-401f-b591-6bc267d51477.png)
+### 문제점
+- #### 구체적인 반응형 UI를 고려하지 못 함
+- #### 배포 된 환경에서 안되는 기능을 인지하지 못 했음
 
+### 해결
+ - #### 유저 피드백들을 모아서 노션을 이용해 팀원들과 하나씩 개선함
+![chrome-capture-2023-2-14](https://user-images.githubusercontent.com/112860405/225024679-2641149a-6466-4976-905d-0aa370ab55be.gif)
+
+</div>
+</details>
+
+</br>
+
+<details>
+<summary><b>북마크 더블 클릭 시 숫자증감 이상</b></summary>
+<div markdown="1">
+
+### 문제점
+- #### 북마크 클릭 연타 시 숫자증감 이상
+- #### 북마크 연타 시에 내부 로직에서 발생하는 이상
+
+### 해결
+ - #### debounce 함수를 만들어 더블클릭 방지 및 usecallback 의 디펜던시 배열에 bookmark 입력 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/shared/CardSection.jsx#L35)
+ - #### setTimeout과 clearTimeout을 이용해 마지막으로 처리된 이벤트 받게 함
 
 </div>
 </details>
