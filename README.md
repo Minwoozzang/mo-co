@@ -213,8 +213,9 @@
 
 ### 해결
  
-
- - #### ```git config core.ignorecase false``` 
+ ```node
+ git config core.ignorecase false
+ ``` 
  - #### 명령어를 입력하여 대소문자를 무시하지 않도록 설정함
 
 
@@ -253,7 +254,7 @@
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
  
- ```
+ ```jsx
  // 드랍다운
 const [dropDownClick, setDropDownClick] = useState(false);
 const dropDownHandler = () => {
@@ -271,17 +272,28 @@ const dropDownHandler = () => {
 
  - #### Recoil로 상태를 전역으로 관리
  - #### 전역 저장소 설정 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/recoil/headerToggleState.js#L1)
- - #### 해당 컴포넌트 최상위 div에 적용 
+ 
+ <details>
+<summary><b>해당 컴포넌트 최상위 div에 적용</b></summary>
+<div markdown="1">
+ 
+ ```jsx
+import headerToggle from '../../recoil/headerToggleState';
+// recoil 전역에서 가져오기
+const [dropDownClick, setDropDownClick] = useRecoilState(headerToggle);
+
+return (
+  <FullScreen onClick={() => setDropDownClick(false)}>
+    <HomeBanner />
+    <MainBackground>
+ ```
+ </div>
+</details>
 
 </div>
 </details>
 
 </br>
 
-
-## 5. 그 외 트러블 슈팅
-
-</br>
-
-## 6. 느낀점 / 회고
+## 5. 느낀점 / 회고
 > **프로젝트 개발 회고 글**: https://velog.io/@kminu0819?tag=%ED%9A%8C%EA%B3%A0%EB%A1%9D
