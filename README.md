@@ -171,8 +171,28 @@
 - #### 북마크 연타 시에 내부 로직에서 발생하는 이상
 
 ### 해결
- - #### debounce 함수를 만들어 더블클릭 방지 및 usecallback 의 디펜던시 배열에 bookmark 입력 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/shared/CardSection.jsx#L35)
+ - #### debounce 함수를 만들어 더블클릭 방지 및 usecallback 의 디펜던시 배열에 bookmark 입력 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/shared/CardSection.jsx#L22)
  - #### setTimeout과 clearTimeout을 이용해 마지막으로 처리된 이벤트 받게 함
+
+</div>
+</details>
+
+</br>
+
+<details>
+<summary><b>이미지 용량이 클 경우 DB 할당량 초과 문제</b></summary>
+<div markdown="1">
+
+### 문제점
+ <img width="370" alt="스크린샷 2023-03-10 152542" src="https://user-images.githubusercontent.com/112860405/225030688-eefe6726-5c93-4c6a-b9c1-a666e2cf0bfd.png">
+
+- #### 프로필 이미지의 용량이 클 경우 채팅시 DB 할당량이 초과되어 채팅을 하지 못
+- #### 과도한 프로필 이미지 용량
+### 해결
+ <img width="370" alt="스크린샷 2023-03-10 152654" src="https://user-images.githubusercontent.com/112860405/225030941-0c4d50f3-e39c-499f-aac1-4bae6dab112e.png">
+
+ 
+ - #### 프로필 이미지 변경할 때 이미지 용량에 조건을 걸어줌 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/mypage/profile/Profile.jsx#L137)
 
 </div>
 </details>
