@@ -13,6 +13,7 @@
 <br/>
 
 ## 2. 사용 기술
+#### React (18.2.0) / Node (18.12.1) 
 
 ![](https://user-images.githubusercontent.com/112860405/224952206-a50c71a9-bb79-4bf1-9926-e0aa68c9048f.png)
 
