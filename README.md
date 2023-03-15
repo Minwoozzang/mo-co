@@ -122,7 +122,7 @@
 
 - **채팅 정보 데이터 올리기** :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/teamPage/chat/MemberChatingRoom.jsx#L82)
   - #### 채팅을 하는 사용자의 정보를 DB에 올림
-  - #### UID 값을 이용해 사용자를 구분하여 채팅 BOX를 다르게 나타나게 함 
+  - #### UID 값을 이용해 사용자를 구분하여 채팅 BOX 색깔을 다르게 나타나게 함 
   - #### Firebase의 onSnapshot 메서드를 이용해서 실시간으로 업데이트 가능 :pushpin: [문서 참조](https://firebase.google.com/docs/firestore/query-data/listen)
 
 </br>
