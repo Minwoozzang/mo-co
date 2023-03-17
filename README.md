@@ -145,7 +145,7 @@
 ## 4. 트러블 슈팅 :rotating_light:
 
 <details>
-<summary><b>유저 피드백</b></summary>
+<summary><h3>유저 피드백</h3></summary>
 <div markdown="1">
 
 ![Untitled (1)](https://user-images.githubusercontent.com/112860405/225014904-e249411f-bb18-401f-b591-6bc267d51477.png)
@@ -199,7 +199,7 @@
 </br>
 
 <details>
-<summary><b>북마크 더블 클릭 시 숫자증감 이상</b></summary>
+<summary><h3>북마크 더블 클릭 시 숫자증감 이상</h3></summary>
 <div markdown="1">
 
 ### 문제점
@@ -221,13 +221,13 @@
 </br>
 
 <details>
-<summary><b>이미지 용량이 클 경우 DB 할당량 초과 문제</b></summary>
+<summary><h3>이미지 용량이 클 경우 에러처리</h3></summary>
 <div markdown="1">
 
 ### 문제점
  <img width="370" alt="스크린샷 2023-03-10 152542" src="https://user-images.githubusercontent.com/112860405/225030688-eefe6726-5c93-4c6a-b9c1-a666e2cf0bfd.png">
 
-- #### 프로필 이미지의 용량이 클 경우 채팅시 DB 할당량이 초과되어 채팅을 하지 못 함
+- #### 프로필 이미지의 용량이 클 경우 채팅시 속도가 느려지고 DB 용량 경고 에러 뜸
 - #### 과도한 프로필 이미지 용량
 ### 해결
  <img width="370" alt="스크린샷 2023-03-10 152654" src="https://user-images.githubusercontent.com/112860405/225030941-0c4d50f3-e39c-499f-aac1-4bae6dab112e.png">
@@ -242,7 +242,7 @@
 </br>
 
 <details>
-<summary><b>파일명 대소문자 변경</b></summary>
+<summary><h3>파일명 대소문자 변경</h3></summary>
 <div markdown="1">
 
 ### 문제점
@@ -266,7 +266,7 @@
 </br>
 
 <details>
-<summary><b>배포 환경에서 소셜로그인 불가</b></summary>
+<summary><h3>배포 환경에서 소셜로그인 불가</h3></summary>
 <div markdown="1">
 
 ### 문제점
@@ -283,13 +283,13 @@
 </br>
 
 <details>
-<summary><b>헤더 토글이 다른 페이지로 넘어가도 유지 되는 문제</b></summary>
+<summary><h3>헤더 토글이 다른 페이지로 넘어가도 유지 되는 문제</h3></summary>
 <div markdown="1">
 
 ### 문제점
  
-- #### 헤더 아이콘 클릭 후 다른 페이지 넘어가면 토글이 그대로 남아있음
-- #### 클릭을 해줘야만 토글이 닫힘 
+- #### 헤더 아이콘 클릭 후 다른 페이지 넘어가면 토글이 그대로 남아있음 (UI, UX 둘다 문제)
+- #### 클릭을 해줘야만 토글이 닫힘 (state 값이 헤더에 국한되어 있어 헤더가 아닌 다른 곳을 클릭 했을 시 토글이 닫히기 원했음)
  
 <details>
 <summary><b>기존 코드</b></summary>
@@ -311,7 +311,7 @@ const dropDownHandler = () => {
  
 ### 해결
 
- - #### Recoil로 상태를 전역으로 관리
+ - #### useState로 관리하던 토글을 헤더에 국한되는 것이 아니라 Recoil을 이용해 최상위 div에 토글 state 값을 적용시킴으로써 해결
  - #### 전역 저장소 설정 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/recoil/headerToggleState.js#L1)
  
  <details>
