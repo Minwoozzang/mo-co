@@ -158,7 +158,7 @@
 1. #### 화면 크기에 따라 UI 깨짐 현상을 미디어쿼리를 이용해 해결 
 ![chrome-capture-2023-2-17](https://user-images.githubusercontent.com/112860405/225838200-d488b370-6d1f-4239-a50a-7fb075e3fbdd.gif)
 
-2. #### 채팅시 스크롤 자동으로 내려가게 하기 :pushpin: [코드 확인] (https://github.com/Minwoozzang/mo-co/blob/a3dacff65fb78eaf0440e86fecb1ec0f47eceba6/src/components/teamPage/chat/MessageBox.jsx#L20)
+2. #### 채팅시 스크롤 자동으로 내려가게 하기 :pushpin: [코드 확인](https://github.com/Minwoozzang/mo-co/blob/a3dacff65fb78eaf0440e86fecb1ec0f47eceba6/src/components/teamPage/chat/MessageBox.jsx#L20)
 ![chrome-capture-2023-2-17 (1)](https://user-images.githubusercontent.com/112860405/225839101-63f3b0af-c66c-46f9-a9e7-6f2730b303a4.gif)
  
 ```jsx
