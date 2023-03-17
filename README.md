@@ -170,7 +170,28 @@
 ```
 
 3. #### 모임 글이 없을 경우 화면 UI 예외 처리
-4. #### 팀 모임 폭파시 해당 게시글도 삭제
+4. #### 팀 모임 폭파시 해당 게시글도 삭제 :pushpin: [코드 확인](https://github.com/Minwoozzang/mo-co/blob/2e1946cf8f1fc699ad72d0b01ac1bc5bd1e955af/src/components/teamPage/TeamManage.jsx#L162)
+ ```jsx
+   // 모임 폭파하기(방장)
+  const deactivateRoom = async () => {
+    const leaderCancelHandler = async (onClose) => {
+      try {
+        await deleteDoc(doc(db, 'teamPage', teamLocationID));
+      } catch (error) {
+        toast.warn('다시 시도해주세요');
+      }
+      await deleteDoc(doc(db, 'teamChat', teamLocationID));
+
+      await updateDoc(doc(db, 'user', authService.currentUser.uid), {
+        teamID: myInfo,
+      });
+      await deleteDoc(doc(db, 'post', teamPost));
+
+      onClose();
+      window.location.replace('/');
+    };
+ ```
+ 
 5. #### 모임 수정시 이전 페이지로 이동
 </div>
 </details>
@@ -184,11 +205,16 @@
 ### 문제점
 - #### 북마크 클릭 연타 시 숫자증감 이상
 - #### 북마크 연타 시에 내부 로직에서 발생하는 이상
+ ![제목 없는 디자인 (5)](https://user-images.githubusercontent.com/112860405/225841637-fbb775a2-bb0c-4768-bc00-114a4cad393c.gif)
+
 
 ### 해결
  - #### debounce 함수를 만들어 더블클릭 방지 및 usecallback 의 디펜던시 배열에 bookmark 입력 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/shared/CardSection.jsx#L22)
  - #### setTimeout과 clearTimeout을 이용해 마지막으로 처리된 이벤트 받게 함
+![제목 없음 (1080 × 600px)](https://user-images.githubusercontent.com/112860405/225841802-4d72d4ad-31a6-474b-b583-85e90e099ac0.gif)
 
+ 
+ 
 </div>
 </details>
 
