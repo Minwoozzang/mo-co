@@ -309,10 +309,9 @@ const dropDownHandler = () => {
  - #### useState로 관리하던 토글을 헤더에 국한되는 것이 아니라 Recoil을 이용해 최상위 div에 토글 state 값을 적용시킴으로써 해결
  - #### 전역 저장소 설정 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/recoil/headerToggleState.js#L1)
  
- <details>
-<summary><b>해당 컴포넌트 최상위 div에 적용</b></summary>
-<div markdown="1">
- 
+
+#### 해당 컴포넌트 최상위 div에 적용
+
  ```jsx
 import headerToggle from '../../recoil/headerToggleState';
 // recoil 전역에서 가져오기
@@ -323,8 +322,6 @@ return (
     <HomeBanner />
     <MainBackground>
  ```
- </div>
-</details>
 
 </div>
 </details>
@@ -356,7 +353,7 @@ return (
   };
  ```
 ### 해결
-- #### 전역 저징소에서 가져옴으로써 가독성을 높힘 
+- #### 전역 저장소에서 가져옴으로써 가독성을 높힘 
 ```jsx 
 import authState from '../../../recoil/authState';
 
