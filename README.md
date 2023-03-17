@@ -155,17 +155,23 @@
 
 ### 해결
  - #### 유저 피드백들을 모아서 노션을 이용해 팀원들과 하나씩 개선함
-     - #### 화면 크기에 따라 UI 깨짐 현상을 미디어쿼리를 이용해 해결 
-     ![chrome-capture-2023-2-17](https://user-images.githubusercontent.com/112860405/225838200-d488b370-6d1f-4239-a50a-7fb075e3fbdd.gif)
+1. #### 화면 크기에 따라 UI 깨짐 현상을 미디어쿼리를 이용해 해결 
+![chrome-capture-2023-2-17](https://user-images.githubusercontent.com/112860405/225838200-d488b370-6d1f-4239-a50a-7fb075e3fbdd.gif)
 
-     - #### 채팅시 스크롤 자동으로 내려가게 하기 
-    ![chrome-capture-2023-2-17 (1)](https://user-images.githubusercontent.com/112860405/225839101-63f3b0af-c66c-46f9-a9e7-6f2730b303a4.gif)
+2. #### 채팅시 스크롤 자동으로 내려가게 하기 :pushpin: [코드 확인] (https://github.com/Minwoozzang/mo-co/blob/a3dacff65fb78eaf0440e86fecb1ec0f47eceba6/src/components/teamPage/chat/MessageBox.jsx#L20)
+![chrome-capture-2023-2-17 (1)](https://user-images.githubusercontent.com/112860405/225839101-63f3b0af-c66c-46f9-a9e7-6f2730b303a4.gif)
+ 
+```jsx
+   useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+```
 
-
-     
-     - #### 모임 글이 없을 경우 화면 UI 예외 처리
-     - #### 팀 모임 폭파시 해당 게시글도 삭제
-     - #### 모임 수정시 이전 페이지로 이동
+3. #### 모임 글이 없을 경우 화면 UI 예외 처리
+4. #### 팀 모임 폭파시 해당 게시글도 삭제
+5. #### 모임 수정시 이전 페이지로 이동
 </div>
 </details>
 
@@ -222,7 +228,7 @@
 
 ### 해결
  
- ```node
+ ```jsx
  git config core.ignorecase false
  ``` 
  - #### 명령어를 입력하여 대소문자를 무시하지 않도록 설정함
