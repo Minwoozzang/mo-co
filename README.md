@@ -58,11 +58,6 @@
   - #### 전역 상태 세팅에 필요한 코드 매우 짧음
   - #### useState와 비슷해 사용 장벽이 낮음
   
-  ### 도입 결과
-  - #### Props Drilling 해소, 코드 335줄 감소
-  ![Untitled](https://user-images.githubusercontent.com/112860405/224967959-e925fa86-941d-4f2e-aaef-d2c024940454.png)
-- #### 전역적 로그인 상태 추적
-  
   </br>
   
 ## Antd Design
@@ -335,6 +330,45 @@ return (
 </details>
 
 </br>
+ 
+ <details>
+<summary><h3>Recoil로 Props drilling 해결</h3></summary>
+<div markdown="1">
+
+### 문제점
+ 
+- #### 컴포넌트마다 유저에 대한 정보를 불러옴
+- #### 코드가 길어져 가독성에 좋지 않음
+ ```jsx
+   const getUserStackInfo = () => {
+    const q = query(
+      collection(db, 'user'),
+      where('uid', '==', authService.currentUser.uid),
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const newInfo = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setProfileUserInfo(newInfo);
+    });
+    return unsubscribe;
+  };
+ ```
+### 해결
+- #### 전역 저징소에서 가져옴으로써 가독성을 높힘 
+```jsx 
+import authState from '../../../recoil/authState';
+
+const AddInfoModal = () => {
+  const user = useRecoilValue(authState);
+```
+- #### Props Drilling 해소, 코드 335줄 감소
+  ![Untitled](https://user-images.githubusercontent.com/112860405/224967959-e925fa86-941d-4f2e-aaef-d2c024940454.png)
+- #### 전역적 로그인 상태 추적
+ 
+</div>
+</details>
 
 ## 5. 느낀점 / 회고
 > **프로젝트 개발 회고 글**: https://velog.io/@kminu0819?tag=%ED%9A%8C%EA%B3%A0%EB%A1%9D
