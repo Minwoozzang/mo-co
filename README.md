@@ -147,9 +147,12 @@
 ### 해결
  - #### 유저 피드백들을 모아서 노션을 이용해 팀원들과 하나씩 개선함
 1. #### 화면 크기에 따라 UI 깨짐 현상을 미디어쿼리를 이용해 해결 
+      - #### 처음 기획부터 모바일까지는 고려하지 못해 페이지마다 모바일까지 안되는 경우도 있지만, 태블릿까지는 되도록 작업했다.
 ![chrome-capture-2023-2-17](https://user-images.githubusercontent.com/112860405/225838200-d488b370-6d1f-4239-a50a-7fb075e3fbdd.gif)
 
 2. #### 채팅시 스크롤 자동으로 내려가게 하기 :pushpin: [코드 확인](https://github.com/Minwoozzang/mo-co/blob/a3dacff65fb78eaf0440e86fecb1ec0f47eceba6/src/components/teamPage/chat/MessageBox.jsx#L20)
+      - #### 처음에는 window 함수에 직접 접근해서 scroll 이벤트를 하려 했으나 구현이 쉽지 않았다.
+      - #### React hook의 useRef를 이용하니 해당 위치에서 스크롤 이벤트가 되도록 쉽게 구현이 가능했다.
 ![chrome-capture-2023-2-17 (1)](https://user-images.githubusercontent.com/112860405/225839101-63f3b0af-c66c-46f9-a9e7-6f2730b303a4.gif)
  
 ```jsx
@@ -161,7 +164,11 @@
 ```
 
 3. #### 모임 글이 없을 경우 화면 UI 예외 처리
+       - #### 사용자의 편의를 위해 모임글이 없다는 UI를 넣어줬다.
+ 
 4. #### 팀 모임 폭파시 해당 게시글도 삭제 :pushpin: [코드 확인](https://github.com/Minwoozzang/mo-co/blob/2e1946cf8f1fc699ad72d0b01ac1bc5bd1e955af/src/components/teamPage/TeamManage.jsx#L162)
+       - #### 팀 폭파에도 불구하고 게시글이 남아있어서 다른 유저들이 해당 게시글에 댓글을 쓰거나 참여신청을 할 수 있었다.
+       - #### 방장이 모임 폭파를 누를 경우 DB의 게시글까지도 같이 삭제를 해줬다.  
  ```jsx
    // 모임 폭파하기(방장)
   const deactivateRoom = async () => {
@@ -183,7 +190,10 @@
     };
  ```
  
-5. #### 모임 수정시 이전 페이지로 이동
+5. #### 모임 수정시 이전 페이지로 이동 
+       - #### 모임 수정 페이지를 게시글 페이지와 팀페이지에서 공용으로 사용했기 때문에 수정하기 클릭 후 navigate의 문제가 있었다.
+       - #### 예) 팀 페이지 에서 모임 수정 -> 게시글 페이지로 이동 됨
+       - #### useNavigate(-1)을 해줄 경우 내가 왔던 페이지로 돌아간다.
 </div>
 </details>
 
@@ -223,8 +233,8 @@
 ### 해결
  <img width="370" alt="스크린샷 2023-03-10 152654" src="https://user-images.githubusercontent.com/112860405/225030941-0c4d50f3-e39c-499f-aac1-4bae6dab112e.png">
 
- 
  - #### 프로필 이미지 변경할 때 이미지 용량에 조건을 걸어줌 :pushpin: [코드 확인](https://github.com/nbc-moco/mo-co/blob/a94a75821dc57cdd416a34159fc5e29911a114ef/src/components/mypage/profile/Profile.jsx#L137)
+ 
 - #### :pushpin: [참조](https://redcow77.tistory.com/561)
  
 </div>
@@ -242,6 +252,7 @@
  
 - #### vercel에서 배포가 되지 않으며, 팀원들의 파일에서도 경로 에러가 발생
 - #### 폴더와 파일 대소문자 변환을 깃허브가 인식하지 못함 
+- #### 프로젝트 초중반에 에러를 해결하지 못 해 저장소를 옮기는 일도 있었음  
 
 ### 해결
  
@@ -262,6 +273,7 @@
 
 ### 문제점
 - #### 로컬에서는 작동이 잘 되지만 배포 된 사이트에서는 소셜로그인이 안됨
+- #### 대다수 유저 피드백에서 이와 관련된 문제를 제기함 
 
 ### 해결
 
